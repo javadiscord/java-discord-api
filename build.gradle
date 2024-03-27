@@ -1,0 +1,66 @@
+plugins {
+    id 'java'
+    id 'com.diffplug.spotless' version '6.22.0'
+}
+
+group = 'com.javadiscord'
+version = project.version
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.17.0'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.17.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
+
+    implementation 'io.vertx:vertx-web-client:4.5.6'
+    implementation 'io.vertx:vertx-core:4.5.6'
+
+    implementation 'org.apache.logging.log4j:log4j-api:2.22.1'
+    implementation 'org.apache.logging.log4j:log4j-core:2.22.1'
+}
+
+spotless {
+    java {
+        importOrder()
+        googleJavaFormat()
+                .aosp()
+                .reflowLongStrings()
+                .formatJavadoc(true)
+                .reorderImports(true)
+                .groupArtifact('com.google.googlejavaformat:google-java-format')
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
+    }
+}
+
+tasks.register('bumpPatchVersion') {
+    doLast {
+        def versionParts = project.version.split("\\.")
+        def newVersion = "${versionParts[0]}.${versionParts[1]}.${versionParts[2] as Integer + 1}"
+        project.version = newVersion
+        file('gradle.properties').text = "version=$newVersion"
+        println "Version bumped to: $newVersion"
+    }
+}
+tasks.register('bumpMinorVersion') {
+    doLast {
+        def versionParts = project.version.split("\\.")
+        def newVersion = "${versionParts[0]}.${versionParts[1] as Integer + 1}.0"
+        project.version = newVersion
+        file('gradle.properties').text = "version=$newVersion"
+        println "Version bumped to: $newVersion"
+    }
+}
+tasks.register('bumpMajorVersion') {
+    doLast {
+        def versionParts = project.version.split("\\.")
+        def newVersion = "${versionParts[0] as Integer + 1}.0.0"
+        project.version = newVersion
+        file('gradle.properties').text = "version=$newVersion"
+        println "Version bumped to: $newVersion"
+    }
+}
