@@ -3,12 +3,12 @@ package com.javadiscord.gateway;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.javadiscord.Discord;
-import com.javadiscord.gateway.handlers.MessageHandler;
-import com.javadiscord.gateway.handlers.events.EventHandler;
-import com.javadiscord.gateway.handlers.events.ReconnectMessageHandler;
-import com.javadiscord.gateway.handlers.heartbeat.HeartbeatAckHandler;
+import com.javadiscord.gateway.handlers.GatewayOperationHandler;
+import com.javadiscord.gateway.handlers.ReconnectGatewayOperationHandler;
+import com.javadiscord.gateway.handlers.events.EventCodecHandler;
+import com.javadiscord.gateway.handlers.heartbeat.HeartbeatAckOperationHandler;
 import com.javadiscord.gateway.handlers.heartbeat.HeartbeatService;
-import com.javadiscord.gateway.handlers.heartbeat.HelloHandler;
+import com.javadiscord.gateway.handlers.heartbeat.HelloOperationHandler;
 
 import io.vertx.core.Handler;
 import io.vertx.core.buffer.Buffer;
@@ -24,7 +24,7 @@ import java.util.Map;
 public class WebSocketHandler implements Handler<WebSocket> {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-    private static final Map<Integer, MessageHandler> MESSAGE_HANDLER = new HashMap<>();
+    private static final Map<Integer, GatewayOperationHandler> OPERATION_HANDLER = new HashMap<>();
     private final ConnectionMediator connectionMediator;
     private final WebSocketRetryHandler retryHandler;
     private final Discord discord;
@@ -41,14 +41,17 @@ public class WebSocketHandler implements Handler<WebSocket> {
 
     private void registerHandlers() {
         HeartbeatService heartbeatService = new HeartbeatService(connectionMediator);
-        MESSAGE_HANDLER.put(GatewayOpcode.HELLO, new HelloHandler(heartbeatService));
-        MESSAGE_HANDLER.put(GatewayOpcode.HEARTBEAT_ACK, new HeartbeatAckHandler(heartbeatService));
-        MESSAGE_HANDLER.put(GatewayOpcode.HEARTBEAT, new HeartbeatAckHandler(heartbeatService));
-        MESSAGE_HANDLER.put(GatewayOpcode.DISPATCH, new EventHandler());
+        OPERATION_HANDLER.put(GatewayOpcode.HELLO, new HelloOperationHandler(heartbeatService));
+        OPERATION_HANDLER.put(
+                GatewayOpcode.HEARTBEAT_ACK, new HeartbeatAckOperationHandler(heartbeatService));
+        OPERATION_HANDLER.put(
+                GatewayOpcode.HEARTBEAT, new HeartbeatAckOperationHandler(heartbeatService));
+        OPERATION_HANDLER.put(GatewayOpcode.DISPATCH, new EventCodecHandler());
 
-        ReconnectMessageHandler reconnectMessageHandler = new ReconnectMessageHandler();
-        MESSAGE_HANDLER.put(GatewayOpcode.RECONNECT, reconnectMessageHandler);
-        MESSAGE_HANDLER.put(GatewayOpcode.INVALID_SESSION, reconnectMessageHandler);
+        ReconnectGatewayOperationHandler reconnectMessageHandler =
+                new ReconnectGatewayOperationHandler();
+        OPERATION_HANDLER.put(GatewayOpcode.RECONNECT, reconnectMessageHandler);
+        OPERATION_HANDLER.put(GatewayOpcode.INVALID_SESSION, reconnectMessageHandler);
     }
 
     @Override
@@ -67,9 +70,10 @@ public class WebSocketHandler implements Handler<WebSocket> {
 
             connectionMediator.getConnectionDetails().setSequence(gatewayEvent.sequenceNumber());
 
-            if (MESSAGE_HANDLER.containsKey(gatewayEvent.opcode())) {
-                MessageHandler messageHandler = MESSAGE_HANDLER.get(gatewayEvent.opcode());
-                messageHandler.handle(gatewayEvent, connectionMediator, discord);
+            if (OPERATION_HANDLER.containsKey(gatewayEvent.opcode())) {
+                GatewayOperationHandler gatewayOperationHandler =
+                        OPERATION_HANDLER.get(gatewayEvent.opcode());
+                gatewayOperationHandler.handle(gatewayEvent, connectionMediator, discord);
             } else {
                 LOGGER.warn("Unknown opcode {}", gatewayEvent.opcode());
             }
@@ -98,7 +102,7 @@ public class WebSocketHandler implements Handler<WebSocket> {
                 break;
             case GatewayCloseEventCode.RATE_LIMITED:
                 LOGGER.warn("Rate limit has been hit, reconnecting");
-
+                connectionMediator.getWebSocketManagerProxy().restart(connectionMediator);
                 break;
             case GatewayCloseEventCode.SESSION_TIMED_OUT:
                 LOGGER.warn("Session has timed out restarting");

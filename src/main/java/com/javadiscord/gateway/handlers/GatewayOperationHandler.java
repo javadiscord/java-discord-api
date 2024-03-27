@@ -4,6 +4,6 @@ import com.javadiscord.Discord;
 import com.javadiscord.gateway.ConnectionMediator;
 import com.javadiscord.gateway.GatewayEvent;
 
-public interface MessageHandler {
+public interface GatewayOperationHandler {
     void handle(GatewayEvent event, ConnectionMediator connectionMediator, Discord discord);
 }

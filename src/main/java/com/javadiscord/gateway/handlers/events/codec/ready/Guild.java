@@ -1,4 +1,4 @@
-package com.javadiscord.gateway.handlers.events.ready;
+package com.javadiscord.gateway.handlers.events.codec.ready;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

@@ -1,17 +1,15 @@
-package com.javadiscord.gateway.handlers.events.ready;
+package com.javadiscord.gateway.handlers.events.codec.guild;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record User(
-        boolean verified,
         String username,
-        @JsonProperty("mfa_enabled") boolean mfaEnabled,
+        @JsonProperty("public_flags") int publicFlags,
         String id,
-        @JsonProperty("global_name") String globalName,
-        int flags,
-        String email,
+        @JsonProperty("global_name") String globalUsername,
+        @JsonProperty("display_name") String displayName,
         String discriminator,
         boolean bot,
         String avatar) {}

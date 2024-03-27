@@ -46,7 +46,9 @@ public class HeartbeatService {
             missedHeartbeatAck.getAndIncrement();
         }
         if (missedHeartbeatAck.get() >= 3) {
-            LOGGER.warn("Discord missed 3 heartbeat acknowledgements, restarting due to \"zombied\" connection");
+            LOGGER.warn(
+                    "Discord missed 3 heartbeat acknowledgements, restarting due to \"zombied\""
+                            + " connection");
             connectionMediator.getWebSocketManagerProxy().restart(connectionMediator);
         }
     }

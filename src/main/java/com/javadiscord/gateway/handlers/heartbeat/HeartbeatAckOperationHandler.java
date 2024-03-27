@@ -3,12 +3,12 @@ package com.javadiscord.gateway.handlers.heartbeat;
 import com.javadiscord.Discord;
 import com.javadiscord.gateway.ConnectionMediator;
 import com.javadiscord.gateway.GatewayEvent;
-import com.javadiscord.gateway.handlers.MessageHandler;
+import com.javadiscord.gateway.handlers.GatewayOperationHandler;
 
-public class HeartbeatAckHandler implements MessageHandler {
+public class HeartbeatAckOperationHandler implements GatewayOperationHandler {
     private final HeartbeatService heartbeatService;
 
-    public HeartbeatAckHandler(HeartbeatService heartbeatService) {
+    public HeartbeatAckOperationHandler(HeartbeatService heartbeatService) {
         this.heartbeatService = heartbeatService;
     }
 

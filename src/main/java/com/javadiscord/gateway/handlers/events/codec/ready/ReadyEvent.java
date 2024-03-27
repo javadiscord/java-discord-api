@@ -1,12 +1,13 @@
-package com.javadiscord.gateway.handlers.events.ready;
+package com.javadiscord.gateway.handlers.events.codec.ready;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.javadiscord.gateway.handlers.events.codec.Event;
 
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record ReadyMessage(
+public record ReadyEvent(
         @JsonProperty("v") int version,
         @JsonProperty("user_settings") UserSetting userSettings,
         User user,
@@ -21,4 +22,5 @@ public record ReadyMessage(
         @JsonProperty("guild_join_requests") String[] guildJoinRequests,
         @JsonProperty("geo_ordered_rtc_regions") String[] geoOrderedRtcRegions,
         Auth auth,
-        Application application) {}
+        Application application)
+        implements Event {}

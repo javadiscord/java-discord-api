@@ -2,7 +2,7 @@ package com.javadiscord.gateway.handlers.events;
 
 import com.javadiscord.gateway.GatewayIntent;
 
-public enum Event {
+public enum EventType {
     READY(GatewayIntent.GUILDS),
     RESUMED(GatewayIntent.GUILDS),
     GUILD_CREATE(GatewayIntent.GUILDS),
@@ -34,7 +34,7 @@ public enum Event {
 
     private final GatewayIntent[] requiredIntent;
 
-    Event(GatewayIntent... requiredIntent) {
+    EventType(GatewayIntent... requiredIntent) {
         this.requiredIntent = requiredIntent;
     }
 
@@ -43,8 +43,8 @@ public enum Event {
     }
 
     public static boolean nameExists(String name) {
-        for (Event event : Event.values()) {
-            if (event.name().equals(name)) {
+        for (EventType eventType : EventType.values()) {
+            if (eventType.name().equals(name)) {
                 return true;
             }
         }

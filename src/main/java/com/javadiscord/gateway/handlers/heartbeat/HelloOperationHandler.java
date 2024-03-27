@@ -8,17 +8,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.javadiscord.Discord;
 import com.javadiscord.gateway.ConnectionMediator;
 import com.javadiscord.gateway.GatewayEvent;
-import com.javadiscord.gateway.handlers.MessageHandler;
+import com.javadiscord.gateway.handlers.GatewayOperationHandler;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class HelloHandler implements MessageHandler {
+public class HelloOperationHandler implements GatewayOperationHandler {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private final HeartbeatService heartbeatService;
 
-    public HelloHandler(HeartbeatService heartbeatService) {
+    public HelloOperationHandler(HeartbeatService heartbeatService) {
         this.heartbeatService = heartbeatService;
     }
 
