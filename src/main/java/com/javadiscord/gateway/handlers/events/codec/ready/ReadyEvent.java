@@ -2,7 +2,6 @@ package com.javadiscord.gateway.handlers.events.codec.ready;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.javadiscord.gateway.handlers.events.codec.Event;
 
 import java.util.List;
 
@@ -22,5 +21,4 @@ public record ReadyEvent(
         @JsonProperty("guild_join_requests") String[] guildJoinRequests,
         @JsonProperty("geo_ordered_rtc_regions") String[] geoOrderedRtcRegions,
         Auth auth,
-        Application application)
-        implements Event {}
+        Application application) {}

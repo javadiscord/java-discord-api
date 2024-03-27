@@ -4,28 +4,16 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Sticker {
-    private long id;
-
-    @JsonProperty("pack_id")
-    private long packId;
-
-    private String name;
-    private String description;
-    private String tags;
-    private String asset;
-    private int type;
-
-    @JsonProperty("format_type")
-    private int formatType;
-
-    private boolean available;
-
-    @JsonProperty("guild_id")
-    private long guildId;
-
-    private User user;
-
-    @JsonProperty("sort_value")
-    private int sortValue;
-}
+public record Sticker(
+        @JsonProperty("id") long id,
+        @JsonProperty("pack_id") long packId,
+        @JsonProperty("name") String name,
+        @JsonProperty("description") String description,
+        @JsonProperty("tags") String tags,
+        @JsonProperty("asset") String asset,
+        @JsonProperty("type") int type,
+        @JsonProperty("format_type") int formatType,
+        @JsonProperty("available") boolean available,
+        @JsonProperty("guild_id") long guildId,
+        @JsonProperty("user") User user,
+        @JsonProperty("sort_value") int sortValue) {}

@@ -24,14 +24,14 @@ public enum Locale {
     tr("Turkish", "Türkçe"),
     cs("Czech", "Čeština"),
     el("Greek", "Ελληνικά"),
-    bg("Bulgarian", "български"),
-    ru("Russian", "Pусский"),
-    uk("Ukrainian", "Українська"),
-    hi("Hindi", "हिन्दी"),
+    bg("Bulgarian", "Bulgarian"),
+    ru("Russian", "Russian"),
+    uk("Ukrainian", "Ukrainian"),
+    hi("Hindi", "Hindi"),
     th("Thai", "ไทย"),
     zh_CN("Chinese, China", "中文"),
     ja("Japanese", "日本語"),
-    zh_TW("Chinese, Taiwan", "繁體中文"),
+    zh_TW("Chinese, Taiwan", "Chinese, Taiwan"),
     ko("Korean", "한국어");
 
     private final String languageName;

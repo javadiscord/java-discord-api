@@ -4,7 +4,6 @@ import com.javadiscord.Discord;
 import com.javadiscord.gateway.ConnectionMediator;
 import com.javadiscord.gateway.GatewayEvent;
 import com.javadiscord.gateway.handlers.GatewayOperationHandler;
-import com.javadiscord.gateway.handlers.events.codec.Event;
 import com.javadiscord.gateway.handlers.events.codec.EventDecoder;
 import com.javadiscord.gateway.handlers.events.codec.EventHandler;
 import com.javadiscord.gateway.handlers.events.codec.guild.GuildCreateEventDecoder;
@@ -59,9 +58,9 @@ public class EventCodecHandler implements GatewayOperationHandler {
             return;
         }
 
-        EventDecoder<Event> eventDecoder = (EventDecoder<Event>) EVENT_DECODERS.get(eventType);
-        EventHandler<Event> eventHandler = (EventHandler<Event>) EVENT_HANDLERS.get(eventType);
-        Event event = eventDecoder.decode(gatewayEvent);
+        EventDecoder<Object> eventDecoder = (EventDecoder<Object>) EVENT_DECODERS.get(eventType);
+        EventHandler<Object> eventHandler = (EventHandler<Object>) EVENT_HANDLERS.get(eventType);
+        Object event = eventDecoder.decode(gatewayEvent);
         eventHandler.handle(event, connectionMediator, discord);
     }
 }

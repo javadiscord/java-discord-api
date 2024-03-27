@@ -4,37 +4,20 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class User {
-    private long id;
-    private String username;
-    private String discriminator;
-
-    @JsonProperty("global_name")
-    private String displayName;
-
-    private String avatar;
-
-    private boolean bot;
-
-    private boolean system;
-
-    @JsonProperty("mfa_enabled")
-    private boolean mfaEnabled;
-
-    private String banner;
-
-    @JsonProperty("accent_color")
-    private int accentColor;
-
-    private String locale;
-
-    private boolean verified;
-    private String email;
-    private int flags;
-
-    @JsonProperty("premium_type") // see: PremiumType
-    private int premiumType;
-
-    @JsonProperty("public_flags")
-    private int publicFlags;
-}
+public record User(
+        @JsonProperty("id") long id,
+        @JsonProperty("username") String username,
+        @JsonProperty("discriminator") String discriminator,
+        @JsonProperty("global_name") String displayName,
+        @JsonProperty("avatar") String avatar,
+        @JsonProperty("bot") boolean bot,
+        @JsonProperty("system") boolean system,
+        @JsonProperty("mfa_enabled") boolean mfaEnabled,
+        @JsonProperty("banner") String banner,
+        @JsonProperty("accent_color") int accentColor,
+        @JsonProperty("locale") String locale,
+        @JsonProperty("verified") boolean verified,
+        @JsonProperty("email") String email,
+        @JsonProperty("flags") int flags,
+        @JsonProperty("premium_type") int premiumType,
+        @JsonProperty("public_flags") int publicFlags) {}
