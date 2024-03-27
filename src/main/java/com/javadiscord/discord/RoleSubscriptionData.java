@@ -8,5 +8,4 @@ public record RoleSubscriptionData(
         @JsonProperty("role_subscription_listing_id") long roleSubscriptionListingId,
         @JsonProperty("tier_name") String tierName,
         @JsonProperty("total_months_subscribed") int totalMonthsSubscribed,
-        @JsonProperty("is_renewal") boolean isRenewal
-) {}
+        @JsonProperty("is_renewal") boolean isRenewal) {}

@@ -7,7 +7,5 @@ import com.javadiscord.gateway.handlers.events.codec.EventHandler;
 
 public class GuildUpdateEventHandler implements EventHandler<Guild> {
     @Override
-    public void handle(Guild event, ConnectionMediator connectionMediator, Discord discord) {
-
-    }
+    public void handle(Guild event, ConnectionMediator connectionMediator, Discord discord) {}
 }

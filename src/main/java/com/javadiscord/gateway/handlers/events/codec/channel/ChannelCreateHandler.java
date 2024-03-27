@@ -1,7 +1,7 @@
 package com.javadiscord.gateway.handlers.events.codec.channel;
 
 import com.javadiscord.Discord;
-import com.javadiscord.discord.Channel;
+import com.javadiscord.discord.channel.Channel;
 import com.javadiscord.gateway.ConnectionMediator;
 import com.javadiscord.gateway.handlers.events.codec.EventHandler;
 

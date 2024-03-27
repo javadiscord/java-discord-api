@@ -2,6 +2,8 @@ package com.javadiscord.discord;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.javadiscord.discord.message.Sticker;
+import com.javadiscord.discord.user.Member;
 
 import java.util.List;
 
@@ -29,8 +31,7 @@ public record Guild(
         @JsonProperty("premium_subscription_count") int premiumSubscriptionCount,
         @JsonProperty("nsfw") boolean nsfw,
         @JsonProperty("rules_channel_id") long rulesChannelId,
-        @JsonProperty("joined_at")
-        String joinDate,
+        @JsonProperty("joined_at") String joinDate,
         @JsonProperty("description") String description,
         @JsonProperty("unavailable") boolean unavailable,
         @JsonProperty("members") List<Member> members,

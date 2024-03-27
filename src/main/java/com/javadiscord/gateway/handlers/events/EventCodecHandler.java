@@ -6,14 +6,15 @@ import com.javadiscord.gateway.GatewayEvent;
 import com.javadiscord.gateway.handlers.GatewayOperationHandler;
 import com.javadiscord.gateway.handlers.events.codec.EventDecoder;
 import com.javadiscord.gateway.handlers.events.codec.EventHandler;
-import com.javadiscord.gateway.handlers.events.codec.channel.ChannelDecoder;
 import com.javadiscord.gateway.handlers.events.codec.channel.ChannelCreateHandler;
+import com.javadiscord.gateway.handlers.events.codec.channel.ChannelDecoder;
 import com.javadiscord.gateway.handlers.events.codec.channel.ChannelDeleteHandler;
 import com.javadiscord.gateway.handlers.events.codec.channel.ChannelUpdateHandler;
-import com.javadiscord.gateway.handlers.events.codec.guild.GuildDecoder;
 import com.javadiscord.gateway.handlers.events.codec.guild.GuildCreateEventHandler;
+import com.javadiscord.gateway.handlers.events.codec.guild.GuildDecoder;
 import com.javadiscord.gateway.handlers.events.codec.guild.GuildDeleteEventHandler;
 import com.javadiscord.gateway.handlers.events.codec.guild.GuildUpdateEventHandler;
+import com.javadiscord.gateway.handlers.events.codec.message.*;
 import com.javadiscord.gateway.handlers.events.codec.ready.ReadyEventDecoder;
 import com.javadiscord.gateway.handlers.events.codec.ready.ReadyEventHandler;
 import com.javadiscord.gateway.handlers.events.codec.resume.ResumeEventDecoder;
@@ -53,6 +54,27 @@ public class EventCodecHandler implements GatewayOperationHandler {
         EVENT_HANDLERS.put(EventType.CHANNEL_DELETE, new ChannelDeleteHandler());
         EVENT_HANDLERS.put(EventType.CHANNEL_UPDATE, new ChannelUpdateHandler());
 
+        MessageDecoder messageDecoder = new MessageDecoder();
+        EVENT_DECODERS.put(EventType.MESSAGE_CREATE, messageDecoder);
+        EVENT_DECODERS.put(EventType.MESSAGE_DELETE, messageDecoder);
+        EVENT_DECODERS.put(EventType.MESSAGE_UPDATE, messageDecoder);
+        EVENT_HANDLERS.put(EventType.MESSAGE_CREATE, new MessageCreateHandler());
+        EVENT_HANDLERS.put(EventType.MESSAGE_DELETE, new MessageDeleteHandler());
+        EVENT_HANDLERS.put(EventType.MESSAGE_UPDATE, new MessageUpdateHandler());
+
+        MessageReactionDecoder messageReactionDecoder = new MessageReactionDecoder();
+        EVENT_DECODERS.put(EventType.MESSAGE_REACTION_ADD, messageReactionDecoder);
+        EVENT_DECODERS.put(EventType.MESSAGE_REACTION_REMOVE, messageReactionDecoder);
+        EVENT_DECODERS.put(EventType.MESSAGE_REACTION_REMOVE_EMOJI, messageReactionDecoder);
+
+        EVENT_HANDLERS.put(EventType.MESSAGE_REACTION_ADD, new ReactionAddHandler());
+
+        ReactionRemoveHandler reactionRemoveHandler = new ReactionRemoveHandler();
+        EVENT_HANDLERS.put(EventType.MESSAGE_REACTION_REMOVE, reactionRemoveHandler);
+        EVENT_HANDLERS.put(EventType.MESSAGE_REACTION_REMOVE_EMOJI, reactionRemoveHandler);
+
+        EVENT_DECODERS.put(EventType.TYPING_START, new TypingStartDecoder());
+        EVENT_HANDLERS.put(EventType.TYPING_START, new TypingStartHandler());
     }
 
     @Override

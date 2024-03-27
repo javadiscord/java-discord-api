@@ -1,18 +1,18 @@
-package com.javadiscord.gateway.handlers.events.codec.channel;
+package com.javadiscord.gateway.handlers.events.codec.message;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.javadiscord.discord.channel.Channel;
+import com.javadiscord.discord.message.Message;
 import com.javadiscord.gateway.GatewayEvent;
 import com.javadiscord.gateway.handlers.events.codec.EventDecoder;
 
-public class ChannelDecoder implements EventDecoder<Channel> {
+public class MessageDecoder implements EventDecoder<Message> {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     @Override
-    public Channel decode(GatewayEvent gatewayEvent) {
+    public Message decode(GatewayEvent gatewayEvent) {
         try {
-            return OBJECT_MAPPER.readValue(gatewayEvent.data().toString(), Channel.class);
+            return OBJECT_MAPPER.readValue(gatewayEvent.data().toString(), Message.class);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
