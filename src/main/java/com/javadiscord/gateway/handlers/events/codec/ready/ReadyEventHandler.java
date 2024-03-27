@@ -11,7 +11,7 @@ public class ReadyEventHandler implements EventHandler<ReadyEvent> {
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
-    public void handle(ReadyEvent event, ConnectionMediator connectionMediator, Discord discord) {
-        LOGGER.trace("Ready event consumed");
+    public void handle(ReadyEvent message, ConnectionMediator connectionMediator, Discord discord) {
+        LOGGER.trace("Ready message consumed");
     }
 }

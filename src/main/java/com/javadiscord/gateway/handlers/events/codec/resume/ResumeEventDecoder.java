@@ -5,7 +5,7 @@ import com.javadiscord.gateway.handlers.events.codec.EventDecoder;
 
 public class ResumeEventDecoder implements EventDecoder<ResumeEvent> {
     @Override
-    public ResumeEvent decode(GatewayEvent event) {
+    public ResumeEvent decode(GatewayEvent gatewayEvent) {
         return new ResumeEvent();
     }
 }

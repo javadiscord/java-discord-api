@@ -6,8 +6,14 @@ import com.javadiscord.gateway.GatewayEvent;
 import com.javadiscord.gateway.handlers.GatewayOperationHandler;
 import com.javadiscord.gateway.handlers.events.codec.EventDecoder;
 import com.javadiscord.gateway.handlers.events.codec.EventHandler;
-import com.javadiscord.gateway.handlers.events.codec.guild.GuildCreateEventDecoder;
+import com.javadiscord.gateway.handlers.events.codec.channel.ChannelDecoder;
+import com.javadiscord.gateway.handlers.events.codec.channel.ChannelCreateHandler;
+import com.javadiscord.gateway.handlers.events.codec.channel.ChannelDeleteHandler;
+import com.javadiscord.gateway.handlers.events.codec.channel.ChannelUpdateHandler;
+import com.javadiscord.gateway.handlers.events.codec.guild.GuildDecoder;
 import com.javadiscord.gateway.handlers.events.codec.guild.GuildCreateEventHandler;
+import com.javadiscord.gateway.handlers.events.codec.guild.GuildDeleteEventHandler;
+import com.javadiscord.gateway.handlers.events.codec.guild.GuildUpdateEventHandler;
 import com.javadiscord.gateway.handlers.events.codec.ready.ReadyEventDecoder;
 import com.javadiscord.gateway.handlers.events.codec.ready.ReadyEventHandler;
 import com.javadiscord.gateway.handlers.events.codec.resume.ResumeEventDecoder;
@@ -31,8 +37,22 @@ public class EventCodecHandler implements GatewayOperationHandler {
         EVENT_DECODERS.put(EventType.RESUMED, new ResumeEventDecoder());
         EVENT_HANDLERS.put(EventType.RESUMED, new ResumeEventHandler());
 
-        EVENT_DECODERS.put(EventType.GUILD_CREATE, new GuildCreateEventDecoder());
+        GuildDecoder guildDecoder = new GuildDecoder();
+        EVENT_DECODERS.put(EventType.GUILD_CREATE, guildDecoder);
+        EVENT_DECODERS.put(EventType.GUILD_DELETE, guildDecoder);
+        EVENT_DECODERS.put(EventType.GUILD_UPDATE, guildDecoder);
         EVENT_HANDLERS.put(EventType.GUILD_CREATE, new GuildCreateEventHandler());
+        EVENT_HANDLERS.put(EventType.GUILD_DELETE, new GuildDeleteEventHandler());
+        EVENT_HANDLERS.put(EventType.GUILD_UPDATE, new GuildUpdateEventHandler());
+
+        ChannelDecoder channelDecoder = new ChannelDecoder();
+        EVENT_DECODERS.put(EventType.CHANNEL_CREATE, channelDecoder);
+        EVENT_DECODERS.put(EventType.CHANNEL_UPDATE, channelDecoder);
+        EVENT_DECODERS.put(EventType.CHANNEL_DELETE, channelDecoder);
+        EVENT_HANDLERS.put(EventType.CHANNEL_CREATE, new ChannelCreateHandler());
+        EVENT_HANDLERS.put(EventType.CHANNEL_DELETE, new ChannelDeleteHandler());
+        EVENT_HANDLERS.put(EventType.CHANNEL_UPDATE, new ChannelUpdateHandler());
+
     }
 
     @Override

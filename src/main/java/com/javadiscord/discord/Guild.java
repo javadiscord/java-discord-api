@@ -1,11 +1,8 @@
 package com.javadiscord.discord;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.javadiscord.gateway.handlers.events.codec.guild.Member;
 
-import java.util.Date;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -33,10 +30,7 @@ public record Guild(
         @JsonProperty("nsfw") boolean nsfw,
         @JsonProperty("rules_channel_id") long rulesChannelId,
         @JsonProperty("joined_at")
-                @JsonFormat(
-                        shape = JsonFormat.Shape.STRING,
-                        pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX")
-                Date joinDate,
+        String joinDate,
         @JsonProperty("description") String description,
         @JsonProperty("unavailable") boolean unavailable,
         @JsonProperty("members") List<Member> members,
