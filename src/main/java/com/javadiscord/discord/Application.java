@@ -31,5 +31,4 @@ public record Application(
         @JsonProperty("interactions_endpoint_url") String interactionsEndpointUrl,
         @JsonProperty("role_connections_verification_url") String roleConnectionsVerificationUrl,
         List<String> tags,
-        @JsonProperty("custom_install_url") String customInstallUrl
-) {}
+        @JsonProperty("custom_install_url") String customInstallUrl) {}

@@ -1,6 +1,7 @@
 package com.javadiscord;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.javadiscord.api.RequestRunner;
 import com.javadiscord.gateway.*;
 import com.javadiscord.gateway.identify.IdentifyRequest;
 
@@ -11,17 +12,20 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class Launcher {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private static final String BOT_TOKEN = "";
 
+    private static final Executor EXECUTOR = Executors.newSingleThreadExecutor();
+
     public static void main(String[] args) {
-        Discord discord = new Discord();
-
+        RequestRunner requestRunner = new RequestRunner(BOT_TOKEN);
+        Discord discord = new Discord(requestRunner);
         Gateway gateway = getGatewayURL(BOT_TOKEN);
-
         GatewaySetting gatewaySetting =
                 new GatewaySetting().setEncoding(GatewayEncoding.JSON).setApiVersion(10);
 
@@ -53,6 +57,8 @@ public class Launcher {
         ConnectionMediator connectionMediator =
                 new ConnectionMediator(connectionDetails, webSocketManagerProxy);
         webSocketManagerProxy.start(connectionMediator);
+
+        EXECUTOR.execute(requestRunner);
     }
 
     private static Gateway getGatewayURL(String authentication) {

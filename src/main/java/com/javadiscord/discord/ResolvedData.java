@@ -3,8 +3,8 @@ package com.javadiscord.discord;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.javadiscord.discord.channel.Channel;
-import com.javadiscord.discord.message.MessageAttachment;
 import com.javadiscord.discord.message.Message;
+import com.javadiscord.discord.message.MessageAttachment;
 import com.javadiscord.discord.user.Member;
 import com.javadiscord.discord.user.User;
 

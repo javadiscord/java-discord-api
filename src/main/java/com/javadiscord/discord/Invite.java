@@ -17,5 +17,4 @@ public record Invite(
         @JsonProperty("target_user") User targetUser,
         @JsonProperty("target_application") Application targetApplication,
         @JsonProperty("temporary") boolean temporary,
-        @JsonProperty("uses") int uses
-) {}
+        @JsonProperty("uses") int uses) {}

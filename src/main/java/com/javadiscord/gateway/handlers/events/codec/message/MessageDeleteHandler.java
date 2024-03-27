@@ -7,7 +7,5 @@ import com.javadiscord.gateway.handlers.events.codec.EventHandler;
 
 public class MessageDeleteHandler implements EventHandler<Message> {
     @Override
-    public void handle(Message event, ConnectionMediator connectionMediator, Discord discord) {
-
-    }
+    public void handle(Message event, ConnectionMediator connectionMediator, Discord discord) {}
 }
