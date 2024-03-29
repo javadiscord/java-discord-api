@@ -1,6 +1,6 @@
 package com.javadiscord.jdi.internal.cache;
 
-import com.javadiscord.jdi.internal.api.channel.Channel;
+import com.javadiscord.jdi.internal.api.actions.Channel;
 import com.javadiscord.jdi.internal.models.guild.Guild;
 
 import java.util.HashMap;

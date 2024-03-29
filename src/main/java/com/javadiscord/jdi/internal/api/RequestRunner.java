@@ -72,6 +72,12 @@ public class RequestRunner implements Runnable {
                 case "POST":
                     requestBuilder.POST(HttpRequest.BodyPublishers.ofString(request.getBody()));
                     break;
+                case "DELETE":
+                    requestBuilder.DELETE();
+                    break;
+                case "PUT":
+                    requestBuilder.PUT(HttpRequest.BodyPublishers.ofString(request.getBody()));
+                    break;
                 default:
                     throw new IllegalArgumentException(
                             "Unsupported HTTP method: " + request.getBody());

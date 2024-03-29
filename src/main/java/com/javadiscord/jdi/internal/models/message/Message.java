@@ -2,7 +2,7 @@ package com.javadiscord.jdi.internal.models.message;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.javadiscord.jdi.internal.gateway.handlers.events.codec.ready.Application;
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.ready.Application;
 import com.javadiscord.jdi.internal.models.channel.Channel;
 import com.javadiscord.jdi.internal.models.channel.ChannelMention;
 import com.javadiscord.jdi.internal.models.guild.ResolvedData;
