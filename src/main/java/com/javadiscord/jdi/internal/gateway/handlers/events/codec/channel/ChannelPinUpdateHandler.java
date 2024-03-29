@@ -1,0 +1,11 @@
+package com.javadiscord.jdi.internal.gateway.handlers.events.codec.channel;
+
+import com.javadiscord.jdi.core.Discord;
+import com.javadiscord.jdi.internal.gateway.ConnectionMediator;
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.EventHandler;
+import com.javadiscord.jdi.internal.models.message.MessagePin;
+
+public class ChannelPinUpdateHandler implements EventHandler<MessagePin> {
+    @Override
+    public void handle(MessagePin event, ConnectionMediator connectionMediator, Discord discord) {}
+}
