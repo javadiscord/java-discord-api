@@ -18,6 +18,8 @@ import com.javadiscord.jdi.internal.gateway.handlers.events.codec.thread.ThreadD
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.thread.ThreadDeleteHandler;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.thread.ThreadUpdateHandler;
 
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.user.UserDecoder;
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.user.UserUpdateHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -94,6 +96,23 @@ public class EventCodecHandler implements GatewayOperationHandler {
         EVENT_HANDLERS.put(EventType.THREAD_CREATE, new ThreadCreateHandler());
         EVENT_HANDLERS.put(EventType.THREAD_UPDATE, new ThreadUpdateHandler());
         EVENT_HANDLERS.put(EventType.THREAD_DELETE, new ThreadDeleteHandler());
+
+        GuildMemberDecoder guildMemberDecoder = new GuildMemberDecoder();
+        EVENT_DECODERS.put(EventType.GUILD_MEMBER_UPDATE, guildMemberDecoder);
+        EVENT_DECODERS.put(EventType.GUILD_MEMBER_REMOVE, guildMemberDecoder);
+        EVENT_DECODERS.put(EventType.GUILD_MEMBER_ADD, guildMemberDecoder);
+        EVENT_HANDLERS.put(EventType.GUILD_MEMBER_UPDATE, new GuildMemberUpdateHandler());
+        EVENT_HANDLERS.put(EventType.GUILD_MEMBER_REMOVE, new GuildMemberRemoveHandler());
+        EVENT_HANDLERS.put(EventType.GUILD_MEMBER_ADD, new GuildMemberAddHandler());
+
+        GuildInviteDecoder inviteDecoder = new GuildInviteDecoder();
+        EVENT_DECODERS.put(EventType.INVITE_CREATE, inviteDecoder);
+        EVENT_DECODERS.put(EventType.INVITE_DELETE, inviteDecoder);
+        EVENT_HANDLERS.put(EventType.INVITE_CREATE, new GuildInviteCreateHandler());
+        EVENT_HANDLERS.put(EventType.INVITE_DELETE, new GuildInviteDeleteHandler());
+
+        EVENT_DECODERS.put(EventType.USER_UPDATE, new UserDecoder());
+        EVENT_HANDLERS.put(EventType.USER_UPDATE, new UserUpdateHandler());
     }
 
     @Override
