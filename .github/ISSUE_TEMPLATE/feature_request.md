@@ -7,14 +7,28 @@ assignees: ''
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+<!-- Features are to be requested as User Stories -->
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+**As a [REPLACE] I want to**...
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+<!-- Descrioption of what you want to be able to do -->
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+**So that**...
+
+<-- Description of why you want this -->
+
+<-- 
+EXAMPLE:
+
+As a discord moderator I wan to...
+be able to send messages to a text channel
+So that...
+I can send informative messages to our users. 
+
+
+As a developer I want to...
+be able to perform multiple actions concurrently
+
+So that...
+I can perform multiple non-linked actions for better system performance.
+-->
