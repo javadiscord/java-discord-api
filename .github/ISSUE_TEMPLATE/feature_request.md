@@ -11,7 +11,7 @@ assignees: ''
 
 **As a [REPLACE] I want to**...
 
-<!-- Descrioption of what you want to be able to do -->
+<!-- Description of what you want to be able to do -->
 
 **So that**...
 
