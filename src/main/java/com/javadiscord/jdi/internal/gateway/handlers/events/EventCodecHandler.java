@@ -10,11 +10,24 @@ import com.javadiscord.jdi.internal.gateway.handlers.events.codec.decoders.*;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.decoders.ReadyEventDecoder;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.decoders.ResumeEventDecoder;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.decoders.UserDecoder;
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.automod.AutoModerationRuleCreateHandler;
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.automod.AutoModerationRuleDeleteHandler;
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.automod.AutoModerationRuleUpdateHandler;
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.entitlement.EntitlementCreateHandler;
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.entitlement.EntitlementDeleteHandler;
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.entitlement.EntitlementUpdateHandler;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.*;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.channel.*;
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.event.*;
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.integration.IntegrationUpdateHandler;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.message.*;
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.stage.StageCreateHandler;
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.stage.StageDeleteHandler;
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.stage.StageUpdateHandler;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.thread.*;
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.user.MemberChunkHandler;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.user.UserUpdateHandler;
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.interaction.InteractionCreateHandler;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.ready.ReadyEventHandler;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.resume.ResumeEventHandler;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.voice.VoiceServerHandler;
@@ -87,7 +100,7 @@ public class EventCodecHandler implements GatewayOperationHandler {
         EVENT_DECODERS.put(EventType.GUILD_ROLE_UPDATE, guildRoleDecoder);
         EVENT_DECODERS.put(EventType.GUILD_ROLE_DELETE, guildRoleDecoder);
         EVENT_HANDLERS.put(EventType.GUILD_ROLE_UPDATE, new GuildRoleUpdateHandler());
-        EVENT_HANDLERS.put(EventType.GUILD_ROLE_DELETE, new GuildDeleteHandler());
+        EVENT_HANDLERS.put(EventType.GUILD_ROLE_DELETE, new GuildRoleDeleteHandler());
 
         ThreadDecoder threadDecoder = new ThreadDecoder();
         EVENT_DECODERS.put(EventType.THREAD_CREATE, threadDecoder);
@@ -146,6 +159,69 @@ public class EventCodecHandler implements GatewayOperationHandler {
                 EventType.MESSAGE_REACTION_REMOVE_ALL, new MessageReactionsRemovedDecoder());
         EVENT_HANDLERS.put(
                 EventType.MESSAGE_REACTION_REMOVE_ALL, new MessageReactionsRemovedHandler());
+
+        StageDecoder stageDecoder = new StageDecoder();
+        EVENT_DECODERS.put(EventType.STAGE_INSTANCE_CREATE, stageDecoder);
+        EVENT_DECODERS.put(EventType.STAGE_INSTANCE_UPDATE, stageDecoder);
+        EVENT_DECODERS.put(EventType.STAGE_INSTANCE_DELETE, stageDecoder);
+        EVENT_HANDLERS.put(EventType.STAGE_INSTANCE_CREATE, new StageCreateHandler());
+        EVENT_HANDLERS.put(EventType.STAGE_INSTANCE_UPDATE, new StageUpdateHandler());
+        EVENT_HANDLERS.put(EventType.STAGE_INSTANCE_DELETE, new StageDeleteHandler());
+
+        EVENT_DECODERS.put(EventType.INTERACTION_CREATE, new InteractionCreateDecoder());
+        EVENT_HANDLERS.put(EventType.INTERACTION_CREATE, new InteractionCreateHandler());
+
+        AutoModerationDecoder autoModerationDecoder = new AutoModerationDecoder();
+        EVENT_DECODERS.put(EventType.AUTO_MODERATION_RULE_CREATE, autoModerationDecoder);
+        EVENT_DECODERS.put(EventType.AUTO_MODERATION_RULE_UPDATE, autoModerationDecoder);
+        EVENT_DECODERS.put(EventType.AUTO_MODERATION_RULE_DELETE, autoModerationDecoder);
+        EVENT_DECODERS.put(EventType.AUTO_MODERATION_ACTION_EXECUTION, autoModerationDecoder);
+        EVENT_HANDLERS.put(
+                EventType.AUTO_MODERATION_RULE_CREATE, new AutoModerationRuleCreateHandler());
+        EVENT_HANDLERS.put(
+                EventType.AUTO_MODERATION_RULE_UPDATE, new AutoModerationRuleUpdateHandler());
+        EVENT_HANDLERS.put(
+                EventType.AUTO_MODERATION_RULE_DELETE, new AutoModerationRuleDeleteHandler());
+        EVENT_HANDLERS.put(
+                EventType.AUTO_MODERATION_ACTION_EXECUTION, new AutoModerationRuleDeleteHandler());
+
+        EntitlementDecoder entitlementDecoder = new EntitlementDecoder();
+        EVENT_DECODERS.put(EventType.ENTITLEMENT_CREATE, entitlementDecoder);
+        EVENT_DECODERS.put(EventType.ENTITLEMENT_DELETE, entitlementDecoder);
+        EVENT_DECODERS.put(EventType.ENTITLEMENT_UPDATE, entitlementDecoder);
+
+        EVENT_HANDLERS.put(EventType.ENTITLEMENT_CREATE, new EntitlementCreateHandler());
+        EVENT_HANDLERS.put(EventType.ENTITLEMENT_DELETE, new EntitlementUpdateHandler());
+        EVENT_HANDLERS.put(EventType.ENTITLEMENT_UPDATE, new EntitlementDeleteHandler());
+
+        ScheduledEventDecoder scheduledEventDecoder = new ScheduledEventDecoder();
+        EVENT_DECODERS.put(EventType.GUILD_SCHEDULED_EVENT_CREATE, scheduledEventDecoder);
+        EVENT_DECODERS.put(EventType.GUILD_SCHEDULED_EVENT_UPDATE, scheduledEventDecoder);
+        EVENT_DECODERS.put(EventType.GUILD_SCHEDULED_EVENT_DELETE, scheduledEventDecoder);
+
+        EVENT_HANDLERS.put(
+                EventType.GUILD_SCHEDULED_EVENT_CREATE, new ScheduledEventCreateHandler());
+        EVENT_HANDLERS.put(
+                EventType.GUILD_SCHEDULED_EVENT_UPDATE, new ScheduledEventUpdateHandler());
+        EVENT_HANDLERS.put(
+                EventType.GUILD_SCHEDULED_EVENT_DELETE, new ScheduledEventDeleteHandler());
+
+        EventUserDecoder eventUserDecoder = new EventUserDecoder();
+        EVENT_DECODERS.put(EventType.GUILD_SCHEDULED_EVENT_USER_ADD, eventUserDecoder);
+        EVENT_DECODERS.put(EventType.GUILD_SCHEDULED_EVENT_USER_REMOVE, eventUserDecoder);
+        EVENT_HANDLERS.put(
+                EventType.GUILD_SCHEDULED_EVENT_USER_ADD, new ScheduledEventUserAddHandler());
+        EVENT_HANDLERS.put(
+                EventType.GUILD_SCHEDULED_EVENT_USER_REMOVE, new ScheduledEventUserRemoveHandler());
+
+        EVENT_DECODERS.put(EventType.GUILD_STICKERS_UPDATE, new StickerUpdateDecoder());
+        EVENT_HANDLERS.put(EventType.GUILD_STICKERS_UPDATE, new StageUpdateHandler());
+
+        EVENT_DECODERS.put(EventType.GUILD_INTEGRATIONS_UPDATE, new IntegrationUpdateDecoder());
+        EVENT_HANDLERS.put(EventType.GUILD_INTEGRATIONS_UPDATE, new IntegrationUpdateHandler());
+
+        EVENT_DECODERS.put(EventType.GUILD_MEMBERS_CHUNK, new MemberChunkDecoder());
+        EVENT_HANDLERS.put(EventType.GUILD_MEMBERS_CHUNK, new MemberChunkHandler());
     }
 
     @Override
