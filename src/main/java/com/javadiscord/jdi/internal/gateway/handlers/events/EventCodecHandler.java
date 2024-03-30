@@ -6,18 +6,20 @@ import com.javadiscord.jdi.internal.gateway.GatewayEvent;
 import com.javadiscord.jdi.internal.gateway.handlers.GatewayOperationHandler;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.EventDecoder;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.EventHandler;
-import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.channel.*;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.decoders.*;
-import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.*;
-import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.message.*;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.decoders.ReadyEventDecoder;
-import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.ready.ReadyEventHandler;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.decoders.ResumeEventDecoder;
-import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.resume.ResumeEventHandler;
-import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.thread.*;
-
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.decoders.UserDecoder;
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.*;
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.channel.*;
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.message.*;
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.thread.*;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.user.UserUpdateHandler;
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.ready.ReadyEventHandler;
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.resume.ResumeEventHandler;
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.voice.VoiceServerHandler;
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.voice.VoiceStateHandler;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -127,6 +129,23 @@ public class EventCodecHandler implements GatewayOperationHandler {
 
         EVENT_DECODERS.put(EventType.GUILD_BAN_REMOVE, guildBanDecoder);
         EVENT_HANDLERS.put(EventType.GUILD_BAN_REMOVE, new GuildBanRemoveHandler());
+
+        EVENT_DECODERS.put(EventType.WEBHOOKS_UPDATE, new WebhookDecoder());
+        EVENT_HANDLERS.put(EventType.WEBHOOKS_UPDATE, new WebHookHandler());
+
+        EVENT_DECODERS.put(EventType.VOICE_SERVER_UPDATE, new VoiceServerDecoder());
+        EVENT_HANDLERS.put(EventType.VOICE_SERVER_UPDATE, new VoiceServerHandler());
+
+        EVENT_DECODERS.put(EventType.VOICE_STATE_UPDATE, new VoiceStateDecoder());
+        EVENT_HANDLERS.put(EventType.VOICE_STATE_UPDATE, new VoiceStateHandler());
+
+        EVENT_DECODERS.put(EventType.MESSAGE_DELETE_BULK, new MessageBulkDeleteDecoder());
+        EVENT_HANDLERS.put(EventType.MESSAGE_DELETE_BULK, new MessageBulkDeleteHandler());
+
+        EVENT_DECODERS.put(
+                EventType.MESSAGE_REACTION_REMOVE_ALL, new MessageReactionsRemovedDecoder());
+        EVENT_HANDLERS.put(
+                EventType.MESSAGE_REACTION_REMOVE_ALL, new MessageReactionsRemovedHandler());
     }
 
     @Override

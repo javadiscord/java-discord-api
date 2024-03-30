@@ -7,7 +7,5 @@ import com.javadiscord.jdi.internal.models.channel.ThreadSync;
 
 public class ThreadListSyncHandler implements EventHandler<ThreadSync> {
     @Override
-    public void handle(ThreadSync event, ConnectionMediator connectionMediator, Discord discord) {
-
-    }
+    public void handle(ThreadSync event, ConnectionMediator connectionMediator, Discord discord) {}
 }

@@ -8,10 +8,7 @@ import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record ThreadSync(
-        @JsonProperty("guild_id")
-        String guildId,
-        @JsonProperty("channel_ids")
-        long[] channelIds,
+        @JsonProperty("guild_id") String guildId,
+        @JsonProperty("channel_ids") long[] channelIds,
         List<Channel> threads,
-        List<Member> members) {
-}
+        List<Member> members) {}

@@ -7,7 +7,5 @@ import com.javadiscord.jdi.internal.models.user.User;
 
 public class UserUpdateHandler implements EventHandler<User> {
     @Override
-    public void handle(User event, ConnectionMediator connectionMediator, Discord discord) {
-
-    }
+    public void handle(User event, ConnectionMediator connectionMediator, Discord discord) {}
 }

@@ -7,7 +7,6 @@ import com.javadiscord.jdi.internal.models.channel.ThreadMember;
 
 public class ThreadMemberHandler implements EventHandler<ThreadMember> {
     @Override
-    public void handle(ThreadMember event, ConnectionMediator connectionMediator, Discord discord) {
-
-    }
+    public void handle(
+            ThreadMember event, ConnectionMediator connectionMediator, Discord discord) {}
 }

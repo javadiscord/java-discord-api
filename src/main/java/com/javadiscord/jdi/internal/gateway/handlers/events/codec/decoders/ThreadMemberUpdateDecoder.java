@@ -12,7 +12,8 @@ public class ThreadMemberUpdateDecoder implements EventDecoder<ThreadMemberUpdat
     @Override
     public ThreadMemberUpdate decode(GatewayEvent gatewayEvent) {
         try {
-            return OBJECT_MAPPER.readValue(gatewayEvent.data().toString(), ThreadMemberUpdate.class);
+            return OBJECT_MAPPER.readValue(
+                    gatewayEvent.data().toString(), ThreadMemberUpdate.class);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

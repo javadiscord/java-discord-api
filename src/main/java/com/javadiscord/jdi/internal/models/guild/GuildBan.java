@@ -5,9 +5,4 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.javadiscord.jdi.internal.models.user.User;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record GuildBan(
-        @JsonProperty("guild_id")
-        String guildId,
-        @JsonProperty("user")
-        User user) {
-}
+public record GuildBan(@JsonProperty("guild_id") String guildId, @JsonProperty("user") User user) {}
