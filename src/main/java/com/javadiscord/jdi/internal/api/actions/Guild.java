@@ -1,9 +1,11 @@
 package com.javadiscord.jdi.internal.api.actions;
 
-import com.javadiscord.jdi.internal.api.Future;
-import com.javadiscord.jdi.internal.api.HTTPRequest;
-import com.javadiscord.jdi.internal.api.HTTPResponse;
+import java.util.Map;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.RequestRunner;
+import com.javadiscord.jdi.internal.api.DiscordRequest.Method;
 
 public class Guild {
     private final RequestRunner requestRunner;
@@ -12,35 +14,60 @@ public class Guild {
         this.requestRunner = requestRunner;
     }
 
-    public Future<HTTPResponse> createChannel(String guildId, String name, String type) {
-        return requestRunner.queue(
-                new HTTPRequest(
-                        "POST",
-                        "/guilds/%s/channels".formatted(guildId),
-                        "{ \"name\": \"%s\", \"type\": \"%s\" }".formatted(name, type)));
+    public DiscordRequest createChannel(String guildId, String name, String type) throws JsonProcessingException {
+        DiscordRequest createChannelRequest = new DiscordRequest(
+            Method.POST,
+            "/guilds/%s/channels".formatted(guildId),
+            null,
+            null,
+            Map.of(
+                "name", name,
+                "type", type
+            )
+        );
+
+        requestRunner.queue(createChannelRequest);
+        return createChannelRequest;
     }
 
-    public Future<HTTPResponse> deleteChannel(String channelId) {
-        return requestRunner.queue(
-                new HTTPRequest(
-                        "DELETE",
-                        "/channels/%s".formatted(channelId)));
+    public DiscordRequest deleteChannel(String channelId) {
+        DiscordRequest deleteChannelRequest = new DiscordRequest(
+            Method.DELETE,
+            "/channels/%s".formatted(channelId)
+        );
+
+        requestRunner.queue(deleteChannelRequest);
+        return deleteChannelRequest;
     }
 
-    public Future<HTTPResponse> editChannel(String channelId, String name) {
-        return requestRunner.queue(
-                new HTTPRequest(
-                        "POST",
-                        "/channels/%s".formatted(channelId),
-                        "{ \"name\": \"%s\" }".formatted(name)));
+    public DiscordRequest editChannel(String channelId, String name) throws JsonProcessingException {
+        DiscordRequest editChannelRequest = new DiscordRequest(
+            Method.POST,
+            "/channels/%s".formatted(channelId),
+            null,
+            null,
+            Map.of("name", name)
+        );
+
+        requestRunner.queue(editChannelRequest);
+        return editChannelRequest;
     }
 
-    public Future<HTTPResponse> createInvite(String channelId, int maxAge, int maxUses, boolean temporary) {
-        return requestRunner.queue(
-                new HTTPRequest(
-                        "POST",
-                        "/channels/%s/invites".formatted(channelId),
-                        "{ \"max_age\": \"%s\", \"max_uses\": \"%s\", \"temporary\": %b }".formatted(maxAge, maxUses, temporary)));
+    public DiscordRequest createInvite(String channelId, int maxAge, int maxUses, boolean temporary) throws JsonProcessingException {
+        DiscordRequest createInviteRequest = new DiscordRequest(
+            Method.POST,
+            "/channels/%s/invites".formatted(channelId),
+            null,
+            null,
+            Map.of(
+                "max_age", maxAge,
+                "max_uses", maxUses,
+                "temporary", temporary
+            )
+        );
+
+        requestRunner.queue(createInviteRequest);
+        return createInviteRequest;
     }
 
     //TODO: banMember

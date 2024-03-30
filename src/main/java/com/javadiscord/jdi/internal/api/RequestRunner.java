@@ -3,7 +3,6 @@ package com.javadiscord.jdi.internal.api;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -12,8 +11,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class RequestRunner implements Runnable {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final String BASE_URL = "https://discord.com/api";
-    private final BlockingQueue<HTTPRequest> queue;
+    private final BlockingQueue<DiscordRequest> queue;
     private final String botToken;
     private int numberOfRequestsSent;
     private long timeSinceLastRequest;
@@ -25,11 +23,8 @@ public class RequestRunner implements Runnable {
         this.timeSinceLastRequest = 0;
     }
 
-    public Future<HTTPResponse> queue(HTTPRequest request) {
-        Future<HTTPResponse> future = new Future<>();
-        request.setFuture(future);
+    public void queue(DiscordRequest request) {
         queue.add(request);
-        return future;
     }
 
     @Override
@@ -41,66 +36,29 @@ public class RequestRunner implements Runnable {
             if (elapsed < 1000 && numberOfRequestsSent >= 50) {
                 try {
                     Thread.sleep(1000 - elapsed);
-                } catch (InterruptedException e) {
-                    /* Ignore */
-                }
+                } catch (InterruptedException e) { /* Ignore */ }
+
                 numberOfRequestsSent = 0;
             }
 
             try {
                 sendRequest(queue.take());
-            } catch (Exception e) {
-                /* Ignore */
-            }
+            } catch (InterruptedException e) { /* Ignored */ }
         }
     }
 
-    private void sendRequest(HTTPRequest request) {
+    private void sendRequest(DiscordRequest request) {
         try (HttpClient httpClient = HttpClient.newBuilder().build()) {
-            HttpRequest.Builder requestBuilder =
-                    HttpRequest.newBuilder()
-                            .uri(URI.create("%s%s".formatted(BASE_URL, request.getUri())))
-                            .header("Authorization", "Bot " + botToken)
-                            .headers("Content-Type", "application/json");
+            HttpRequest httpRequest = request.formRequest(botToken);
 
-            request.getHeaders().forEach(requestBuilder::setHeader);
-
-            switch (request.getMethod().toUpperCase()) {
-                case "GET":
-                    requestBuilder.GET();
-                    break;
-                case "POST":
-                    requestBuilder.POST(HttpRequest.BodyPublishers.ofString(request.getBody()));
-                    break;
-                case "DELETE":
-                    requestBuilder.DELETE();
-                    break;
-                case "PUT":
-                    requestBuilder.PUT(HttpRequest.BodyPublishers.ofString(request.getBody()));
-                    break;
-                default:
-                    throw new IllegalArgumentException(
-                            "Unsupported HTTP method: " + request.getBody());
-            }
-
-            HttpRequest httpRequest = requestBuilder.build();
-
-            HttpResponse<String> response =
-                    httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
 
             numberOfRequestsSent++;
             timeSinceLastRequest = System.currentTimeMillis();
 
-            request.getFuture()
-                    .setResult(
-                            new HTTPResponse(
-                                    response.body(),
-                                    response.statusCode(),
-                                    response.headers().map()));
-
+            request.setResponse(new DiscordResponse(response.body(), response.statusCode(), response.headers().map()));
         } catch (Exception e) {
-            LOGGER.error("Failed to send request to {}{}", BASE_URL, request.getUri(), e);
-            request.getFuture().setException(e);
+            LOGGER.error("Failed to send request to {}", request.getUrl(), e);
         }
     }
 }

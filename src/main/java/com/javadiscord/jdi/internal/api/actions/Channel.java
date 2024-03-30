@@ -1,45 +1,63 @@
 package com.javadiscord.jdi.internal.api.actions;
 
-import com.javadiscord.jdi.internal.api.Future;
-import com.javadiscord.jdi.internal.api.HTTPRequest;
-import com.javadiscord.jdi.internal.api.HTTPResponse;
-import com.javadiscord.jdi.internal.api.RequestRunner;
+import java.util.Map;
 
-public class Channel {
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.javadiscord.jdi.internal.api.DiscordRequest;
+import com.javadiscord.jdi.internal.api.RequestRunner;
+import com.javadiscord.jdi.internal.api.DiscordRequest.Method;
+
+public final class Channel {
     private final RequestRunner requestRunner;
 
     public Channel(RequestRunner requestRunner) {
         this.requestRunner = requestRunner;
     }
 
-    public Future<HTTPResponse> sendMessage(String channelId, String message) {
-        return requestRunner.queue(
-                new HTTPRequest(
-                        "POST",
-                        "/channels/%s/messages".formatted(channelId),
-                        "{ \"content\": \"%s\" }".formatted(message)));
+    public DiscordRequest sendMessage(String channelId, String message) throws JsonProcessingException {
+        DiscordRequest sendMessageRequest = new DiscordRequest(
+            Method.POST,
+            "/channels/%s/messages".formatted(channelId),
+            null,
+            null,
+            Map.of("content", message)
+        );
+        requestRunner.queue(sendMessageRequest);
+
+        return sendMessageRequest;
     }
 
-    public Future<HTTPResponse> editMessage(String channelId, String messageId, String message) {
-        return requestRunner.queue(
-                new HTTPRequest(
-                        "POST",
-                        "/channels/%s/messages/%s".formatted(channelId, messageId),
-                        "{ \"content\": \"%s\" }".formatted(message)));
+    public DiscordRequest editMessage(String channelId, String messageId, String message) throws JsonProcessingException {
+        DiscordRequest editMessageRequest = new DiscordRequest(
+            Method.POST,
+            "/channels/%s/messages/%s".formatted(channelId, messageId),
+            null,
+            null,
+            Map.of("content", message)
+        );
+        requestRunner.queue(editMessageRequest);
+
+        return editMessageRequest;
     }
 
-    public Future<HTTPResponse> deleteMessage(String channelId, String messageId) {
-        return requestRunner.queue(
-                new HTTPRequest(
-                        "DELETE",
-                        "/channels/%s/messages/%s".formatted(channelId, messageId)));
+    public DiscordRequest deleteMessage(String channelId, String messageId) {
+        DiscordRequest deleteMessageRequest = new DiscordRequest(
+            Method.DELETE,
+            "/channels/%s/messages/%s".formatted(channelId, messageId)
+        );
+        requestRunner.queue(deleteMessageRequest);
+
+        return deleteMessageRequest;
     }
 
-    public Future<HTTPResponse> addReaction(String channelId, String messageId, String emoji) {
-        return requestRunner.queue(
-                new HTTPRequest(
-                        "POST",
-                        "/channels/%s/messages/%s/reactions/%s/@me".formatted(channelId, messageId, emoji)));
+    public DiscordRequest addReaction(String channelId, String messageId, String emoji) {
+        DiscordRequest addReactionRequest = new DiscordRequest(
+            Method.POST,
+            "/channels/%s/messages/%s/reactions/%s/@me".formatted(channelId, messageId, emoji)
+        );
+        requestRunner.queue(addReactionRequest);
+
+        return addReactionRequest;
     }
 
     //TODO: getMessages
