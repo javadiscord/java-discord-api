@@ -17,7 +17,7 @@ public class DiscordRequest {
         GET, POST, DELETE, PUT;
     }
 
-    private static final ObjectMapper mapper = new ObjectMapper();
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     private Method method;
     private String url = "https://discord.com/api";
@@ -34,7 +34,7 @@ public class DiscordRequest {
     }
 
     public DiscordRequest(Method method, String path, Map<String, Object> queries, Map<String, Object> payload) throws JsonProcessingException {
-        this(method, path, queries, BodyPublishers.ofString(mapper.writeValueAsString(payload)));
+        this(method, path, queries, BodyPublishers.ofString(MAPPER.writeValueAsString(payload)));
 	}
 
 	public DiscordRequest(Method method, String path, Map<String, Object> queries, BodyPublisher body) {
