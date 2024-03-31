@@ -5,7 +5,7 @@ import java.util.Map;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.RequestRunner;
-import com.javadiscord.jdi.internal.api.DiscordRequest.Method;
+import com.javadiscord.jdi.internal.api.HttpMethod;
 
 public final class Channel {
     private final RequestRunner requestRunner;
@@ -16,7 +16,7 @@ public final class Channel {
 
     public DiscordRequest sendMessage(String channelId, String message) throws JsonProcessingException {
         DiscordRequest sendMessageRequest = new DiscordRequest(
-            Method.POST,
+            HttpMethod.POST,
             "/channels/%s/messages".formatted(channelId),
             null,
             Map.of("content", message)
@@ -28,7 +28,7 @@ public final class Channel {
 
     public DiscordRequest editMessage(String channelId, String messageId, String message) throws JsonProcessingException {
         DiscordRequest editMessageRequest = new DiscordRequest(
-            Method.POST,
+            HttpMethod.POST,
             "/channels/%s/messages/%s".formatted(channelId, messageId),
             null,
             Map.of("content", message)
@@ -40,7 +40,7 @@ public final class Channel {
 
     public DiscordRequest deleteMessage(String channelId, String messageId) {
         DiscordRequest deleteMessageRequest = new DiscordRequest(
-            Method.DELETE,
+            HttpMethod.DELETE,
             "/channels/%s/messages/%s".formatted(channelId, messageId)
         );
         requestRunner.queue(deleteMessageRequest);
@@ -50,7 +50,7 @@ public final class Channel {
 
     public DiscordRequest addReaction(String channelId, String messageId, String emoji) {
         DiscordRequest addReactionRequest = new DiscordRequest(
-            Method.POST,
+            HttpMethod.POST,
             "/channels/%s/messages/%s/reactions/%s/@me".formatted(channelId, messageId, emoji)
         );
         requestRunner.queue(addReactionRequest);

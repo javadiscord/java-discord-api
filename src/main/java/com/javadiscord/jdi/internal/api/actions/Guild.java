@@ -5,7 +5,7 @@ import java.util.Map;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.RequestRunner;
-import com.javadiscord.jdi.internal.api.DiscordRequest.Method;
+import com.javadiscord.jdi.internal.api.HttpMethod;
 
 public class Guild {
     private final RequestRunner requestRunner;
@@ -16,7 +16,7 @@ public class Guild {
 
     public DiscordRequest createChannel(String guildId, String name, String type) throws JsonProcessingException {
         DiscordRequest createChannelRequest = new DiscordRequest(
-            Method.POST,
+            HttpMethod.POST,
             "/guilds/%s/channels".formatted(guildId),
             null,
             Map.of(
@@ -31,7 +31,7 @@ public class Guild {
 
     public DiscordRequest deleteChannel(String channelId) {
         DiscordRequest deleteChannelRequest = new DiscordRequest(
-            Method.DELETE,
+            HttpMethod.DELETE,
             "/channels/%s".formatted(channelId)
         );
 
@@ -41,7 +41,7 @@ public class Guild {
 
     public DiscordRequest editChannel(String channelId, String name) throws JsonProcessingException {
         DiscordRequest editChannelRequest = new DiscordRequest(
-            Method.POST,
+            HttpMethod.POST,
             "/channels/%s".formatted(channelId),
             null,
             Map.of("name", name)
@@ -53,7 +53,7 @@ public class Guild {
 
     public DiscordRequest createInvite(String channelId, int maxAge, int maxUses, boolean temporary) throws JsonProcessingException {
         DiscordRequest createInviteRequest = new DiscordRequest(
-            Method.POST,
+            HttpMethod.POST,
             "/channels/%s/invites".formatted(channelId),
             null,
             Map.of(
