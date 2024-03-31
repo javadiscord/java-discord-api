@@ -23,8 +23,9 @@ public class RequestRunner implements Runnable {
         this.timeSinceLastRequest = 0;
     }
 
-    public void queue(DiscordRequest request) {
+    public Response<DiscordResponse> queue(DiscordRequest request) {
         queue.add(request);
+        return request.getResponse();
     }
 
     @Override

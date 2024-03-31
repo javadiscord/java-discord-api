@@ -21,7 +21,7 @@ public class DiscordRequest {
     private String url = "https://discord.com/api";
     private Map<String, Object> headers;
     private BodyPublisher body;
-    private Response<DiscordResponse> response;
+    private Response<DiscordResponse> response = new Response<DiscordResponse>();
 
 	public DiscordRequest(HttpMethod method, String path) {
         this(method, path, null);
@@ -79,12 +79,10 @@ public class DiscordRequest {
 	}
 
 	public void setSuccessResponse(DiscordResponse response) {
-		this.response = new Response<DiscordResponse>();
         this.response.setResult(response);
 	}
 
     public void setErrorResponse(Exception e) {
-		this.response = new Response<>();
         this.response.setException(e);
     }
 

@@ -4,7 +4,9 @@ import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
+import com.javadiscord.jdi.internal.api.DiscordResponse;
 import com.javadiscord.jdi.internal.api.RequestRunner;
+import com.javadiscord.jdi.internal.api.Response;
 import com.javadiscord.jdi.internal.api.HttpMethod;
 
 public class Guild {
@@ -14,7 +16,7 @@ public class Guild {
         this.requestRunner = requestRunner;
     }
 
-    public DiscordRequest createChannel(String guildId, String name, String type) throws JsonProcessingException {
+    public Response<DiscordResponse> createChannel(String guildId, String name, String type) throws JsonProcessingException {
         DiscordRequest createChannelRequest = new DiscordRequest(
             HttpMethod.POST,
             "/guilds/%s/channels".formatted(guildId),
@@ -25,21 +27,19 @@ public class Guild {
             )
         );
 
-        requestRunner.queue(createChannelRequest);
-        return createChannelRequest;
+        return requestRunner.queue(createChannelRequest);
     }
 
-    public DiscordRequest deleteChannel(String channelId) {
+    public Response<DiscordResponse> deleteChannel(String channelId) {
         DiscordRequest deleteChannelRequest = new DiscordRequest(
             HttpMethod.DELETE,
             "/channels/%s".formatted(channelId)
         );
 
-        requestRunner.queue(deleteChannelRequest);
-        return deleteChannelRequest;
+        return requestRunner.queue(deleteChannelRequest);
     }
 
-    public DiscordRequest editChannel(String channelId, String name) throws JsonProcessingException {
+    public Response<DiscordResponse> editChannel(String channelId, String name) throws JsonProcessingException {
         DiscordRequest editChannelRequest = new DiscordRequest(
             HttpMethod.POST,
             "/channels/%s".formatted(channelId),
@@ -47,11 +47,10 @@ public class Guild {
             Map.of("name", name)
         );
 
-        requestRunner.queue(editChannelRequest);
-        return editChannelRequest;
+        return requestRunner.queue(editChannelRequest);
     }
 
-    public DiscordRequest createInvite(String channelId, int maxAge, int maxUses, boolean temporary) throws JsonProcessingException {
+    public Response<DiscordResponse> createInvite(String channelId, int maxAge, int maxUses, boolean temporary) throws JsonProcessingException {
         DiscordRequest createInviteRequest = new DiscordRequest(
             HttpMethod.POST,
             "/channels/%s/invites".formatted(channelId),
@@ -63,8 +62,7 @@ public class Guild {
             )
         );
 
-        requestRunner.queue(createInviteRequest);
-        return createInviteRequest;
+        return requestRunner.queue(createInviteRequest);
     }
 
     //TODO: banMember
