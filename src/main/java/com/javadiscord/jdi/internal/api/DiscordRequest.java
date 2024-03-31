@@ -1,16 +1,18 @@
 package com.javadiscord.jdi.internal.api;
 
 import java.net.URI;
+import java.net.URLEncoder;
 import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublisher;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpRequest.Builder;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.javadiscord.jdi.internal.utils.UrlUtils;
 
 public class DiscordRequest {
     private static final ObjectMapper MAPPER = new ObjectMapper();
@@ -42,7 +44,7 @@ public class DiscordRequest {
         this.body = body;
 
         if (queries != null && !queries.isEmpty())
-            url += "?" + UrlUtils.encode(queries);
+            url += "?" + encode(queries);
     }
 
     public String getUrl() {
@@ -91,5 +93,12 @@ public class DiscordRequest {
             .flatMap(key -> Stream.of(key, headers.get(key).toString()))
             .toList()
             .toArray(new String[0]);
+    }
+
+    public static String encode(Map<String, Object> parameters) {
+        return parameters.entrySet()
+            .stream()
+            .map(entry -> entry.getKey() + "=" + URLEncoder.encode(entry.getValue().toString(), StandardCharsets.UTF_8))
+            .collect(Collectors.joining("&"));
     }
 }
