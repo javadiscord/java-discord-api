@@ -17,7 +17,7 @@ assignees: ''
 
 <-- Description of why you want this -->
 
-<-- 
+<!-- 
 EXAMPLE:
 
 As a discord moderator I wan to...
