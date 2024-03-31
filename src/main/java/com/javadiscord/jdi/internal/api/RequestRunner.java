@@ -56,9 +56,10 @@ public class RequestRunner implements Runnable {
             numberOfRequestsSent++;
             timeSinceLastRequest = System.currentTimeMillis();
 
-            request.setResponse(new DiscordResponse(response.body(), response.statusCode(), response.headers().map()));
+            request.setSuccessResponse(new DiscordResponse(response.body(), response.statusCode(), response.headers().map()));
         } catch (Exception e) {
             LOGGER.error("Failed to send request to {}", request.getUrl(), e);
+            request.setErrorResponse(e);
         }
     }
 }

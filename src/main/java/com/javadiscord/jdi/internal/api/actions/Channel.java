@@ -19,7 +19,6 @@ public final class Channel {
             Method.POST,
             "/channels/%s/messages".formatted(channelId),
             null,
-            null,
             Map.of("content", message)
         );
         requestRunner.queue(sendMessageRequest);
@@ -31,7 +30,6 @@ public final class Channel {
         DiscordRequest editMessageRequest = new DiscordRequest(
             Method.POST,
             "/channels/%s/messages/%s".formatted(channelId, messageId),
-            null,
             null,
             Map.of("content", message)
         );

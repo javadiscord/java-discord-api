@@ -23,31 +23,26 @@ public class DiscordRequest {
     private String url = "https://discord.com/api";
     private Map<String, Object> headers;
     private BodyPublisher body;
-    private DiscordResponse response;
+    private Response<DiscordResponse> response;
 
 	public DiscordRequest(Method method, String path) {
         this(method, path, null);
     }
     
     public DiscordRequest(Method method, String path, Map<String, Object> queries) {
-        this(method, path, queries, null);
-    }
-    
-    public DiscordRequest(Method method, String path, Map<String, Object> queries, Map<String, Object> headers) {
-        this(method, path, queries, headers, BodyPublishers.noBody());
+        this(method, path, queries, BodyPublishers.noBody());
     }
 
-    public DiscordRequest(Method method, String path, Map<String, Object> queries, Map<String, Object> headers, Map<String, Object> payload) throws JsonProcessingException {
-        this(method, path, queries, headers, BodyPublishers.ofString(mapper.writeValueAsString(payload)));
+    public DiscordRequest(Method method, String path, Map<String, Object> queries, Map<String, Object> payload) throws JsonProcessingException {
+        this(method, path, queries, BodyPublishers.ofString(mapper.writeValueAsString(payload)));
 	}
 
-	public DiscordRequest(Method method, String path, Map<String, Object> queries, Map<String, Object> headers, BodyPublisher body) {
+	public DiscordRequest(Method method, String path, Map<String, Object> queries, BodyPublisher body) {
         if ((method == Method.GET || method == Method.DELETE) && body != BodyPublishers.noBody())
             throw new UnsupportedOperationException("GET/DELETE method cannot have a body attached");
 
         this.method = method;
         this.url += path;
-        this.headers = headers;
         this.body = body;
 
         if (queries != null && !queries.isEmpty())
@@ -58,36 +53,42 @@ public class DiscordRequest {
         return url;
     }
 
-    public Map<String, Object> getHeaders(String botToken) {
+    public Map<String, Object> getHeaders() {
+        return headers;
+    }
+
+    public HttpRequest formRequest(String botToken) {
         if (!headers.containsKey("Content-Type"))
             headers.put("Content-Type", "application/json");
 
         if (!headers.containsKey("Authorization"))
             headers.put("Authorization", "BOT " + botToken);
 
-        return headers;
-    }
-
-    public HttpRequest formRequest(String botToken) {
-        Builder builder = HttpRequest.newBuilder(URI.create(getUrl())).headers(makeHeaderArray(getHeaders(botToken)));
+        Builder builder = HttpRequest.newBuilder(URI.create(getUrl())).headers(makeHeaderArray(getHeaders()));
 
         builder = switch (method) {
             case GET -> builder.GET();
-            case POST -> builder.POST(body);
             case DELETE -> builder.DELETE();
+            case POST -> builder.POST(body);
             case PUT -> builder.PUT(body);
         };
 
         return builder.build();
     }
 
-	public DiscordResponse getResponse() {
+	public Response<DiscordResponse> getResponse() {
 		return response;
 	}
 
-	public void setResponse(DiscordResponse response) {
-		this.response = response;
+	public void setSuccessResponse(DiscordResponse response) {
+		this.response = new Response<DiscordResponse>();
+        this.response.setResult(response);
 	}
+
+    public void setErrorResponse(Exception e) {
+		this.response = new Response<>();
+        this.response.setException(e);
+    }
 
     public static String[] makeHeaderArray(Map<String, Object> headers) {
         return headers.keySet().stream()

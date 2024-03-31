@@ -19,7 +19,6 @@ public class Guild {
             Method.POST,
             "/guilds/%s/channels".formatted(guildId),
             null,
-            null,
             Map.of(
                 "name", name,
                 "type", type
@@ -45,7 +44,6 @@ public class Guild {
             Method.POST,
             "/channels/%s".formatted(channelId),
             null,
-            null,
             Map.of("name", name)
         );
 
@@ -57,7 +55,6 @@ public class Guild {
         DiscordRequest createInviteRequest = new DiscordRequest(
             Method.POST,
             "/channels/%s/invites".formatted(channelId),
-            null,
             null,
             Map.of(
                 "max_age", maxAge,
