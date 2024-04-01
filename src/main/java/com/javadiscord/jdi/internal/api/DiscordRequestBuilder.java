@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class DiscordRequestBuilder {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-    private String method;
+    private HttpMethod method;
     private String url;
     private String body;
     private DiscordResponseFuture future = new DiscordResponseFuture();
@@ -39,22 +39,22 @@ public class DiscordRequestBuilder {
     }
 
     public DiscordRequestBuilder get() {
-        this.method = "get";
+        this.method = HttpMethod.GET;
         return this;
     }
 
     public DiscordRequestBuilder post() {
-        this.method = "post";
+        this.method = HttpMethod.POST;
         return this;
     }
 
     public DiscordRequestBuilder delete() {
-        this.method = "delete";
+        this.method = HttpMethod.DELETE;
         return this;
     }
 
     public DiscordRequestBuilder put() {
-        this.method = "put";
+        this.method = HttpMethod.PUT;
         return this;
     }
 
@@ -62,7 +62,7 @@ public class DiscordRequestBuilder {
         return url;
     }
 
-    protected String getMethod() {
+    HttpMethod getMethod() {
         return method;
     }
 

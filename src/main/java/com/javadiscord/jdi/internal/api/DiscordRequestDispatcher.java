@@ -73,18 +73,18 @@ public class DiscordRequestDispatcher implements Runnable {
                 requestBuilder.headers(headerMapToStringArr(discordRequestBuilder.getHeaders()));
             }
 
-            switch (discordRequestBuilder.getMethod().toUpperCase()) {
-                case "GET":
+            switch (discordRequestBuilder.getMethod()) {
+                case HttpMethod.GET:
                     requestBuilder.GET();
                     break;
-                case "POST":
+                case HttpMethod.POST:
                     requestBuilder.POST(
                             HttpRequest.BodyPublishers.ofString(discordRequestBuilder.getBody()));
                     break;
-                case "DELETE":
+                case HttpMethod.DELETE:
                     requestBuilder.DELETE();
                     break;
-                case "PUT":
+                case HttpMethod.PUT:
                     requestBuilder.PUT(
                             HttpRequest.BodyPublishers.ofString(discordRequestBuilder.getBody()));
                     break;
