@@ -9,6 +9,7 @@ import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.WebSocket;
 import io.vertx.core.http.WebSocketConnectOptions;
+import io.vertx.core.http.WebSocketFrame;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -53,8 +54,12 @@ public class WebSocketManager {
 
                             this.webSocket = webSocket;
 
-                            new WebSocketHandler(connectionMediator, retryHandler, discord)
-                                    .handle(webSocket);
+                            WebSocketHandler webSocketHandler =
+                                    new WebSocketHandler(connectionMediator, retryHandler, discord);
+
+                            webSocketHandler.handle(webSocket);
+
+                            webSocket.frameHandler(frame -> frameHandler(frame, webSocketHandler));
 
                             if (retryHandler.hasRetried()) {
                                 retryHandler.clear();
@@ -68,6 +73,12 @@ public class WebSocketManager {
                             LOGGER.warn("Failed to connect to {} {}", gatewayURL, error.getCause());
                             retryHandler.retry(() -> restart(connectionMediator));
                         });
+    }
+
+    private void frameHandler(WebSocketFrame frame, WebSocketHandler webSocketHandler) {
+        if (frame.isClose()) {
+            webSocketHandler.handleClose(frame.closeStatusCode(), frame.closeReason());
+        }
     }
 
     public void restart(ConnectionMediator connectionMediator) {
