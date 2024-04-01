@@ -13,7 +13,6 @@ import com.javadiscord.jdi.internal.gateway.handlers.heartbeat.HelloOperationHan
 import io.vertx.core.Handler;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.WebSocket;
-import io.vertx.core.http.WebSocketFrame;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -58,7 +57,6 @@ public class WebSocketHandler implements Handler<WebSocket> {
     public void handle(WebSocket webSocket) {
         webSocket.handler(this::handleMessage);
         webSocket.closeHandler(this::handleClose);
-        webSocket.frameHandler(this::frameHandler);
     }
 
     private void handleMessage(Buffer buffer) {
@@ -88,13 +86,7 @@ public class WebSocketHandler implements Handler<WebSocket> {
                 () -> connectionMediator.getWebSocketManagerProxy().start(connectionMediator));
     }
 
-    private void frameHandler(WebSocketFrame frame) {
-        if (frame.isClose()) {
-            handleClose(frame.closeStatusCode(), frame.closeReason());
-        }
-    }
-
-    private void handleClose(int status, String reason) {
+    void handleClose(int status, String reason) {
         switch (status) {
             case GatewayCloseEventCode.NOT_AUTHENTICATED:
             case GatewayCloseEventCode.AUTHENTICATION_FAILED:
