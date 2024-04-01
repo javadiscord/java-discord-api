@@ -9,12 +9,13 @@ assignees: ''
 
 <!-- Features are to be requested as User Stories -->
 ## As a [REPLACE] I want to...
-
 <!-- Description of what you want to be able to do -->
 
 ## So that...
-
 <-- Description of why you want this -->
+
+## Context
+<-- Add context and details on this request  -->
 
 ## Acceptance Criteria
 
