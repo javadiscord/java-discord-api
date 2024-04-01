@@ -11,7 +11,7 @@ public class DiscordRequestBuilder {
     private String method;
     private String url;
     private String body;
-    private DiscordResponseFuture future;
+    private DiscordResponseFuture future = new DiscordResponseFuture();
     private final Map<String, Object> headers = new HashMap<>();
 
     public DiscordRequestBuilder putHeader(String name, String value) {
@@ -78,7 +78,7 @@ public class DiscordRequestBuilder {
         return future;
     }
 
-    protected void setFuture(DiscordResponseFuture future) {
-        this.future = future;
+    protected void setFutureResult(DiscordResponse result) {
+        future.setResult(result);
     }
 }
