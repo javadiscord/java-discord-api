@@ -29,10 +29,8 @@ public class DiscordRequestDispatcher implements Runnable {
 
     public DiscordResponseFuture queue(DiscordRequest discordRequest) {
         DiscordRequestBuilder discordRequestBuilder = discordRequest.create();
-        DiscordResponseFuture future = new DiscordResponseFuture();
-        discordRequestBuilder.setFuture(future);
         queue.add(discordRequestBuilder);
-        return future;
+        return discordRequestBuilder.future();
     }
 
     @Override
@@ -71,7 +69,7 @@ public class DiscordRequestDispatcher implements Runnable {
                             .header("Authorization", "Bot " + botToken)
                             .headers("Content-Type", "application/json");
 
-            if(!discordRequestBuilder.getHeaders().isEmpty()) {
+            if (!discordRequestBuilder.getHeaders().isEmpty()) {
                 requestBuilder.headers(headerMapToStringArr(discordRequestBuilder.getHeaders()));
             }
 
