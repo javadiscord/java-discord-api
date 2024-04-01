@@ -14,12 +14,12 @@ public class DiscordRequestBuilder {
     private DiscordResponseFuture future;
     private final Map<String, Object> headers = new HashMap<>();
 
-    public DiscordRequestBuilder addHeader(String name, String value) {
+    public DiscordRequestBuilder putHeader(String name, String value) {
         this.headers.put(name, value);
         return this;
     }
 
-    public DiscordRequestBuilder setHeaders(Map<String, Object> headers) {
+    public DiscordRequestBuilder putHeaders(Map<String, Object> headers) {
         this.headers.putAll(headers);
         return this;
     }
