@@ -14,6 +14,9 @@ jobs:
           java-version: '21'
           distribution: 'corretto'
 
-      - uses: gradle/gradle-build-action@v2
+      - uses: gradle/gradle-build-action@v3
         with:
-          gradle-version: 8.5
+          gradle-version: 8.7
+
+      - name: Build with Gradle
+        run: gradle build

@@ -7,29 +7,30 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.stream.Stream;
 
-public class RequestRunner implements Runnable {
+public class DiscordRequestDispatcher implements Runnable {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final String BASE_URL = "https://discord.com/api";
-    private final BlockingQueue<HTTPRequest> queue;
+    private final BlockingQueue<DiscordRequestBuilder> queue;
     private final String botToken;
     private int numberOfRequestsSent;
     private long timeSinceLastRequest;
 
-    public RequestRunner(String botToken) {
+    public DiscordRequestDispatcher(String botToken) {
         this.botToken = botToken;
         this.queue = new LinkedBlockingQueue<>();
         this.numberOfRequestsSent = 0;
         this.timeSinceLastRequest = 0;
     }
 
-    public Future<HTTPResponse> queue(HTTPRequest request) {
-        Future<HTTPResponse> future = new Future<>();
-        request.setFuture(future);
-        queue.add(request);
-        return future;
+    public DiscordResponseFuture queue(DiscordRequest discordRequest) {
+        DiscordRequestBuilder discordRequestBuilder = discordRequest.create();
+        queue.add(discordRequestBuilder);
+        return discordRequestBuilder.future();
     }
 
     @Override
@@ -49,38 +50,45 @@ public class RequestRunner implements Runnable {
 
             try {
                 sendRequest(queue.take());
-            } catch (Exception e) {
+            } catch (InterruptedException e) {
                 /* Ignore */
             }
         }
     }
 
-    private void sendRequest(HTTPRequest request) {
+    private void sendRequest(DiscordRequestBuilder discordRequestBuilder) {
         try (HttpClient httpClient = HttpClient.newBuilder().build()) {
             HttpRequest.Builder requestBuilder =
                     HttpRequest.newBuilder()
-                            .uri(URI.create("%s%s".formatted(BASE_URL, request.getUri())))
+                            .uri(
+                                    URI.create(
+                                            "%s%s"
+                                                    .formatted(
+                                                            BASE_URL,
+                                                            discordRequestBuilder.getUrl())))
                             .header("Authorization", "Bot " + botToken)
                             .headers("Content-Type", "application/json");
 
-            request.getHeaders().forEach(requestBuilder::setHeader);
+            if (!discordRequestBuilder.getHeaders().isEmpty()) {
+                requestBuilder.headers(headerMapToStringArr(discordRequestBuilder.getHeaders()));
+            }
 
-            switch (request.getMethod().toUpperCase()) {
-                case "GET":
+            switch (discordRequestBuilder.getMethod()) {
+                case HttpMethod.GET:
                     requestBuilder.GET();
                     break;
-                case "POST":
-                    requestBuilder.POST(HttpRequest.BodyPublishers.ofString(request.getBody()));
+                case HttpMethod.POST:
+                    requestBuilder.POST(discordRequestBuilder.getBody());
                     break;
-                case "DELETE":
+                case HttpMethod.DELETE:
                     requestBuilder.DELETE();
                     break;
-                case "PUT":
-                    requestBuilder.PUT(HttpRequest.BodyPublishers.ofString(request.getBody()));
+                case HttpMethod.PUT:
+                    requestBuilder.PUT(discordRequestBuilder.getBody());
                     break;
                 default:
                     throw new IllegalArgumentException(
-                            "Unsupported HTTP method: " + request.getBody());
+                            "Unsupported HTTP method: " + discordRequestBuilder.getMethod());
             }
 
             HttpRequest httpRequest = requestBuilder.build();
@@ -91,16 +99,21 @@ public class RequestRunner implements Runnable {
             numberOfRequestsSent++;
             timeSinceLastRequest = System.currentTimeMillis();
 
-            request.getFuture()
-                    .setResult(
-                            new HTTPResponse(
-                                    response.body(),
-                                    response.statusCode(),
-                                    response.headers().map()));
+            discordRequestBuilder.setSuccessResult(
+                    new DiscordResponse(
+                            response.body(), response.statusCode(), response.headers().map()));
 
         } catch (Exception e) {
-            LOGGER.error("Failed to send request to {}{}", BASE_URL, request.getUri(), e);
-            request.getFuture().setException(e);
+            LOGGER.error(
+                    "Failed to send request to {}{}", BASE_URL, discordRequestBuilder.getUrl(), e);
+            discordRequestBuilder.setFailureError(e);
         }
+    }
+
+    private static String[] headerMapToStringArr(Map<String, Object> headers) {
+        return headers.keySet().stream()
+                .flatMap(key -> Stream.of(key, headers.get(key).toString()))
+                .toList()
+                .toArray(new String[0]);
     }
 }

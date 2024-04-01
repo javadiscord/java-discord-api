@@ -1,7 +1,7 @@
 package com.javadiscord.jdi.core;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.javadiscord.jdi.internal.api.RequestRunner;
+import com.javadiscord.jdi.internal.api.DiscordRequestDispatcher;
 import com.javadiscord.jdi.internal.gateway.*;
 import com.javadiscord.jdi.internal.gateway.identify.IdentifyRequest;
 
@@ -23,7 +23,7 @@ public class Discord {
     private static final String WEBSITE = "https://javadiscord.com/";
     private final String botToken;
     private final IdentifyRequest identifyRequest;
-    private final RequestRunner requestRunner;
+    private final DiscordRequestDispatcher discordRequestDispatcher;
     private final Gateway gateway;
     private final GatewaySetting gatewaySetting;
 
@@ -67,7 +67,7 @@ public class Discord {
 
     public Discord(String botToken, IdentifyRequest identifyRequest) {
         this.botToken = botToken;
-        this.requestRunner = new RequestRunner(botToken);
+        this.discordRequestDispatcher = new DiscordRequestDispatcher(botToken);
         this.gateway = getGatewayURL(botToken);
         this.gatewaySetting =
                 new GatewaySetting().setEncoding(GatewayEncoding.JSON).setApiVersion(10);
@@ -88,7 +88,7 @@ public class Discord {
                 new ConnectionMediator(connectionDetails, webSocketManagerProxy);
         webSocketManagerProxy.start(connectionMediator);
 
-        EXECUTOR.execute(requestRunner);
+        EXECUTOR.execute(discordRequestDispatcher);
     }
 
     private static Gateway getGatewayURL(String authentication) {

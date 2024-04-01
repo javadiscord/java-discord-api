@@ -1,9 +1,9 @@
 package com.javadiscord.jdi.internal.api;
 
-public class Future<T> {
+public class DiscordResponseFuture {
     @FunctionalInterface
-    public interface SuccessConsumer<T> {
-        void accept(T result);
+    public interface SuccessConsumer<DiscordResponse> {
+        void accept(DiscordResponse result);
     }
 
     @FunctionalInterface
@@ -11,12 +11,12 @@ public class Future<T> {
         void accept(Throwable result);
     }
 
-    private SuccessConsumer<T> successConsumer;
+    private SuccessConsumer<DiscordResponse> successConsumer;
     private ExceptionConsumer exceptionConsumer;
 
-    public void setResult(T result) {
+    public void setResult(DiscordResponse discordResponse) {
         if (successConsumer != null) {
-            successConsumer.accept(result);
+            successConsumer.accept(discordResponse);
         }
     }
 
@@ -26,12 +26,12 @@ public class Future<T> {
         }
     }
 
-    public Future<T> onSuccess(SuccessConsumer<T> successConsumer) {
+    public DiscordResponseFuture onSuccess(SuccessConsumer<DiscordResponse> successConsumer) {
         this.successConsumer = successConsumer;
         return this;
     }
 
-    public Future<T> onError(ExceptionConsumer exceptionConsumer) {
+    public DiscordResponseFuture onError(ExceptionConsumer exceptionConsumer) {
         this.exceptionConsumer = exceptionConsumer;
         return this;
     }
