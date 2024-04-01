@@ -14,7 +14,7 @@ public class DiscordRequestBuilder {
     private DiscordResponseFuture future = new DiscordResponseFuture();
     private final Map<String, Object> headers = new HashMap<>();
 
-    public DiscordRequestBuilder putHeader(String name, String value) {
+    public DiscordRequestBuilder putHeader(String name, Object value) {
         this.headers.put(name, value);
         return this;
     }
@@ -29,7 +29,7 @@ public class DiscordRequestBuilder {
         return this;
     }
 
-    public DiscordRequestBuilder body(Object body) {
+    public DiscordRequestBuilder body(Map<String, Object> payload) {
         try {
             this.body = OBJECT_MAPPER.writeValueAsString(body);
         } catch (JsonProcessingException e) {
@@ -78,7 +78,11 @@ public class DiscordRequestBuilder {
         return future;
     }
 
-    protected void setFutureResult(DiscordResponse result) {
+    protected void setSuccessResult(DiscordResponse result) {
         future.setResult(result);
+    }
+
+    protected void setFailureError(Throwable ex) {
+        future.setException(ex);
     }
 }

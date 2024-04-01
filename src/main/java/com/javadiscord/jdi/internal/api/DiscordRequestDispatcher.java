@@ -101,18 +101,14 @@ public class DiscordRequestDispatcher implements Runnable {
             numberOfRequestsSent++;
             timeSinceLastRequest = System.currentTimeMillis();
 
-            discordRequestBuilder
-                    .future()
-                    .setResult(
-                            new DiscordResponse(
-                                    response.body(),
-                                    response.statusCode(),
-                                    response.headers().map()));
+            discordRequestBuilder.setSuccessResult(
+                    new DiscordResponse(
+                            response.body(), response.statusCode(), response.headers().map()));
 
         } catch (Exception e) {
             LOGGER.error(
                     "Failed to send request to {}{}", BASE_URL, discordRequestBuilder.getUrl(), e);
-            discordRequestBuilder.future().setException(e);
+            discordRequestBuilder.setFailureError(e);
         }
     }
 
