@@ -78,15 +78,13 @@ public class DiscordRequestDispatcher implements Runnable {
                     requestBuilder.GET();
                     break;
                 case HttpMethod.POST:
-                    requestBuilder.POST(
-                            HttpRequest.BodyPublishers.ofString(discordRequestBuilder.getBody()));
+                    requestBuilder.POST(discordRequestBuilder.getBody());
                     break;
                 case HttpMethod.DELETE:
                     requestBuilder.DELETE();
                     break;
                 case HttpMethod.PUT:
-                    requestBuilder.PUT(
-                            HttpRequest.BodyPublishers.ofString(discordRequestBuilder.getBody()));
+                    requestBuilder.PUT(discordRequestBuilder.getBody());
                     break;
                 default:
                     throw new IllegalArgumentException(

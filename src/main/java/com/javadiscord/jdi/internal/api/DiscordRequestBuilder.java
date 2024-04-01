@@ -3,6 +3,7 @@ package com.javadiscord.jdi.internal.api;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.net.http.HttpRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,7 +11,7 @@ public class DiscordRequestBuilder {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private HttpMethod method;
     private String url;
-    private String body;
+    private HttpRequest.BodyPublisher body;
     private DiscordResponseFuture future = new DiscordResponseFuture();
     private final Map<String, Object> headers = new HashMap<>();
 
@@ -31,7 +32,7 @@ public class DiscordRequestBuilder {
 
     public DiscordRequestBuilder body(Map<String, Object> payload) {
         try {
-            this.body = OBJECT_MAPPER.writeValueAsString(body);
+            body = HttpRequest.BodyPublishers.ofString(OBJECT_MAPPER.writeValueAsString(body));
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -66,7 +67,7 @@ public class DiscordRequestBuilder {
         return method;
     }
 
-    protected String getBody() {
+    protected HttpRequest.BodyPublisher getBody() {
         return body;
     }
 
