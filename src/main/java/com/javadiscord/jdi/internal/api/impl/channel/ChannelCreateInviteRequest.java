@@ -12,7 +12,7 @@ public record ChannelCreateInviteRequest(long channelId, int maxAge, int maxUses
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
                 .post()
-                .url("/channels/%s/invites".formatted(channelId))
+                .path("/channels/%s/invites".formatted(channelId))
                 .body(
                         Map.of(
                                 "max_age", maxAge,

@@ -4,14 +4,17 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.net.http.HttpRequest;
+import java.net.http.HttpRequest.BodyPublisher;
+import java.net.http.HttpRequest.BodyPublishers;
 import java.util.HashMap;
 import java.util.Map;
 
 public class DiscordRequestBuilder {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private HttpMethod method;
-    private String url;
-    private HttpRequest.BodyPublisher body;
+    private String path;
+    private Map<String, String> parameters;
+    private BodyPublisher body;
     private DiscordResponseFuture future = new DiscordResponseFuture();
     private final Map<String, Object> headers = new HashMap<>();
 
@@ -25,14 +28,19 @@ public class DiscordRequestBuilder {
         return this;
     }
 
-    public DiscordRequestBuilder url(String url) {
-        this.url = url;
+    public DiscordRequestBuilder path(String path) {
+        this.path = path;
+        return this;
+    }
+
+    public DiscordRequestBuilder parameters(Map<String, String> parameters) {
+        this.parameters = parameters;
         return this;
     }
 
     public DiscordRequestBuilder body(Map<String, Object> payload) {
         try {
-            body = HttpRequest.BodyPublishers.ofString(OBJECT_MAPPER.writeValueAsString(body));
+            this.body = BodyPublishers.ofString(OBJECT_MAPPER.writeValueAsString(body));
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -59,8 +67,12 @@ public class DiscordRequestBuilder {
         return this;
     }
 
-    protected String getUrl() {
-        return url;
+    protected String getPath() {
+        return path;
+    }
+
+    protected Map<String, String> getParameters() {
+        return parameters;
     }
 
     HttpMethod getMethod() {

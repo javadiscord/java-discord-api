@@ -4,12 +4,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.net.URI;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class DiscordRequestDispatcher implements Runnable {
@@ -57,15 +60,32 @@ public class DiscordRequestDispatcher implements Runnable {
     }
 
     private void sendRequest(DiscordRequestBuilder discordRequestBuilder) {
+        String parameters = "?";
+
+        if (discordRequestBuilder.getParameters() != null
+                && !discordRequestBuilder.getParameters().isEmpty()) {
+            parameters =
+                    discordRequestBuilder.getParameters().entrySet().stream()
+                            .map(
+                                    entry ->
+                                            entry.getKey()
+                                                    + "="
+                                                    + URLEncoder.encode(
+                                                            entry.getValue().toString(),
+                                                            StandardCharsets.UTF_8))
+                            .collect(Collectors.joining("&"));
+        }
+
         try (HttpClient httpClient = HttpClient.newBuilder().build()) {
             HttpRequest.Builder requestBuilder =
                     HttpRequest.newBuilder()
                             .uri(
                                     URI.create(
-                                            "%s%s"
+                                            "%s%s%s"
                                                     .formatted(
                                                             BASE_URL,
-                                                            discordRequestBuilder.getUrl())))
+                                                            discordRequestBuilder.getPath(),
+                                                            parameters)))
                             .header("Authorization", "Bot " + botToken)
                             .headers("Content-Type", "application/json");
 
@@ -105,7 +125,11 @@ public class DiscordRequestDispatcher implements Runnable {
 
         } catch (Exception e) {
             LOGGER.error(
-                    "Failed to send request to {}{}", BASE_URL, discordRequestBuilder.getUrl(), e);
+                    "Failed to send request to {}{}{}",
+                    BASE_URL,
+                    discordRequestBuilder.getPath(),
+                    parameters,
+                    e);
             discordRequestBuilder.setFailureError(e);
         }
     }
