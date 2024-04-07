@@ -62,12 +62,17 @@ public class DiscordRequestDispatcher implements Runnable {
                     HttpRequest.newBuilder()
                             .uri(
                                     URI.create(
-                                            "%s%s"
+                                            "%s%s%s"
                                                     .formatted(
                                                             BASE_URL,
-                                                            discordRequestBuilder.getUrl())))
-                            .header("Authorization", "Bot " + botToken)
-                            .headers("Content-Type", "application/json");
+                                                            discordRequestBuilder.getPath(),
+                                                            discordRequestBuilder
+                                                                    .getQueryParameters())))
+                            .header("Authorization", "Bot " + botToken);
+
+            if (!discordRequestBuilder.getHeaders().containsKey("Content-Type")) {
+                requestBuilder.headers("Content-Type", "application/json");
+            }
 
             if (!discordRequestBuilder.getHeaders().isEmpty()) {
                 requestBuilder.headers(headerMapToStringArr(discordRequestBuilder.getHeaders()));
@@ -85,6 +90,9 @@ public class DiscordRequestDispatcher implements Runnable {
                     break;
                 case HttpMethod.PUT:
                     requestBuilder.PUT(discordRequestBuilder.getBody());
+                    break;
+                case HttpMethod.PATCH:
+                    requestBuilder.method(HttpMethod.PATCH.name(), discordRequestBuilder.getBody());
                     break;
                 default:
                     throw new IllegalArgumentException(
@@ -105,7 +113,7 @@ public class DiscordRequestDispatcher implements Runnable {
 
         } catch (Exception e) {
             LOGGER.error(
-                    "Failed to send request to {}{}", BASE_URL, discordRequestBuilder.getUrl(), e);
+                    "Failed to send request to {}{}", BASE_URL, discordRequestBuilder.getPath(), e);
             discordRequestBuilder.setFailureError(e);
         }
     }
