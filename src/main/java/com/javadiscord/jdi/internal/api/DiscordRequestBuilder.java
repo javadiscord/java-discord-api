@@ -3,17 +3,20 @@ package com.javadiscord.jdi.internal.api;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.net.URLEncoder;
 import java.net.http.HttpRequest;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
 public class DiscordRequestBuilder {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-    private HttpMethod method;
-    private String url;
-    private HttpRequest.BodyPublisher body;
-    private DiscordResponseFuture future = new DiscordResponseFuture();
+    private final DiscordResponseFuture future = new DiscordResponseFuture();
     private final Map<String, Object> headers = new HashMap<>();
+    private final Map<String, Object> queryParameters = new HashMap<>();
+    private HttpMethod method;
+    private String path;
+    private HttpRequest.BodyPublisher body;
 
     public DiscordRequestBuilder putHeader(String name, Object value) {
         this.headers.put(name, value);
@@ -25,8 +28,18 @@ public class DiscordRequestBuilder {
         return this;
     }
 
-    public DiscordRequestBuilder url(String url) {
-        this.url = url;
+    public DiscordRequestBuilder url(String path) {
+        this.path = path;
+        return this;
+    }
+
+    public DiscordRequestBuilder queryParam(String name, Object value) {
+        queryParameters.put(name, value);
+        return this;
+    }
+
+    public DiscordRequestBuilder queryParams(Map<String, Object> queryParameters) {
+        this.queryParameters.putAll(queryParameters);
         return this;
     }
 
@@ -59,8 +72,29 @@ public class DiscordRequestBuilder {
         return this;
     }
 
-    protected String getUrl() {
-        return url;
+    public DiscordRequestBuilder patch() {
+        this.method = HttpMethod.PATCH;
+        return this;
+    }
+
+    protected String getQueryParameters() {
+        StringBuilder encodedParams = new StringBuilder();
+        for (Map.Entry<String, Object> entry : queryParameters.entrySet()) {
+            if (encodedParams.isEmpty()) {
+                encodedParams.append("?");
+            } else {
+                encodedParams.append("&");
+            }
+            encodedParams.append(URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8));
+            encodedParams.append("=");
+            encodedParams.append(
+                    URLEncoder.encode(String.valueOf(entry.getValue()), StandardCharsets.UTF_8));
+        }
+        return encodedParams.toString();
+    }
+
+    protected String getPath() {
+        return path;
     }
 
     HttpMethod getMethod() {
