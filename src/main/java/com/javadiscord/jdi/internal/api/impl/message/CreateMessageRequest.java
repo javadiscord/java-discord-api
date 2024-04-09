@@ -10,7 +10,7 @@ public record CreateMessageRequest(long channelId, String content) implements Di
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-                .url("/channels/%s/messages".formatted(channelId))
+                .path("/channels/%s/messages".formatted(channelId))
                 .post()
                 .body(Map.of("content", content));
     }
