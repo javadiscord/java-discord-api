@@ -28,7 +28,7 @@ public class DiscordRequestBuilder {
         return this;
     }
 
-    public DiscordRequestBuilder url(String path) {
+    public DiscordRequestBuilder path(String path) {
         this.path = path;
         return this;
     }
