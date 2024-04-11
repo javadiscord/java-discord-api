@@ -3,9 +3,11 @@ package com.javadiscord.jdi.internal.models.channel;
 import java.time.OffsetDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.javadiscord.jdi.internal.models.guild.GuildMember;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public record ThreadMember(
         @JsonProperty("id") long threadId,
         @JsonProperty("user_id") long userId,
