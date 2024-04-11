@@ -3,7 +3,7 @@ package com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guil
 import com.javadiscord.jdi.core.Discord;
 import com.javadiscord.jdi.internal.gateway.ConnectionMediator;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.EventHandler;
-import com.javadiscord.jdi.internal.models.channel.ThreadMember;
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.models.channel.ThreadMember;
 
 public class ThreadMemberHandler implements EventHandler<ThreadMember> {
     @Override

@@ -1,14 +1,15 @@
 package com.javadiscord.jdi.internal.models.channel;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.time.OffsetDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.javadiscord.jdi.internal.models.guild.GuildMember;
 
-import java.util.List;
-
-@JsonIgnoreProperties(ignoreUnknown = true)
 public record ThreadMember(
-        @JsonProperty("id") long id,
-        @JsonProperty("guild_id") long guildId,
-        @JsonProperty("member_count") int memberCount,
-        @JsonProperty("added_members") List<ThreadMember> addedMembers,
-        @JsonProperty("removed_member_ids") long[] removedMemberIds) {}
+        @JsonProperty("id") long threadId,
+        @JsonProperty("user_id") long userId,
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+        @JsonProperty("join_timestamp") OffsetDateTime joinTime,
+        @JsonProperty("flags") int flags,
+        @JsonProperty("member") GuildMember member) {}
