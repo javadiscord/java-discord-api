@@ -10,7 +10,7 @@ public record Connection(
         @JsonProperty("name") String name,
         @JsonProperty("type") String type,
         @JsonProperty("revoked") boolean revoked,
-        @JsonProperty("integrations") Integration integration,
+        @JsonProperty("integrations") Integration integrations,
         @JsonProperty("verified") boolean verified,
         @JsonProperty("friend_sync") boolean friendSync,
         @JsonProperty("show_activity") boolean showActivity,
