@@ -2,6 +2,7 @@ package com.javadiscord.jdi.internal.models.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.javadiscord.jdi.internal.models.guild.Integration;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record Connection(
@@ -9,7 +10,7 @@ public record Connection(
         @JsonProperty("name") String name,
         @JsonProperty("type") String type,
         @JsonProperty("revoked") boolean revoked,
-        // private List<?> integration;
+        @JsonProperty("integrations") Integration integrations,
         @JsonProperty("verified") boolean verified,
         @JsonProperty("friend_sync") boolean friendSync,
         @JsonProperty("show_activity") boolean showActivity,
