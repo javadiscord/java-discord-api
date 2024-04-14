@@ -3,7 +3,7 @@ package com.javadiscord.jdi.internal.api.impl.scheduledevents;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
-public record DeleteScheduledEventRequest(String guildId, String scheduledEventId)
+public record DeleteScheduledEventRequest(long guildId, long scheduledEventId)
         implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {

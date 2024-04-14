@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public record GetScheduledEventRequest(
-        String guildId, String scheduledEventId, Optional<Boolean> withUserCount)
+        long guildId, long scheduledEventId, Optional<Boolean> withUserCount)
         implements DiscordRequest {
 
     @Override

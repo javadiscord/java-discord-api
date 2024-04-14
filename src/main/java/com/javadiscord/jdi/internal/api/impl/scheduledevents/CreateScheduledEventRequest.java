@@ -1,24 +1,27 @@
 package com.javadiscord.jdi.internal.api.impl.scheduledevents;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 import com.javadiscord.jdi.internal.models.guild.EntityMetadata;
 
+import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 public record CreateScheduledEventRequest(
-        String guildId,
-        Optional<String> channelId,
+        long guildId,
+        Optional<Long> channelId,
         Optional<EntityMetadata> entityMetadata,
         String name,
         int privacyLevel, // 2 is only option atm
-        long scheduledStartTime, // ISO8601 timestamp (assuming long) note to self to check back
-        Optional<Long> scheduledEndTime,
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+        OffsetDateTime scheduledStartTime,
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+        Optional<OffsetDateTime> scheduledEndTime,
         Optional<String> description,
-        int
-                entityType, // https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-object-guild-scheduled-event-entity-types
+        int entityType,
         Optional<String> image)
         implements DiscordRequest {
 

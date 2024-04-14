@@ -8,16 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-/* NOTE TO FUTURE DEVS WHEN WE IMPLEMENT HIGHER LEVEL API
-If updating entity_type to EXTERNAL:
-
-    channel_id is required and must be set to null
-    entity_metadata with a entityMetadata field must be provided
-    scheduled_end_time must be provided
- */
 public record ModifyScheduledEventRequest(
-        String guildId,
-        String scheduledEventId,
+        long guildId,
+        long scheduledEventId,
         Optional<Long> channelId,
         Optional<EntityMetadata> entityMetadata,
         Optional<String> name,

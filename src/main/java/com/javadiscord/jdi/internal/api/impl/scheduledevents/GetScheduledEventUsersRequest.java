@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.Optional;
 
 public record GetScheduledEventUsersRequest(
-        String guildId,
-        String scheduledEventId,
+        long guildId,
+        long scheduledEventId,
         Optional<Integer> limit,
         Optional<Boolean> withMember,
         Optional<Long> before, // both of these can be provided but before will be favored

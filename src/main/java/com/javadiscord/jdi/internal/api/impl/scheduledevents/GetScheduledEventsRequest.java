@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public record GetScheduledEventsRequest(String guildId, Optional<Boolean> withUserCount)
+public record GetScheduledEventsRequest(long guildId, Optional<Boolean> withUserCount)
         implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
