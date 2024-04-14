@@ -15,6 +15,13 @@ public record GetScheduledEventUsersRequest(
         Optional<Long> before, // both of these can be provided but before will be favored
         Optional<Long> after)
         implements DiscordRequest {
+
+    public GetScheduledEventUsersRequest {
+        if (limit.isPresent() && limit.get() > 100) {
+            throw new IllegalArgumentException("limit must be less than 100");
+        }
+    }
+
     @Override
     public DiscordRequestBuilder create() {
         Map<String, Object> body = new HashMap<>();
