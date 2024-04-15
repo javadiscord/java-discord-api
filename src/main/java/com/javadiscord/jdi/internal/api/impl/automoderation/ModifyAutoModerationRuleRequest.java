@@ -16,8 +16,8 @@ public record ModifyAutoModerationRuleRequest(
         Optional<List<AutoModerationActionObject>> actions,
         Optional<Boolean> enabled,
         Optional<List<Long>> exemptRoles,
-        Optional<List<Long>> exemptChannels
-) implements DiscordRequest {
+        Optional<List<Long>> exemptChannels)
+        implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
         Map<String, Object> body = new HashMap<>();
@@ -31,7 +31,9 @@ public record ModifyAutoModerationRuleRequest(
 
         return new DiscordRequestBuilder()
                 .patch()
-                .path("/guilds/%s/auto-moderation/rules/%s".formatted(guildId, autoModerationRuleId))
+                .path(
+                        "/guilds/%s/auto-moderation/rules/%s"
+                                .formatted(guildId, autoModerationRuleId))
                 .body(body);
     }
 }
