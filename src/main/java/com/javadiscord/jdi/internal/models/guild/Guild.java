@@ -12,7 +12,7 @@ public record Guild(
         @JsonProperty("id") long id,
         @JsonProperty("name") String name,
         @JsonProperty("icon") String icon,
-        @JsonProperty("slash") String slash,
+        @JsonProperty("splash") String splash,
         @JsonProperty("discovery_splash") String discoverySplash,
         @JsonProperty("owner") boolean owner,
         @JsonProperty("ownerId") long ownerId,
