@@ -7,7 +7,10 @@ public record DeleteAutoModerationRuleRequest(long guildId, long autoModerationR
         implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
-        return new DiscordRequestBuilder().delete()
-            .path("/guilds/%s/auto-moderation/rules/%s".formatted(guildId, autoModerationRuleId));
+        return new DiscordRequestBuilder()
+                .delete()
+                .path(
+                        "/guilds/%s/auto-moderation/rules/%s"
+                                .formatted(guildId, autoModerationRuleId));
     }
 }

@@ -4,7 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record InteractionData(@JsonProperty("id") long id, @JsonProperty("name") String name,
-        @JsonProperty("type") int type, @JsonProperty("resolved") ResolvedData resolved,
+public record InteractionData(
+        @JsonProperty("id") long id,
+        @JsonProperty("name") String name,
+        @JsonProperty("type") int type,
+        @JsonProperty("resolved") ResolvedData resolved,
         @JsonProperty("options") ApplicationCommandOption[] options,
-        @JsonProperty("guild_id") Long guildId, @JsonProperty("target_id") Long targetId) {}
+        @JsonProperty("guild_id") Long guildId,
+        @JsonProperty("target_id") Long targetId) {}

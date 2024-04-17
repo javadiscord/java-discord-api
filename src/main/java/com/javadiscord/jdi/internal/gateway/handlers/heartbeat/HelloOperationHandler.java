@@ -1,15 +1,15 @@
 package com.javadiscord.jdi.internal.gateway.handlers.heartbeat;
 
-import com.javadiscord.jdi.core.Discord;
-import com.javadiscord.jdi.internal.gateway.ConnectionMediator;
-import com.javadiscord.jdi.internal.gateway.GatewayEvent;
-import com.javadiscord.jdi.internal.gateway.handlers.GatewayOperationHandler;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.javadiscord.jdi.core.Discord;
+import com.javadiscord.jdi.internal.gateway.ConnectionMediator;
+import com.javadiscord.jdi.internal.gateway.GatewayEvent;
+import com.javadiscord.jdi.internal.gateway.handlers.GatewayOperationHandler;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

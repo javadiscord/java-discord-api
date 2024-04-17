@@ -7,6 +7,5 @@ import com.javadiscord.jdi.internal.models.guild.EventUser;
 
 public class ScheduledEventUserRemoveHandler implements EventHandler<EventUser> {
     @Override
-    public void handle(EventUser event, ConnectionMediator connectionMediator, Discord discord) {
-    }
+    public void handle(EventUser event, ConnectionMediator connectionMediator, Discord discord) {}
 }

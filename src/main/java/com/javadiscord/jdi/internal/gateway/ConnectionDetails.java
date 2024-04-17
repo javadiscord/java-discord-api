@@ -7,8 +7,8 @@ public class ConnectionDetails {
     private String sessionId;
     private int sequence;
 
-    public ConnectionDetails(String gatewayURL, String authorization,
-            GatewaySetting gatewaySetting) {
+    public ConnectionDetails(
+            String gatewayURL, String authorization, GatewaySetting gatewaySetting) {
         this.gatewayURL = gatewayURL;
         this.authorization = authorization;
         this.gatewaySetting = gatewaySetting;

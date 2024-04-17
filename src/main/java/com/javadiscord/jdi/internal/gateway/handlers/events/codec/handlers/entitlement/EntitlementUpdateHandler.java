@@ -7,6 +7,5 @@ import com.javadiscord.jdi.internal.models.guild.Entitlement;
 
 public class EntitlementUpdateHandler implements EventHandler<Entitlement> {
     @Override
-    public void handle(Entitlement event, ConnectionMediator connectionMediator, Discord discord) {
-    }
+    public void handle(Entitlement event, ConnectionMediator connectionMediator, Discord discord) {}
 }

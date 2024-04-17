@@ -7,6 +7,5 @@ import com.javadiscord.jdi.internal.models.message.TypingStart;
 
 public class TypingStartHandler implements EventHandler<TypingStart> {
     @Override
-    public void handle(TypingStart event, ConnectionMediator connectionMediator, Discord discord) {
-    }
+    public void handle(TypingStart event, ConnectionMediator connectionMediator, Discord discord) {}
 }

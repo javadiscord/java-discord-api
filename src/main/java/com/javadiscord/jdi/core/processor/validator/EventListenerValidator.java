@@ -1,12 +1,12 @@
 package com.javadiscord.jdi.core.processor.validator;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-
 import com.javadiscord.jdi.core.annotations.ChannelCreate;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 
 public class EventListenerValidator {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -38,8 +38,11 @@ public class EventListenerValidator {
                             }
                         }
                     } else {
-                        LOGGER.error(method.getName() + " does not have"
-                                + " `com.javadiscord.jdi.internal.models.Channel`" + " parameter");
+                        LOGGER.error(
+                                method.getName()
+                                        + " does not have"
+                                        + " `com.javadiscord.jdi.internal.models.Channel`"
+                                        + " parameter");
                     }
                 }
             }

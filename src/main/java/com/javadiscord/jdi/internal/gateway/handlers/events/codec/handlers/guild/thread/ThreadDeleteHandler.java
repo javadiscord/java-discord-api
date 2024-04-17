@@ -8,6 +8,5 @@ import com.javadiscord.jdi.internal.gateway.handlers.events.codec.models.channel
 public class ThreadDeleteHandler implements EventHandler<Thread> {
 
     @Override
-    public void handle(Thread event, ConnectionMediator connectionMediator, Discord discord) {
-    }
+    public void handle(Thread event, ConnectionMediator connectionMediator, Discord discord) {}
 }

@@ -3,7 +3,6 @@ package com.javadiscord.jdi.internal.models.guild;
 public enum SortOrderType {
     LATEST_ACTIVITY(0),
     CREATION_DATE(1);
-
     private final int id;
 
     SortOrderType(int id) {

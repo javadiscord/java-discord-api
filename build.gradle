@@ -26,12 +26,13 @@ dependencies {
 
 spotless {
     java {
-        target('**/*.java')
+        target('**/java/**/*.java')
         endWithNewline()
         removeUnusedImports()
         // '\\#' = static imports, '' = everything else
         importOrder('\\#', 'java', 'javax', 'com.javadiscord', '')
-        eclipse().configFile("./spotless.xml")
+        googleJavaFormat().aosp().reflowLongStrings().formatJavadoc(false).reorderImports(true)
+        //eclipse().configFile("./spotless.xml")
     }
 }
 

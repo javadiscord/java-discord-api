@@ -7,6 +7,5 @@ import com.javadiscord.jdi.internal.models.voice.VoiceState;
 
 public class VoiceStateHandler implements EventHandler<VoiceState> {
     @Override
-    public void handle(VoiceState event, ConnectionMediator connectionMediator, Discord discord) {
-    }
+    public void handle(VoiceState event, ConnectionMediator connectionMediator, Discord discord) {}
 }

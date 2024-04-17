@@ -17,12 +17,13 @@ public class ExampleListener {
     public void exampleChannelCreate(Channel channel, Discord discord) {
         if (channel.name().equals("gaming")) {
             // discord.getGuild(channel.guildId())
-            // .getChannel(channel.id())
-            // .sendMessage("Hello, World!");
+            //        .getChannel(channel.id())
+            //        .sendMessage("Hello, World!");
         }
     }
 
-    /*
-     * @MessageCreate public void exampleMessageCreate(Message message) { Database.save(message); }
-     */
+    /*@MessageCreate
+    public void exampleMessageCreate(Message message) {
+        Database.save(message);
+    }*/
 }

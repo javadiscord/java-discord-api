@@ -7,7 +7,10 @@ public record GetAutoModerationRuleRequest(long guildId, long autoModerationRule
         implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
-        return new DiscordRequestBuilder().get()
-            .path("/guilds/%s/auto-moderation/rules/%s".formatted(guildId, autoModerationRuleId));
+        return new DiscordRequestBuilder()
+                .get()
+                .path(
+                        "/guilds/%s/auto-moderation/rules/%s"
+                                .formatted(guildId, autoModerationRuleId));
     }
 }

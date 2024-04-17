@@ -1,18 +1,18 @@
 package com.javadiscord.jdi.internal.models.guild;
 
-import java.util.Map;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.javadiscord.jdi.internal.models.channel.Channel;
 import com.javadiscord.jdi.internal.models.message.Message;
 import com.javadiscord.jdi.internal.models.message.MessageAttachment;
 import com.javadiscord.jdi.internal.models.user.Member;
 import com.javadiscord.jdi.internal.models.user.User;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record ResolvedData(@JsonProperty("users") Map<String, User> users,
+public record ResolvedData(
+        @JsonProperty("users") Map<String, User> users,
         @JsonProperty("members") Map<String, Member> members,
         @JsonProperty("roles") Map<String, Role> roles,
         @JsonProperty("channels") Map<String, Channel> channels,
