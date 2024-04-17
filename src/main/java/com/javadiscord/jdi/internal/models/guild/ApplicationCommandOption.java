@@ -10,5 +10,4 @@ record ApplicationCommandOption(
     @JsonProperty("value") Object value,
     @JsonProperty("options") ApplicationCommandOption[] options,
     @JsonProperty("focused") boolean focused
-) {
-}
+) {}

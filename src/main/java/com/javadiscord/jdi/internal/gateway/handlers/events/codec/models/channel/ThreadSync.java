@@ -14,5 +14,4 @@ public record ThreadSync(
     @JsonProperty("channel_ids") List<Long> channelIds,
     List<Channel> threads,
     List<Member> members
-) {
-}
+) {}

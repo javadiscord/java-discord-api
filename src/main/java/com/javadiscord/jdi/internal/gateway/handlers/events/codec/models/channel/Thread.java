@@ -21,5 +21,4 @@ public record Thread(
     @JsonProperty("id") String id,
     @JsonProperty("guild_id") String guildId,
     @JsonProperty("flags") int flags
-) {
-}
+) {}

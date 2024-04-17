@@ -10,5 +10,4 @@ public record GatewayEvent(
     @JsonProperty("d") JsonNode data,
     @JsonProperty("s") int sequenceNumber,
     @JsonProperty("t") String eventName
-) {
-}
+) {}

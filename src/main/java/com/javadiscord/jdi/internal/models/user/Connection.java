@@ -17,5 +17,4 @@ public record Connection(
     @JsonProperty("show_activity") boolean showActivity,
     @JsonProperty("two_way_link") boolean twoWayLink,
     @JsonProperty("visibility") int visibility
-) {
-}
+) {}

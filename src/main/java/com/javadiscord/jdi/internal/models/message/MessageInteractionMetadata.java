@@ -14,5 +14,4 @@ public record MessageInteractionMetadata(
     @JsonProperty("original_response_message_id") String originalResponseMessageId,
     @JsonProperty("interacted_message_id") String interactedMessageId,
     @JsonProperty("triggering_interaction_metadata") MessageInteractionMetadata triggeringInteractionMetadata
-) {
-}
+) {}

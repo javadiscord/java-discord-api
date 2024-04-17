@@ -11,5 +11,4 @@ public record EventUser(
     @JsonProperty("guild_scheduled_event_id") long guildScheduledEventId,
     User user,
     Member member
-) {
-}
+) {}

@@ -22,5 +22,4 @@ public record User(
     @JsonProperty("premium_type") int premiumType,
     @JsonProperty("public_flags") int publicFlags,
     @JsonProperty("avtar_decoration") String avatarDecoration
-) {
-}
+) {}

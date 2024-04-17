@@ -9,5 +9,4 @@ public record MessageReference(
     @JsonProperty("channel_id") String channelId,
     @JsonProperty("guild_id") String guildId,
     @JsonProperty("fail_if_not_exists") boolean failIfNotExists
-) {
-}
+) {}

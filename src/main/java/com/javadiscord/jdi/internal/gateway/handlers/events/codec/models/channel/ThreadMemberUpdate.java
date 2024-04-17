@@ -7,5 +7,4 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public record ThreadMemberUpdate(
     @JsonProperty("guild_id") String guildId,
     @JsonProperty("thread_member") ThreadMember threadMember
-) {
-}
+) {}

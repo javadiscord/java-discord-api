@@ -9,5 +9,4 @@ public record EmbedImage(
     @JsonProperty("proxy_url") String proxyUrl,
     @JsonProperty("height") Integer height,
     @JsonProperty("width") Integer width
-) {
-}
+) {}

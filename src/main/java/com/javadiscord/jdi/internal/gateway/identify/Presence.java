@@ -5,8 +5,7 @@ public class Presence {
     private String status;
     private boolean afk;
 
-    public Presence() {
-    }
+    public Presence() {}
 
     public Presence(Activities activities, String status, boolean afk) {
         this.activities = activities;

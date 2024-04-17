@@ -9,5 +9,4 @@ public record EmbedAuthor(
     @JsonProperty("url") String url,
     @JsonProperty("icon_url") String iconUrl,
     @JsonProperty("proxy_icon_url") String proxyIconUrl
-) {
-}
+) {}

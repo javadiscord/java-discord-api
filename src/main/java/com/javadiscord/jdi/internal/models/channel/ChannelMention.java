@@ -9,5 +9,4 @@ public record ChannelMention(
     @JsonProperty("guild_id") String guildId,
     @JsonProperty("type") int type,
     @JsonProperty("name") String name
-) {
-}
+) {}

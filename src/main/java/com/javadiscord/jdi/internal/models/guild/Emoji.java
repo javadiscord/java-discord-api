@@ -17,5 +17,4 @@ public record Emoji(
     @JsonProperty("managed") boolean managed,
     @JsonProperty("animated") boolean animated,
     @JsonProperty("available") boolean available
-) {
-}
+) {}

@@ -11,6 +11,5 @@ public class MessageReactionsRemovedHandler implements EventHandler<MessageReact
         MessageReactionsRemoved event,
         ConnectionMediator connectionMediator,
         Discord discord
-    ) {
-    }
+    ) {}
 }

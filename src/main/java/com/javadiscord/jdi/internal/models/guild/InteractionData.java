@@ -12,5 +12,4 @@ public record InteractionData(
     @JsonProperty("options") ApplicationCommandOption[] options,
     @JsonProperty("guild_id") Long guildId,
     @JsonProperty("target_id") Long targetId
-) {
-}
+) {}

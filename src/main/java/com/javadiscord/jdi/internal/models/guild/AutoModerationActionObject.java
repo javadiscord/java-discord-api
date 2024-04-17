@@ -7,5 +7,4 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public record AutoModerationActionObject(
     @JsonProperty("type") int type, // AutoModeraetionActionType
     @JsonProperty("metadata") AutoModerationActionMetadata metadata
-) {
-}
+) {}

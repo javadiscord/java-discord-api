@@ -8,5 +8,4 @@ public record EmbedFooter(
     @JsonProperty("text") String text,
     @JsonProperty("icon_url") String iconUrl,
     @JsonProperty("proxy_icon_url") String proxyIconUrl
-) {
-}
+) {}

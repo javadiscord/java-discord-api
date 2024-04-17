@@ -12,5 +12,4 @@ public record Stage(
     @JsonProperty("privacy_level") int privacyLevel,
     @JsonProperty("discoverable_disabled") boolean discoverableDisabled,
     @JsonProperty("guild_scheduled_event_id") long guildScheduleEventId
-) {
-}
+) {}

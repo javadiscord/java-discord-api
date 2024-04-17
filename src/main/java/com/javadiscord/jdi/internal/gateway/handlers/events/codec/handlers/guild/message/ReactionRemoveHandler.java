@@ -9,6 +9,5 @@ public class ReactionRemoveHandler implements EventHandler<MessageReaction> {
     @Override
     public void handle(
         MessageReaction event, ConnectionMediator connectionMediator, Discord discord
-    ) {
-    }
+    ) {}
 }

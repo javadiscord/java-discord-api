@@ -9,6 +9,5 @@ public class MessageBulkDeleteHandler implements EventHandler<MessageBulkDelete>
     @Override
     public void handle(
         MessageBulkDelete event, ConnectionMediator connectionMediator, Discord discord
-    ) {
-    }
+    ) {}
 }

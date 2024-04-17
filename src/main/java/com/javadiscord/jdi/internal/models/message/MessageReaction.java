@@ -15,5 +15,4 @@ public record MessageReaction(
     @JsonProperty("me_burst") boolean meBurst,
     @JsonProperty("emoji") Emoji emoji,
     @JsonProperty("burst_colors") List<String> burstColors
-) {
-}
+) {}

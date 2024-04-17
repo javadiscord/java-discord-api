@@ -12,5 +12,4 @@ public record ThreadMember(
     @JsonProperty("member_count") int memberCount,
     @JsonProperty("added_members") List<ThreadMember> addedMembers,
     @JsonProperty("removed_member_ids") List<Long> removedMemberIds
-) {
-}
+) {}

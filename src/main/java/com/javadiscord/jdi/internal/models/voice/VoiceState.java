@@ -20,5 +20,4 @@ public record VoiceState(
     @JsonProperty("self_video") boolean selfVideo,
     @JsonProperty("suppress") boolean suppress,
     @JsonProperty("request_to_speak_timestamp") String requestToSpeakTimestamp
-) {
-}
+) {}

@@ -48,5 +48,4 @@ public record Guild(
     @JsonProperty("stickers") List<Sticker> stickers,
     @JsonProperty("premium_progress_bar_enabled") boolean premiumProgressBarEnabled,
     @JsonProperty("safety_alerts_channel_id") long safetyAlertsChannelId
-) {
-}
+) {}

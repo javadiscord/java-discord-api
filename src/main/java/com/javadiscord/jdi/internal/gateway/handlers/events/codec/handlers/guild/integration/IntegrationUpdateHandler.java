@@ -9,6 +9,5 @@ public class IntegrationUpdateHandler implements EventHandler<IntegrationUpdate>
     @Override
     public void handle(
         IntegrationUpdate event, ConnectionMediator connectionMediator, Discord discord
-    ) {
-    }
+    ) {}
 }

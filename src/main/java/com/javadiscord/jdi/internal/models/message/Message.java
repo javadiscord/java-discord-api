@@ -48,5 +48,4 @@ public record Message(
     @JsonProperty("position") int position,
     @JsonProperty("role_subscription_data") RoleSubscriptionData roleSubscriptionData,
     @JsonProperty("resolved") ResolvedData resolved
-) {
-}
+) {}

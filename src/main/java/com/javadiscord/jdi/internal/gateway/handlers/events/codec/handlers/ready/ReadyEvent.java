@@ -25,5 +25,4 @@ public record ReadyEvent(
     @JsonProperty("geo_ordered_rtc_regions") String[] geoOrderedRtcRegions,
     Auth auth,
     Application application
-) {
-}
+) {}

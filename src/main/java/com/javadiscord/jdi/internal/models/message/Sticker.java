@@ -19,5 +19,4 @@ public record Sticker(
     @JsonProperty("guild_id") long guildId,
     @JsonProperty("user") User user,
     @JsonProperty("sort_value") int sortValue
-) {
-}
+) {}

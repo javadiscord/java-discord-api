@@ -17,5 +17,4 @@ public record MemberChunk(
     @JsonProperty("not_found") List<String> notFound,
     @JsonProperty("presences") List<Presence> presences,
     @JsonProperty("nonce") String nonce
-) {
-}
+) {}

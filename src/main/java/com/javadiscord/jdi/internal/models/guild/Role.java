@@ -17,5 +17,4 @@ public record Role(
     @JsonProperty("mentionable") boolean mentionable,
     @JsonProperty("tags") Tags tags,
     @JsonProperty("flags") int flags
-) {
-}
+) {}

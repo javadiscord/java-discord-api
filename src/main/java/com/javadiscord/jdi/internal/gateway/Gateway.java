@@ -8,5 +8,4 @@ public record Gateway(
     String url,
     int shards,
     @JsonProperty("session_start_limit") SessionStartLimit sessionStartLimit
-) {
-}
+) {}

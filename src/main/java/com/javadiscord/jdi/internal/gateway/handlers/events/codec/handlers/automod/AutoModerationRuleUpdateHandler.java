@@ -11,6 +11,5 @@ public class AutoModerationRuleUpdateHandler implements EventHandler<AutoModerat
         AutoModerationRuleObject event,
         ConnectionMediator connectionMediator,
         Discord discord
-    ) {
-    }
+    ) {}
 }

@@ -8,5 +8,4 @@ public record StickerItem(
     @JsonProperty("id") String id,
     @JsonProperty("name") String name,
     @JsonProperty("format_type") int formatType
-) {
-}
+) {}

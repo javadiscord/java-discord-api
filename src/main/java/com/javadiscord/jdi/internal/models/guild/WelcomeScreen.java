@@ -9,5 +9,4 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public record WelcomeScreen(
     @JsonProperty("description") String description,
     @JsonProperty("welcome_channels") List<WelcomeScreenChannel> welcomeScreenChannels
-) {
-}
+) {}

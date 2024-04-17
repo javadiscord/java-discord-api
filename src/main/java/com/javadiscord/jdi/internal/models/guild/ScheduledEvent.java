@@ -23,5 +23,4 @@ public record ScheduledEvent(
     @JsonProperty("creator") User creator,
     @JsonProperty("user_count") Integer userCount,
     @JsonProperty("image") String image
-) {
-}
+) {}

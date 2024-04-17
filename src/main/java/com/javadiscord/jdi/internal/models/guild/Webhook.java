@@ -20,5 +20,4 @@ public record Webhook(
     @JsonProperty("source_guild") Guild sourceGuild,
     @JsonProperty("source_channel") Channel sourceChannel,
     @JsonProperty("url") String url
-) {
-}
+) {}

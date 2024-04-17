@@ -8,6 +8,5 @@ import com.javadiscord.jdi.internal.models.channel.Channel;
 public class ChannelCreateHandler implements EventHandler<Channel> {
 
     @Override
-    public void handle(Channel event, ConnectionMediator connectionMediator, Discord discord) {
-    }
+    public void handle(Channel event, ConnectionMediator connectionMediator, Discord discord) {}
 }

@@ -8,5 +8,4 @@ public record MessageReactionsRemoved(
     @JsonProperty("message_id") long message_id,
     @JsonProperty("channel_id") long channelId,
     @JsonProperty("guild_id") long guildId
-) {
-}
+) {}

@@ -18,5 +18,4 @@ public record AutoModerationRuleObject(
     @JsonProperty("enabled") boolean enabled,
     @JsonProperty("exempt_roles") List<Long> exemptRoles,
     @JsonProperty("exempt_channels") List<Long> exemptChannels
-) {
-}
+) {}

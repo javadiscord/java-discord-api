@@ -8,5 +8,4 @@ public record VoiceServer(
     @JsonProperty("token") String token,
     @JsonProperty("guild_id") long guildId,
     @JsonProperty("endpoint") long endpoint
-) {
-}
+) {}

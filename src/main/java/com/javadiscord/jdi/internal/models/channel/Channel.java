@@ -44,5 +44,4 @@ public record Channel(
     @JsonProperty("default_thread_rate_limit_per_user") int defaultThreadRateLimitPerUser,
     @JsonProperty("default_sort_order") int defaultSortOrder,
     @JsonProperty("default_forum_layout") int defaultForumLayout
-) {
-}
+) {}

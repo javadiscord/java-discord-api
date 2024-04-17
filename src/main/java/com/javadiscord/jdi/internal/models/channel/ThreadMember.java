@@ -17,5 +17,4 @@ public record ThreadMember(
     ) OffsetDateTime joinTime,
     @JsonProperty("flags") int flags,
     @JsonProperty("member") Member member
-) {
-}
+) {}

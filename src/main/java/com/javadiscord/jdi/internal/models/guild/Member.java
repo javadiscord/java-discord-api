@@ -29,5 +29,4 @@ public record Member(
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX") @JsonProperty(
         "communication_disabled_until"
     ) OffsetDateTime communicationDisabledUntil
-) {
-}
+) {}

@@ -9,5 +9,4 @@ public record WelcomeScreenChannel(
     @JsonProperty("description") String description,
     @JsonProperty("emoji_id") long emojiId,
     @JsonProperty("emoji_name") String emojiName
-) {
-}
+) {}

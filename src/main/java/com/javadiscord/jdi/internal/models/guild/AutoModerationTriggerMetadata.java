@@ -13,5 +13,4 @@ public record AutoModerationTriggerMetadata(
     @JsonProperty("allow_list") List<String> allowList,
     @JsonProperty("mention_total_limit") int totalMentionLimit,
     @JsonProperty("mention_raid_protection_enabled") boolean mentionRaidProtectionEnabled
-) {
-}
+) {}

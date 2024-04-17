@@ -11,5 +11,4 @@ public record ThreadMetadata(
     @JsonProperty("locked") boolean locked,
     @JsonProperty("invitable") boolean invitable,
     @JsonProperty("create_timestamp") String createTimestamp
-) {
-}
+) {}

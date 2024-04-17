@@ -24,5 +24,4 @@ public record Embed(
     @JsonProperty("provider") EmbedProvider provider,
     @JsonProperty("author") EmbedAuthor author,
     @JsonProperty("fields") List<EmbedField> fields
-) {
-}
+) {}

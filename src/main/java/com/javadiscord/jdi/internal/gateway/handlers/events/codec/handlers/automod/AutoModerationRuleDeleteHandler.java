@@ -11,6 +11,5 @@ public class AutoModerationRuleDeleteHandler implements EventHandler<AutoModerat
         AutoModerationRuleObject event,
         ConnectionMediator connectionMediator,
         Discord discord
-    ) {
-    }
+    ) {}
 }

@@ -12,5 +12,4 @@ public record TypingStart(
     @JsonProperty("user_id") String userId,
     @JsonProperty("timestamp") int timestamp,
     @JsonProperty("member") Member member
-) {
-}
+) {}

@@ -9,5 +9,4 @@ public record AutoModerationActionMetadata(
     @JsonProperty("channel_id") long channelId,
     @JsonProperty("duration_seconds") int durationSecond,
     @JsonProperty("custom_message") String customMessage
-) {
-}
+) {}

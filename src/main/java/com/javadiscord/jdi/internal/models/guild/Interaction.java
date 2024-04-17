@@ -32,5 +32,4 @@ public record Interaction(
     @JsonProperty("entitlements") List<Entitlement> entitlements,
     @JsonAlias("authorizing_integration_owners") Map<String, Object> authorizingIntegrationOwners,
     @JsonProperty("context") String context
-) {
-}
+) {}

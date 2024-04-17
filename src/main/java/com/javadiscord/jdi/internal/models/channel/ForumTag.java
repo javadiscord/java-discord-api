@@ -10,5 +10,4 @@ public record ForumTag(
     @JsonProperty("moderated") boolean moderated,
     @JsonProperty("emoji_id") long emojiId,
     @JsonProperty("emoji_name") String emojiName
-) {
-}
+) {}

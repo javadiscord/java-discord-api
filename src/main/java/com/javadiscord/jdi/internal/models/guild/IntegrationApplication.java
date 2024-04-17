@@ -12,5 +12,4 @@ public record IntegrationApplication(
     @JsonProperty("icon") String icon,
     @JsonProperty("description") String description,
     @JsonProperty("bot") User bot
-) {
-}
+) {}

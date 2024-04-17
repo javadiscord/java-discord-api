@@ -23,8 +23,7 @@ public class HelloOperationHandler implements GatewayOperationHandler {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    private record HeartbeatData(@JsonProperty("heartbeat_interval") int interval) {
-    }
+    private record HeartbeatData(@JsonProperty("heartbeat_interval") int interval) {}
 
     @Override
     public void handle(GatewayEvent event, ConnectionMediator connectionMediator, Discord discord) {

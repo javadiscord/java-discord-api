@@ -19,5 +19,4 @@ public record ResolvedData(
     @JsonProperty("channels") Map<String, Channel> channels,
     @JsonProperty("messages") Map<String, Message> messages,
     @JsonProperty("attachments") Map<String, MessageAttachment> attachments
-) {
-}
+) {}

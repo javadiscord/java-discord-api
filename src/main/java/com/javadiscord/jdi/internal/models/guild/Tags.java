@@ -11,5 +11,4 @@ public record Tags(
     @JsonProperty("subscription_listing_id") long subscriptionListingId,
     @JsonProperty("available_for_purchase") boolean availableForPurchase,
     @JsonProperty("guild_connections") boolean guildConnections
-) {
-}
+) {}

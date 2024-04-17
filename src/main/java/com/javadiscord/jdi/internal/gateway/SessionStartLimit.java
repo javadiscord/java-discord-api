@@ -9,5 +9,4 @@ public record SessionStartLimit(
     int remaining,
     @JsonProperty("reset_after") long resetAfter,
     @JsonProperty("max_concurrency") int maxConcurrency
-) {
-}
+) {}

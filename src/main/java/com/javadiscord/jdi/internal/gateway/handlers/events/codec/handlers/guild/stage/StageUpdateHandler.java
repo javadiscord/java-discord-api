@@ -7,6 +7,5 @@ import com.javadiscord.jdi.internal.models.stage.Stage;
 
 public class StageUpdateHandler implements EventHandler<Stage> {
     @Override
-    public void handle(Stage event, ConnectionMediator connectionMediator, Discord discord) {
-    }
+    public void handle(Stage event, ConnectionMediator connectionMediator, Discord discord) {}
 }

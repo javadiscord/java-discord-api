@@ -9,8 +9,7 @@ public class Data {
     private Presence presence;
     private int intents;
 
-    public Data() {
-    }
+    public Data() {}
 
     public Data(
         String token,

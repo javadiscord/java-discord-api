@@ -8,5 +8,4 @@ public record MessageBulkDelete(
     @JsonProperty("ids") long[] ids,
     @JsonProperty("channel_id") long channelId,
     @JsonProperty("guild_id") long guildId
-) {
-}
+) {}

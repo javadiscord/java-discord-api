@@ -13,5 +13,4 @@ public record MessageInteraction(
     @JsonProperty("name") String name,
     @JsonProperty("user") User user,
     @JsonProperty("member") Member member
-) {
-}
+) {}

@@ -14,5 +14,4 @@ public record Entitlement(
     @JsonProperty("starts_at") String startsAt,
     @JsonProperty("ends_at") String endsAt,
     @JsonProperty("guild_id") long guildId
-) {
-}
+) {}

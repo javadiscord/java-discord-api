@@ -9,6 +9,5 @@ public class StickerUpdateHandler implements EventHandler<StickerUpdate> {
     @Override
     public void handle(
         StickerUpdate event, ConnectionMediator connectionMediator, Discord discord
-    ) {
-    }
+    ) {}
 }

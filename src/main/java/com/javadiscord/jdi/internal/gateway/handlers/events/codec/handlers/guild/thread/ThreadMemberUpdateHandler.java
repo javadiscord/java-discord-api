@@ -9,6 +9,5 @@ public class ThreadMemberUpdateHandler implements EventHandler<ThreadMemberUpdat
     @Override
     public void handle(
         ThreadMemberUpdate event, ConnectionMediator connectionMediator, Discord discord
-    ) {
-    }
+    ) {}
 }

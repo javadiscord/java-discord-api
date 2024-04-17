@@ -9,6 +9,5 @@ public class ScheduledEventDeleteHandler implements EventHandler<ScheduledEvent>
     @Override
     public void handle(
         ScheduledEvent event, ConnectionMediator connectionMediator, Discord discord
-    ) {
-    }
+    ) {}
 }

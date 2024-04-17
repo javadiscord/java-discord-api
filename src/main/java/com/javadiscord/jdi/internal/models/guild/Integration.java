@@ -29,5 +29,4 @@ public record Integration(
     @JsonProperty("subscriber_count") int subscriberCount,
     @JsonProperty("revoked") boolean revoked,
     @JsonProperty("application") IntegrationApplication application
-) {
-}
+) {}

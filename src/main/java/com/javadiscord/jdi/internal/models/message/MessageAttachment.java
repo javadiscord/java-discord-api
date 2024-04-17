@@ -18,5 +18,4 @@ public record MessageAttachment(
     @JsonProperty("duration_secs") float durationSecs,
     @JsonProperty("waveform") String waveform,
     @JsonProperty("flags") int flags
-) {
-}
+) {}
