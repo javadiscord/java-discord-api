@@ -7,5 +7,6 @@ import com.javadiscord.jdi.internal.models.guild.Interaction;
 
 public class InteractionCreateHandler implements EventHandler<Interaction> {
     @Override
-    public void handle(Interaction event, ConnectionMediator connectionMediator, Discord discord) {}
+    public void handle(Interaction event, ConnectionMediator connectionMediator, Discord discord) {
+    }
 }

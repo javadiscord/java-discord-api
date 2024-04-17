@@ -1,18 +1,14 @@
 package com.javadiscord.jdi.internal.api.impl.stage;
 
-import com.javadiscord.jdi.internal.api.DiscordRequest;
-import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public record CreateStageRequest(
-        long channelId,
-        String topic,
-        int privacyLevel,
-        Optional<Boolean> sendStartNotification,
-        Optional<Long> guildScheduledEventId)
+import com.javadiscord.jdi.internal.api.DiscordRequest;
+import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
+
+public record CreateStageRequest(long channelId, String topic, int privacyLevel,
+        Optional<Boolean> sendStartNotification, Optional<Long> guildScheduledEventId)
         implements DiscordRequest {
 
     @Override

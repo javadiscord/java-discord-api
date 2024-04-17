@@ -7,6 +7,7 @@ import com.javadiscord.jdi.internal.models.message.StickerUpdate;
 
 public class StickerUpdateHandler implements EventHandler<StickerUpdate> {
     @Override
-    public void handle(
-            StickerUpdate event, ConnectionMediator connectionMediator, Discord discord) {}
+    public void handle(StickerUpdate event, ConnectionMediator connectionMediator,
+            Discord discord) {
+    }
 }

@@ -7,6 +7,7 @@ import com.javadiscord.jdi.internal.models.guild.ScheduledEvent;
 
 public class ScheduledEventCreateHandler implements EventHandler<ScheduledEvent> {
     @Override
-    public void handle(
-            ScheduledEvent event, ConnectionMediator connectionMediator, Discord discord) {}
+    public void handle(ScheduledEvent event, ConnectionMediator connectionMediator,
+            Discord discord) {
+    }
 }

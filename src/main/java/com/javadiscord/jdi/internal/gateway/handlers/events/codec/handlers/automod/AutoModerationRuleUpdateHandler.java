@@ -7,8 +7,7 @@ import com.javadiscord.jdi.internal.models.guild.AutoModerationRuleObject;
 
 public class AutoModerationRuleUpdateHandler implements EventHandler<AutoModerationRuleObject> {
     @Override
-    public void handle(
-            AutoModerationRuleObject event,
-            ConnectionMediator connectionMediator,
-            Discord discord) {}
+    public void handle(AutoModerationRuleObject event, ConnectionMediator connectionMediator,
+            Discord discord) {
+    }
 }

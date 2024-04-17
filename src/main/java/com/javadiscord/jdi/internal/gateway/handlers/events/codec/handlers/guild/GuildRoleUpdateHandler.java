@@ -7,5 +7,6 @@ import com.javadiscord.jdi.internal.models.guild.Role;
 
 public class GuildRoleUpdateHandler implements EventHandler<Role> {
     @Override
-    public void handle(Role event, ConnectionMediator connectionMediator, Discord discord) {}
+    public void handle(Role event, ConnectionMediator connectionMediator, Discord discord) {
+    }
 }

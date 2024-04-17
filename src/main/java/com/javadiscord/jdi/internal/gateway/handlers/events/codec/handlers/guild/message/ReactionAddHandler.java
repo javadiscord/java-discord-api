@@ -7,6 +7,7 @@ import com.javadiscord.jdi.internal.models.message.MessageReaction;
 
 public class ReactionAddHandler implements EventHandler<MessageReaction> {
     @Override
-    public void handle(
-            MessageReaction event, ConnectionMediator connectionMediator, Discord discord) {}
+    public void handle(MessageReaction event, ConnectionMediator connectionMediator,
+            Discord discord) {
+    }
 }

@@ -6,8 +6,7 @@ import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 public record DeleteStageRequest(String channelId) implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
-        return new DiscordRequestBuilder()
-                .delete()
-                .path("/stage-instances/%s".formatted(channelId));
+        return new DiscordRequestBuilder().delete()
+            .path("/stage-instances/%s".formatted(channelId));
     }
 }

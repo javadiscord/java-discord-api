@@ -7,8 +7,7 @@ public record DeleteScheduledEventRequest(long guildId, long scheduledEventId)
         implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
-        return new DiscordRequestBuilder()
-                .delete()
-                .path("/guilds/%s/scheduled-events/%s".formatted(guildId, scheduledEventId));
+        return new DiscordRequestBuilder().delete()
+            .path("/guilds/%s/scheduled-events/%s".formatted(guildId, scheduledEventId));
     }
 }

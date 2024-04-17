@@ -5,7 +5,8 @@ public class Properties {
     private String browser;
     private String device;
 
-    public Properties() {}
+    public Properties() {
+    }
 
     public Properties(String os, String browser, String device) {
         this.os = os;

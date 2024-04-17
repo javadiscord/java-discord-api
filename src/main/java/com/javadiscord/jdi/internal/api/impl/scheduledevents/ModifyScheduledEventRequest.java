@@ -1,27 +1,18 @@
 package com.javadiscord.jdi.internal.api.impl.scheduledevents;
 
-import com.javadiscord.jdi.internal.api.DiscordRequest;
-import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-import com.javadiscord.jdi.internal.models.guild.EntityMetadata;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public record ModifyScheduledEventRequest(
-        long guildId,
-        long scheduledEventId,
-        Optional<Long> channelId,
-        Optional<EntityMetadata> entityMetadata,
-        Optional<String> name,
-        Optional<Integer> privacyLevel,
-        Optional<Long> scheduledStartTime,
-        Optional<Long> scheduledEndTime,
-        Optional<String> description,
-        Optional<Integer> entityType,
-        Optional<Integer> status,
-        Optional<String> image)
-        implements DiscordRequest {
+import com.javadiscord.jdi.internal.api.DiscordRequest;
+import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
+import com.javadiscord.jdi.internal.models.guild.EntityMetadata;
+
+public record ModifyScheduledEventRequest(long guildId, long scheduledEventId,
+        Optional<Long> channelId, Optional<EntityMetadata> entityMetadata, Optional<String> name,
+        Optional<Integer> privacyLevel, Optional<Long> scheduledStartTime,
+        Optional<Long> scheduledEndTime, Optional<String> description, Optional<Integer> entityType,
+        Optional<Integer> status, Optional<String> image) implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
         Map<String, Object> body = new HashMap<>();
@@ -51,9 +42,8 @@ public record ModifyScheduledEventRequest(
         entityType.ifPresent(val -> body.put("entity_time", val));
         status.ifPresent(val -> body.put("status", val));
         image.ifPresent(val -> body.put("image", val));
-        return new DiscordRequestBuilder()
-                .patch()
-                .path("/guilds/%s/scheduled-events/%s".formatted(guildId, scheduledEventId))
-                .body(body);
+        return new DiscordRequestBuilder().patch()
+            .path("/guilds/%s/scheduled-events/%s".formatted(guildId, scheduledEventId))
+            .body(body);
     }
 }

@@ -1,17 +1,14 @@
 package com.javadiscord.jdi.internal.api.impl.invite;
 
-import com.javadiscord.jdi.internal.api.DiscordRequest;
-import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public record GetInviteRequest(
-        String inviteCode,
-        Optional<Boolean> withCounts,
-        Optional<Boolean> withExpiration,
-        Optional<Long> guildScheduledEventId)
+import com.javadiscord.jdi.internal.api.DiscordRequest;
+import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
+
+public record GetInviteRequest(String inviteCode, Optional<Boolean> withCounts,
+        Optional<Boolean> withExpiration, Optional<Long> guildScheduledEventId)
         implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
@@ -20,9 +17,8 @@ public record GetInviteRequest(
         withExpiration.ifPresent(val -> body.put("with_expiration", val));
         guildScheduledEventId.ifPresent(val -> body.put("guild_schedulede_event_id", val));
 
-        return new DiscordRequestBuilder()
-                .get()
-                .path("/invites/%s".formatted(inviteCode))
-                .body(body);
+        return new DiscordRequestBuilder().get()
+            .path("/invites/%s".formatted(inviteCode))
+            .body(body);
     }
 }

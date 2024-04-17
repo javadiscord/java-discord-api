@@ -11,8 +11,8 @@ public class ResumeEventHandler implements EventHandler<ResumeEvent> {
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
-    public void handle(
-            ResumeEvent message, ConnectionMediator connectionMediator, Discord discord) {
+    public void handle(ResumeEvent message, ConnectionMediator connectionMediator,
+            Discord discord) {
         LOGGER.trace("Resume message consumed");
     }
 }

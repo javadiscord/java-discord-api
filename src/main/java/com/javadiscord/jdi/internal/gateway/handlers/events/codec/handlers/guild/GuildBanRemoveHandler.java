@@ -7,5 +7,6 @@ import com.javadiscord.jdi.internal.models.guild.GuildBan;
 
 public class GuildBanRemoveHandler implements EventHandler<GuildBan> {
     @Override
-    public void handle(GuildBan event, ConnectionMediator connectionMediator, Discord discord) {}
+    public void handle(GuildBan event, ConnectionMediator connectionMediator, Discord discord) {
+    }
 }

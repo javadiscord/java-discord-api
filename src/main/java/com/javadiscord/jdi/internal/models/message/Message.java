@@ -1,7 +1,7 @@
 package com.javadiscord.jdi.internal.models.message;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
+
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.ready.Application;
 import com.javadiscord.jdi.internal.models.channel.Channel;
 import com.javadiscord.jdi.internal.models.channel.ChannelMention;
@@ -10,17 +10,14 @@ import com.javadiscord.jdi.internal.models.guild.RoleSubscriptionData;
 import com.javadiscord.jdi.internal.models.message.embed.Embed;
 import com.javadiscord.jdi.internal.models.user.User;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record Message(
-        @JsonProperty("id") long id,
-        @JsonProperty("channel_id") long channelId,
-        @JsonProperty("author") User author,
-        @JsonProperty("content") String content,
+public record Message(@JsonProperty("id") long id, @JsonProperty("channel_id") long channelId,
+        @JsonProperty("author") User author, @JsonProperty("content") String content,
         @JsonProperty("timestamp") String timestamp,
-        @JsonProperty("edited_timestamp") String editedTimestamp,
-        @JsonProperty("tts") boolean tts,
+        @JsonProperty("edited_timestamp") String editedTimestamp, @JsonProperty("tts") boolean tts,
         @JsonProperty("mention_everyone") boolean mentionEveryone,
         @JsonProperty("mentions") List<User> mentions,
         @JsonProperty("mention_roles") List<String> mentionRoles,
@@ -28,10 +25,8 @@ public record Message(
         @JsonProperty("attachments") List<MessageAttachment> messageAttachments,
         @JsonProperty("embeds") List<Embed> embeds,
         @JsonProperty("reactions") List<MessageReaction> messageReactions,
-        @JsonProperty("nonce") Object nonce,
-        @JsonProperty("pinned") boolean pinned,
-        @JsonProperty("webhook_id") long webhookId,
-        @JsonProperty("type") int type,
+        @JsonProperty("nonce") Object nonce, @JsonProperty("pinned") boolean pinned,
+        @JsonProperty("webhook_id") long webhookId, @JsonProperty("type") int type,
         @JsonProperty("activity") MessageActivity activity,
         @JsonProperty("application") Application application,
         @JsonProperty("application_id") String applicationId,
@@ -41,9 +36,8 @@ public record Message(
         @JsonProperty("interaction_metadata") MessageInteractionMetadata interactionMetadata,
         @JsonProperty("interaction") MessageInteraction interaction,
         @JsonProperty("thread") Channel thread,
-        //  @JsonProperty("components") List<MessageComponent> components,
+        // @JsonProperty("components") List<MessageComponent> components,
         @JsonProperty("sticker_items") List<StickerItem> stickerItems,
-        @JsonProperty("stickers") List<Sticker> stickers,
-        @JsonProperty("position") int position,
+        @JsonProperty("stickers") List<Sticker> stickers, @JsonProperty("position") int position,
         @JsonProperty("role_subscription_data") RoleSubscriptionData roleSubscriptionData,
         @JsonProperty("resolved") ResolvedData resolved) {}

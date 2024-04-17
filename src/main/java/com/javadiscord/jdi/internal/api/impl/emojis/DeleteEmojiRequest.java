@@ -7,8 +7,7 @@ public record DeleteEmojiRequest(long guildId, long emojiId) implements DiscordR
 
     @Override
     public DiscordRequestBuilder create() {
-        return new DiscordRequestBuilder()
-                .delete()
-                .path("/guilds/%s/emojis/%s".formatted(guildId, emojiId));
+        return new DiscordRequestBuilder().delete()
+            .path("/guilds/%s/emojis/%s".formatted(guildId, emojiId));
     }
 }

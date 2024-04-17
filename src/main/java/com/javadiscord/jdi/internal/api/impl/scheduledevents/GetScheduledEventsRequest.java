@@ -1,11 +1,11 @@
 package com.javadiscord.jdi.internal.api.impl.scheduledevents;
 
-import com.javadiscord.jdi.internal.api.DiscordRequest;
-import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.DiscordRequest;
+import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
 public record GetScheduledEventsRequest(long guildId, Optional<Boolean> withUserCount)
         implements DiscordRequest {
@@ -13,9 +13,8 @@ public record GetScheduledEventsRequest(long guildId, Optional<Boolean> withUser
     public DiscordRequestBuilder create() {
         Map<String, Object> body = new HashMap<>();
         withUserCount.ifPresent(val -> body.put("with_user_count", val));
-        return new DiscordRequestBuilder()
-                .get()
-                .path("/guilds/%s/scheduled-events".formatted(guildId))
-                .body(body);
+        return new DiscordRequestBuilder().get()
+            .path("/guilds/%s/scheduled-events".formatted(guildId))
+            .body(body);
     }
 }

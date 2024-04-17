@@ -4,16 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record Role(
-        @JsonProperty("id") long id,
-        @JsonProperty("name") String name,
-        @JsonProperty("color") String color,
-        @JsonProperty("color") boolean hoist,
-        @JsonProperty("icon") String icon,
-        @JsonProperty("unicode_emoji") String unicodeEmoji,
-        @JsonProperty("position") int position,
-        @JsonProperty("permissions") String permissions,
-        @JsonProperty("managed") boolean managed,
-        @JsonProperty("mentionable") boolean mentionable,
-        @JsonProperty("tags") Tags tags,
-        @JsonProperty("flags") int flags) {}
+public record Role(@JsonProperty("id") long id, @JsonProperty("name") String name,
+        @JsonProperty("color") String color, @JsonProperty("color") boolean hoist,
+        @JsonProperty("icon") String icon, @JsonProperty("unicode_emoji") String unicodeEmoji,
+        @JsonProperty("position") int position, @JsonProperty("permissions") String permissions,
+        @JsonProperty("managed") boolean managed, @JsonProperty("mentionable") boolean mentionable,
+        @JsonProperty("tags") Tags tags, @JsonProperty("flags") int flags) {}

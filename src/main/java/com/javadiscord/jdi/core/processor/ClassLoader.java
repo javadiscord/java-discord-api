@@ -1,7 +1,5 @@
 package com.javadiscord.jdi.core.processor;
 
-import javassist.bytecode.ClassFile;
-
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+import javassist.bytecode.ClassFile;
 
 public class ClassLoader {
 
