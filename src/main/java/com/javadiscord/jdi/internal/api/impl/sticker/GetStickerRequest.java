@@ -7,8 +7,6 @@ public record GetStickerRequest(long stickerId) implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {
-        return new DiscordRequestBuilder()
-                .get()
-                .path("/stickers/%s".formatted(stickerId));
+        return new DiscordRequestBuilder().get().path("/stickers/%s".formatted(stickerId));
     }
 }

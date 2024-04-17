@@ -7,8 +7,6 @@ public record GetGuildStickersRequest(long guildId) implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {
-        return new DiscordRequestBuilder()
-                .get()
-                .path("/guilds/%s/stickers".formatted(guildId));
+        return new DiscordRequestBuilder().get().path("/guilds/%s/stickers".formatted(guildId));
     }
 }
