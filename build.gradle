@@ -31,8 +31,12 @@ spotless {
         removeUnusedImports()
         // '\\#' = static imports, '' = everything else
         importOrder('\\#', 'java', 'javax', 'com.javadiscord', '')
-        googleJavaFormat().aosp().reflowLongStrings().formatJavadoc(false).reorderImports(true)
-        //eclipse().configFile("./spotless.xml")
+        //googleJavaFormat().aosp().reflowLongStrings().formatJavadoc(false).reorderImports(true)
+        // googleJavaFormat('1.10')
+        //     .aosp()
+        //     .style('intellij')
+        //     .targetVersion('8')
+        eclipse().configFile("./spotless.xml")
     }
 }
 

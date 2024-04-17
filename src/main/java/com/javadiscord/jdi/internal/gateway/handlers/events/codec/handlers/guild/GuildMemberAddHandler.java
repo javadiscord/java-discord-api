@@ -7,5 +7,6 @@ import com.javadiscord.jdi.internal.models.user.Member;
 
 public class GuildMemberAddHandler implements EventHandler<Member> {
     @Override
-    public void handle(Member event, ConnectionMediator connectionMediator, Discord discord) {}
+    public void handle(Member event, ConnectionMediator connectionMediator, Discord discord) {
+    }
 }

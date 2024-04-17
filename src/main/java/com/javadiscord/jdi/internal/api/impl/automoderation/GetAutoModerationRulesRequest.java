@@ -7,7 +7,7 @@ public record GetAutoModerationRulesRequest(long guildId) implements DiscordRequ
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-                .get()
-                .path("/guilds/%s/auto-moderation/rules".formatted(guildId));
+            .get()
+            .path("/guilds/%s/auto-moderation/rules".formatted(guildId));
     }
 }

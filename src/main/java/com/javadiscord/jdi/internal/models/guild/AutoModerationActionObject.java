@@ -5,5 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record AutoModerationActionObject(
-        @JsonProperty("type") int type, // AutoModeraetionActionType
-        @JsonProperty("metadata") AutoModerationActionMetadata metadata) {}
+    @JsonProperty("type") int type, // AutoModeraetionActionType
+    @JsonProperty("metadata") AutoModerationActionMetadata metadata
+) {
+}

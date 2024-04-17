@@ -1,12 +1,12 @@
 package com.javadiscord.jdi.core.processor.validator;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+
 import com.javadiscord.jdi.core.annotations.ChannelCreate;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 
 public class EventListenerValidator {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -31,18 +31,21 @@ public class EventListenerValidator {
                     if (method.getParameterCount() > 0) {
                         Class<?>[] paramTypes = method.getParameterTypes();
                         for (Class<?> type : paramTypes) {
-                            if (!(type.getName().endsWith("Channel")
-                                    || type.getName().endsWith("Discord"))) {
+                            if (
+                                !(type.getName().endsWith("Channel")
+                                    || type.getName().endsWith("Discord"))
+                            ) {
                                 LOGGER.error("Unexpected parameter found: {}", type.getName());
                                 return false;
                             }
                         }
                     } else {
                         LOGGER.error(
-                                method.getName()
-                                        + " does not have"
-                                        + " `com.javadiscord.jdi.internal.models.Channel`"
-                                        + " parameter");
+                            method.getName()
+                                + " does not have"
+                                + " `com.javadiscord.jdi.internal.models.Channel`"
+                                + " parameter"
+                        );
                     }
                 }
             }

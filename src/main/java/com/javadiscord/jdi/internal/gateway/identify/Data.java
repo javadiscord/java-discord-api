@@ -9,16 +9,18 @@ public class Data {
     private Presence presence;
     private int intents;
 
-    public Data() {}
+    public Data() {
+    }
 
     public Data(
-            String token,
-            Properties properties,
-            boolean compress,
-            int large_threshold,
-            int[] shard,
-            Presence presence,
-            int intents) {
+        String token,
+        Properties properties,
+        boolean compress,
+        int large_threshold,
+        int[] shard,
+        Presence presence,
+        int intents
+    ) {
         this.token = token;
         this.properties = properties;
         this.compress = compress;
