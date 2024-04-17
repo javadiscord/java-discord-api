@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-// TODO: relook at how AutoModeration handler's are made and possibly redo them (alot was missing)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record AutoModerationRuleObject(
         @JsonProperty("id") long id,
