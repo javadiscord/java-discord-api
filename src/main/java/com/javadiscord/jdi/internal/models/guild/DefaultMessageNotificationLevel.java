@@ -1,12 +1,12 @@
 package com.javadiscord.jdi.internal.models.guild;
 
-public enum IntegrationExpireBehaviour {
-    REMOVE_ROLE(0),
-    KICK(1);
+public enum DefaultMessageNotificationLevel {
+    ALL_MESSAGES(0),
+    ONLY_MENTIONS(1);
 
     private final int value;
 
-    IntegrationExpireBehaviour(int value) {
+    DefaultMessageNotificationLevel(int value) {
         this.value = value;
     }
 
