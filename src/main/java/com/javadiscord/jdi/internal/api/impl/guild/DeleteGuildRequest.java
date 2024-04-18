@@ -7,8 +7,6 @@ public record DeleteGuildRequest(long guildId) implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {
-        return new DiscordRequestBuilder()
-                .delete()
-                .path("/guilds/%s".formatted(guildId));
+        return new DiscordRequestBuilder().delete().path("/guilds/%s".formatted(guildId));
     }
 }

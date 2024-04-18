@@ -30,15 +30,16 @@ public record ModifyGuildRequest(
         Optional<List<GuildFeature>> features,
         Optional<String> description,
         Optional<Boolean> premiumProgressBarEnabled,
-        Optional<Long> safetyAlertsChannelId
-) implements DiscordRequest {
+        Optional<Long> safetyAlertsChannelId)
+        implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {
         Map<String, Object> body = new HashMap<>();
         name.ifPresent(val -> body.put("name", val));
         verificationLevel.ifPresent(val -> body.put("verification_level", val));
-        defaultMessageNotifications.ifPresent(val -> body.put("default_message_notifications", val));
+        defaultMessageNotifications.ifPresent(
+                val -> body.put("default_message_notifications", val));
         explicitContentFilter.ifPresent(val -> body.put("explicit_content_filter", val));
         afkChannelId.ifPresent(val -> body.put("afk_channel_id", val));
         afkTimeout.ifPresent(val -> body.put("afk_timeout", val));
@@ -57,9 +58,6 @@ public record ModifyGuildRequest(
         premiumProgressBarEnabled.ifPresent(val -> body.put("premium_progress_bar_enabled", val));
         safetyAlertsChannelId.ifPresent(val -> body.put("safety_alerts_channel_id", val));
 
-        return new DiscordRequestBuilder()
-                .patch()
-                .path("/guilds/%s".formatted(guildId))
-                .body(body);
+        return new DiscordRequestBuilder().patch().path("/guilds/%s".formatted(guildId)).body(body);
     }
 }

@@ -3,8 +3,6 @@ package com.javadiscord.jdi.internal.models.guild;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.javadiscord.jdi.internal.models.message.Sticker;
-import com.javadiscord.jdi.internal.models.user.Member;
-import com.javadiscord.jdi.internal.models.guild.WelcomeScreen;
 
 import java.util.List;
 
@@ -52,5 +50,4 @@ public record Guild(
         @JsonProperty("nsfw_level") int nsfwLevel,
         @JsonProperty("stickers") List<Sticker> stickers,
         @JsonProperty("premium_progress_bar_enabled") boolean premiumProgressBarEnabled,
-        @JsonProperty("safety_alerts_channel_id") long safetyAlertsChannelId
-) {}
+        @JsonProperty("safety_alerts_channel_id") long safetyAlertsChannelId) {}
