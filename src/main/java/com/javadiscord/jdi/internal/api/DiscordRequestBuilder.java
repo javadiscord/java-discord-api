@@ -2,6 +2,7 @@ package com.javadiscord.jdi.internal.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.mizosoft.methanol.MultipartBodyPublisher;
 
 import java.net.URLEncoder;
 import java.net.http.HttpRequest;
@@ -49,6 +50,17 @@ public class DiscordRequestBuilder {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+        return this;
+    }
+
+    public DiscordRequestBuilder body(HttpRequest.BodyPublisher body) {
+        this.body = body;
+        return this;
+    }
+
+    public DiscordRequestBuilder multipartBody(MultipartBodyPublisher body) {
+        this.body = body;
+        this.headers.put("Content-Type", "multipart/form-data");
         return this;
     }
 
