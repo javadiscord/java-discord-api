@@ -1,11 +1,10 @@
 package com.javadiscord.jdi.internal.gateway;
 
-import io.vertx.core.Vertx;
+import java.util.concurrent.atomic.AtomicInteger;
 
+import io.vertx.core.Vertx;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class WebSocketRetryHandler {
     private static final Logger LOGGER = LogManager.getLogger();

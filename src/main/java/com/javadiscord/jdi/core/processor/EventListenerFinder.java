@@ -1,20 +1,19 @@
 package com.javadiscord.jdi.core.processor;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.javadiscord.jdi.core.annotations.EventListener;
 import com.javadiscord.jdi.core.processor.validator.EventListenerValidator;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 public class EventListenerFinder {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final EventListenerValidator EVENT_LISTENER_VALIDATOR =
-            new EventListenerValidator();
+    private static final EventListenerValidator EVENT_LISTENER_VALIDATOR = new EventListenerValidator();
     private static final List<Object> EVENT_LISTENERS = new ArrayList<>();
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {

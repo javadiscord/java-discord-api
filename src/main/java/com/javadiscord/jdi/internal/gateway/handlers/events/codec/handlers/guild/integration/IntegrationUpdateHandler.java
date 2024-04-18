@@ -8,5 +8,6 @@ import com.javadiscord.jdi.internal.models.guild.IntegrationUpdate;
 public class IntegrationUpdateHandler implements EventHandler<IntegrationUpdate> {
     @Override
     public void handle(
-            IntegrationUpdate event, ConnectionMediator connectionMediator, Discord discord) {}
+        IntegrationUpdate event, ConnectionMediator connectionMediator, Discord discord
+    ) {}
 }
