@@ -52,6 +52,11 @@ public class DiscordRequestBuilder {
         return this;
     }
 
+    public DiscordRequestBuilder body(HttpRequest.BodyPublisher body) {
+        this.body = body;
+        return this;
+    }
+
     public DiscordRequestBuilder get() {
         this.method = HttpMethod.GET;
         return this;
