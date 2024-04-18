@@ -31,10 +31,8 @@ public class EventListenerValidator {
                     if (method.getParameterCount() > 0) {
                         Class<?>[] paramTypes = method.getParameterTypes();
                         for (Class<?> type : paramTypes) {
-                            if (
-                                !(type.getName().endsWith("Channel")
-                                    || type.getName().endsWith("Discord"))
-                            ) {
+                            if (!(type.getName().endsWith("Channel")
+                                || type.getName().endsWith("Discord"))) {
                                 LOGGER.error("Unexpected parameter found: {}", type.getName());
                                 return false;
                             }
