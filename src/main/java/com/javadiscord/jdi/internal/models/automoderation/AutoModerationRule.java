@@ -1,4 +1,4 @@
-package com.javadiscord.jdi.internal.models.guild;
+package com.javadiscord.jdi.internal.models.automoderation;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ public record AutoModerationRuleObject(
     @JsonProperty("guild_id") long guildId,
     @JsonProperty("name") String name,
     @JsonProperty("creator_id") long creatorId,
-    @JsonProperty("event_type") int eventType,
-    @JsonProperty("trigger_type") int triggerType,
+    @JsonProperty("event_type") AutoModerationEventType eventType,
+    @JsonProperty("trigger_type") AutoModerationTriggerType triggerType,
     @JsonProperty("trigger_metadata") AutoModerationTriggerMetadata triggerMetadata,
     @JsonProperty("actions") List<AutoModerationActionObject> actions,
     @JsonProperty("enabled") boolean enabled,

@@ -7,30 +7,38 @@ import com.javadiscord.jdi.internal.models.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/*
+ * https://discord.com/developers/docs/resources/application#application-object-application-structure
+ * Missing:
+ * team
+ * install params
+ * integration types config
+ *
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record Application(
-    String id,
-    String name,
-    String icon,
-    String description,
-    List<String> rpcOrigins,
+    @JsonProperty("id") String id,
+    @JsonProperty("name") String name,
+    @JsonProperty("icon") String icon,
+    @JsonProperty("description") String description,
+    @JsonProperty("rpc_origins") List<String> rpcOrigins,
     @JsonProperty("bot_public") boolean botPublic,
     @JsonProperty("bot_require_code_grant") boolean botRequireCodeGrant,
-    User bot,
+    @JsonProperty("bot") User bot,
     @JsonProperty("terms_of_service_url") String termsOfServiceUrl,
     @JsonProperty("privacy_policy_url") String privacyPolicyUrl,
-    User owner,
-    String verifyKey,
+    @JsonProperty("owner") User owner,
+    @JsonProperty("verify_key") String verifyKey,
     @JsonProperty("guild_id") String guildId,
-    Guild guild,
+    @JsonProperty("guild") Guild guild,
     @JsonProperty("primary_sku_id") String primarySkuId,
-    String slug,
+    @JsonProperty("slug") String slug,
     @JsonProperty("cover_image") String coverImage,
-    int flags,
+    @JsonProperty("flags") int flags,
     @JsonProperty("approximate_guild_count") int approximateGuildCount,
     @JsonProperty("redirect_uris") List<String> redirectUris,
     @JsonProperty("interactions_endpoint_url") String interactionsEndpointUrl,
     @JsonProperty("role_connections_verification_url") String roleConnectionsVerificationUrl,
-    List<String> tags,
+    @JsonProperty("tags") List<String> tags,
     @JsonProperty("custom_install_url") String customInstallUrl
 ) {}

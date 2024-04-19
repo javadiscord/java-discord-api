@@ -1,5 +1,6 @@
 package com.javadiscord.jdi.internal.models.guild;
 
+import com.javadiscord.jdi.internal.models.application.Application;
 import com.javadiscord.jdi.internal.models.user.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
