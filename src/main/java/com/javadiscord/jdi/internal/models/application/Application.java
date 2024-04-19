@@ -1,7 +1,8 @@
-package com.javadiscord.jdi.internal.models.guild;
+package com.javadiscord.jdi.internal.models.application;
 
 import java.util.List;
 
+import com.javadiscord.jdi.internal.models.guild.Guild;
 import com.javadiscord.jdi.internal.models.user.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -11,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * https://discord.com/developers/docs/resources/application#application-object-application-structure
  * Missing:
  * team
- * install params
  * integration types config
  *
  */
@@ -40,5 +40,6 @@ public record Application(
     @JsonProperty("interactions_endpoint_url") String interactionsEndpointUrl,
     @JsonProperty("role_connections_verification_url") String roleConnectionsVerificationUrl,
     @JsonProperty("tags") List<String> tags,
+    @JsonProperty("install_params") ApplicationInstallParams installParams,
     @JsonProperty("custom_install_url") String customInstallUrl
 ) {}

@@ -1,4 +1,4 @@
-package com.javadiscord.jdi.internal.models.guild;
+package com.javadiscord.jdi.internal.models.scheduledevent;
 
 public enum ScheduledEntityType {
     GUILD,

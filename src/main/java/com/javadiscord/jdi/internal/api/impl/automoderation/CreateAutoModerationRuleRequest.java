@@ -7,8 +7,8 @@ import java.util.Optional;
 
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-import com.javadiscord.jdi.internal.models.guild.AutoModerationActionObject;
-import com.javadiscord.jdi.internal.models.guild.AutoModerationTriggerMetadata;
+import com.javadiscord.jdi.internal.models.automoderation.AutoModerationAction;
+import com.javadiscord.jdi.internal.models.automoderation.AutoModerationTriggerMetadata;
 
 public record CreateAutoModerationRuleRequest(
     long guildId,
@@ -16,7 +16,7 @@ public record CreateAutoModerationRuleRequest(
     int eventType,
     int triggerType,
     Optional<AutoModerationTriggerMetadata> triggerMetadata,
-    List<AutoModerationActionObject> actions,
+    List<AutoModerationAction> actions,
     Optional<Boolean> enabled,
     Optional<List<Long>> exemptRoles,
     Optional<List<Long>> exemptChannels

@@ -1,5 +1,7 @@
-package com.javadiscord.jdi.internal.models.guild;
+package com.javadiscord.jdi.internal.models.scheduledevent;
 
+import com.javadiscord.jdi.internal.models.guild.EntityMetadata;
+import com.javadiscord.jdi.internal.models.guild.PrivacyLevel;
 import com.javadiscord.jdi.internal.models.user.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -21,6 +23,6 @@ public record ScheduledEvent(
     @JsonProperty("entity_id") Long entityId,
     @JsonProperty("entity_metadata") EntityMetadata entityMetadata,
     @JsonProperty("creator") User creator,
-    @JsonProperty("user_count") Integer userCount,
+    @JsonProperty("user_count") int userCount,
     @JsonProperty("image") String image
 ) {}

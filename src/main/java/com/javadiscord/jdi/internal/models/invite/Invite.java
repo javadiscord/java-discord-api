@@ -1,4 +1,4 @@
-package com.javadiscord.jdi.internal.models.guild;
+package com.javadiscord.jdi.internal.models.invite;
 
 import com.javadiscord.jdi.internal.models.application.Application;
 import com.javadiscord.jdi.internal.models.user.User;
@@ -15,7 +15,7 @@ public record Invite(
     @JsonProperty("inviter") User inviter,
     @JsonProperty("max_age") int maxAge,
     @JsonProperty("max_uses") int maxUses,
-    @JsonProperty("target_type") Integer targetType,
+    @JsonProperty("target_type") InviteTargetType targetType,
     @JsonProperty("target_user") User targetUser,
     @JsonProperty("target_application") Application targetApplication,
     @JsonProperty("temporary") boolean temporary,

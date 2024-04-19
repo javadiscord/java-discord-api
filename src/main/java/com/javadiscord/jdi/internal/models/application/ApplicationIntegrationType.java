@@ -1,4 +1,4 @@
-package com.javadiscord.jdi.internal.models.guild;
+package com.javadiscord.jdi.internal.models.application;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 

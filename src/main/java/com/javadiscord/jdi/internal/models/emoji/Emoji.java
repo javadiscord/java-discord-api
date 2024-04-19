@@ -1,7 +1,8 @@
-package com.javadiscord.jdi.internal.models.guild;
+package com.javadiscord.jdi.internal.models.emoji;
 
 import java.util.List;
 
+import com.javadiscord.jdi.internal.models.guild.Role;
 import com.javadiscord.jdi.internal.models.user.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

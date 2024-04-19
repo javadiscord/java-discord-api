@@ -1,4 +1,4 @@
-package com.javadiscord.jdi.internal.models.guild;
+package com.javadiscord.jdi.internal.models.scheduledevent;
 
 import com.javadiscord.jdi.internal.models.user.Member;
 import com.javadiscord.jdi.internal.models.user.User;

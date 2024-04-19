@@ -1,4 +1,4 @@
-package com.javadiscord.jdi.internal.models.guild;
+package com.javadiscord.jdi.internal.models.automoderation;
 
 public enum AutoModerationKeywordPresetTypes {
     PROFANITY(1),

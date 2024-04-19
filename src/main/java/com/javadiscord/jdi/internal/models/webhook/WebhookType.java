@@ -1,4 +1,4 @@
-package com.javadiscord.jdi.internal.models.guild;
+package com.javadiscord.jdi.internal.models.webhook;
 
 public enum WebhookType {
     INCOMING(1),

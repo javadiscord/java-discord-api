@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record ApplicationInstallParamsObject(
+public record ApplicationInstallParams(
         @JsonProperty("scopes") List<String > scopes,
         @JsonProperty("permissions") String permission
 ) {}

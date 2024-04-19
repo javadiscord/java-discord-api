@@ -1,4 +1,4 @@
-package com.javadiscord.jdi.internal.models.automod;
+package com.javadiscord.jdi.internal.models.auditlog;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

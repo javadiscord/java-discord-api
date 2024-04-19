@@ -1,6 +1,10 @@
 package com.javadiscord.jdi.internal.models.channel;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum VideoQualityMode {
+    AUTO(1),
+    FULL(2) ;
 
     private final int value;
 
@@ -8,6 +12,7 @@ public enum VideoQualityMode {
         this.value = value;
     }
 
+    @JsonValue
     public int getValue() {
         return value;
     }

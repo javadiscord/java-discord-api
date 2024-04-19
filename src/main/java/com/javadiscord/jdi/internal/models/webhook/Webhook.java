@@ -1,6 +1,7 @@
-package com.javadiscord.jdi.internal.models.guild;
+package com.javadiscord.jdi.internal.models.webhook;
 
 import com.javadiscord.jdi.internal.models.channel.Channel;
+import com.javadiscord.jdi.internal.models.guild.Guild;
 import com.javadiscord.jdi.internal.models.user.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

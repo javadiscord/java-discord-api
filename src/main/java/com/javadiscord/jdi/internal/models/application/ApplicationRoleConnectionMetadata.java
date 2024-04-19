@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * description_localizations
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record ApplicationRoleConnectionMetadataObject(
+public record ApplicationRoleConnectionMetadata(
         @JsonProperty("type") ApplicationRoleConnectionMetadataType type,
         @JsonProperty("key") String key,
         @JsonProperty("name") String name,

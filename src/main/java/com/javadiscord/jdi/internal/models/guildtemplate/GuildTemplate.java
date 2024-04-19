@@ -1,4 +1,4 @@
-package com.javadiscord.jdi.internal.models.guildteplate;
+package com.javadiscord.jdi.internal.models.guildtemplate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

@@ -2,7 +2,7 @@ package com.javadiscord.jdi.internal.models.message;
 
 import java.util.List;
 
-import com.javadiscord.jdi.internal.models.guild.Emoji;
+import com.javadiscord.jdi.internal.models.emoji.Emoji;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record AuditLogEntryObject(
+public record AuditLogEntry(
         @JsonProperty("target_id") String targetId,
         @JsonProperty("changes") List<AuditLogChange> auditLogChanges,
         @JsonProperty("user_id") long userId,
