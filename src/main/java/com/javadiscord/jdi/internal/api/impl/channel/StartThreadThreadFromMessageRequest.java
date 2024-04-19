@@ -12,7 +12,8 @@ public record StartThreadThreadFromMessageRequest(
         long messageId,
         String name,
         Optional<Integer> autoArchiveDuration,
-        Optional<Integer> rateLimitPerUser) implements DiscordRequest {
+        Optional<Integer> rateLimitPerUser)
+        implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {

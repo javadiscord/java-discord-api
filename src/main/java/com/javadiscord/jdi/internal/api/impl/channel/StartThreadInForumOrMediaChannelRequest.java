@@ -16,7 +16,8 @@ public record StartThreadInForumOrMediaChannelRequest(
         Object message, // TODO: Create Forum and Media Thread Message Params Object
         Optional<List<Long>> appliedTags,
         Optional<Object> files, // TODO: Create Files object
-        Optional<String> payloadJson) implements DiscordRequest {
+        Optional<String> payloadJson)
+        implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {

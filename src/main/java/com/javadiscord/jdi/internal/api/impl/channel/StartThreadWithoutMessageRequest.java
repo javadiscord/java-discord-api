@@ -13,7 +13,8 @@ public record StartThreadWithoutMessageRequest(
         Optional<Integer> autoArchiveDuration,
         Optional<Integer> type,
         Optional<Boolean> invitable,
-        Optional<Integer> rateLimitPerUser) implements DiscordRequest {
+        Optional<Integer> rateLimitPerUser)
+        implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {

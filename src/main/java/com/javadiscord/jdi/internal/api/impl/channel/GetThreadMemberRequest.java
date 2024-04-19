@@ -5,10 +5,8 @@ import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
 import java.util.Optional;
 
-public record GetThreadMemberRequest(
-        long channelId,
-        long userId,
-        Optional<Boolean> withMember) implements DiscordRequest {
+public record GetThreadMemberRequest(long channelId, long userId, Optional<Boolean> withMember)
+        implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {

@@ -6,10 +6,8 @@ import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 import java.util.Optional;
 
 public record ListThreadMembersRequest(
-        long channelId,
-        Optional<Boolean> withMember,
-        Optional<Long> after,
-        Optional<Integer> limit) implements DiscordRequest {
+        long channelId, Optional<Boolean> withMember, Optional<Long> after, Optional<Integer> limit)
+        implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {

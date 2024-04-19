@@ -9,10 +9,10 @@ import java.util.Optional;
 
 public record ListPrivateArchivedThreadsRequest(
         long channelId,
-        @JsonFormat(
-                shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
-        ) Optional<OffsetDateTime> before,
-        Optional<Integer> limit) implements DiscordRequest {
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+                Optional<OffsetDateTime> before,
+        Optional<Integer> limit)
+        implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {
