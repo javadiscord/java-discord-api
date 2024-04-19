@@ -3,12 +3,16 @@ package com.javadiscord.jdi.internal.api.impl.channel;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
-public record DeleteChannelRequest(long channelId, long overwriteId) implements DiscordRequest {
+import java.util.Optional;
+
+public record EditChannelPermissionsRequest(
+        long channelId, long overwriteId, Optional<String> allow, Optional<String> deny, int type)
+        implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-                .delete()
+                .put()
                 .path("/channels/%s/permissions/%s".formatted(channelId, overwriteId));
     }
 }
