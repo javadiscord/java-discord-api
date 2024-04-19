@@ -1,13 +1,14 @@
 package com.javadiscord.jdi.internal.api;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.net.URLEncoder;
 import java.net.http.HttpRequest;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.mizosoft.methanol.MultipartBodyPublisher;
 
 public class DiscordRequestBuilder {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
@@ -52,6 +53,17 @@ public class DiscordRequestBuilder {
         return this;
     }
 
+    public DiscordRequestBuilder body(HttpRequest.BodyPublisher body) {
+        this.body = body;
+        return this;
+    }
+
+    public DiscordRequestBuilder multipartBody(MultipartBodyPublisher body) {
+        this.body = body;
+        this.headers.put("Content-Type", "multipart/form-data");
+        return this;
+    }
+
     public DiscordRequestBuilder get() {
         this.method = HttpMethod.GET;
         return this;
@@ -88,7 +100,8 @@ public class DiscordRequestBuilder {
             encodedParams.append(URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8));
             encodedParams.append("=");
             encodedParams.append(
-                    URLEncoder.encode(String.valueOf(entry.getValue()), StandardCharsets.UTF_8));
+                URLEncoder.encode(String.valueOf(entry.getValue()), StandardCharsets.UTF_8)
+            );
         }
         return encodedParams.toString();
     }

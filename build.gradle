@@ -17,6 +17,8 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.17.0'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
 
+    implementation 'com.github.mizosoft.methanol:methanol:1.7.0'
+
     implementation 'io.vertx:vertx-web-client:4.5.7'
     implementation 'io.vertx:vertx-core:4.5.7'
 
@@ -26,17 +28,12 @@ dependencies {
 
 spotless {
     java {
-        importOrder()
-        googleJavaFormat()
-                .aosp()
-                .reflowLongStrings()
-                .formatJavadoc(true)
-                .reorderImports(true)
-                .groupArtifact('com.google.googlejavaformat:google-java-format')
-        trimTrailingWhitespace()
-        indentWithSpaces()
+        target('**/java/**/*.java')
         endWithNewline()
-        encoding 'UTF-8'
+        removeUnusedImports()
+        // '\\#' = static imports, '' = everything else
+        importOrder('\\#', 'java', 'javax', 'com.javadiscord', '')
+        eclipse().configFile("./spotless.xml")
     }
 }
 

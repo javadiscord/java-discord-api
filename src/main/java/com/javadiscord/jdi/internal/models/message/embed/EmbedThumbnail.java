@@ -5,7 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record EmbedThumbnail(
-        @JsonProperty("url") String url,
-        @JsonProperty("proxy_url") String proxyUrl,
-        @JsonProperty("height") Integer height,
-        @JsonProperty("width") Integer width) {}
+    @JsonProperty("url") String url,
+    @JsonProperty("proxy_url") String proxyUrl,
+    @JsonProperty("height") Integer height,
+    @JsonProperty("width") Integer width
+) {}
