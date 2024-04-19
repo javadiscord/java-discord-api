@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum VideoQualityMode {
     AUTO(1),
-    FULL(2) ;
+    FULL(2);
 
     private final int value;
 

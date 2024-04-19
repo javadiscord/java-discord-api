@@ -11,8 +11,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record ApplicationRoleConnectionMetadata(
-        @JsonProperty("type") ApplicationRoleConnectionMetadataType type,
-        @JsonProperty("key") String key,
-        @JsonProperty("name") String name,
-        @JsonProperty("description") String description
+    @JsonProperty("type") ApplicationRoleConnectionMetadataType type,
+    @JsonProperty("key") String key,
+    @JsonProperty("name") String name,
+    @JsonProperty("description") String description
 ) {}

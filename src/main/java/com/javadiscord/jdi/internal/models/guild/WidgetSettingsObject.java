@@ -5,6 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record WidgetSettingsObject(
-        @JsonProperty("enabled") boolean enabled,
-        @JsonProperty("channel_id") long channelId
+    @JsonProperty("enabled") boolean enabled,
+    @JsonProperty("channel_id") long channelId
 ) {}
