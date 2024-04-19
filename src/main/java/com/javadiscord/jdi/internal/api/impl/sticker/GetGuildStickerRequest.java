@@ -8,7 +8,7 @@ public record GetGuildStickerRequest(long guildId, long stickerId) implements Di
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-                .get()
-                .path("/guilds/%s/stickers/%s".formatted(guildId, stickerId));
+            .get()
+            .path("/guilds/%s/stickers/%s".formatted(guildId, stickerId));
     }
 }
