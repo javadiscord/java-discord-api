@@ -29,7 +29,6 @@ public record FetchChannelMessagesRequest(
         around.ifPresent(val -> requestBuilder.queryParam("around", val));
         before.ifPresent(val -> requestBuilder.queryParam("before", val));
         after.ifPresent(val -> requestBuilder.queryParam("after", val));
-        around.ifPresent(val -> requestBuilder.queryParam("around", val));
 
         requestBuilder.queryParam("limit", limit);
         requestBuilder.path("/channels/%s".formatted(channelId));
