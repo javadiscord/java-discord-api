@@ -8,5 +8,6 @@ import com.javadiscord.jdi.internal.models.guild.ScheduledEvent;
 public class ScheduledEventDeleteHandler implements EventHandler<ScheduledEvent> {
     @Override
     public void handle(
-            ScheduledEvent event, ConnectionMediator connectionMediator, Discord discord) {}
+        ScheduledEvent event, ConnectionMediator connectionMediator, Discord discord
+    ) {}
 }

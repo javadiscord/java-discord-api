@@ -5,7 +5,8 @@ public class ConnectionMediator {
     private final WebSocketManagerProxy webSocketManagerProxy;
 
     public ConnectionMediator(
-            ConnectionDetails connectionDetails, WebSocketManagerProxy webSocketManagerProxy) {
+        ConnectionDetails connectionDetails, WebSocketManagerProxy webSocketManagerProxy
+    ) {
         this.connectionDetails = connectionDetails;
         this.webSocketManagerProxy = webSocketManagerProxy;
     }

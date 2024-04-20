@@ -5,8 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 record ApplicationCommandOption(
-        @JsonProperty("name") String name,
-        @JsonProperty("type") int type,
-        @JsonProperty("value") Object value,
-        @JsonProperty("options") ApplicationCommandOption[] options,
-        @JsonProperty("focused") boolean focused) {}
+    @JsonProperty("name") String name,
+    @JsonProperty("type") int type,
+    @JsonProperty("value") Object value,
+    @JsonProperty("options") ApplicationCommandOption[] options,
+    @JsonProperty("focused") boolean focused
+) {}

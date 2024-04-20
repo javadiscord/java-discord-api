@@ -8,5 +8,6 @@ import com.javadiscord.jdi.internal.gateway.handlers.events.codec.models.channel
 public class ThreadMemberUpdateHandler implements EventHandler<ThreadMemberUpdate> {
     @Override
     public void handle(
-            ThreadMemberUpdate event, ConnectionMediator connectionMediator, Discord discord) {}
+        ThreadMemberUpdate event, ConnectionMediator connectionMediator, Discord discord
+    ) {}
 }
