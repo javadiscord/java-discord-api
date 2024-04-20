@@ -7,14 +7,16 @@ import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
 public final record CreateGroupDMRequest(List<String> accessTokens, Map<Long, String> nicks) implements DiscordRequest {
-	@Override
-	public DiscordRequestBuilder create() {
+    @Override
+    public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
             .post()
             .path("/users/@me/channels")
-            .body(Map.of(
-                "access_tokens", accessTokens,
-                "nicks", nicks
-            ));
-	}
+            .body(
+                Map.of(
+                    "access_tokens", accessTokens,
+                    "nicks", nicks
+                )
+            );
+    }
 }

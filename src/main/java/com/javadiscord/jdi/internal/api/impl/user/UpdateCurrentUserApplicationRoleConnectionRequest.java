@@ -4,9 +4,10 @@ import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
 public final record UpdateCurrentUserApplicationRoleConnectionRequest() implements DiscordRequest {
-	@Override
-	public DiscordRequestBuilder create() {
+    @Override
+    public DiscordRequestBuilder create() {
         return null;
-        // TODO: https://discord.com/developers/docs/resources/user#update-current-user-application-role-connection
-	}
+        // TODO:
+        // https://discord.com/developers/docs/resources/user#update-current-user-application-role-connection
+    }
 }

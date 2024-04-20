@@ -13,8 +13,8 @@ public final record GetCurrentUserGuildsRequest(
     Optional<Integer> limit,
     Optional<Boolean> withCounts
 ) implements DiscordRequest {
-	@Override
-	public DiscordRequestBuilder create() {
+    @Override
+    public DiscordRequestBuilder create() {
         Map<String, Object> body = new HashMap<>();
         before.ifPresent(val -> body.put("before", val));
         after.ifPresent(val -> body.put("after", val));
@@ -25,5 +25,5 @@ public final record GetCurrentUserGuildsRequest(
             .get()
             .path("/users/@me/guilds")
             .body(body);
-	}
+    }
 }
