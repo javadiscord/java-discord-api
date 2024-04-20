@@ -14,11 +14,11 @@ public final record ModifyCurrentUserRequest(String username, Path avatarPath) i
     public DiscordRequestBuilder create() {
         byte[] avatarContent = new byte[0];
 
-		try {
-			avatarContent = Files.readAllBytes(avatarPath);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+        try {
+            avatarContent = Files.readAllBytes(avatarPath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         String encodedAvatar = "data:image/jpeg;base64," + Base64.getEncoder().encodeToString(avatarContent);
 
@@ -26,10 +26,10 @@ public final record ModifyCurrentUserRequest(String username, Path avatarPath) i
             .path("/users/@me")
             .patch()
             .body(
-            Map.of(
-                "username", username,
-                "avatar", encodedAvatar
-            )
-        );
+                Map.of(
+                    "username", username,
+                    "avatar", encodedAvatar
+                )
+            );
     }
 }
