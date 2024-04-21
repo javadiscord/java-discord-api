@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record Invite(
-    @JsonProperty("channel_id") String channelId,
+    @JsonProperty("channel_id") long channelId,
     @JsonProperty("code") String code,
     @JsonProperty("created_at") String createdAt,
     @JsonProperty("guild_id") String guildId,

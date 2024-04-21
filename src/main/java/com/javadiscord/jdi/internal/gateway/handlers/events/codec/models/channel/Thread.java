@@ -18,7 +18,7 @@ public record Thread(
     @JsonProperty("message_count") int messageCount,
     @JsonProperty("member_count") int memberCount,
     @JsonProperty("last_message_id") String lastMessageId,
-    @JsonProperty("id") String id,
-    @JsonProperty("guild_id") String guildId,
+    @JsonProperty("id") long id,
+    @JsonProperty("guild_id") long guildId,
     @JsonProperty("flags") int flags
 ) {}

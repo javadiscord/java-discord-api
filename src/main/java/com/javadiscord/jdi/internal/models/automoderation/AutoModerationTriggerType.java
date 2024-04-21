@@ -11,4 +11,8 @@ public enum AutoModerationTriggerType {
     AutoModerationTriggerType(int value) {
         this.value = value;
     }
+
+    public int getValue() {
+        return value;
+    }
 }

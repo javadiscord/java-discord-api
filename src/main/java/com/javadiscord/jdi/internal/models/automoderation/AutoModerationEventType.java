@@ -8,4 +8,8 @@ public enum AutoModerationEventType {
     AutoModerationEventType(int value) {
         this.value = value;
     }
+
+    public int getValue() {
+        return value;
+    }
 }

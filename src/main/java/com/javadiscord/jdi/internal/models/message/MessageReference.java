@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record MessageReference(
-    @JsonProperty("message_id") String messageId,
+    @JsonProperty("messageId") String messageId,
     @JsonProperty("channel_id") String channelId,
     @JsonProperty("guild_id") String guildId,
     @JsonProperty("fail_if_not_exists") boolean failIfNotExists

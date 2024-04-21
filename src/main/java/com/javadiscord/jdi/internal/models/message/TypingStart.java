@@ -7,9 +7,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record TypingStart(
-    @JsonProperty("channel_id") String channelId,
-    @JsonProperty("guild_id") String guildId,
-    @JsonProperty("user_id") String userId,
+    @JsonProperty("channel_id") long channelId,
+    @JsonProperty("guild_id") long guildId,
+    @JsonProperty("user_id") long userId,
     @JsonProperty("timestamp") int timestamp,
     @JsonProperty("member") Member member
 ) {}
