@@ -7,5 +7,7 @@ import com.javadiscord.jdi.internal.models.channel.Channel;
 
 public class ChannelUpdateHandler implements EventHandler<Channel> {
     @Override
-    public void handle(Channel event, ConnectionMediator connectionMediator, Discord discord) {}
+    public void handle(Channel event, ConnectionMediator connectionMediator, Discord discord) {
+        discord.getCache().getCacheForGuild(event.guildId()).add(event.id(), event);
+    }
 }

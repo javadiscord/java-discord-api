@@ -11,5 +11,7 @@ public class AutoModerationRuleCreateHandler implements EventHandler<AutoModerat
         AutoModerationRule event,
         ConnectionMediator connectionMediator,
         Discord discord
-    ) {}
+    ) {
+        discord.getCache().getCacheForGuild(event.guildId()).add(event.id(), event);
+    }
 }

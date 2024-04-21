@@ -7,5 +7,7 @@ import com.javadiscord.jdi.internal.models.guild.MemberChunk;
 
 public class MemberChunkHandler implements EventHandler<MemberChunk> {
     @Override
-    public void handle(MemberChunk event, ConnectionMediator connectionMediator, Discord discord) {}
+    public void handle(MemberChunk event, ConnectionMediator connectionMediator, Discord discord) {
+
+    }
 }
