@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import com.javadiscord.jdi.core.cache.Cache;
+import com.javadiscord.jdi.core.cache.CacheType;
 import com.javadiscord.jdi.internal.api.DiscordRequestDispatcher;
 import com.javadiscord.jdi.internal.gateway.*;
 import com.javadiscord.jdi.internal.gateway.identify.IdentifyRequest;
@@ -30,6 +32,7 @@ public class Discord {
     private final DiscordRequestDispatcher discordRequestDispatcher;
     private final Gateway gateway;
     private final GatewaySetting gatewaySetting;
+    private final Cache cache;
 
     public Discord(String botToken) {
         this(
@@ -77,6 +80,7 @@ public class Discord {
         this.gateway = getGatewayURL(botToken);
         this.gatewaySetting = new GatewaySetting().setEncoding(GatewayEncoding.JSON).setApiVersion(10);
         this.identifyRequest = identifyRequest;
+        this.cache = new Cache(CacheType.FULL);
     }
 
     public void start() {
@@ -119,5 +123,9 @@ public class Discord {
 
     public DiscordRequestDispatcher getDiscordRequestDispatcher() {
         return discordRequestDispatcher;
+    }
+
+    public Cache getCache() {
+        return cache;
     }
 }
