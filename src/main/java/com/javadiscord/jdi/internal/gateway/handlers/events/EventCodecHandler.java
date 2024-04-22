@@ -1,9 +1,15 @@
 package com.javadiscord.jdi.internal.gateway.handlers.events;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.javadiscord.jdi.core.Discord;
+import com.javadiscord.jdi.core.annotations.ChannelCreate;
 import com.javadiscord.jdi.internal.gateway.ConnectionMediator;
 import com.javadiscord.jdi.internal.gateway.GatewayEvent;
 import com.javadiscord.jdi.internal.gateway.handlers.GatewayOperationHandler;
@@ -36,6 +42,7 @@ import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.ready
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.resume.ResumeEventHandler;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.voice.VoiceServerHandler;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.voice.VoiceStateHandler;
+import com.javadiscord.jdi.internal.models.channel.Channel;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,8 +51,13 @@ public class EventCodecHandler implements GatewayOperationHandler {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final Map<EventType, EventDecoder<?>> EVENT_DECODERS = new HashMap<>();
     private static final Map<EventType, EventHandler<?>> EVENT_HANDLERS = new HashMap<>();
+    private static final Map<EventType, Class<? extends Annotation>> EVENT_TYPE_ANNOTATIONS = new HashMap<>();
 
     static {
+        /* Event Listeners */
+        EVENT_TYPE_ANNOTATIONS.put(EventType.CHANNEL_CREATE, ChannelCreate.class);
+
+        /* Codec */
         EVENT_DECODERS.put(EventType.READY, new ReadyEventDecoder());
         EVENT_HANDLERS.put(EventType.READY, new ReadyEventHandler());
 
@@ -264,5 +276,35 @@ public class EventCodecHandler implements GatewayOperationHandler {
         EventHandler<Object> eventHandler = (EventHandler<Object>) EVENT_HANDLERS.get(eventType);
         Object event = eventDecoder.decode(gatewayEvent);
         eventHandler.handle(event, connectionMediator, discord);
+
+        if (EVENT_TYPE_ANNOTATIONS.containsKey(eventType)) {
+            invokeListeners(discord, eventType, event);
+        }
+    }
+
+    private static void invokeListeners(Discord discord, EventType eventType, Object event) {
+        discord.getEventListeners().forEach(listener -> {
+            Method[] methods = listener.getClass().getMethods();
+            List<Object> paramOrder = new ArrayList<>();
+            for (Method method : methods) {
+                if (method.isAnnotationPresent(EVENT_TYPE_ANNOTATIONS.get(eventType))) {
+                    Parameter[] parameters = method.getParameters();
+                    for (Parameter parameter : parameters) {
+                        if (parameter.getParameterizedType() == Channel.class) {
+                            paramOrder.add(event);
+                        } else if (parameter.getParameterizedType() == Discord.class) {
+                            paramOrder.add(discord);
+                        }
+                    }
+                    try {
+                        LOGGER.trace("Invoking method {} with params {}", method.getName(), paramOrder);
+                        method.invoke(listener, paramOrder.toArray());
+                    } catch (Exception e) {
+                        LOGGER.error("Failed to invoke {}", method.getName(), e);
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
     }
 }

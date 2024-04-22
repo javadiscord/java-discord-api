@@ -1,15 +1,21 @@
 package com.javadiscord.jdi.core;
 
+import java.io.File;
+import java.lang.reflect.Constructor;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import com.javadiscord.jdi.core.annotations.EventListener;
 import com.javadiscord.jdi.core.cache.Cache;
 import com.javadiscord.jdi.core.cache.CacheType;
+import com.javadiscord.jdi.core.processor.ClassLoader;
+import com.javadiscord.jdi.core.processor.EventListenerValidator;
 import com.javadiscord.jdi.internal.api.DiscordRequestDispatcher;
 import com.javadiscord.jdi.internal.gateway.*;
 import com.javadiscord.jdi.internal.gateway.identify.IdentifyRequest;
@@ -29,6 +35,7 @@ public class Discord {
     private final Gateway gateway;
     private final GatewaySetting gatewaySetting;
     private final Cache cache;
+    private final List<Object> eventListeners = new ArrayList<>();
 
     public Discord(String botToken) {
         this(
@@ -84,6 +91,16 @@ public class Discord {
     }
 
     public void start() {
+        try {
+            loadListeners();
+            if (eventListeners.isEmpty()) {
+                LOGGER.warn("No event listeners have been registered");
+            }
+        } catch (Exception e) {
+            LOGGER.error("Failed to load listeners", e);
+            throw new RuntimeException(e);
+        }
+
         WebSocketManager webSocketManager = new WebSocketManager(
             new GatewaySetting().setApiVersion(10).setEncoding(GatewayEncoding.JSON),
             identifyRequest,
@@ -96,6 +113,35 @@ public class Discord {
         webSocketManagerProxy.start(connectionMediator);
 
         EXECUTOR.execute(discordRequestDispatcher);
+    }
+
+    private void loadListeners() throws Exception {
+        EventListenerValidator eventListenerValidator = new EventListenerValidator();
+        List<File> classes = ClassLoader.getClassesInClassPath();
+        for (File classFile : classes) {
+            Class<?> clazz = Class.forName(ClassLoader.getClassName(classFile));
+            if (clazz.isAnnotationPresent(EventListener.class)) {
+                if (eventListenerValidator.validate(clazz)) {
+                    try {
+                        eventListeners.add(getZeroArgConstructor(clazz).newInstance());
+                    } catch (Exception e) {
+                        LOGGER.error("Failed to create {} instance", clazz.getName(), e);
+                    }
+                } else {
+                    LOGGER.error("{} failed validation", clazz.getName());
+                }
+            }
+        }
+    }
+
+    private static Constructor<?> getZeroArgConstructor(Class<?> clazz) {
+        Constructor<?>[] constructors = clazz.getConstructors();
+        for (Constructor<?> constructor : constructors) {
+            if (constructor.getParameterCount() == 0) {
+                return constructor;
+            }
+        }
+        throw new RuntimeException("No zero arg constructor found for " + clazz.getName());
     }
 
     private static Gateway getGatewayURL(String authentication) {
@@ -115,5 +161,9 @@ public class Discord {
 
     public Cache getCache() {
         return cache;
+    }
+
+    public List<Object> getEventListeners() {
+        return eventListeners;
     }
 }

@@ -12,6 +12,8 @@ import javassist.bytecode.ClassFile;
 
 public class ClassLoader {
 
+    private ClassLoader() {}
+
     public static List<File> getClassesInClassPath() {
         List<File> classes = new ArrayList<>();
         String classpath = System.getProperty("java.class.path");
@@ -47,7 +49,7 @@ public class ClassLoader {
             FileInputStream fis = new FileInputStream(file);
             DataInputStream dis = new DataInputStream(fis)
         ) {
-            if (isZipFile(file)) {
+            if (isJarFile(file)) {
                 try (ZipInputStream zip = new ZipInputStream(fis)) {
                     ZipEntry entry;
                     while ((entry = zip.getNextEntry()) != null) {
@@ -65,9 +67,8 @@ public class ClassLoader {
         return className;
     }
 
-    private static boolean isZipFile(File file) {
-        return file.getName().toLowerCase().endsWith(".jar")
-            || file.getName().toLowerCase().endsWith(".zip");
+    private static boolean isJarFile(File file) {
+        return file.getName().toLowerCase().endsWith(".jar");
     }
 
     private static String extractClassName(DataInputStream dis) throws IOException {

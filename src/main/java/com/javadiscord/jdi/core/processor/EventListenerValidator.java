@@ -1,4 +1,4 @@
-package com.javadiscord.jdi.core.processor.validator;
+package com.javadiscord.jdi.core.processor;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -18,70 +18,70 @@ public class EventListenerValidator {
     static {
         EXPECTED_PARAM_TYPES_MAP.put(
             AutoModerationRuleCreate.class,
-            new String[] { " com.javadiscord.jdi.internal.models.guild.AutoModerationRuleObject",
+            new String[] { "com.javadiscord.jdi.internal.models.guild.AutoModerationRuleObject",
                 "com.javadiscord.jdi.core.Discord" }
         );
 
         EXPECTED_PARAM_TYPES_MAP.put(
             AutoModerationRuleDelete.class,
-            new String[] { " com.javadiscord.jdi.internal.models.guild.AutoModerationRuleObject",
+            new String[] { "com.javadiscord.jdi.internal.models.guild.AutoModerationRuleObject",
                 "com.javadiscord.jdi.core.Discord" }
         );
 
         EXPECTED_PARAM_TYPES_MAP.put(
             AutoModerationRuleUpdate.class,
-            new String[] { " com.javadiscord.jdi.internal.models.guild.AutoModerationRuleObject",
+            new String[] { "com.javadiscord.jdi.internal.models.guild.AutoModerationRuleObject",
                 "com.javadiscord.jdi.core.Discord" }
         );
 
         EXPECTED_PARAM_TYPES_MAP.put(
             EntitlementCreate.class,
-            new String[] { " com.javadiscord.jdi.internal.models.guild.Entitlement",
+            new String[] { "com.javadiscord.jdi.internal.models.guild.Entitlement",
                 "com.javadiscord.jdi.core.Discord" }
         );
 
         EXPECTED_PARAM_TYPES_MAP.put(
             EntitlementDelete.class,
-            new String[] { " com.javadiscord.jdi.internal.models.guild.Entitlement",
+            new String[] { "com.javadiscord.jdi.internal.models.guild.Entitlement",
                 "com.javadiscord.jdi.core.Discord" }
         );
 
         EXPECTED_PARAM_TYPES_MAP.put(
             EntitlementUpdate.class,
-            new String[] { " com.javadiscord.jdi.internal.models.guild.Entitlement",
+            new String[] { "com.javadiscord.jdi.internal.models.guild.Entitlement",
                 "com.javadiscord.jdi.core.Discord" }
         );
 
         EXPECTED_PARAM_TYPES_MAP.put(
             ChannelCreate.class,
-            new String[] { " com.javadiscord.jdi.internal.models.channel.Channel", "com.javadiscord.jdi.core.Discord" }
+            new String[] { "com.javadiscord.jdi.internal.models.channel.Channel", "com.javadiscord.jdi.core.Discord" }
         );
 
         EXPECTED_PARAM_TYPES_MAP.put(
             ChannelUpdate.class,
-            new String[] { " com.javadiscord.jdi.internal.models.channel.Channel", "com.javadiscord.jdi.core.Discord" }
+            new String[] { "com.javadiscord.jdi.internal.models.channel.Channel", "com.javadiscord.jdi.core.Discord" }
         );
 
         EXPECTED_PARAM_TYPES_MAP.put(
             ChannelDelete.class,
-            new String[] { " com.javadiscord.jdi.internal.models.channel.Channel", "com.javadiscord.jdi.core.Discord" }
+            new String[] { "com.javadiscord.jdi.internal.models.channel.Channel", "com.javadiscord.jdi.core.Discord" }
         );
 
         EXPECTED_PARAM_TYPES_MAP.put(
             ScheduledEventCreate.class,
-            new String[] { " com.javadiscord.jdi.internal.models.guild.ScheduledEvent",
+            new String[] { "com.javadiscord.jdi.internal.models.guild.ScheduledEvent",
                 "com.javadiscord.jdi.core.Discord" }
         );
 
         EXPECTED_PARAM_TYPES_MAP.put(
             ScheduledEventUpdate.class,
-            new String[] { " com.javadiscord.jdi.internal.models.guild.ScheduledEvent",
+            new String[] { "com.javadiscord.jdi.internal.models.guild.ScheduledEvent",
                 "com.javadiscord.jdi.core.Discord" }
         );
 
         EXPECTED_PARAM_TYPES_MAP.put(
             ScheduledEventDelete.class,
-            new String[] { " com.javadiscord.jdi.internal.models.guild.ScheduledEvent",
+            new String[] { "com.javadiscord.jdi.internal.models.guild.ScheduledEvent",
                 "com.javadiscord.jdi.core.Discord" }
         );
 
@@ -274,7 +274,7 @@ public class EventListenerValidator {
                         for (Class<?> type : paramTypes) {
                             boolean isExpectedType = false;
                             for (String expectedType : expectedParamTypes) {
-                                if (type.getName().endsWith(expectedType)) {
+                                if (type.getName().equals(expectedType)) {
                                     isExpectedType = true;
                                     break;
                                 }
@@ -282,6 +282,8 @@ public class EventListenerValidator {
                             if (!isExpectedType) {
                                 LOGGER.error("Unexpected parameter found: {}", type.getName());
                                 return false;
+                            } else {
+                                LOGGER.trace("Loaded {}", clazz.getName());
                             }
                         }
                     } else {
