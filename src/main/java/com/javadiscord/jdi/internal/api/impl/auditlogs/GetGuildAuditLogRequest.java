@@ -11,9 +11,16 @@ public record GetGuildAuditLogRequest(
     Optional<Integer> actionType,
     Optional<Long> before,
     Optional<Long> after,
-    Optional<Integer> limit
+    Optional<Integer> limit,
+    Optional<String> reason
 )
     implements DiscordRequest {
+
+    public GetGuildAuditLogRequest {
+        if (limit.isPresent() && (limit.get() > 100 || limit.get() < 1)) {
+            throw new IllegalArgumentException("limit must be between 1-100");
+        }
+    }
 
     @Override
     public DiscordRequestBuilder create() {
@@ -25,6 +32,8 @@ public record GetGuildAuditLogRequest(
         before.ifPresent(val -> discordRequestBuilder.queryParam("before", val));
         after.ifPresent(val -> discordRequestBuilder.queryParam("after", val));
         limit.ifPresent(val -> discordRequestBuilder.queryParam("limit", val));
+
+        reason.ifPresent(reason -> discordRequestBuilder.putHeader("X-Audit-Log-Reason", reason));
 
         return discordRequestBuilder;
     }
