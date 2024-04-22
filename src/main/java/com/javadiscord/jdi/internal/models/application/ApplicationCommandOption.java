@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-record ApplicationCommandOption(
+public record ApplicationCommandOption(
     @JsonProperty("name") String name,
     @JsonProperty("type") int type,
     @JsonProperty("value") Object value,
