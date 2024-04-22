@@ -9,12 +9,13 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.stream.Stream;
 
+import com.javadiscord.jdi.core.Discord;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class DiscordRequestDispatcher implements Runnable {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final String BASE_URL = "https://discord.com/api";
     private final BlockingQueue<DiscordRequestBuilder> queue;
     private final String botToken;
     private int numberOfRequestsSent;
@@ -63,7 +64,7 @@ public class DiscordRequestDispatcher implements Runnable {
                     URI.create(
                         "%s%s%s"
                             .formatted(
-                                BASE_URL,
+                                Discord.getBaseUrl(),
                                 discordRequestBuilder.getPath(),
                                 discordRequestBuilder
                                     .getQueryParameters()
@@ -117,7 +118,7 @@ public class DiscordRequestDispatcher implements Runnable {
 
         } catch (Exception e) {
             LOGGER.error(
-                "Failed to send request to {}{}", BASE_URL, discordRequestBuilder.getPath(), e
+                "Failed to send request to {}{}", Discord.getBaseUrl(), discordRequestBuilder.getPath(), e
             );
             discordRequestBuilder.setFailureError(e);
         }
