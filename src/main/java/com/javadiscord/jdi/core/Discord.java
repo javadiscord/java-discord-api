@@ -24,6 +24,7 @@ public class Discord {
     private static final String BASE_URL = System.getProperty("DISCORD_BASE_URL") != null ? System.getProperty("DISCORD_BASE_URL") : "https://discord.com/api";
     private final String botToken;
     private final IdentifyRequest identifyRequest;
+
     private final DiscordRequestDispatcher discordRequestDispatcher;
     private final Gateway gateway;
     private final GatewaySetting gatewaySetting;
@@ -91,6 +92,10 @@ public class Discord {
         EXECUTOR.execute(discordRequestDispatcher);
     }
 
+    public void startWithoutWebsocket() {
+        EXECUTOR.execute(discordRequestDispatcher);
+    }
+
     private static Gateway getGatewayURL(String authentication) {
         try (HttpClient httpClient = HttpClient.newBuilder().build()) {
             HttpRequest request = HttpRequest.newBuilder()
@@ -108,5 +113,10 @@ public class Discord {
 
     public static String getBaseUrl() {
         return BASE_URL;
+    }
+
+
+    public DiscordRequestDispatcher getDiscordRequestDispatcher() {
+        return discordRequestDispatcher;
     }
 }
