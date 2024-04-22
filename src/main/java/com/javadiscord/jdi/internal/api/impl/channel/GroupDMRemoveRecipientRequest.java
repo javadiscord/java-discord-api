@@ -8,7 +8,7 @@ public record GroupDMRemoveRecipientRequest(long channelId, long userId) impleme
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-                .delete()
-                .path("/channels/%s/recipients/%s".formatted(channelId, userId));
+            .delete()
+            .path("/channels/%s/recipients/%s".formatted(channelId, userId));
     }
 }

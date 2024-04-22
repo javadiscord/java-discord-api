@@ -1,19 +1,20 @@
 package com.javadiscord.jdi.internal.api.impl.channel;
 
-import com.javadiscord.jdi.internal.api.DiscordRequest;
-import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import com.javadiscord.jdi.internal.api.DiscordRequest;
+import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
+
 public record StartThreadThreadFromMessageRequest(
-        long channelId,
-        long messageId,
-        String name,
-        Optional<Integer> autoArchiveDuration,
-        Optional<Integer> rateLimitPerUser)
-        implements DiscordRequest {
+    long channelId,
+    long messageId,
+    String name,
+    Optional<Integer> autoArchiveDuration,
+    Optional<Integer> rateLimitPerUser
+)
+    implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {
@@ -23,8 +24,8 @@ public record StartThreadThreadFromMessageRequest(
         rateLimitPerUser.ifPresent(val -> body.put("rate_limit_per_user", val));
 
         return new DiscordRequestBuilder()
-                .post()
-                .path("/channels/%s/messages/%s/threads".formatted(channelId, messageId))
-                .body(body);
+            .post()
+            .path("/channels/%s/messages/%s/threads".formatted(channelId, messageId))
+            .body(body);
     }
 }

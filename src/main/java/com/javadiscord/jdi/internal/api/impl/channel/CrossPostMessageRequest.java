@@ -8,7 +8,7 @@ public record CrossPostMessageRequest(long channelId, long messageId) implements
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-                .post()
-                .path("/channels/%s/messages/%s/crosspost".formatted(channelId, messageId));
+            .post()
+            .path("/channels/%s/messages/%s/crosspost".formatted(channelId, messageId));
     }
 }

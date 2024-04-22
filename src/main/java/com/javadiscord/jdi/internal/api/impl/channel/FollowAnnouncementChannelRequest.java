@@ -8,7 +8,7 @@ public record FollowAnnouncementChannelRequest(long channelId) implements Discor
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-                .post()
-                .path("/channels/%s/followers".formatted(channelId));
+            .post()
+            .path("/channels/%s/followers".formatted(channelId));
     }
 }

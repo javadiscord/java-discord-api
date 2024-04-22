@@ -7,7 +7,7 @@ public record DeleteAllReactionsRequest(long channelId, long messageId) implemen
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-                .delete()
-                .path("/channels/%s/messages/%s/reactions".formatted(channelId, messageId));
+            .delete()
+            .path("/channels/%s/messages/%s/reactions".formatted(channelId, messageId));
     }
 }

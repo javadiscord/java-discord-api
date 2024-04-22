@@ -7,7 +7,7 @@ public record DeleteMessageRequest(long channelId, long messageId) implements Di
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-                .delete()
-                .path("/channels/%s/messages/%s".formatted(channelId, messageId));
+            .delete()
+            .path("/channels/%s/messages/%s".formatted(channelId, messageId));
     }
 }
