@@ -9,7 +9,7 @@ public record Role(
     @JsonProperty("id") long id,
     @JsonProperty("name") String name,
     @JsonProperty("color") String color,
-    @JsonProperty("color") boolean hoist,
+    @JsonProperty("hoist") boolean hoist,
     @JsonProperty("icon") String icon,
     @JsonProperty("unicode_emoji") String unicodeEmoji,
     @JsonProperty("position") int position,
