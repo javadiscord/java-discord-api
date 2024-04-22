@@ -21,7 +21,9 @@ public class Discord {
     private static final Executor EXECUTOR = Executors.newSingleThreadExecutor();
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private static final String WEBSITE = "https://javadiscord.com/";
-    private static final String BASE_URL = System.getProperty("DISCORD_BASE_URL") != null ? System.getProperty("DISCORD_BASE_URL") : "https://discord.com/api";
+    private static final String BASE_URL = System.getProperty("DISCORD_BASE_URL") != null
+        ? System.getProperty("DISCORD_BASE_URL")
+        : "https://discord.com/api";
     private final String botToken;
     private final IdentifyRequest identifyRequest;
 
@@ -92,7 +94,7 @@ public class Discord {
         EXECUTOR.execute(discordRequestDispatcher);
     }
 
-    public void startWithoutWebsocket() {
+    public void startWithoutGatewayEvents() {
         EXECUTOR.execute(discordRequestDispatcher);
     }
 
@@ -114,7 +116,6 @@ public class Discord {
     public static String getBaseUrl() {
         return BASE_URL;
     }
-
 
     public DiscordRequestDispatcher getDiscordRequestDispatcher() {
         return discordRequestDispatcher;

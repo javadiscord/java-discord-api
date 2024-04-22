@@ -10,6 +10,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.stream.Stream;
 
 import com.javadiscord.jdi.core.Discord;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -63,7 +64,7 @@ public class DiscordRequestDispatcher implements Runnable {
                     URI.create(
                         "%s%s%s"
                             .formatted(
-                                    Discord.getBaseUrl(),
+                                Discord.getBaseUrl(),
                                 discordRequestBuilder.getPath(),
                                 discordRequestBuilder
                                     .getQueryParameters()
