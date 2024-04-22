@@ -16,7 +16,9 @@ import com.javadiscord.jdi.core.cache.Cache;
 import com.javadiscord.jdi.core.cache.CacheType;
 import com.javadiscord.jdi.core.processor.ClassLoader;
 import com.javadiscord.jdi.core.processor.EventListenerValidator;
+import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestDispatcher;
+import com.javadiscord.jdi.internal.api.DiscordResponseFuture;
 import com.javadiscord.jdi.internal.gateway.*;
 import com.javadiscord.jdi.internal.gateway.identify.IdentifyRequest;
 
@@ -139,6 +141,10 @@ public class Discord {
                 }
             }
         }
+    }
+
+    public DiscordResponseFuture sendRequest(DiscordRequest request) {
+        return discordRequestDispatcher.queue(request);
     }
 
     private static Constructor<?> getZeroArgConstructor(Class<?> clazz) {
