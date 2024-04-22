@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record Role(
+    @JsonProperty("guild_id") long guildId,
     @JsonProperty("id") long id,
     @JsonProperty("name") String name,
     @JsonProperty("color") String color,

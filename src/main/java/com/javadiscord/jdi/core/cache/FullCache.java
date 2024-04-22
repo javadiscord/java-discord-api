@@ -23,9 +23,11 @@ public class FullCache implements CacheInterface<Object> {
 
     @Override
     public void update(long id, Object object) {
-        Object cached = models.get(toId(id, object.getClass()));
-        Object updated = update(cached, object);
-        models.replace(toId(id, object.getClass()), updated);
+        if (models.containsKey(toId(id, object.getClass()))) {
+            Object cached = models.get(toId(id, object.getClass()));
+            Object updated = update(cached, object);
+            models.replace(toId(id, object.getClass()), updated);
+        }
     }
 
     @Override

@@ -11,7 +11,7 @@ public record Invite(
     @JsonProperty("channel_id") long channelId,
     @JsonProperty("code") String code,
     @JsonProperty("created_at") String createdAt,
-    @JsonProperty("guild_id") String guildId,
+    @JsonProperty("guild_id") long guildId,
     @JsonProperty("inviter") User inviter,
     @JsonProperty("max_age") int maxAge,
     @JsonProperty("max_uses") int maxUses,

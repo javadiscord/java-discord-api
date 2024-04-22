@@ -30,6 +30,8 @@ public class PartialCache implements CacheInterface<Object> {
             Object cached = models.get(toId(id, object.getClass()));
             Object updated = update(cached, object);
             models.replace(toId(id, object.getClass()), updated);
+        } else {
+            add(id, object);
         }
     }
 
