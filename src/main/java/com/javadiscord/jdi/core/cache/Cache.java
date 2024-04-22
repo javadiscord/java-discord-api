@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Cache {
+    @SuppressWarnings("rawtypes")
     private final Map<Long, CacheInterface> cache;
     private final CacheType cacheType;
 
@@ -19,6 +20,11 @@ public class Cache {
             return cache.put(guildId, getCacheForType());
         }
         return cache.get(guildId);
+    }
+
+    @SuppressWarnings("rawtypes")
+    public Map<Long, CacheInterface> getCachedGuilds() {
+        return cache;
     }
 
     private CacheInterface<?> getCacheForType() {
