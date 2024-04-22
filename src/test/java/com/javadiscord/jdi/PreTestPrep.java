@@ -17,18 +17,6 @@ public class PreTestPrep implements BeforeAllCallback, ExtensionContext.Store.Cl
     public static Discord discord;
     public static DiscordRequestDispatcher requestDispatcher;
 
-    @BeforeAll
-    public static void preIntegrationSetup() {
-        MockEngine imposter = new OpenApiImposterBuilder<>()
-                .withSpecificationFile(Paths.get("mocks/openapi-spec.json"))
-                .startBlocking();
-        System.setProperty("DISCORD_BASE_URL", imposter.getBaseUrl().toString() + "/api/v10");
-        System.out.println(System.getProperty("DISCORD_BASE_URL"));
-        discord = new Discord("");
-        discord.startWithoutWebsocket();
-        requestDispatcher = discord.getDiscordRequestDispatcher();
-    }
-
     @Override
     public void beforeAll(ExtensionContext extensionContext) {
         MockEngine imposter = new OpenApiImposterBuilder<>()

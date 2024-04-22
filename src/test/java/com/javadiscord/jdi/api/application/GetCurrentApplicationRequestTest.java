@@ -17,6 +17,22 @@ class GetCurrentApplicationRequestTest extends RestAPITest {
 
     @Test
     void test() throws InterruptedException {
-        testRequest(new GetCurrentApplicationRequest(), 200);
+        DiscordResponseFuture response = PreTestPrep.requestDispatcher.queue(new GetCurrentApplicationRequest());
+        CountDownLatch latch = new CountDownLatch(1);
+
+        response.onSuccess(
+                (r) -> {
+                    System.out.printf("Expected status code %s: Got %s%n", 200, r.status());
+                    assertEquals(r.status(), 200);
+                    latch.countDown();
+                }
+        );
+
+        response.onError(
+                (err) -> {
+                    fail();
+                }
+        );
+        assertTrue(latch.await(5, TimeUnit.SECONDS));
     }
 }

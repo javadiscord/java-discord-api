@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(PreTestPrep.class)
-public abstract class RestAPITest {
+public class RestAPITest {
 
     // this can be changed later to
     // return the response or smth when we impl that.
@@ -21,6 +21,7 @@ public abstract class RestAPITest {
 
         response.onSuccess(
                 (r) -> {
+                    System.out.printf("Expected status code %s: Got %s%n", expectedStatusCode, r.status());
                     assertEquals(r.status(), expectedStatusCode);
                     latch.countDown();
                 }
