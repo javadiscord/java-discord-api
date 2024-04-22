@@ -7,5 +7,7 @@ import com.javadiscord.jdi.internal.models.message.Message;
 
 public class MessageUpdateHandler implements EventHandler<Message> {
     @Override
-    public void handle(Message event, ConnectionMediator connectionMediator, Discord discord) {}
+    public void handle(Message event, ConnectionMediator connectionMediator, Discord discord) {
+        discord.getCache().getCacheForGuild(event.guildId()).update(event.id(), event);
+    }
 }
