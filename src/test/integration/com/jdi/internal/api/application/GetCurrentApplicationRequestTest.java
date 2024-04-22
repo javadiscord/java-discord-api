@@ -1,12 +1,11 @@
-package jdi.api.application;
+package com.jdi.internal.api.application;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import jdi.MockServerInitializer;
-import jdi.api.RestTestHelper;
+import helpers.RestTestHelper;
 import com.javadiscord.jdi.internal.api.DiscordResponseFuture;
 import com.javadiscord.jdi.internal.api.impl.application.GetCurrentApplicationRequest;
 

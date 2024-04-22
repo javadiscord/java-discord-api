@@ -1,4 +1,4 @@
-package jdi.api;
+package helpers;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,7 +7,6 @@ import java.util.concurrent.TimeUnit;
 
 import com.javadiscord.jdi.core.Discord;
 import com.javadiscord.jdi.internal.api.DiscordRequestDispatcher;
-import jdi.MockServerInitializer;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordResponseFuture;
 
