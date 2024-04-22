@@ -71,12 +71,16 @@ public class Discord {
     }
 
     public Discord(String botToken, IdentifyRequest identifyRequest) {
+        this(botToken, identifyRequest, CacheType.FULL);
+    }
+
+    public Discord(String botToken, IdentifyRequest identifyRequest, CacheType cacheType) {
         this.botToken = botToken;
         this.discordRequestDispatcher = new DiscordRequestDispatcher(botToken);
         this.gateway = getGatewayURL(botToken);
         this.gatewaySetting = new GatewaySetting().setEncoding(GatewayEncoding.JSON).setApiVersion(10);
         this.identifyRequest = identifyRequest;
-        this.cache = new Cache(CacheType.FULL);
+        this.cache = new Cache(cacheType);
     }
 
     public void start() {
