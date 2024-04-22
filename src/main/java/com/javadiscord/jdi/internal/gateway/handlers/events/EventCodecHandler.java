@@ -95,7 +95,7 @@ public class EventCodecHandler implements GatewayOperationHandler {
         EVENT_DECODERS.put(EventType.MESSAGE_REACTION_REMOVE, messageReactionDecoder);
         EVENT_DECODERS.put(EventType.MESSAGE_REACTION_REMOVE_EMOJI, messageReactionDecoder);
         EVENT_HANDLERS.put(EventType.MESSAGE_REACTION_ADD, new ReactionAddHandler());
-        //TODO: MessageReaction != Reaction
+        // TODO: MessageReaction != Reaction
 
         ReactionRemoveHandler reactionRemoveHandler = new ReactionRemoveHandler();
         EVENT_HANDLERS.put(EventType.MESSAGE_REACTION_REMOVE, reactionRemoveHandler);
@@ -234,7 +234,6 @@ public class EventCodecHandler implements GatewayOperationHandler {
         EVENT_TYPE_ANNOTATIONS.put(EventType.ENTITLEMENT_CREATE, EntitlementCreate.class);
         EVENT_TYPE_ANNOTATIONS.put(EventType.ENTITLEMENT_DELETE, EntitlementDelete.class);
         EVENT_TYPE_ANNOTATIONS.put(EventType.ENTITLEMENT_UPDATE, EntitlementUpdate.class);
-
 
         ScheduledEventDecoder scheduledEventDecoder = new ScheduledEventDecoder();
         EVENT_DECODERS.put(EventType.GUILD_SCHEDULED_EVENT_CREATE, scheduledEventDecoder);
