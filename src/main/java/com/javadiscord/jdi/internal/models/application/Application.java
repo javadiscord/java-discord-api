@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record Application(
-    @JsonProperty("id") String id,
+    @JsonProperty("id") long id,
     @JsonProperty("name") String name,
     @JsonProperty("icon") String icon,
     @JsonProperty("description") String description,
