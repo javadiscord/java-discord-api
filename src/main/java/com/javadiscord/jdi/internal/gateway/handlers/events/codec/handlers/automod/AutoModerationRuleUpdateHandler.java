@@ -12,6 +12,6 @@ public class AutoModerationRuleUpdateHandler implements EventHandler<AutoModerat
         ConnectionMediator connectionMediator,
         Discord discord
     ) {
-        discord.getCache().getCacheForGuild(event.guildId()).add(event.id(), event);
+        discord.getCache().getCacheForGuild(event.guildId()).update(event.id(), event);
     }
 }

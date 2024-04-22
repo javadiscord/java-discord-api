@@ -8,6 +8,6 @@ import com.javadiscord.jdi.internal.models.guild.Entitlement;
 public class EntitlementUpdateHandler implements EventHandler<Entitlement> {
     @Override
     public void handle(Entitlement event, ConnectionMediator connectionMediator, Discord discord) {
-        discord.getCache().getCacheForGuild(event.guildId()).add(event.id(), event);
+        discord.getCache().getCacheForGuild(event.guildId()).update(event.id(), event);
     }
 }

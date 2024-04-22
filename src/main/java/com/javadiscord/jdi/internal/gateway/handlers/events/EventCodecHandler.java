@@ -27,6 +27,7 @@ import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.stage.StageCreateHandler;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.stage.StageDeleteHandler;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.stage.StageUpdateHandler;
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.sticker.StickerUpdateHandler;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.thread.*;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.user.MemberChunkHandler;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.user.UserUpdateHandler;
@@ -226,7 +227,7 @@ public class EventCodecHandler implements GatewayOperationHandler {
         );
 
         EVENT_DECODERS.put(EventType.GUILD_STICKERS_UPDATE, new StickerUpdateDecoder());
-        EVENT_HANDLERS.put(EventType.GUILD_STICKERS_UPDATE, new StageUpdateHandler());
+        EVENT_HANDLERS.put(EventType.GUILD_STICKERS_UPDATE, new StickerUpdateHandler());
 
         EVENT_DECODERS.put(EventType.GUILD_INTEGRATIONS_UPDATE, new IntegrationUpdateDecoder());
         EVENT_HANDLERS.put(EventType.GUILD_INTEGRATIONS_UPDATE, new IntegrationUpdateHandler());
