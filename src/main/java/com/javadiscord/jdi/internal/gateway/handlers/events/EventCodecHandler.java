@@ -42,7 +42,6 @@ import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.ready
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.resume.ResumeEventHandler;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.voice.VoiceServerHandler;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.voice.VoiceStateHandler;
-import com.javadiscord.jdi.internal.models.channel.Channel;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -298,6 +297,8 @@ public class EventCodecHandler implements GatewayOperationHandler {
 
         if (EVENT_TYPE_ANNOTATIONS.containsKey(eventType)) {
             invokeListeners(discord, eventType, event);
+        } else {
+            LOGGER.warn("No annotations bound for {}", gatewayEvent.eventName());
         }
     }
 
@@ -309,13 +310,18 @@ public class EventCodecHandler implements GatewayOperationHandler {
                 if (method.isAnnotationPresent(EVENT_TYPE_ANNOTATIONS.get(eventType))) {
                     Parameter[] parameters = method.getParameters();
                     for (Parameter parameter : parameters) {
-                        if (parameter.getParameterizedType() == Channel.class) {
+                        if (parameter.getParameterizedType() == event.getClass()) {
                             paramOrder.add(event);
                         } else if (parameter.getParameterizedType() == Discord.class) {
                             paramOrder.add(discord);
                         }
                     }
                     try {
+                        if (paramOrder.size() != method.getParameterCount()) {
+                            throw new RuntimeException(
+                                "Bound " + paramOrder.size() + " parameters but expected " + method.getParameterCount()
+                            );
+                        }
                         LOGGER.trace("Invoking method {} with params {}", method.getName(), paramOrder);
                         method.invoke(listener, paramOrder.toArray());
                     } catch (Exception e) {
