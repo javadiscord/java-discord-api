@@ -86,7 +86,7 @@ test {
 sourceSets {
     test {
         java {
-            srcDirs 'src/test/integration'
+            srcDirs 'src/test/integration', 'src/test/unit'
         }
     }
 }
