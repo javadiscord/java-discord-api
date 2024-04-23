@@ -1,13 +1,14 @@
 package com.javadiscord.jdi.internal.api.impl.channel;
 
 import java.util.List;
-import java.util.Map;
 
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 import com.javadiscord.jdi.internal.models.channel.ChannelMention;
 import com.javadiscord.jdi.internal.models.message.MessageAttachment;
 import com.javadiscord.jdi.internal.models.message.embed.Embed;
+
+import com.github.mizosoft.methanol.MultipartBodyPublisher;
 
 public record EditMessageRequest(
     long channelId,
@@ -18,7 +19,6 @@ public record EditMessageRequest(
     List<ChannelMention> allowedMentions,
     List<Object> components, // TODO: Create components object
     List<Object> files,
-    String payloadJson,
     List<MessageAttachment> attachments
 )
     implements DiscordRequest {
@@ -29,23 +29,16 @@ public record EditMessageRequest(
         return new DiscordRequestBuilder()
             .patch()
             .path("/channels/%s/messages/%s".formatted(channelId, messageId))
-            .body(
-                Map.of(
-                    "content", content,
-                    "embeds", embeds,
-                    "flats", flags,
-                    "allowed_mentions", allowedMentions,
-                    "components", components,
-                    "files", files,
-                    "payload_json", payloadJson,
-                    "attachments", attachments
-                )
-            )
-            .putHeader(
-                "Content-Type",
-                files.isEmpty() || attachments.isEmpty()
-                    ? "application/json"
-                    : "multipart/form-data"
+            .multipartBody(
+                MultipartBodyPublisher.newBuilder()
+                    .textPart("content", content)
+                    .textPart("embeds", embeds)
+                    .textPart("flats", flags)
+                    .textPart("allowed_mentions", allowedMentions)
+                    .textPart("components", components)
+                    .textPart("files", files)
+                    .textPart("attachments", attachments)
+                    .build()
             );
     }
 }
