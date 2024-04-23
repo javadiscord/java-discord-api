@@ -18,26 +18,33 @@ public class EventListenerValidator {
     static {
         EXPECTED_PARAM_TYPES_MAP.put(
             AutoModerationRuleCreate.class,
-            new String[] { "com.javadiscord.jdi.internal.models.guild.AutoModerationRuleObject",
-                "com.javadiscord.jdi.core.Discord" }
+            new String[] {
+                "com.javadiscord.jdi.internal.models.guild.AutoModerationRuleObject",
+                "com.javadiscord.jdi.core.Discord"
+            }
         );
 
         EXPECTED_PARAM_TYPES_MAP.put(
             AutoModerationRuleDelete.class,
-            new String[] { "com.javadiscord.jdi.internal.models.guild.AutoModerationRuleObject",
-                "com.javadiscord.jdi.core.Discord" }
+            new String[] {
+                "com.javadiscord.jdi.internal.models.guild.AutoModerationRuleObject",
+                "com.javadiscord.jdi.core.Discord"
+            }
         );
 
         EXPECTED_PARAM_TYPES_MAP.put(
             AutoModerationRuleUpdate.class,
-            new String[] { "com.javadiscord.jdi.internal.models.guild.AutoModerationRuleObject",
-                "com.javadiscord.jdi.core.Discord" }
+            new String[] {
+                    "com.javadiscord.jdi.internal.models.guild.AutoModerationRuleObject",
+                    "com.javadiscord.jdi.core.Discord" }
         );
 
         EXPECTED_PARAM_TYPES_MAP.put(
             EntitlementCreate.class,
-            new String[] { "com.javadiscord.jdi.internal.models.guild.Entitlement",
-                "com.javadiscord.jdi.core.Discord" }
+            new String[] {
+                    "com.javadiscord.jdi.internal.models.guild.Entitlement",
+                    "com.javadiscord.jdi.core.Discord"
+            }
         );
 
         EXPECTED_PARAM_TYPES_MAP.put(

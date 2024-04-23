@@ -271,7 +271,7 @@ public class EventCodecHandler implements GatewayOperationHandler {
     public void handle(
         GatewayEvent gatewayEvent, ConnectionMediator connectionMediator, Discord discord
     ) {
-        LOGGER.info("Received event {}, {}", gatewayEvent.eventName(), gatewayEvent.data());
+        LOGGER.trace("Received event {}, {}", gatewayEvent.eventName(), gatewayEvent.data());
 
         if (!EventType.nameExists(gatewayEvent.eventName())) {
             LOGGER.warn("Unknown event received {}", gatewayEvent.eventName());

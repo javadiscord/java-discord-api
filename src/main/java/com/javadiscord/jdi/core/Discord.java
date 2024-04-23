@@ -8,13 +8,14 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import com.javadiscord.jdi.core.annotations.EventListener;
 import com.javadiscord.jdi.core.cache.Cache;
 import com.javadiscord.jdi.core.cache.CacheType;
-import com.javadiscord.jdi.core.processor.ClassLoader;
+import com.javadiscord.jdi.core.processor.ClassFileUtil;
 import com.javadiscord.jdi.core.processor.EventListenerValidator;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestDispatcher;
@@ -28,7 +29,7 @@ import org.apache.logging.log4j.Logger;
 
 public class Discord {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final Executor EXECUTOR = Executors.newSingleThreadExecutor();
+    private static final Executor EXECUTOR = Executors.newCachedThreadPool();
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private static final String WEBSITE = "https://javadiscord.com/";
     private static final String BASE_URL = System.getProperty("DISCORD_BASE_URL") != null
@@ -41,6 +42,8 @@ public class Discord {
     private final GatewaySetting gatewaySetting;
     private final Cache cache;
     private final List<Object> eventListeners = new ArrayList<>();
+    private final EventListenerValidator eventListenerValidator = new EventListenerValidator();
+    private HotReload hotReload;
 
     public Discord(String botToken) {
         this(
@@ -120,22 +123,32 @@ public class Discord {
         EXECUTOR.execute(discordRequestDispatcher);
     }
 
+    public void enableHotReload() {
+        if (hotReload == null) {
+            LOGGER.info("Hot reload is enabled");
+            hotReload = new HotReload(this);
+            EXECUTOR.execute(hotReload);
+        }
+    }
+
+    public void stopHotReload() {
+        if (hotReload != null) {
+            LOGGER.info("Hot reload stopped");
+            hotReload.stop();
+        }
+    }
+
     public void startWithoutGatewayEvents() {
         EXECUTOR.execute(discordRequestDispatcher);
     }
 
     private void loadListeners() throws Exception {
-        EventListenerValidator eventListenerValidator = new EventListenerValidator();
-        List<File> classes = ClassLoader.getClassesInClassPath();
+        List<File> classes = ClassFileUtil.getClassesInClassPath();
         for (File classFile : classes) {
-            Class<?> clazz = Class.forName(ClassLoader.getClassName(classFile));
+            Class<?> clazz = Class.forName(ClassFileUtil.getClassName(classFile));
             if (clazz.isAnnotationPresent(EventListener.class)) {
-                if (eventListenerValidator.validate(clazz)) {
-                    try {
-                        eventListeners.add(getZeroArgConstructor(clazz).newInstance());
-                    } catch (Exception e) {
-                        LOGGER.error("Failed to create {} instance", clazz.getName(), e);
-                    }
+                if (validateListener(clazz)) {
+                    registerListener(clazz);
                 } else {
                     LOGGER.error("{} failed validation", clazz.getName());
                 }
@@ -143,11 +156,40 @@ public class Discord {
         }
     }
 
+    private void registerListener(Class<?> clazz) {
+        try {
+            LOGGER.info("Registered listener {}", clazz.getName());
+            eventListeners.add(getZeroArgConstructor(clazz).newInstance());
+        } catch (Exception e) {
+            LOGGER.error("Failed to create {} instance", clazz.getName(), e);
+        }
+    }
+
+    void updateOrRegisterListener(Class<?> clazz) {
+        try {
+            Optional<Object> listener = eventListeners.stream().filter(p -> p.getClass() == clazz).findAny();
+            if (listener.isPresent()) {
+                System.out.println("Removed existing " + clazz.getName());
+                eventListeners.remove(listener.get());
+            } else {
+                System.out.println("No existing listener to remove");
+            }
+            eventListeners.add(getZeroArgConstructor(clazz).newInstance());
+            LOGGER.info("Reloaded {} ", clazz.getName());
+        } catch (Exception e) {
+            LOGGER.error("Failed to create {} instance", clazz.getName(), e);
+        }
+    }
+
+    boolean validateListener(Class<?> clazz) {
+        return eventListenerValidator.validate(clazz);
+    }
+
     public DiscordResponseFuture sendRequest(DiscordRequest request) {
         return discordRequestDispatcher.queue(request);
     }
 
-    private static Constructor<?> getZeroArgConstructor(Class<?> clazz) {
+    static Constructor<?> getZeroArgConstructor(Class<?> clazz) {
         Constructor<?>[] constructors = clazz.getConstructors();
         for (Constructor<?> constructor : constructors) {
             if (constructor.getParameterCount() == 0) {

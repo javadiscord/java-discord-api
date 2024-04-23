@@ -10,9 +10,9 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javassist.bytecode.ClassFile;
 
-public class ClassLoader {
+public class ClassFileUtil {
 
-    private ClassLoader() {}
+    private ClassFileUtil() {}
 
     public static List<File> getClassesInClassPath() {
         List<File> classes = new ArrayList<>();
