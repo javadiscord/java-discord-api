@@ -10,7 +10,7 @@ public record DeleteUserReactionRequest(long channelId, long messageId, String e
         return new DiscordRequestBuilder()
             .delete()
             .path(
-                "/channels/%s/messages/%s/reactions/%s}/%s"
+                "/channels/%s/messages/%s/reactions/%s/%s"
                     .formatted(channelId, messageId, emoji, userId)
             );
     }

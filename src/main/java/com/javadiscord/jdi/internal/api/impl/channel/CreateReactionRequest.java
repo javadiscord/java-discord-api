@@ -10,7 +10,7 @@ public record CreateReactionRequest(long channelId, long messageId, String emoji
         return new DiscordRequestBuilder()
             .put()
             .path(
-                "/channels/%s/messages/%s/reactions/%s}/@me"
+                "/channels/%s/messages/%s/reactions/%s/@me"
                     .formatted(channelId, messageId, emoji)
             );
     }
