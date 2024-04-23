@@ -47,6 +47,6 @@ public class PartialCache implements CacheInterface<Object> {
 
     @Override
     public long size() {
-        return 0;
+        return models.size();
     }
 }

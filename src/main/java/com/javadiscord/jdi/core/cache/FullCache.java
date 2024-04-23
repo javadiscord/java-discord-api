@@ -32,7 +32,7 @@ public class FullCache implements CacheInterface<Object> {
 
     @Override
     public boolean isCached(long id, Class<?> clazz) {
-        return false;
+        return models.containsKey(toId(id, clazz));
     }
 
     @Override
