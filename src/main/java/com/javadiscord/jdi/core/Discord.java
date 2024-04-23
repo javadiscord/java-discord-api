@@ -8,7 +8,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -43,7 +42,6 @@ public class Discord {
     private final Cache cache;
     private final List<Object> eventListeners = new ArrayList<>();
     private final EventListenerValidator eventListenerValidator = new EventListenerValidator();
-    private HotReload hotReload;
 
     public Discord(String botToken) {
         this(
@@ -123,21 +121,6 @@ public class Discord {
         EXECUTOR.execute(discordRequestDispatcher);
     }
 
-    public void enableHotReload() {
-        if (hotReload == null) {
-            LOGGER.info("Hot reload is enabled");
-            hotReload = new HotReload(this);
-            EXECUTOR.execute(hotReload);
-        }
-    }
-
-    public void stopHotReload() {
-        if (hotReload != null) {
-            LOGGER.info("Hot reload stopped");
-            hotReload.stop();
-        }
-    }
-
     public void startWithoutGatewayEvents() {
         EXECUTOR.execute(discordRequestDispatcher);
     }
@@ -160,22 +143,6 @@ public class Discord {
         try {
             LOGGER.info("Registered listener {}", clazz.getName());
             eventListeners.add(getZeroArgConstructor(clazz).newInstance());
-        } catch (Exception e) {
-            LOGGER.error("Failed to create {} instance", clazz.getName(), e);
-        }
-    }
-
-    void updateOrRegisterListener(Class<?> clazz) {
-        try {
-            Optional<Object> listener = eventListeners.stream().filter(p -> p.getClass() == clazz).findAny();
-            if (listener.isPresent()) {
-                System.out.println("Removed existing " + clazz.getName());
-                eventListeners.remove(listener.get());
-            } else {
-                System.out.println("No existing listener to remove");
-            }
-            eventListeners.add(getZeroArgConstructor(clazz).newInstance());
-            LOGGER.info("Reloaded {} ", clazz.getName());
         } catch (Exception e) {
             LOGGER.error("Failed to create {} instance", clazz.getName(), e);
         }
