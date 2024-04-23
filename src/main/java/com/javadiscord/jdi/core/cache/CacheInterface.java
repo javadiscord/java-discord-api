@@ -16,6 +16,8 @@ public interface CacheInterface<T> {
 
     boolean isCached(long id, Class<?> clazz);
 
+    long size();
+
     default String toId(long id, Class<?> clazz) {
         return id + "-" + clazz.getName();
     }

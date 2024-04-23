@@ -36,6 +36,11 @@ public class FullCache implements CacheInterface<Object> {
     }
 
     @Override
+    public long size() {
+        return models.size();
+    }
+
+    @Override
     public void remove(long id, Class<?> clazz) {
         models.remove(toId(id, clazz));
     }

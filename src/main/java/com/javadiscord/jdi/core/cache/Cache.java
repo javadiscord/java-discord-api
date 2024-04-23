@@ -29,10 +29,11 @@ public class Cache {
         return cache;
     }
 
+    @SuppressWarnings("unchecked")
     public void cacheGuild(Guild guild) {
-        FullCache fullCache = new FullCache();
-        fullCache.add(guild.id(), guild);
-        cache.put(guild.id(), fullCache);
+        CacheInterface cacheInterface = getCacheForType();
+        cacheInterface.add(guild.id(), guild);
+        cache.put(guild.id(), cacheInterface);
     }
 
     public void removeGuild(Guild guild) {

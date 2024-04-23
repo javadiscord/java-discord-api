@@ -44,4 +44,9 @@ public class PartialCache implements CacheInterface<Object> {
     public boolean isCached(long id, Class<?> clazz) {
         return models.containsKey(toId(id, clazz));
     }
+
+    @Override
+    public long size() {
+        return 0;
+    }
 }

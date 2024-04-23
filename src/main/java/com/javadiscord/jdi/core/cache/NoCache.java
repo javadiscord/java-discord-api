@@ -1,10 +1,12 @@
 package com.javadiscord.jdi.core.cache;
 
+import java.util.Optional;
+
 public class NoCache implements CacheInterface<Object> {
 
     @Override
-    public Object get(long id, Class<?> clazz) {
-        return null;
+    public Optional<Object> get(long id, Class<?> clazz) {
+        return Optional.empty();
     }
 
     @Override
@@ -25,5 +27,10 @@ public class NoCache implements CacheInterface<Object> {
     @Override
     public boolean isCached(long id, Class<?> clazz) {
         return false;
+    }
+
+    @Override
+    public long size() {
+        return 0;
     }
 }
