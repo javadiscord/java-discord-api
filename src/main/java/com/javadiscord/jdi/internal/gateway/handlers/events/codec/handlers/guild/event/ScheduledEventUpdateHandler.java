@@ -3,7 +3,7 @@ package com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guil
 import com.javadiscord.jdi.core.Discord;
 import com.javadiscord.jdi.internal.gateway.ConnectionMediator;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.EventHandler;
-import com.javadiscord.jdi.internal.models.guild.ScheduledEvent;
+import com.javadiscord.jdi.internal.models.scheduledevent.ScheduledEvent;
 
 public class ScheduledEventUpdateHandler implements EventHandler<ScheduledEvent> {
     @Override

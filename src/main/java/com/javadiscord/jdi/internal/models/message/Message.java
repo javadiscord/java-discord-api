@@ -32,7 +32,7 @@ public record Message(
     @JsonProperty("nonce") Object nonce,
     @JsonProperty("pinned") boolean pinned,
     @JsonProperty("webhook_id") long webhookId,
-    @JsonProperty("type") int type,
+    @JsonProperty("type") MessageType type,
     @JsonProperty("activity") MessageActivity activity,
     @JsonProperty("application") Application application,
     @JsonProperty("application_id") String applicationId,
