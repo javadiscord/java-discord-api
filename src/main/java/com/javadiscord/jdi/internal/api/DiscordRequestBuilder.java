@@ -44,12 +44,16 @@ public class DiscordRequestBuilder {
         return this;
     }
 
-    public DiscordRequestBuilder body(Map<String, Object> payload) {
+    /**
+     * @param payload Commonly represented as an Map<String, Object>
+     */
+    public DiscordRequestBuilder body(Object payload) {
         try {
             body = HttpRequest.BodyPublishers.ofString(OBJECT_MAPPER.writeValueAsString(body));
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+
         return this;
     }
 

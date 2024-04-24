@@ -1,7 +1,5 @@
 package com.javadiscord.jdi.internal.api.impl.scheduledevents;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 import com.javadiscord.jdi.internal.api.DiscordRequest;
@@ -25,15 +23,18 @@ public record GetScheduledEventUsersRequest(
 
     @Override
     public DiscordRequestBuilder create() {
-        Map<String, Object> body = new HashMap<>();
-        limit.ifPresent(val -> body.put("limit", val));
-        withMember.ifPresent(val -> body.put("with_member", val));
-        before.ifPresent(val -> body.put("before", val));
-        after.ifPresent(val -> body.put("after", val));
-
-        return new DiscordRequestBuilder()
+        DiscordRequestBuilder discordRequestBuilder = new DiscordRequestBuilder()
             .get()
-            .path("/guilds/%s/scheduled-events/%s/users".formatted(guildId, scheduledEventId))
-            .body(body);
+            .path(
+                "/guilds/%s/scheduled-events/%s/users"
+                    .formatted(guildId, scheduledEventId)
+            );
+
+        limit.ifPresent(val -> discordRequestBuilder.queryParam("limit", val));
+        withMember.ifPresent(val -> discordRequestBuilder.queryParam("with_member", val));
+        before.ifPresent(val -> discordRequestBuilder.queryParam("before", val));
+        after.ifPresent(val -> discordRequestBuilder.queryParam("after", val));
+
+        return discordRequestBuilder;
     }
 }

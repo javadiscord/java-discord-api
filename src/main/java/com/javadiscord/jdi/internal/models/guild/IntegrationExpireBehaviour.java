@@ -6,7 +6,7 @@ public enum IntegrationExpireBehaviour {
 
     private final int value;
 
-    private IntegrationExpireBehaviour(int value) {
+    IntegrationExpireBehaviour(int value) {
         this.value = value;
     }
 
