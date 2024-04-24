@@ -2,6 +2,7 @@ package com.javadiscord.jdi.internal.api.impl.guild;
 
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
+import com.javadiscord.jdi.internal.models.channel.Channel;
 import com.javadiscord.jdi.internal.models.guild.Role;
 
 import java.util.*;
@@ -15,7 +16,7 @@ public record CreateGuildRequest(
         Optional<Integer> defaultMessageNotifications,
         Optional<Integer> explicitContentFilter,
         Optional<List<Role>> roles,
-        // Optional<List<PartialChannel>> channels, // TODO: future developer implement this
+        Optional<List<Channel>> channels,
         Optional<Long> afkChannelId,
         Optional<Integer> afkTimeout,
         Optional<Long> systemChannelId,
@@ -32,7 +33,7 @@ public record CreateGuildRequest(
                 val -> body.put("default_message_notifications", val));
         explicitContentFilter.ifPresent(val -> body.put("explicit_content_filter", val));
         roles.ifPresent(val -> body.put("roles", val));
-        // channels.ifPresent(val -> body.put("channels", val));
+        channels.ifPresent(val -> body.put("channels", val));
         afkChannelId.ifPresent(val -> body.put("afk_channel_id", val));
         afkTimeout.ifPresent(val -> body.put("afk_timeout", val));
         systemChannelId.ifPresent(val -> body.put("system_channel_id", systemChannelId));
