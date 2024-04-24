@@ -31,7 +31,7 @@ dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.2')
     testImplementation  'org.junit.jupiter:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    testImplementation "io.gatehill.imposter:distro-embedded:3.38.1"
+    testImplementation "io.gatehill.imposter:distro-embedded:3.38.2"
     testImplementation "io.gatehill.imposter:imposter-server:3.38.1"
     testImplementation "io.gatehill.imposter:config-dynamic:3.38.1"
     testImplementation "io.gatehill.imposter:mock-openapi:3.38.2"
