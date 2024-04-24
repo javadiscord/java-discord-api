@@ -1,5 +1,7 @@
 package com.javadiscord.jdi.internal.models.guild;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum VerificationLevel {
     NONE(0),
     LOW(1),
@@ -13,6 +15,7 @@ public enum VerificationLevel {
         this.value = value;
     }
 
+    @JsonValue
     public int getValue() {
         return value;
     }

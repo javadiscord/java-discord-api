@@ -1,5 +1,7 @@
 package com.javadiscord.jdi.internal.models.guild;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum ExplicitContentFilterLevel {
     DISABLED(0),
     MEMBERS_WITHOUT_ROLES(1),
@@ -11,6 +13,7 @@ public enum ExplicitContentFilterLevel {
         this.value = value;
     }
 
+    @JsonValue
     public int getValue() {
         return value;
     }

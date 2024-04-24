@@ -1,5 +1,7 @@
 package com.javadiscord.jdi.internal.models.channel;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum ChannelType {
     GUILD_TEXT(0),
     DM(1),
@@ -15,13 +17,14 @@ public enum ChannelType {
     GUILD_FORUM(15),
     GUILD_MEDIA(16);
 
-    private final int id;
+    private final int value;
 
-    ChannelType(int id) {
-        this.id = id;
+    ChannelType(int value) {
+        this.value = value;
     }
 
-    public int getId() {
-        return id;
+    @JsonValue
+    public int getValue() {
+        return value;
     }
 }

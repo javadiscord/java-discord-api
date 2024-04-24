@@ -1,5 +1,7 @@
 package com.javadiscord.jdi.internal.models.channel;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum ChannelFlags {
     PINNED(1),
     REQUIRE_TAG(1 << 4),
@@ -11,6 +13,7 @@ public enum ChannelFlags {
         this.id = id;
     }
 
+    @JsonValue
     public int getId() {
         return id;
     }

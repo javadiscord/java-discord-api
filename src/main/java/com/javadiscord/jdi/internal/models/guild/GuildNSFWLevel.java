@@ -1,5 +1,7 @@
 package com.javadiscord.jdi.internal.models.guild;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum GuildNSFWLevel {
     DEFAULT(0),
     EXPLICIT(1),
@@ -12,6 +14,7 @@ public enum GuildNSFWLevel {
         this.value = value;
     }
 
+    @JsonValue
     public int getValue() {
         return value;
     }

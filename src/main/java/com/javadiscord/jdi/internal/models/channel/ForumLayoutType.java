@@ -1,17 +1,20 @@
 package com.javadiscord.jdi.internal.models.channel;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum ForumLayoutType {
     NOT_SET(0),
     LIST_VIEW(1),
     GALLERY_VIEW(2);
 
-    private final int id;
+    private final int value;
 
-    ForumLayoutType(int id) {
-        this.id = id;
+    ForumLayoutType(int value) {
+        this.value = value;
     }
 
-    public int getId() {
-        return id;
+    @JsonValue
+    public int getValue() {
+        return value;
     }
 }

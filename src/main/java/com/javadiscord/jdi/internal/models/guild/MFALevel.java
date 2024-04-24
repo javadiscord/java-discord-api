@@ -1,5 +1,7 @@
 package com.javadiscord.jdi.internal.models.guild;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum MFALevel {
     NONE(0),
     ELEVATED(1);
@@ -10,6 +12,7 @@ public enum MFALevel {
         this.value = value;
     }
 
+    @JsonValue
     public int getValue() {
         return value;
     }

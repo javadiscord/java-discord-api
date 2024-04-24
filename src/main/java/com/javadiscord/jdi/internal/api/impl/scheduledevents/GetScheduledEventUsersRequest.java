@@ -2,17 +2,22 @@ package com.javadiscord.jdi.internal.api.impl.scheduledevents;
 
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
+import com.javadiscord.jdi.internal.api.DiscordRequest;
+import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
+
 public record GetScheduledEventUsersRequest(
-        long guildId,
-        long scheduledEventId,
-        Optional<Integer> limit,
-        Optional<Boolean> withMember,
-        Optional<Long> before, // both of these can be provided but before will be favored
-        Optional<Long> after)
-        implements DiscordRequest {
+    long guildId,
+    long scheduledEventId,
+    Optional<Integer> limit,
+    Optional<Boolean> withMember,
+    Optional<Long> before, // both of these can be provided but before will be favored
+    Optional<Long> after
+)
+    implements DiscordRequest {
 
     public GetScheduledEventUsersRequest {
         if (limit.isPresent() && limit.get() > 100) {

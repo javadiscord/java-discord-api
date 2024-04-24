@@ -1,5 +1,7 @@
 package com.javadiscord.jdi.internal.models.guild;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum PremiumTier {
     NONE(0),
     TIER_1(1),
@@ -12,6 +14,7 @@ public enum PremiumTier {
         this.value = value;
     }
 
+    @JsonValue
     public int getValue() {
         return value;
     }

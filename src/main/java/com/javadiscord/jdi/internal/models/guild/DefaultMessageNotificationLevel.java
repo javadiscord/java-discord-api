@@ -1,5 +1,7 @@
 package com.javadiscord.jdi.internal.models.guild;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum DefaultMessageNotificationLevel {
     ALL_MESSAGES(0),
     ONLY_MENTIONS(1);
@@ -10,6 +12,7 @@ public enum DefaultMessageNotificationLevel {
         this.value = value;
     }
 
+    @JsonValue
     public int value() {
         return value;
     }

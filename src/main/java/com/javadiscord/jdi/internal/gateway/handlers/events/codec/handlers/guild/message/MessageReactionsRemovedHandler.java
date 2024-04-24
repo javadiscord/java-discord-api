@@ -8,7 +8,8 @@ import com.javadiscord.jdi.internal.models.message.MessageReactionsRemoved;
 public class MessageReactionsRemovedHandler implements EventHandler<MessageReactionsRemoved> {
     @Override
     public void handle(
-            MessageReactionsRemoved event,
-            ConnectionMediator connectionMediator,
-            Discord discord) {}
+        MessageReactionsRemoved event,
+        ConnectionMediator connectionMediator,
+        Discord discord
+    ) {}
 }
