@@ -1,27 +1,28 @@
 package com.javadiscord.jdi.internal.api.impl.guild;
 
+import java.util.*;
+
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 import com.javadiscord.jdi.internal.models.channel.Channel;
 import com.javadiscord.jdi.internal.models.guild.Role;
 
-import java.util.*;
-
 // Only works for bots in less than 10 guilds
 // (https://discord.com/developers/docs/resources/guild#create-guild)
 public record CreateGuildRequest(
-        String name,
-        Optional<String> icon,
-        Optional<Integer> verificationLevel,
-        Optional<Integer> defaultMessageNotifications,
-        Optional<Integer> explicitContentFilter,
-        Optional<List<Role>> roles,
-        Optional<List<Channel>> channels,
-        Optional<Long> afkChannelId,
-        Optional<Integer> afkTimeout,
-        Optional<Long> systemChannelId,
-        Optional<Integer> systemChannelFlags)
-        implements DiscordRequest {
+    String name,
+    Optional<String> icon,
+    Optional<Integer> verificationLevel,
+    Optional<Integer> defaultMessageNotifications,
+    Optional<Integer> explicitContentFilter,
+    Optional<List<Role>> roles,
+    Optional<List<Channel>> channels,
+    Optional<Long> afkChannelId,
+    Optional<Integer> afkTimeout,
+    Optional<Long> systemChannelId,
+    Optional<Integer> systemChannelFlags
+)
+    implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {
@@ -30,7 +31,8 @@ public record CreateGuildRequest(
         icon.ifPresent(val -> body.put("icon", val));
         verificationLevel.ifPresent(val -> body.put("verification_level", val));
         defaultMessageNotifications.ifPresent(
-                val -> body.put("default_message_notifications", val));
+            val -> body.put("default_message_notifications", val)
+        );
         explicitContentFilter.ifPresent(val -> body.put("explicit_content_filter", val));
         roles.ifPresent(val -> body.put("roles", val));
         channels.ifPresent(val -> body.put("channels", val));

@@ -1,15 +1,16 @@
 package com.javadiscord.jdi.internal.api.impl.guild;
 
-import com.javadiscord.jdi.internal.api.DiscordRequest;
-import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import com.javadiscord.jdi.internal.api.DiscordRequest;
+import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
+
 public record ModifyGuildWidgetRequest(
-        long guildId, Optional<Boolean> enabled, Optional<Long> channelId)
-        implements DiscordRequest {
+    long guildId, Optional<Boolean> enabled, Optional<Long> channelId
+)
+    implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {
@@ -18,8 +19,8 @@ public record ModifyGuildWidgetRequest(
         channelId.ifPresent(val -> body.put("channel_id", val));
 
         return new DiscordRequestBuilder()
-                .patch()
-                .path("/guilds/%s/widget".formatted(guildId))
-                .body(body);
+            .patch()
+            .path("/guilds/%s/widget".formatted(guildId))
+            .body(body);
     }
 }

@@ -1,15 +1,16 @@
 package com.javadiscord.jdi.internal.api.impl.guild;
 
-import com.javadiscord.jdi.internal.api.DiscordRequest;
-import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import com.javadiscord.jdi.internal.api.DiscordRequest;
+import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
+
 public record CreateGuildBanRequest(
-        long guildId, long userId, Optional<Integer> deleteMessageSeconds)
-        implements DiscordRequest {
+    long guildId, long userId, Optional<Integer> deleteMessageSeconds
+)
+    implements DiscordRequest {
 
     public CreateGuildBanRequest {
         if (deleteMessageSeconds.isPresent() && deleteMessageSeconds.get() > 604800) {
@@ -23,8 +24,8 @@ public record CreateGuildBanRequest(
         deleteMessageSeconds.ifPresent(val -> body.put("delete_message_seconds", val));
 
         return new DiscordRequestBuilder()
-                .put()
-                .path("/guilds/%s/bans/%s".formatted(guildId, userId))
-                .body(body);
+            .put()
+            .path("/guilds/%s/bans/%s".formatted(guildId, userId))
+            .body(body);
     }
 }

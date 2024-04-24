@@ -8,7 +8,7 @@ public record DeleteGuildRoleRequest(long guildId, long roleId) implements Disco
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-                .delete()
-                .path("/guilds/%s/roles/%s".formatted(guildId, roleId));
+            .delete()
+            .path("/guilds/%s/roles/%s".formatted(guildId, roleId));
     }
 }

@@ -1,37 +1,38 @@
 package com.javadiscord.jdi.internal.api.impl.guild;
 
-import com.javadiscord.jdi.internal.api.DiscordRequest;
-import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-import com.javadiscord.jdi.internal.models.guild.GuildFeature;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.javadiscord.jdi.internal.api.DiscordRequest;
+import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
+import com.javadiscord.jdi.internal.models.guild.GuildFeature;
+
 public record ModifyGuildRequest(
-        long guildId,
-        Optional<String> name,
-        Optional<Integer> verificationLevel,
-        Optional<Integer> defaultMessageNotifications,
-        Optional<Integer> explicitContentFilter,
-        Optional<Long> afkChannelId,
-        Optional<Integer> afkTimeout,
-        Optional<String> icon,
-        Optional<Long> ownerId,
-        Optional<String> splash,
-        Optional<String> discoverySplash,
-        Optional<String> banner,
-        Optional<Long> systemChannelId,
-        Optional<Integer> systemChannelFlags,
-        Optional<Long> rulesChannelId,
-        Optional<Long> publicUpdatesChannelId,
-        Optional<String> preferredLocale,
-        Optional<List<GuildFeature>> features,
-        Optional<String> description,
-        Optional<Boolean> premiumProgressBarEnabled,
-        Optional<Long> safetyAlertsChannelId)
-        implements DiscordRequest {
+    long guildId,
+    Optional<String> name,
+    Optional<Integer> verificationLevel,
+    Optional<Integer> defaultMessageNotifications,
+    Optional<Integer> explicitContentFilter,
+    Optional<Long> afkChannelId,
+    Optional<Integer> afkTimeout,
+    Optional<String> icon,
+    Optional<Long> ownerId,
+    Optional<String> splash,
+    Optional<String> discoverySplash,
+    Optional<String> banner,
+    Optional<Long> systemChannelId,
+    Optional<Integer> systemChannelFlags,
+    Optional<Long> rulesChannelId,
+    Optional<Long> publicUpdatesChannelId,
+    Optional<String> preferredLocale,
+    Optional<List<GuildFeature>> features,
+    Optional<String> description,
+    Optional<Boolean> premiumProgressBarEnabled,
+    Optional<Long> safetyAlertsChannelId
+)
+    implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {
@@ -39,7 +40,8 @@ public record ModifyGuildRequest(
         name.ifPresent(val -> body.put("name", val));
         verificationLevel.ifPresent(val -> body.put("verification_level", val));
         defaultMessageNotifications.ifPresent(
-                val -> body.put("default_message_notifications", val));
+            val -> body.put("default_message_notifications", val)
+        );
         explicitContentFilter.ifPresent(val -> body.put("explicit_content_filter", val));
         afkChannelId.ifPresent(val -> body.put("afk_channel_id", val));
         afkTimeout.ifPresent(val -> body.put("afk_timeout", val));

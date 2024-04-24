@@ -1,12 +1,13 @@
 package com.javadiscord.jdi.internal.api.impl.guild;
 
+import java.util.*;
+
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
-import java.util.*;
-
 public record ModifyGuildChannelPositionsRequest(
-        long guildId, List<ModifyChannelPositionData> channels) implements DiscordRequest {
+    long guildId, List<ModifyChannelPositionData> channels
+) implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {
@@ -22,14 +23,15 @@ public record ModifyGuildChannelPositionsRequest(
         }
 
         return new DiscordRequestBuilder()
-                .patch()
-                .path("/guilds/%s/channels".formatted(guildId))
-                .body(body);
+            .patch()
+            .path("/guilds/%s/channels".formatted(guildId))
+            .body(body);
     }
 
     public record ModifyChannelPositionData(
-            long id,
-            Optional<Integer> position,
-            Optional<Boolean> lockPositions,
-            Optional<Long> parentId) {}
+        long id,
+        Optional<Integer> position,
+        Optional<Boolean> lockPositions,
+        Optional<Long> parentId
+    ) {}
 }

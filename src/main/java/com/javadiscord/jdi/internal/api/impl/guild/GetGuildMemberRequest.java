@@ -8,7 +8,7 @@ public record GetGuildMemberRequest(long guildId, long userId) implements Discor
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-                .get()
-                .path("/guilds/%s/members/%s".formatted(guildId, userId));
+            .get()
+            .path("/guilds/%s/members/%s".formatted(guildId, userId));
     }
 }
