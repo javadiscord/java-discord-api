@@ -1,4 +1,4 @@
-package com.jdi.internal.api.application;
+package com.javadiscord.jdi.api.application;
 
 import static org.junit.jupiter.api.Assertions.*;
 

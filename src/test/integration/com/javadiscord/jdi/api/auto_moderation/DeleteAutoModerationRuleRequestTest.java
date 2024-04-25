@@ -1,4 +1,4 @@
-package com.jdi.internal.api.automoderation;
+package com.javadiscord.jdi.api.auto_moderation;
 
 import helpers.RestTestHelper;
 import com.javadiscord.jdi.internal.api.auto_moderation.DeleteAutoModerationRuleRequest;

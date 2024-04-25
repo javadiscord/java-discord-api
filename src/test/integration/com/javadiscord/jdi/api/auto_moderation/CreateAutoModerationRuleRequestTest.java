@@ -1,4 +1,4 @@
-package com.jdi.internal.api.automoderation;
+package com.javadiscord.jdi.api.auto_moderation;
 
 import java.util.List;
 import java.util.Optional;
