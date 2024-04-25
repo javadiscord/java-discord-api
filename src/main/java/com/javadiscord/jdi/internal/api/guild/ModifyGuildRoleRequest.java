@@ -14,7 +14,7 @@ public record ModifyGuildRoleRequest(
     Optional<String> permissions,
     Optional<Integer> color,
     Optional<Boolean> hoist,
-    Optional<String> icon, // TODO: tech debt (image data)
+    Optional<String> icon,
     Optional<String> unicodeEmoji,
     Optional<Boolean> mentionable
 )

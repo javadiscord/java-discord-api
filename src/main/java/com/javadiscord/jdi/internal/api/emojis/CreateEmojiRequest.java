@@ -9,7 +9,7 @@ import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 public record CreateEmojiRequest(
     long guildId,
     String name,
-    String image, // https://discord.com/developers/docs/reference#image-data
+    String image,
     List<Long> roles
 )
     implements DiscordRequest {

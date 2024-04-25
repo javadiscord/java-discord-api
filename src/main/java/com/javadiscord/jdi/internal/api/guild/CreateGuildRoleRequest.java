@@ -13,7 +13,7 @@ public record CreateGuildRoleRequest(
     Optional<String> permissions,
     Optional<Integer> color,
     Optional<Boolean> hoist,
-    Optional<String> icon, // TODO: Handle images correctly
+    Optional<String> icon,
     Optional<String> unicodeEmoji,
     Optional<Boolean> mentionable
 )
