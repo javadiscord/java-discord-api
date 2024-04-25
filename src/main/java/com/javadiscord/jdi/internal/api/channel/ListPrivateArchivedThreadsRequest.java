@@ -10,8 +10,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public record ListPrivateArchivedThreadsRequest(
     long channelId,
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
-    Optional<OffsetDateTime> before,
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX") Optional<OffsetDateTime> before,
     Optional<Integer> limit
 )
     implements DiscordRequest {
