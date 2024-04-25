@@ -13,18 +13,14 @@ import com.javadiscord.jdi.internal.api.DiscordResponseFuture;
 public class RestTestHelper {
     public void sendRequestAndAssert(DiscordRequest request, int expectedStatusCode) throws InterruptedException {
         DiscordResponseFuture response = getDiscordRequestDispatcher().queue(request);
-
         CountDownLatch latch = new CountDownLatch(1);
-
         response.onSuccess(
             (r) -> {
                 assertEquals(r.status(), expectedStatusCode);
                 latch.countDown();
             }
         );
-
         response.onError(err -> fail());
-
         assertTrue(latch.await(5, TimeUnit.SECONDS));
     }
 
