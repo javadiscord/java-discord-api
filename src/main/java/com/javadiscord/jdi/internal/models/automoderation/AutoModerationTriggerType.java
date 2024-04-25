@@ -1,5 +1,7 @@
 package com.javadiscord.jdi.internal.models.automoderation;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum AutoModerationTriggerType {
     KEYWORD(1),
     SPAM(3),
@@ -12,6 +14,7 @@ public enum AutoModerationTriggerType {
         this.value = value;
     }
 
+    @JsonValue
     public int getValue() {
         return value;
     }
