@@ -4,7 +4,7 @@ By leveraging either an OpenAPI spec or crafting scenarios, Imposter empowers de
 
 ## Leveraging Discord's OpenAPI Spec
 Within this repository, we use the capabilities of Imposter by utilizing Discord's OpenAPI spec to automatically generate test endpoints. 
-These endpoints serve as assets for composing integration tests for our bot.
+These endpoints serve as assets for composing integration tests for our framework.
 
 ## Getting Started
 
@@ -28,7 +28,7 @@ imposter up
 
 This will start a mock server at `http://localhost:8080`
 
-Test everything is working by using a REST client such as Postman and make a call to `http://localhost:8080//api/v10/oauth2/applications/@me`. 
+Test everything is working by using a REST client such as Postman and make a call to `http://localhost:8080/api/v10/oauth2/applications/@me`. 
 You should see: 
 ```json
 {
