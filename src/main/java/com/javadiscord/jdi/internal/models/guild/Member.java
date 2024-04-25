@@ -15,10 +15,10 @@ public record Member(
     @JsonProperty("nick") String nick,
     @JsonProperty("avatar") String avatar,
     @JsonProperty("roles") List<Long> roles,
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX") @JsonProperty(
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX") @JsonProperty(
         "joined_at"
     ) OffsetDateTime joinedAt,
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX") @JsonProperty(
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX") @JsonProperty(
         "premium_since"
     ) OffsetDateTime premiumSince,
     @JsonProperty("deaf") boolean deaf,
@@ -26,7 +26,7 @@ public record Member(
     @JsonProperty("flags") int flags,
     @JsonProperty("pending") boolean pending,
     @JsonProperty("permissions") String permissions,
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX") @JsonProperty(
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX") @JsonProperty(
         "communication_disabled_until"
     ) OffsetDateTime communicationDisabledUntil
 ) {}

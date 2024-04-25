@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public record ListPublicArchivedThreadsRequest(
     long channelId,
     @JsonFormat(
-        shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+        shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX"
     ) Optional<OffsetDateTime> before,
     Optional<Integer> limit
 )

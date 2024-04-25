@@ -12,9 +12,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public record ThreadMember(
     @JsonProperty("id") long threadId,
     @JsonProperty("user_id") long userId,
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX") @JsonProperty(
-        "join_timestamp"
-    ) OffsetDateTime joinTime,
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
+    @JsonProperty( "join_timestamp") OffsetDateTime joinTime,
     @JsonProperty("flags") int flags,
     @JsonProperty("member") Member member
 ) {}

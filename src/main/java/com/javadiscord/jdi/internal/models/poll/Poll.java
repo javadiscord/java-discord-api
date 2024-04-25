@@ -12,7 +12,7 @@ public record Poll(
     @JsonProperty("question") PollMedia question,
     @JsonProperty("answers") List<PollAnswer> answers,
     @JsonFormat(
-        shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+        shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX"
     ) @JsonProperty("expiry") OffsetDateTime expiry,
     @JsonProperty("allow_multiselect") boolean allowMultiSelect,
     @JsonProperty("layout_type") PollLayoutType layoutType,

@@ -18,10 +18,10 @@ public record GuildTemplate(
     @JsonProperty("creator_id") long creatorId,
     @JsonProperty("creator") User creator,
     @JsonFormat(
-        shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+        shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX"
     ) @JsonProperty("created_at") OffsetDateTime createdAt,
     @JsonFormat(
-        shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+        shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX"
     ) @JsonProperty("updated_at") OffsetDateTime updatedAt,
     @JsonProperty("source_guild_id") long sourceGuildId,
     @JsonProperty("serialized_source_guild") Guild sourceGuild,

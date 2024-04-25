@@ -18,10 +18,10 @@ public record CreateScheduledEventRequest(
     String name,
     int privacyLevel, // 2 is only option atm
     @JsonFormat(
-        shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+        shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX"
     ) OffsetDateTime scheduledStartTime,
     @JsonFormat(
-        shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+        shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX"
     ) Optional<OffsetDateTime> scheduledEndTime,
     Optional<String> description,
     int entityType,

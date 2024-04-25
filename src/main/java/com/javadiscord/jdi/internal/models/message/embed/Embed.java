@@ -13,9 +13,8 @@ public record Embed(
     @JsonProperty("type") String type,
     @JsonProperty("description") String description,
     @JsonProperty("url") String url,
-    @JsonProperty("timestamp") @JsonFormat(
-        shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
-    ) Date timestamp,
+    @JsonProperty("timestamp")
+    @JsonFormat( shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX") Date timestamp,
     @JsonProperty("color") Integer color,
     @JsonProperty("footer") EmbedFooter footer,
     @JsonProperty("image") EmbedImage image,
