@@ -1,14 +1,14 @@
 package com.javadiscord.jdi.internal.models.user;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record Member(
     @JsonProperty("guild_id") long guildId,
-    @JsonProperty("user" )User user,
+    @JsonProperty("user") User user,
     @JsonProperty("roles") List<String> roles,
     @JsonProperty("joined_at") String joinDate
 ) {}
