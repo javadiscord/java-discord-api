@@ -1,4 +1,4 @@
-package com.javadiscord.jdi.internal.api.auditlogs;
+package com.javadiscord.jdi.internal.api.audit_logs;
 
 import java.util.Optional;
 
