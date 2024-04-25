@@ -9,5 +9,9 @@ public class MessageBulkDeleteHandler implements EventHandler<MessageBulkDelete>
     @Override
     public void handle(
         MessageBulkDelete event, ConnectionMediator connectionMediator, Discord discord
-    ) {}
+    ) {
+        for (long messageId : event.ids()) {
+            discord.getCache().getCacheForGuild(event.guildId()).remove(messageId, event.getClass());
+        }
+    }
 }

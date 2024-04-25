@@ -1,12 +1,11 @@
-package com.javadiscord.example;
+package example;
 
 import com.javadiscord.jdi.core.Discord;
 
 public class Main {
-    private static final String BOT_TOKEN = "";
-
     public static void main(String[] args) {
-        Discord discord = new Discord(BOT_TOKEN);
+        Discord discord = new Discord(System.getenv("DISCORD_TOKEN"));
         discord.start();
     }
+
 }

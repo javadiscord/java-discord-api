@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record Connection(
-    @JsonProperty("id") String id,
+    @JsonProperty("id") long id,
     @JsonProperty("name") String name,
     @JsonProperty("type") String type,
     @JsonProperty("revoked") boolean revoked,

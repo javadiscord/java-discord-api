@@ -9,5 +9,7 @@ public class ScheduledEventUpdateHandler implements EventHandler<ScheduledEvent>
     @Override
     public void handle(
         ScheduledEvent event, ConnectionMediator connectionMediator, Discord discord
-    ) {}
+    ) {
+        discord.getCache().getCacheForGuild(event.guildId()).update(event.id(), event);
+    }
 }

@@ -49,7 +49,7 @@ public class DiscordRequestBuilder {
      */
     public DiscordRequestBuilder body(Object payload) {
         try {
-            body = HttpRequest.BodyPublishers.ofString(OBJECT_MAPPER.writeValueAsString(body));
+            body = HttpRequest.BodyPublishers.ofString(OBJECT_MAPPER.writeValueAsString(payload));
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

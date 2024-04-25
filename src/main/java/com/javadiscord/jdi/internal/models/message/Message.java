@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record Message(
+    @JsonProperty("guild_id") long guildId,
     @JsonProperty("id") long id,
     @JsonProperty("channel_id") long channelId,
     @JsonProperty("author") User author,

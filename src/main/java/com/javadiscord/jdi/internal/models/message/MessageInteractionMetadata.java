@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record MessageInteractionMetadata(
-    @JsonProperty("id") String id,
+    @JsonProperty("id") long id,
     @JsonProperty("type") int type,
     @JsonProperty("user_id") String userId,
     @JsonProperty("authorizing_integration_owners") Map<String, String> authorizingIntegrationOwners,

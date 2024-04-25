@@ -12,17 +12,17 @@ assignees: ''
 <!-- Description of what you want to be able to do -->
 
 ## So that...
-<-- Description of why you want this -->
+<!-- Description of why you want this -->
 
 ## Context
-<-- Add context and details on this request  -->
+<!-- Add context and details on this request  -->
 
 ## Acceptance Criteria
 
 <!-- 
 EXAMPLE:
 
-As a discord moderator I wan to...
+As a discord moderator I want to...
 be able to send messages to a text channel
 So that...
 I can send informative messages to our users. 

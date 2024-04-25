@@ -21,7 +21,7 @@ class EditCurrentApplicationRequestTest extends RestTestHelper {
             "",
             "",
             "",
-            new Object(),
+            "",
             Map.of(),
             0,
             "",

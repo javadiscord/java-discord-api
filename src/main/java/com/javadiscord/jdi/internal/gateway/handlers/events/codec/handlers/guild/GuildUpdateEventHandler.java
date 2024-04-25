@@ -7,5 +7,7 @@ import com.javadiscord.jdi.internal.models.guild.Guild;
 
 public class GuildUpdateEventHandler implements EventHandler<Guild> {
     @Override
-    public void handle(Guild event, ConnectionMediator connectionMediator, Discord discord) {}
+    public void handle(Guild event, ConnectionMediator connectionMediator, Discord discord) {
+        discord.getCache().cacheGuild(event);
+    }
 }
