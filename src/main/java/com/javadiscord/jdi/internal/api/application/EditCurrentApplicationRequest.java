@@ -1,5 +1,6 @@
 package com.javadiscord.jdi.internal.api.application;
 
+import java.util.List;
 import java.util.Map;
 
 import com.javadiscord.jdi.internal.api.DiscordRequest;
@@ -16,7 +17,7 @@ public record EditCurrentApplicationRequest(
     String icon,
     String coverImage,
     String interactionsEndpointUrl,
-    String[] tags
+    List<String> tags
 )
     implements DiscordRequest {
 

@@ -5,7 +5,7 @@ import java.util.Map;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
-public record ModifyChannelRequest(long channelId, String name, byte[] base64EncodedIcon)
+public record ModifyChannelRequest(long channelId, String name, String base64EncodedIcon)
     implements DiscordRequest {
 
     @Override
