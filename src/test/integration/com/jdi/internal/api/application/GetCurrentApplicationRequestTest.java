@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import helpers.RestTestHelper;
 import com.javadiscord.jdi.internal.api.DiscordResponseFuture;
-import com.javadiscord.jdi.internal.api.impl.application.GetCurrentApplicationRequest;
+import com.javadiscord.jdi.internal.api.application.GetCurrentApplicationRequest;
 
 import org.junit.jupiter.api.Test;
 

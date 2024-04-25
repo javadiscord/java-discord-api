@@ -3,7 +3,7 @@ package com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.auto
 import com.javadiscord.jdi.core.Discord;
 import com.javadiscord.jdi.internal.gateway.ConnectionMediator;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.EventHandler;
-import com.javadiscord.jdi.internal.models.automoderation.AutoModerationRule;
+import com.javadiscord.jdi.internal.models.auto_moderation.AutoModerationRule;
 
 public class AutoModerationRuleCreateHandler implements EventHandler<AutoModerationRule> {
     @Override

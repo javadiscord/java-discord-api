@@ -2,14 +2,16 @@ package com.jdi.internal.api.application;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import com.javadiscord.jdi.internal.models.application.ApplicationInstallParams;
 import helpers.RestTestHelper;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordResponseFuture;
-import com.javadiscord.jdi.internal.api.impl.application.EditCurrentApplicationRequest;
+import com.javadiscord.jdi.internal.api.application.EditCurrentApplicationRequest;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +23,7 @@ class EditCurrentApplicationRequestTest extends RestTestHelper {
             "",
             "",
             "",
-            "",
+            new ApplicationInstallParams(List.of(), ""),
             Map.of(),
             0,
             "",

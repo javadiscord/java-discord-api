@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import helpers.RestTestHelper;
-import com.javadiscord.jdi.internal.api.impl.automoderation.CreateAutoModerationRuleRequest;
+import com.javadiscord.jdi.internal.api.auto_moderation.CreateAutoModerationRuleRequest;
 
 import org.junit.jupiter.api.Test;
 

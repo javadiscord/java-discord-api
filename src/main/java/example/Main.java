@@ -7,5 +7,4 @@ public class Main {
         Discord discord = new Discord(System.getenv("DISCORD_TOKEN"));
         discord.start();
     }
-
 }

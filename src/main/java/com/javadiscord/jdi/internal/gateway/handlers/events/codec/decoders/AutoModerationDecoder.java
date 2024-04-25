@@ -2,7 +2,7 @@ package com.javadiscord.jdi.internal.gateway.handlers.events.codec.decoders;
 
 import com.javadiscord.jdi.internal.gateway.GatewayEvent;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.EventDecoder;
-import com.javadiscord.jdi.internal.models.automoderation.AutoModerationRule;
+import com.javadiscord.jdi.internal.models.auto_moderation.AutoModerationRule;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

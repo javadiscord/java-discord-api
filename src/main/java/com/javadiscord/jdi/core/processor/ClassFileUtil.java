@@ -44,7 +44,6 @@ public class ClassFileUtil {
 
     public static String getClassName(File file) throws IOException {
         String className = null;
-
         try (
             FileInputStream fis = new FileInputStream(file);
             DataInputStream dis = new DataInputStream(fis)
@@ -63,7 +62,6 @@ public class ClassFileUtil {
                 className = extractClassName(dis);
             }
         }
-
         return className;
     }
 
