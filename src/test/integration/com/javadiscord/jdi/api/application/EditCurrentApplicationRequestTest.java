@@ -29,7 +29,7 @@ class EditCurrentApplicationRequestTest extends RestTestHelper {
             "",
             "",
             "",
-            new String[0]
+            List.of()
         );
 
         DiscordResponseFuture response = getDiscordRequestDispatcher().queue(request);
