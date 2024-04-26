@@ -29,7 +29,7 @@ public class Cache {
         return cache;
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public void cacheGuild(Guild guild) {
         CacheInterface cacheInterface = getCacheForType();
         cacheInterface.add(guild.id(), guild);

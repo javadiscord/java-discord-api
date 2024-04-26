@@ -12,7 +12,6 @@ public class MockServerInitializer {
     private static final String API_VERSION = "/api/v10";
     private static final String DISCORD_BASE_URL_ENV_VAR = "DISCORD_BASE_URL";
     private static final Discord discord;
-
     static {
         MockEngine imposter = new OpenApiImposterBuilder<>()
             .withSpecificationFile(Paths.get(OPEN_API_SPEC))

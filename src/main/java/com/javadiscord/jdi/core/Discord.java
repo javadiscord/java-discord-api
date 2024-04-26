@@ -31,9 +31,11 @@ public class Discord {
     private static final Executor EXECUTOR = Executors.newCachedThreadPool();
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private static final String WEBSITE = "https://javadiscord.com/";
+
     private static final String BASE_URL = System.getProperty("DISCORD_BASE_URL") != null
         ? System.getProperty("DISCORD_BASE_URL")
         : "https://discord.com/api";
+
     private final String botToken;
     private final IdentifyRequest identifyRequest;
     private final DiscordRequestDispatcher discordRequestDispatcher;

@@ -25,26 +25,8 @@ public class ClassFileUtil {
         return classes;
     }
 
-    private static List<File> getClasses(File file) {
-        List<File> classes = new ArrayList<>();
-        if (file.isDirectory()) {
-            File[] files = file.listFiles();
-            if (files != null) {
-                for (File f : files) {
-                    classes.addAll(getClasses(f));
-                }
-            }
-        } else {
-            if (file.getName().endsWith(".class")) {
-                classes.add(file);
-            }
-        }
-        return classes;
-    }
-
     public static String getClassName(File file) throws IOException {
         String className = null;
-
         try (
             FileInputStream fis = new FileInputStream(file);
             DataInputStream dis = new DataInputStream(fis)
@@ -63,8 +45,24 @@ public class ClassFileUtil {
                 className = extractClassName(dis);
             }
         }
-
         return className;
+    }
+
+    private static List<File> getClasses(File file) {
+        List<File> classes = new ArrayList<>();
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+            if (files != null) {
+                for (File f : files) {
+                    classes.addAll(getClasses(f));
+                }
+            }
+        } else {
+            if (file.getName().endsWith(".class")) {
+                classes.add(file);
+            }
+        }
+        return classes;
     }
 
     private static boolean isJarFile(File file) {

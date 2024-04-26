@@ -24,11 +24,6 @@ public class DiscordRequestBuilder {
         return this;
     }
 
-    public DiscordRequestBuilder putHeaders(Map<String, Object> headers) {
-        this.headers.putAll(headers);
-        return this;
-    }
-
     public DiscordRequestBuilder path(String path) {
         this.path = path;
         return this;
@@ -36,11 +31,6 @@ public class DiscordRequestBuilder {
 
     public DiscordRequestBuilder queryParam(String name, Object value) {
         queryParameters.put(name, value);
-        return this;
-    }
-
-    public DiscordRequestBuilder queryParams(Map<String, Object> queryParameters) {
-        this.queryParameters.putAll(queryParameters);
         return this;
     }
 

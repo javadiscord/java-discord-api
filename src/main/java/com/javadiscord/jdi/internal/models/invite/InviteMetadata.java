@@ -13,6 +13,6 @@ public record InviteMetadata(
     @JsonProperty("max_age") int maxAge,
     @JsonProperty("temporary") boolean temporary,
     @JsonFormat(
-        shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+        shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX"
     ) @JsonProperty("created_at") OffsetDateTime createdAt
 ) {}
