@@ -8,7 +8,7 @@ public record ListVoiceRegionsRequest() implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-                .path("/voice/regions")
-                .get();
+            .path("/voice/regions")
+            .get();
     }
 }
