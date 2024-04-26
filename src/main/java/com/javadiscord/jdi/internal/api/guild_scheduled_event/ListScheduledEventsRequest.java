@@ -7,7 +7,7 @@ import java.util.Optional;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
-public record GetScheduledEventsRequest(long guildId, Optional<Boolean> withUserCount)
+public record ListScheduledEventsRequest(long guildId, Optional<Boolean> withUserCount)
     implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
