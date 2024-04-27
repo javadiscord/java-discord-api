@@ -40,7 +40,7 @@ public class GatewayEventListener implements GatewayObserver {
                                             paramOrder.add(event);
                                         } else if (parameter.getParameterizedType()
                                                 == Discord.class) {
-                                            paramOrder.add(this);
+                                            paramOrder.add(discord);
                                         } else if (parameter.getParameterizedType()
                                                 == Guild.class) {
                                             Guild guild = null;

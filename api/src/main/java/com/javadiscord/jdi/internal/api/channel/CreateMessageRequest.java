@@ -34,17 +34,17 @@ public record CreateMessageRequest(
     public DiscordRequestBuilder create() {
         Map<String, Object> body = new HashMap<>();
         content.ifPresent(val -> body.put("content", val));
-        content.ifPresent(val -> body.put("nonce", val));
-        content.ifPresent(val -> body.put("tts", val));
-        content.ifPresent(val -> body.put("embeds", val));
-        content.ifPresent(val -> body.put("allowed_mentions", val));
-        content.ifPresent(val -> body.put("message_reference", val));
-        content.ifPresent(val -> body.put("components", val));
-        content.ifPresent(val -> body.put("sticker_ids", val));
-        content.ifPresent(val -> body.put("files", val));
-        content.ifPresent(val -> body.put("payload_json", val));
-        content.ifPresent(val -> body.put("flags", val));
-        content.ifPresent(val -> body.put("enforce_nonce", val));
+        nonce.ifPresent(val -> body.put("nonce", val));
+        tts.ifPresent(val -> body.put("tts", val));
+        embeds.ifPresent(val -> body.put("embeds", val));
+        mentions.ifPresent(val -> body.put("allowed_mentions", val));
+        messageReferences.ifPresent(val -> body.put("message_reference", val));
+        components.ifPresent(val -> body.put("components", val));
+        stickerIds.ifPresent(val -> body.put("sticker_ids", val));
+        files.ifPresent(val -> body.put("files", val));
+        payloadJson.ifPresent(val -> body.put("payload_json", val));
+        flags.ifPresent(val -> body.put("flags", val));
+        enforceNonce.ifPresent(val -> body.put("enforce_nonce", val));
         return new DiscordRequestBuilder()
                 .post()
                 .path("/channels/%s/messages".formatted(channelId))
