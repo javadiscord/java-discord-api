@@ -1,21 +1,22 @@
 package com.javadiscord.jdi.internal.api;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.Test;
 
 class DiscordResponseFutureTest {
 
     @Test
     void testSuccessConsumer() {
         DiscordResponseFuture future = new DiscordResponseFuture();
-        future.onSuccess(res -> {
-            assertEquals(200, res.status());
-            assertEquals("OK", res.body());
-        });
+        future.onSuccess(
+                res -> {
+                    assertEquals(200, res.status());
+                    assertEquals("OK", res.body());
+                });
         future.onError(res -> fail());
 
         DiscordResponse mockDiscordResponse = mock(DiscordResponse.class);
@@ -35,11 +36,14 @@ class DiscordResponseFutureTest {
         when(mockThrowable.getMessage()).thenReturn(mockExceptionMessage);
         when(mockException.getCause()).thenReturn(mockThrowable);
 
-        DiscordResponseFuture future = new DiscordResponseFuture()
-                .onSuccess(res -> fail())
-                .onError(res -> assertEquals(mockExceptionMessage, res.getCause().getMessage()));
+        DiscordResponseFuture future =
+                new DiscordResponseFuture()
+                        .onSuccess(res -> fail())
+                        .onError(
+                                res ->
+                                        assertEquals(
+                                                mockExceptionMessage, res.getCause().getMessage()));
 
         future.setException(mockException);
     }
-
 }

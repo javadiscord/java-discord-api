@@ -7,10 +7,7 @@ import com.javadiscord.jdi.internal.models.guild.Guild;
 
 public class GuildDeleteHandler implements EventHandler<Guild> {
     @Override
-    public void handle(
-        Guild event, ConnectionMediator connectionMediator,
-        Cache cache
-    ) {
+    public void handle(Guild event, ConnectionMediator connectionMediator, Cache cache) {
         cache.removeGuild(event.id());
     }
 }

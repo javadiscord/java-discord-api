@@ -1,13 +1,12 @@
 package com.javadiscord.jdi.internal.api.guild;
 
-import java.util.Optional;
-
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
+import java.util.Optional;
+
 public record SearchGuildMembersRequest(
-    long guildId, Optional<String> query, Optional<Integer> limit
-) implements DiscordRequest {
+        long guildId, Optional<String> query, Optional<Integer> limit) implements DiscordRequest {
 
     public SearchGuildMembersRequest {
         if (limit.isPresent()) {
@@ -20,9 +19,10 @@ public record SearchGuildMembersRequest(
 
     @Override
     public DiscordRequestBuilder create() {
-        DiscordRequestBuilder discordRequestBuilder = new DiscordRequestBuilder()
-            .get()
-            .path("/guilds/%s/members/search".formatted(guildId));
+        DiscordRequestBuilder discordRequestBuilder =
+                new DiscordRequestBuilder()
+                        .get()
+                        .path("/guilds/%s/members/search".formatted(guildId));
 
         query.ifPresent(val -> discordRequestBuilder.queryParam("query", val));
         limit.ifPresent(val -> discordRequestBuilder.queryParam("limit", val));

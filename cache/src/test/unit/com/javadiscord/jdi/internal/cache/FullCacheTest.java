@@ -1,9 +1,9 @@
 package com.javadiscord.jdi.internal.cache;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 class FullCacheTest {
     @Test
@@ -42,7 +42,7 @@ class FullCacheTest {
         record SampleItem(String value) {}
         FullCache cache = new FullCache();
         cache.add(1L, new SampleItem("dummy"));
-        //cache.update(1L, new SampleItem("hello world"));
+        // cache.update(1L, new SampleItem("hello world"));
         assertTrue(cache.isCached(1L, SampleItem.class));
     }
 
@@ -55,5 +55,4 @@ class FullCacheTest {
         cache.add(3L, new SampleItem("dummy"));
         assertEquals(3, cache.size());
     }
-
 }

@@ -8,7 +8,7 @@ public record RemoveGuildBanRequest(long guildId, long userId) implements Discor
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-            .delete()
-            .path("/guilds/%s/bans/%s".formatted(guildId, userId));
+                .delete()
+                .path("/guilds/%s/bans/%s".formatted(guildId, userId));
     }
 }

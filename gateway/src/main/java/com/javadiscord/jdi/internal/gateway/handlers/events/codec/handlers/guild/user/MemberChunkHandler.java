@@ -10,10 +10,7 @@ import com.javadiscord.jdi.internal.models.user.User;
 
 public class MemberChunkHandler implements EventHandler<MemberChunk> {
     @Override
-    public void handle(
-        MemberChunk event, ConnectionMediator connectionMediator,
-        Cache cache
-    ) {
+    public void handle(MemberChunk event, ConnectionMediator connectionMediator, Cache cache) {
         CacheInterface<Object> cacheInterface = cache.getCacheForGuild(event.guildId());
         for (Member member : event.members()) {
             User user = member.user();

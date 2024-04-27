@@ -7,10 +7,7 @@ import com.javadiscord.jdi.internal.models.guild.Interaction;
 
 public class InteractionCreateHandler implements EventHandler<Interaction> {
     @Override
-    public void handle(
-        Interaction event, ConnectionMediator connectionMediator,
-        Cache cache
-    ) {
+    public void handle(Interaction event, ConnectionMediator connectionMediator, Cache cache) {
         cache.getCacheForGuild(event.guildId()).add(event.id(), event);
     }
 }

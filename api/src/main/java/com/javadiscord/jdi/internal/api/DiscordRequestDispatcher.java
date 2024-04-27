@@ -1,5 +1,8 @@
 package com.javadiscord.jdi.internal.api;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -9,13 +12,11 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.stream.Stream;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 public class DiscordRequestDispatcher implements Runnable {
-    private static final String BASE_URL = System.getProperty("DISCORD_BASE_URL") != null
-        ? System.getProperty("DISCORD_BASE_URL")
-        : "https://discord.com/api";
+    private static final String BASE_URL =
+            System.getProperty("DISCORD_BASE_URL") != null
+                    ? System.getProperty("DISCORD_BASE_URL")
+                    : "https://discord.com/api";
 
     private static final Logger LOGGER = LogManager.getLogger();
     private final BlockingQueue<DiscordRequestBuilder> queue;
@@ -61,19 +62,17 @@ public class DiscordRequestDispatcher implements Runnable {
 
     private void sendRequest(DiscordRequestBuilder discordRequestBuilder) {
         try (HttpClient httpClient = HttpClient.newBuilder().build()) {
-            HttpRequest.Builder requestBuilder = HttpRequest.newBuilder()
-                .uri(
-                    URI.create(
-                        "%s%s%s"
-                            .formatted(
-                                BASE_URL,
-                                discordRequestBuilder.getPath(),
-                                discordRequestBuilder
-                                    .getQueryParameters()
-                            )
-                    )
-                )
-                .header("Authorization", "Bot " + botToken);
+            HttpRequest.Builder requestBuilder =
+                    HttpRequest.newBuilder()
+                            .uri(
+                                    URI.create(
+                                            "%s%s%s"
+                                                    .formatted(
+                                                            BASE_URL,
+                                                            discordRequestBuilder.getPath(),
+                                                            discordRequestBuilder
+                                                                    .getQueryParameters())))
+                            .header("Authorization", "Bot " + botToken);
 
             if (!discordRequestBuilder.getHeaders().containsKey("Content-Type")) {
                 requestBuilder.headers("Content-Type", "application/json");
@@ -101,35 +100,32 @@ public class DiscordRequestDispatcher implements Runnable {
                     break;
                 default:
                     throw new IllegalArgumentException(
-                        "Unsupported HTTP method: " + discordRequestBuilder.getMethod()
-                    );
+                            "Unsupported HTTP method: " + discordRequestBuilder.getMethod());
             }
 
             HttpRequest httpRequest = requestBuilder.build();
 
-            HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            HttpResponse<String> response =
+                    httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
 
             numberOfRequestsSent++;
             timeSinceLastRequest = System.currentTimeMillis();
 
             discordRequestBuilder.setSuccessResult(
-                new DiscordResponse(
-                    response.body(), response.statusCode(), response.headers().map()
-                )
-            );
+                    new DiscordResponse(
+                            response.body(), response.statusCode(), response.headers().map()));
 
         } catch (Exception e) {
             LOGGER.error(
-                "Failed to send request to {}{}", BASE_URL, discordRequestBuilder.getPath(), e
-            );
+                    "Failed to send request to {}{}", BASE_URL, discordRequestBuilder.getPath(), e);
             discordRequestBuilder.setFailureError(e);
         }
     }
 
     private static String[] headerMapToStringArr(Map<String, Object> headers) {
         return headers.keySet().stream()
-            .flatMap(key -> Stream.of(key, headers.get(key).toString()))
-            .toList()
-            .toArray(new String[0]);
+                .flatMap(key -> Stream.of(key, headers.get(key).toString()))
+                .toList()
+                .toArray(new String[0]);
     }
 }

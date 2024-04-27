@@ -7,8 +7,5 @@ import com.javadiscord.jdi.internal.models.invite.Invite;
 
 public class GuildInviteDeleteHandler implements EventHandler<Invite> {
     @Override
-    public void handle(
-        Invite event, ConnectionMediator connectionMediator,
-        Cache cache
-    ) {}
+    public void handle(Invite event, ConnectionMediator connectionMediator, Cache cache) {}
 }

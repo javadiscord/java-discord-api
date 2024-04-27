@@ -1,8 +1,7 @@
 package com.javadiscord.jdi.internal.gateway.identify;
 
-import com.javadiscord.jdi.internal.gateway.GatewayOpcode;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.javadiscord.jdi.internal.gateway.GatewayOpcode;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class IdentifyRequest {
@@ -100,19 +99,18 @@ public class IdentifyRequest {
         }
 
         public IdentifyRequest build() {
-            Data data = new Data(
-                token,
-                new Properties(os, browser, device),
-                compress,
-                large_threshold,
-                shard,
-                new Presence(
-                    new Activities(activityName, activityType),
-                    presenceStatus,
-                    afk
-                ),
-                intents
-            );
+            Data data =
+                    new Data(
+                            token,
+                            new Properties(os, browser, device),
+                            compress,
+                            large_threshold,
+                            shard,
+                            new Presence(
+                                    new Activities(activityName, activityType),
+                                    presenceStatus,
+                                    afk),
+                            intents);
             return new IdentifyRequest(data);
         }
     }

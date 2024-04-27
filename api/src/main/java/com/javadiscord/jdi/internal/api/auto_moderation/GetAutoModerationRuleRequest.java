@@ -4,14 +4,13 @@ import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
 public record GetAutoModerationRuleRequest(long guildId, long autoModerationRuleId)
-    implements DiscordRequest {
+        implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-            .get()
-            .path(
-                "/guilds/%s/auto-moderation/rules/%s"
-                    .formatted(guildId, autoModerationRuleId)
-            );
+                .get()
+                .path(
+                        "/guilds/%s/auto-moderation/rules/%s"
+                                .formatted(guildId, autoModerationRuleId));
     }
 }

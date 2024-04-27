@@ -8,11 +8,6 @@ class DeleteAutoModerationRuleRequestTest extends RestTestHelper {
 
     @Test
     void test() throws InterruptedException {
-        sendRequestAndAssert(
-                new DeleteAutoModerationRuleRequest(
-                        0L,
-                        0L
-                ), 204
-        );
+        sendRequestAndAssert(new DeleteAutoModerationRuleRequest(0L, 0L), 204);
     }
 }

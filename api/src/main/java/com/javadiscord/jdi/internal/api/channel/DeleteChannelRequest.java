@@ -8,7 +8,7 @@ public record DeleteChannelRequest(long channelId, long overwriteId) implements 
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-            .delete()
-            .path("/channels/%s/permissions/%s".formatted(channelId, overwriteId));
+                .delete()
+                .path("/channels/%s/permissions/%s".formatted(channelId, overwriteId));
     }
 }

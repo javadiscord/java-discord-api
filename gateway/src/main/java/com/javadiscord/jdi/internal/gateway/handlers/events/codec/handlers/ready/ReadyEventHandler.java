@@ -8,10 +8,7 @@ import com.javadiscord.jdi.internal.models.ready.ReadyEvent;
 public class ReadyEventHandler implements EventHandler<ReadyEvent> {
 
     @Override
-    public void handle(
-        ReadyEvent message, ConnectionMediator connectionMediator,
-        Cache cache
-    ) {
+    public void handle(ReadyEvent message, ConnectionMediator connectionMediator, Cache cache) {
         connectionMediator.getConnectionDetails().setSessionId(message.sessionId());
         connectionMediator.getConnectionDetails().setGatewayURL(message.resumeGatewayURL());
     }

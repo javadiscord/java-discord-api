@@ -1,27 +1,26 @@
 package com.javadiscord.jdi.internal.api.guild;
 
+import com.javadiscord.jdi.internal.api.DiscordRequest;
+import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
+
 import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.javadiscord.jdi.internal.api.DiscordRequest;
-import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-
 public record ModifyGuildMemberRequest(
-    long guildId,
-    long userId,
-    Optional<String> nick,
-    Optional<List<Long>> roles,
-    Optional<Boolean> mute,
-    Optional<Boolean> deafen,
-    Optional<Long> channelId,
-    // TODO: figure out how to correctly pass a timestamp to discord via the request
-    Optional<OffsetDateTime> communicationDisabledUntil,
-    Optional<Integer> flags
-)
-    implements DiscordRequest {
+        long guildId,
+        long userId,
+        Optional<String> nick,
+        Optional<List<Long>> roles,
+        Optional<Boolean> mute,
+        Optional<Boolean> deafen,
+        Optional<Long> channelId,
+        // TODO: figure out how to correctly pass a timestamp to discord via the request
+        Optional<OffsetDateTime> communicationDisabledUntil,
+        Optional<Integer> flags)
+        implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {
@@ -35,8 +34,8 @@ public record ModifyGuildMemberRequest(
         flags.ifPresent(val -> body.put("flags", val));
 
         return new DiscordRequestBuilder()
-            .patch()
-            .path("/guilds/%s/members/%s".formatted(guildId, userId))
-            .body(body);
+                .patch()
+                .path("/guilds/%s/members/%s".formatted(guildId, userId))
+                .body(body);
     }
 }

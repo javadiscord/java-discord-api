@@ -6,8 +6,6 @@ import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 public record GetCurrentUserConnectionsRequest() implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
-        return new DiscordRequestBuilder()
-            .get()
-            .path("/users/@me/connections");
+        return new DiscordRequestBuilder().get().path("/users/@me/connections");
     }
 }

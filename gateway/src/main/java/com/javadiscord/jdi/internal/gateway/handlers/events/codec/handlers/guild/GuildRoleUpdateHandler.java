@@ -7,10 +7,7 @@ import com.javadiscord.jdi.internal.models.guild.Role;
 
 public class GuildRoleUpdateHandler implements EventHandler<Role> {
     @Override
-    public void handle(
-        Role event, ConnectionMediator connectionMediator,
-        Cache cache
-    ) {
+    public void handle(Role event, ConnectionMediator connectionMediator, Cache cache) {
         cache.getCacheForGuild(event.guildId()).update(event.id(), event);
     }
 }

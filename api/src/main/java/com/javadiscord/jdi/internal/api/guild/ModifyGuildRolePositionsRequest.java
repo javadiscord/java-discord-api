@@ -1,12 +1,12 @@
 package com.javadiscord.jdi.internal.api.guild;
 
-import java.util.*;
-
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
+import java.util.*;
+
 public record ModifyGuildRolePositionsRequest(long guildId, List<ModifyGuildRolePositionData> roles)
-    implements DiscordRequest {
+        implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {
@@ -20,9 +20,9 @@ public record ModifyGuildRolePositionsRequest(long guildId, List<ModifyGuildRole
         }
 
         return new DiscordRequestBuilder()
-            .patch()
-            .path("/guilds/%s/roles".formatted(guildId))
-            .body(body);
+                .patch()
+                .path("/guilds/%s/roles".formatted(guildId))
+                .body(body);
     }
 
     public record ModifyGuildRolePositionData(long id, Optional<Integer> position) {}

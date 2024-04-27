@@ -8,10 +8,7 @@ import com.javadiscord.jdi.internal.gateway.handlers.events.codec.models.channel
 public class ThreadCreateHandler implements EventHandler<Thread> {
 
     @Override
-    public void handle(
-        Thread event, ConnectionMediator connectionMediator,
-        Cache cache
-    ) {
+    public void handle(Thread event, ConnectionMediator connectionMediator, Cache cache) {
         cache.getCacheForGuild(event.guildId()).add(event.id(), event);
     }
 }

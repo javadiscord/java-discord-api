@@ -5,8 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record SessionStartLimit(
-    int total,
-    int remaining,
-    @JsonProperty("reset_after") long resetAfter,
-    @JsonProperty("max_concurrency") int maxConcurrency
-) {}
+        int total,
+        int remaining,
+        @JsonProperty("reset_after") long resetAfter,
+        @JsonProperty("max_concurrency") int maxConcurrency) {}

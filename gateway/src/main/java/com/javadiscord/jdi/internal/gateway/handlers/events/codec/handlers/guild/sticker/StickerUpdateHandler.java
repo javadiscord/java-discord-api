@@ -9,10 +9,7 @@ import com.javadiscord.jdi.internal.models.message.StickerUpdate;
 
 public class StickerUpdateHandler implements EventHandler<StickerUpdate> {
     @Override
-    public void handle(
-        StickerUpdate event, ConnectionMediator connectionMediator,
-        Cache cache
-    ) {
+    public void handle(StickerUpdate event, ConnectionMediator connectionMediator, Cache cache) {
         CacheInterface<Object> cacheInterface = cache.getCacheForGuild(event.guildId());
         for (Sticker sticker : event.stickers()) {
             if (cacheInterface.isCached(sticker.id(), Sticker.class)) {

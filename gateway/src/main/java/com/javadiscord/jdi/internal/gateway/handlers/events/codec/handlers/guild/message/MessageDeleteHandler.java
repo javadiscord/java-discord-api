@@ -7,10 +7,7 @@ import com.javadiscord.jdi.internal.models.message.Message;
 
 public class MessageDeleteHandler implements EventHandler<Message> {
     @Override
-    public void handle(
-        Message event, ConnectionMediator connectionMediator,
-        Cache cache
-    ) {
+    public void handle(Message event, ConnectionMediator connectionMediator, Cache cache) {
         cache.getCacheForGuild(event.guildId()).remove(event.id(), event.getClass());
     }
 }

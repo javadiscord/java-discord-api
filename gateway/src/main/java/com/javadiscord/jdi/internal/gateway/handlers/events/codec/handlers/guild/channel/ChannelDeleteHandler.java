@@ -8,10 +8,7 @@ import com.javadiscord.jdi.internal.models.channel.Channel;
 
 public class ChannelDeleteHandler implements EventHandler<Channel> {
     @Override
-    public void handle(
-        Channel event, ConnectionMediator connectionMediator,
-        Cache cache
-    ) {
+    public void handle(Channel event, ConnectionMediator connectionMediator, Cache cache) {
         CacheInterface<?> cacheInterface = cache.getCacheForGuild(event.guildId());
         if (cacheInterface.isCached(event.id(), event.getClass())) {
             cacheInterface.remove(event.id(), event.getClass());

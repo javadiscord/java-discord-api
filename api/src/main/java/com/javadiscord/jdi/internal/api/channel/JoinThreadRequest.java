@@ -8,7 +8,7 @@ public record JoinThreadRequest(long channelId) implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-            .put()
-            .path("/channels/%s/thread-members/@me".formatted(channelId));
+                .put()
+                .path("/channels/%s/thread-members/@me".formatted(channelId));
     }
 }

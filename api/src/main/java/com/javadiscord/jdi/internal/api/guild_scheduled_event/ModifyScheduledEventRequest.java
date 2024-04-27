@@ -1,28 +1,27 @@
 package com.javadiscord.jdi.internal.api.guild_scheduled_event;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 import com.javadiscord.jdi.internal.models.guild.EntityMetadata;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
 public record ModifyScheduledEventRequest(
-    long guildId,
-    long scheduledEventId,
-    Optional<Long> channelId,
-    Optional<EntityMetadata> entityMetadata,
-    Optional<String> name,
-    Optional<Integer> privacyLevel,
-    Optional<Long> scheduledStartTime,
-    Optional<Long> scheduledEndTime,
-    Optional<String> description,
-    Optional<Integer> entityType,
-    Optional<Integer> status,
-    Optional<String> image
-)
-    implements DiscordRequest {
+        long guildId,
+        long scheduledEventId,
+        Optional<Long> channelId,
+        Optional<EntityMetadata> entityMetadata,
+        Optional<String> name,
+        Optional<Integer> privacyLevel,
+        Optional<Long> scheduledStartTime,
+        Optional<Long> scheduledEndTime,
+        Optional<String> description,
+        Optional<Integer> entityType,
+        Optional<Integer> status,
+        Optional<String> image)
+        implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
         Map<String, Object> body = new HashMap<>();
@@ -34,9 +33,8 @@ public record ModifyScheduledEventRequest(
             if (entityMetadata.isEmpty() || scheduledEndTime.isEmpty()) {
                 // TODO: replace with custom exceptions when implemented
                 throw new IllegalArgumentException(
-                    "When entityType is EXTERNAL, both entityMetadata and scheduledEndTime must"
-                        + " be provided"
-                );
+                        "When entityType is EXTERNAL, both entityMetadata and scheduledEndTime must"
+                                + " be provided");
             }
 
             body.put("channel_id", null);
@@ -54,8 +52,8 @@ public record ModifyScheduledEventRequest(
         status.ifPresent(val -> body.put("status", val));
         image.ifPresent(val -> body.put("image", val));
         return new DiscordRequestBuilder()
-            .patch()
-            .path("/guilds/%s/scheduled-events/%s".formatted(guildId, scheduledEventId))
-            .body(body);
+                .patch()
+                .path("/guilds/%s/scheduled-events/%s".formatted(guildId, scheduledEventId))
+                .body(body);
     }
 }

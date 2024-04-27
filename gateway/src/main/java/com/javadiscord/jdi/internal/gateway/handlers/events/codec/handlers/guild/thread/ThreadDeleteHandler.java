@@ -9,10 +9,7 @@ import com.javadiscord.jdi.internal.gateway.handlers.events.codec.models.channel
 public class ThreadDeleteHandler implements EventHandler<Thread> {
 
     @Override
-    public void handle(
-        Thread event, ConnectionMediator connectionMediator,
-        Cache cache
-    ) {
+    public void handle(Thread event, ConnectionMediator connectionMediator, Cache cache) {
         CacheInterface<?> cacheInterface = cache.getCacheForGuild(event.guildId());
         if (cacheInterface.isCached(event.id(), event.getClass())) {
             cacheInterface.remove(event.id(), event.getClass());

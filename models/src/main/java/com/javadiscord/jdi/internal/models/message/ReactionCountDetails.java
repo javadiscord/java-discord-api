@@ -5,5 +5,4 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record ReactionCountDetails(
-    @JsonProperty("burst") int burst, @JsonProperty("normal") int normal
-) {}
+        @JsonProperty("burst") int burst, @JsonProperty("normal") int normal) {}

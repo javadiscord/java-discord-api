@@ -8,7 +8,7 @@ public record EndPollRequest(long channelId, long messageId) implements DiscordR
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-            .path("/channels/%s/polls/%s/expire".formatted(channelId, messageId))
-            .post();
+                .path("/channels/%s/polls/%s/expire".formatted(channelId, messageId))
+                .post();
     }
 }

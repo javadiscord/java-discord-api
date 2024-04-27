@@ -1,23 +1,36 @@
-plugins {
-    id 'java'
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.diffplug.spotless:spotless-plugin-gradle:6.22.0'
+    }
 }
 
 group = 'com.javadiscord'
 version = project.version
 
-repositories {
-    mavenCentral()
-}
-
 subprojects {
     apply plugin: 'java'
+    apply plugin: 'com.diffplug.spotless'
+
+    spotless {
+        java {
+            importOrder()
+            googleJavaFormat()
+                    .aosp()
+                    .reflowLongStrings()
+                    .formatJavadoc(true)
+                    .reorderImports(true)
+                    .groupArtifact('com.google.googlejavaformat:google-java-format')
+            trimTrailingWhitespace()
+            indentWithSpaces()
+            endWithNewline()
+        }
+    }
 
     group = 'com.javadiscord'
     version = project.version
-
-    repositories {
-        mavenCentral()
-    }
 
     tasks.withType(JavaCompile).configureEach {
         options.release = 21

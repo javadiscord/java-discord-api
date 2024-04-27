@@ -7,6 +7,7 @@ import java.util.Map;
 public class Cache {
     @SuppressWarnings("rawtypes")
     private final Map<Long, CacheInterface> cache;
+
     private final CacheType cacheType;
 
     public Cache(CacheType cacheType) {

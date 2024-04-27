@@ -1,20 +1,19 @@
 package com.javadiscord.jdi.internal.api.sticker;
 
+import com.javadiscord.jdi.internal.api.DiscordRequest;
+import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import com.javadiscord.jdi.internal.api.DiscordRequest;
-import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-
 public record ModifyGuildStickerRequest(
-    long guildId,
-    long stickerId,
-    Optional<String> name,
-    Optional<String> description,
-    Optional<String> tags
-)
-    implements DiscordRequest {
+        long guildId,
+        long stickerId,
+        Optional<String> name,
+        Optional<String> description,
+        Optional<String> tags)
+        implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {
@@ -24,8 +23,8 @@ public record ModifyGuildStickerRequest(
         tags.ifPresent(val -> body.put("tags", val));
 
         return new DiscordRequestBuilder()
-            .patch()
-            .path("/guilds/%s/stickers/%s".formatted(guildId, stickerId))
-            .body(body);
+                .patch()
+                .path("/guilds/%s/stickers/%s".formatted(guildId, stickerId))
+                .body(body);
     }
 }

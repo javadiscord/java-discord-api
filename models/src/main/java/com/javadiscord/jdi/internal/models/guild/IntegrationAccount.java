@@ -4,6 +4,4 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record IntegrationAccount(
-    @JsonProperty("id") long id, @JsonProperty("name") String name
-) {}
+public record IntegrationAccount(@JsonProperty("id") long id, @JsonProperty("name") String name) {}

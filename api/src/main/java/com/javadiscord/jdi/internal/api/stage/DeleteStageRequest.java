@@ -7,7 +7,7 @@ public record DeleteStageRequest(String channelId) implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-            .delete()
-            .path("/stage-instances/%s".formatted(channelId));
+                .delete()
+                .path("/stage-instances/%s".formatted(channelId));
     }
 }

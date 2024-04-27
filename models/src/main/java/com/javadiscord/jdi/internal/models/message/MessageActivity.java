@@ -5,5 +5,4 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record MessageActivity(
-    @JsonProperty("type") MessageActivityType type, @JsonProperty("party_id") String partyId
-) {}
+        @JsonProperty("type") MessageActivityType type, @JsonProperty("party_id") String partyId) {}

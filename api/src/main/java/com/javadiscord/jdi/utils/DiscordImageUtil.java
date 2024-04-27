@@ -8,7 +8,8 @@ import java.util.Base64;
 import java.util.List;
 
 public class DiscordImageUtil {
-    private static final List<String> IMAGE_EXTENSIONS = Arrays.asList("jpg", "jpeg", "png", "gif", "bmp");
+    private static final List<String> IMAGE_EXTENSIONS =
+            Arrays.asList("jpg", "jpeg", "png", "gif", "bmp");
 
     private DiscordImageUtil() {}
 

@@ -1,20 +1,19 @@
 package com.javadiscord.jdi.internal.api.guild;
 
+import com.javadiscord.jdi.internal.api.DiscordRequest;
+import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
+
 import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import com.javadiscord.jdi.internal.api.DiscordRequest;
-import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-
 public record ModifyCurrentUserVoiceStateRequest(
-    long guildId,
-    Optional<Long> channelId,
-    Optional<Boolean> suppress,
-    Optional<OffsetDateTime> requestToSpeakTimestamp
-)
-    implements DiscordRequest {
+        long guildId,
+        Optional<Long> channelId,
+        Optional<Boolean> suppress,
+        Optional<OffsetDateTime> requestToSpeakTimestamp)
+        implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {
@@ -24,8 +23,8 @@ public record ModifyCurrentUserVoiceStateRequest(
         requestToSpeakTimestamp.ifPresent(val -> body.put("request_to_speak_timestamp", val));
 
         return new DiscordRequestBuilder()
-            .patch()
-            .path("/guilds/%s/voice-states/@me".formatted(guildId))
-            .body(body);
+                .patch()
+                .path("/guilds/%s/voice-states/@me".formatted(guildId))
+                .body(body);
     }
 }

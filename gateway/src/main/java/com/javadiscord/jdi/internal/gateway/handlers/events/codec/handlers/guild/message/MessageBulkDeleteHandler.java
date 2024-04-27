@@ -8,9 +8,7 @@ import com.javadiscord.jdi.internal.models.message.MessageBulkDelete;
 public class MessageBulkDeleteHandler implements EventHandler<MessageBulkDelete> {
     @Override
     public void handle(
-        MessageBulkDelete event, ConnectionMediator connectionMediator,
-        Cache cache
-    ) {
+            MessageBulkDelete event, ConnectionMediator connectionMediator, Cache cache) {
         for (long messageId : event.ids()) {
             cache.getCacheForGuild(event.guildId()).remove(messageId, event.getClass());
         }

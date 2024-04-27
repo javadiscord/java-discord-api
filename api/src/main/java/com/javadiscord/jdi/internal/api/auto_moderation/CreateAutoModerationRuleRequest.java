@@ -1,27 +1,26 @@
 package com.javadiscord.jdi.internal.api.auto_moderation;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 import com.javadiscord.jdi.internal.models.auto_moderation.AutoModerationAction;
 import com.javadiscord.jdi.internal.models.auto_moderation.AutoModerationTriggerMetadata;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 public record CreateAutoModerationRuleRequest(
-    long guildId,
-    String name,
-    int eventType,
-    int triggerType,
-    Optional<AutoModerationTriggerMetadata> triggerMetadata,
-    List<AutoModerationAction> actions,
-    Optional<Boolean> enabled,
-    Optional<List<Long>> exemptRoles,
-    Optional<List<Long>> exemptChannels
-)
-    implements DiscordRequest {
+        long guildId,
+        String name,
+        int eventType,
+        int triggerType,
+        Optional<AutoModerationTriggerMetadata> triggerMetadata,
+        List<AutoModerationAction> actions,
+        Optional<Boolean> enabled,
+        Optional<List<Long>> exemptRoles,
+        Optional<List<Long>> exemptChannels)
+        implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {
@@ -36,8 +35,8 @@ public record CreateAutoModerationRuleRequest(
         exemptChannels.ifPresent(val -> body.put("exempt_channels", val));
 
         return new DiscordRequestBuilder()
-            .post()
-            .path("/guilds/%s/auto-moderation/rules".formatted(guildId))
-            .body(body);
+                .post()
+                .path("/guilds/%s/auto-moderation/rules".formatted(guildId))
+                .body(body);
     }
 }

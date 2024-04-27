@@ -8,7 +8,7 @@ public record FetchChannelMessageRequest(long channelId, long messageId) impleme
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-            .get()
-            .path("/channel/%s/messages/%s".formatted(channelId, messageId));
+                .get()
+                .path("/channel/%s/messages/%s".formatted(channelId, messageId));
     }
 }

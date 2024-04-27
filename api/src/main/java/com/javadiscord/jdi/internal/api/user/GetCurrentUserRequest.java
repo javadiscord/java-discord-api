@@ -6,8 +6,6 @@ import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 public record GetCurrentUserRequest() implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
-        return new DiscordRequestBuilder()
-            .path("/users/@me")
-            .get();
+        return new DiscordRequestBuilder().path("/users/@me").get();
     }
 }

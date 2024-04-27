@@ -8,10 +8,7 @@ import com.javadiscord.jdi.internal.models.auto_moderation.AutoModerationRule;
 public class AutoModerationRuleUpdateHandler implements EventHandler<AutoModerationRule> {
     @Override
     public void handle(
-        AutoModerationRule event,
-        ConnectionMediator connectionMediator,
-        Cache cache
-    ) {
+            AutoModerationRule event, ConnectionMediator connectionMediator, Cache cache) {
         cache.getCacheForGuild(event.guildId()).update(event.id(), event);
     }
 }

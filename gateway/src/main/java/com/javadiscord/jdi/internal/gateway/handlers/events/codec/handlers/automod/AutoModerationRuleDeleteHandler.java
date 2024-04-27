@@ -9,10 +9,7 @@ import com.javadiscord.jdi.internal.models.auto_moderation.AutoModerationRule;
 public class AutoModerationRuleDeleteHandler implements EventHandler<AutoModerationRule> {
     @Override
     public void handle(
-        AutoModerationRule event,
-        ConnectionMediator connectionMediator,
-        Cache cache
-    ) {
+            AutoModerationRule event, ConnectionMediator connectionMediator, Cache cache) {
         CacheInterface<?> cacheInterface = cache.getCacheForGuild(event.guildId());
         if (cacheInterface.isCached(event.id(), event.getClass())) {
             cacheInterface.remove(event.id(), event.getClass());

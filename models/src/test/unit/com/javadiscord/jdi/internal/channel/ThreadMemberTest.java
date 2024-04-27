@@ -1,25 +1,26 @@
 package com.javadiscord.jdi.internal.channel;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.javadiscord.jdi.internal.models.channel.ThreadMember;
+
 import org.junit.jupiter.api.Test;
 
 import java.time.OffsetDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
 class ThreadMemberTest {
-    private static final ObjectMapper OBJECT_MAPPER = JsonMapper.builder()
-            .addModule(new JavaTimeModule())
-            .build();
+    private static final ObjectMapper OBJECT_MAPPER =
+            JsonMapper.builder().addModule(new JavaTimeModule()).build();
 
     @Test
     void testDecodingThreadMember() {
-        String input = """
+        String input =
+                """
                 {
                   "id": 1,
                   "user_id": 10,

@@ -10,19 +10,13 @@ public class NoCache implements CacheInterface<Object> {
     }
 
     @Override
-    public void add(long id, Object object) {
-
-    }
+    public void add(long id, Object object) {}
 
     @Override
-    public void update(long id, Object updated) {
-
-    }
+    public void update(long id, Object updated) {}
 
     @Override
-    public void remove(long id, Class<?> clazz) {
-
-    }
+    public void remove(long id, Class<?> clazz) {}
 
     @Override
     public boolean isCached(long id, Class<?> clazz) {

@@ -7,8 +7,5 @@ import com.javadiscord.jdi.internal.models.webhook.Webhook;
 
 public class WebHookHandler implements EventHandler<Webhook> {
     @Override
-    public void handle(
-        Webhook event, ConnectionMediator connectionMediator,
-        Cache cache
-    ) {}
+    public void handle(Webhook event, ConnectionMediator connectionMediator, Cache cache) {}
 }

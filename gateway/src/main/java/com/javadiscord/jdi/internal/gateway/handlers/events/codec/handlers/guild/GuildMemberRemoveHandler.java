@@ -8,10 +8,7 @@ import com.javadiscord.jdi.internal.models.user.User;
 
 public class GuildMemberRemoveHandler implements EventHandler<Member> {
     @Override
-    public void handle(
-        Member event, ConnectionMediator connectionMediator,
-        Cache cache
-    ) {
+    public void handle(Member event, ConnectionMediator connectionMediator, Cache cache) {
         cache.getCacheForGuild(event.guildId()).remove(event.user().id(), User.class);
     }
 }

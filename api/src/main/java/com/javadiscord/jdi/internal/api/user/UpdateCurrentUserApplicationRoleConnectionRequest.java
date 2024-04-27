@@ -1,19 +1,19 @@
 package com.javadiscord.jdi.internal.api.user;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 import com.javadiscord.jdi.internal.models.application.ApplicationRoleConnectionMetadata;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
 public record UpdateCurrentUserApplicationRoleConnectionRequest(
-    Long applicationId,
-    Optional<String> platformName,
-    Optional<String> platformUsername,
-    Optional<ApplicationRoleConnectionMetadata> metadata
-) implements DiscordRequest {
+        Long applicationId,
+        Optional<String> platformName,
+        Optional<String> platformUsername,
+        Optional<ApplicationRoleConnectionMetadata> metadata)
+        implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
         Map<String, Object> payload = new HashMap<>();
@@ -22,8 +22,8 @@ public record UpdateCurrentUserApplicationRoleConnectionRequest(
         metadata.ifPresent(val -> payload.put("metadata", metadata));
 
         return new DiscordRequestBuilder()
-            .path("/users/@me/applications/%d/role-connection".formatted(applicationId))
-            .put()
-            .body(payload);
+                .path("/users/@me/applications/%d/role-connection".formatted(applicationId))
+                .put()
+                .body(payload);
     }
 }

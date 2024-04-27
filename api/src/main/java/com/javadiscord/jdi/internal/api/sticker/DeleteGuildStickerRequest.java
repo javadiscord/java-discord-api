@@ -8,7 +8,7 @@ public record DeleteGuildStickerRequest(long guildId, long stickerId) implements
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-            .delete()
-            .path("/guilds/%s/stickers/%s".formatted(guildId, stickerId));
+                .delete()
+                .path("/guilds/%s/stickers/%s".formatted(guildId, stickerId));
     }
 }

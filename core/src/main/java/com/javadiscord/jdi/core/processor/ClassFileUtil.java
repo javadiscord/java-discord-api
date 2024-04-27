@@ -1,5 +1,7 @@
 package com.javadiscord.jdi.core.processor;
 
+import javassist.bytecode.ClassFile;
+
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-import javassist.bytecode.ClassFile;
 
 public class ClassFileUtil {
 
@@ -27,10 +28,8 @@ public class ClassFileUtil {
 
     public static String getClassName(File file) throws IOException {
         String className = null;
-        try (
-            FileInputStream fis = new FileInputStream(file);
-            DataInputStream dis = new DataInputStream(fis)
-        ) {
+        try (FileInputStream fis = new FileInputStream(file);
+                DataInputStream dis = new DataInputStream(fis)) {
             if (isJarFile(file)) {
                 try (ZipInputStream zip = new ZipInputStream(fis)) {
                     ZipEntry entry;

@@ -1,14 +1,14 @@
 package com.javadiscord.jdi.internal.api;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.mizosoft.methanol.MultipartBodyPublisher;
+
 import java.net.URLEncoder;
 import java.net.http.HttpRequest;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.mizosoft.methanol.MultipartBodyPublisher;
 
 public class DiscordRequestBuilder {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
@@ -94,8 +94,7 @@ public class DiscordRequestBuilder {
             encodedParams.append(URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8));
             encodedParams.append("=");
             encodedParams.append(
-                URLEncoder.encode(String.valueOf(entry.getValue()), StandardCharsets.UTF_8)
-            );
+                    URLEncoder.encode(String.valueOf(entry.getValue()), StandardCharsets.UTF_8));
         }
         return encodedParams.toString();
     }

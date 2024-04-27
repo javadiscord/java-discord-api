@@ -1,11 +1,11 @@
 package com.javadiscord.jdi.internal.api.auto_moderation;
 
-import java.util.List;
-import java.util.Optional;
-
 import helpers.RestTestHelper;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.Optional;
 
 class CreateAutoModerationRuleRequestTest extends RestTestHelper {
 
@@ -21,8 +21,7 @@ class CreateAutoModerationRuleRequestTest extends RestTestHelper {
                         List.of(),
                         Optional.empty(),
                         Optional.empty(),
-                        Optional.empty()
-                ), 200
-        );
+                        Optional.empty()),
+                200);
     }
 }

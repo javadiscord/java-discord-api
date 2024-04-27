@@ -7,8 +7,5 @@ import com.javadiscord.jdi.internal.models.voice.VoiceServer;
 
 public class VoiceServerHandler implements EventHandler<VoiceServer> {
     @Override
-    public void handle(
-        VoiceServer event, ConnectionMediator connectionMediator,
-        Cache cache
-    ) {}
+    public void handle(VoiceServer event, ConnectionMediator connectionMediator, Cache cache) {}
 }

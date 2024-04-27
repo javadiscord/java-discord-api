@@ -8,7 +8,7 @@ public record ListActiveGuildThreadsRequest(long guildId) implements DiscordRequ
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-            .get()
-            .path("/guilds/%s/threads/active".formatted(guildId));
+                .get()
+                .path("/guilds/%s/threads/active".formatted(guildId));
     }
 }

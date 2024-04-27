@@ -8,7 +8,7 @@ public record AddThreadMemberRequest(long channelId, long userId) implements Dis
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-            .put()
-            .path("/channels/%s/thread-members/%s".formatted(channelId, userId));
+                .put()
+                .path("/channels/%s/thread-members/%s".formatted(channelId, userId));
     }
 }

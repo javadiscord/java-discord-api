@@ -11,10 +11,7 @@ public class ResumeEventHandler implements EventHandler<ResumeEvent> {
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
-    public void handle(
-        ResumeEvent message, ConnectionMediator connectionMediator,
-        Cache cache
-    ) {
+    public void handle(ResumeEvent message, ConnectionMediator connectionMediator, Cache cache) {
         LOGGER.trace("Resume message consumed");
     }
 }

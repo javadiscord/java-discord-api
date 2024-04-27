@@ -1,27 +1,26 @@
 package com.javadiscord.jdi.internal.api.auto_moderation;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 import com.javadiscord.jdi.internal.models.auto_moderation.AutoModerationAction;
 import com.javadiscord.jdi.internal.models.auto_moderation.AutoModerationTriggerMetadata;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 public record ModifyAutoModerationRuleRequest(
-    long guildId,
-    long autoModerationRuleId,
-    Optional<String> name,
-    Optional<Integer> eventType,
-    Optional<AutoModerationTriggerMetadata> triggerMetadata,
-    Optional<List<AutoModerationAction>> actions,
-    Optional<Boolean> enabled,
-    Optional<List<Long>> exemptRoles,
-    Optional<List<Long>> exemptChannels
-)
-    implements DiscordRequest {
+        long guildId,
+        long autoModerationRuleId,
+        Optional<String> name,
+        Optional<Integer> eventType,
+        Optional<AutoModerationTriggerMetadata> triggerMetadata,
+        Optional<List<AutoModerationAction>> actions,
+        Optional<Boolean> enabled,
+        Optional<List<Long>> exemptRoles,
+        Optional<List<Long>> exemptChannels)
+        implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
         Map<String, Object> body = new HashMap<>();
@@ -34,11 +33,10 @@ public record ModifyAutoModerationRuleRequest(
         exemptChannels.ifPresent(val -> body.put("exempt_channels", exemptChannels));
 
         return new DiscordRequestBuilder()
-            .patch()
-            .path(
-                "/guilds/%s/auto-moderation/rules/%s"
-                    .formatted(guildId, autoModerationRuleId)
-            )
-            .body(body);
+                .patch()
+                .path(
+                        "/guilds/%s/auto-moderation/rules/%s"
+                                .formatted(guildId, autoModerationRuleId))
+                .body(body);
     }
 }

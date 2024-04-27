@@ -7,8 +7,5 @@ import com.javadiscord.jdi.internal.models.scheduled_event.EventUser;
 
 public class ScheduledEventUserAddHandler implements EventHandler<EventUser> {
     @Override
-    public void handle(
-        EventUser event, ConnectionMediator connectionMediator,
-        Cache cache
-    ) {}
+    public void handle(EventUser event, ConnectionMediator connectionMediator, Cache cache) {}
 }
