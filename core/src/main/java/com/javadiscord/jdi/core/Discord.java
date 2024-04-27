@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import com.javadiscord.jdi.api.DiscordRequest;
-import com.javadiscord.jdi.api.DiscordRequestDispatcher;
-import com.javadiscord.jdi.api.DiscordResponseFuture;
+import com.javadiscord.jdi.internal.api.DiscordRequest;
+import com.javadiscord.jdi.internal.api.DiscordRequestDispatcher;
+import com.javadiscord.jdi.internal.api.DiscordResponseFuture;
 import com.javadiscord.jdi.internal.cache.Cache;
 import com.javadiscord.jdi.internal.cache.CacheType;
 import com.javadiscord.jdi.core.annotations.EventListener;
