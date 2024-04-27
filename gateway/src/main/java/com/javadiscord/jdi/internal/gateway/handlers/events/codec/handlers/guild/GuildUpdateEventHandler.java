@@ -8,6 +8,9 @@ import com.javadiscord.jdi.internal.models.guild.Guild;
 public class GuildUpdateEventHandler implements EventHandler<Guild> {
     @Override
     public void handle(Guild event, ConnectionMediator connectionMediator, Cache cache) {
-        cache.createCache(event.id());
+        if (!cache.isGuildCached(event.id())) {
+            cache.createCache(event.id());
+        }
+        cache.getCacheForGuild(event.id()).update(event.id(), event);
     }
 }

@@ -120,7 +120,7 @@ public class Discord {
                 new ConnectionDetails(gateway.url(), botToken, gatewaySetting);
         ConnectionMediator connectionMediator =
                 new ConnectionMediator(connectionDetails, webSocketManagerProxy);
-        connectionMediator.addObserver(new GatewayEventListener(this));
+        connectionMediator.addObserver(new GatewayEventListener(this, cache));
         webSocketManagerProxy.start(connectionMediator);
 
         EXECUTOR.execute(discordRequestDispatcher);

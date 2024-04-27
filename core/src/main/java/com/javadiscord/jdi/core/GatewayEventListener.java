@@ -1,5 +1,6 @@
 package com.javadiscord.jdi.core;
 
+import com.javadiscord.jdi.internal.cache.Cache;
 import com.javadiscord.jdi.internal.gateway.handlers.events.EventCodecHandler;
 import com.javadiscord.jdi.internal.gateway.handlers.events.EventType;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.GatewayObserver;
@@ -7,6 +8,7 @@ import com.javadiscord.jdi.internal.gateway.handlers.events.codec.GatewayObserve
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
@@ -15,9 +17,11 @@ import java.util.List;
 public class GatewayEventListener implements GatewayObserver {
     private static final Logger LOGGER = LogManager.getLogger();
     private final Discord discord;
+    private final Cache cache;
 
-    public GatewayEventListener(Discord discord) {
+    public GatewayEventListener(Discord discord, Cache cache) {
         this.discord = discord;
+        this.cache = cache;
     }
 
     @Override
@@ -37,6 +41,40 @@ public class GatewayEventListener implements GatewayObserver {
                                         } else if (parameter.getParameterizedType()
                                                 == Discord.class) {
                                             paramOrder.add(this);
+                                        } else if (parameter.getParameterizedType()
+                                                == Guild.class) {
+                                            Guild guild = null;
+                                            try {
+                                                Field guildIdField =
+                                                        event.getClass()
+                                                                .getDeclaredField("guildId");
+                                                guildIdField.setAccessible(true);
+                                                long guildId = (long) guildIdField.get(event);
+                                                com.javadiscord.jdi.internal.models.guild.Guild
+                                                        model =
+                                                                (com.javadiscord.jdi.internal.models
+                                                                                .guild.Guild)
+                                                                        cache.getCacheForGuild(
+                                                                                        guildId)
+                                                                                .get(
+                                                                                        guildId,
+                                                                                        com
+                                                                                                .javadiscord
+                                                                                                .jdi
+                                                                                                .internal
+                                                                                                .models
+                                                                                                .guild
+                                                                                                .Guild
+                                                                                                .class);
+                                                guild = new Guild(model, cache, discord);
+                                            } catch (NoSuchFieldException
+                                                    | IllegalAccessException e) {
+                                                /* Ignore */
+                                                System.out.println(
+                                                        "Failed to create guild: "
+                                                                + e.getMessage());
+                                            }
+                                            paramOrder.add(guild);
                                         }
                                     }
                                     try {

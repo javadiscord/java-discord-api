@@ -10,5 +10,6 @@ public class GuildCreateHandler implements EventHandler<Guild> {
     @Override
     public void handle(Guild event, ConnectionMediator connectionMediator, Cache cache) {
         cache.createCache(event.id());
+        cache.getCacheForGuild(event.id()).add(event.id(), event);
     }
 }

@@ -23,6 +23,10 @@ public class Cache {
         return cache.get(guildId);
     }
 
+    public boolean isGuildCached(long guildId) {
+        return cache.containsKey(guildId);
+    }
+
     @SuppressWarnings("rawtypes")
     public Map<Long, CacheInterface> getCachedGuilds() {
         return cache;
