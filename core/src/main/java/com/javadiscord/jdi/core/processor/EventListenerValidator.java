@@ -345,7 +345,7 @@ public class EventListenerValidator {
                                 LOGGER.trace("Loaded {}", clazz.getName());
                             }
                         }
-                    } else if(method.getParameterCount() != 0) {
+                    } else if (method.getParameterCount() != 0) {
                         LOGGER.error(
                                 "{} does not have the expected parameter types", method.getName());
                         return false;
