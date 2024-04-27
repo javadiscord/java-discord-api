@@ -188,10 +188,6 @@ public class Discord {
         }
     }
 
-    public static String getBaseUrl() {
-        return BASE_URL;
-    }
-
     public DiscordRequestDispatcher getDiscordRequestDispatcher() {
         return discordRequestDispatcher;
     }

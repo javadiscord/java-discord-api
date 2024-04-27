@@ -350,7 +350,7 @@ public class EventListenerValidator {
         return hasZeroArgsConstructor(clazz) && validateMethods(clazz);
     }
 
-    private boolean hasZeroArgsConstructor(Class<?> clazz) {
+    public boolean hasZeroArgsConstructor(Class<?> clazz) {
         Constructor<?>[] constructors = clazz.getConstructors();
         for (Constructor<?> constructor : constructors) {
             if (constructor.getParameterCount() == 0) {
