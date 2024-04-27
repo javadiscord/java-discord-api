@@ -4,7 +4,7 @@ import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.javadiscord.jdi.cache.Cache;
+import com.javadiscord.jdi.internal.cache.Cache;
 import com.javadiscord.jdi.core.annotations.*;
 import com.javadiscord.jdi.internal.gateway.ConnectionMediator;
 import com.javadiscord.jdi.internal.gateway.GatewayEvent;

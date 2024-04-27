@@ -1,4 +1,4 @@
-package com.javadiscord.jdi.cache;
+package com.javadiscord.jdi.internal.cache;
 
 import java.util.HashMap;
 import java.util.List;

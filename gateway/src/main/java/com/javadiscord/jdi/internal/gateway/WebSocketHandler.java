@@ -3,7 +3,7 @@ package com.javadiscord.jdi.internal.gateway;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.javadiscord.jdi.cache.Cache;
+import com.javadiscord.jdi.internal.cache.Cache;
 import com.javadiscord.jdi.internal.gateway.handlers.GatewayOperationHandler;
 import com.javadiscord.jdi.internal.gateway.handlers.ReconnectGatewayOperationHandler;
 import com.javadiscord.jdi.internal.gateway.handlers.events.EventCodecHandler;

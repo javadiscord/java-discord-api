@@ -1,6 +1,6 @@
 package com.javadiscord.jdi.internal.gateway;
 
-import com.javadiscord.jdi.cache.Cache;
+import com.javadiscord.jdi.internal.cache.Cache;
 import com.javadiscord.jdi.internal.gateway.identify.IdentifyRequest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
