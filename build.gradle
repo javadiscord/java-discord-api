@@ -1,53 +1,75 @@
-plugins {
-    id 'java'
-    id 'com.diffplug.spotless' version '6.25.0'
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.diffplug.spotless:spotless-plugin-gradle:6.22.0'
+    }
 }
 
 group = 'com.javadiscord'
 version = project.version
 
-repositories {
-    mavenCentral()
-    maven {
-        url 'https://s3-eu-west-1.amazonaws.com/gatehillsoftware-maven/releases'
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'com.diffplug.spotless'
+
+    spotless {
+        java {
+            importOrder()
+            googleJavaFormat()
+                    .aosp()
+                    .reflowLongStrings()
+                    .formatJavadoc(true)
+                    .reorderImports(true)
+                    .groupArtifact('com.google.googlejavaformat:google-java-format')
+            trimTrailingWhitespace()
+            indentWithSpaces()
+            endWithNewline()
+        }
     }
-}
 
-dependencies {
-    implementation 'org.javassist:javassist:3.30.2-GA'
+    group = 'com.javadiscord'
+    version = project.version
 
-    implementation 'com.fasterxml.jackson.core:jackson-core:2.17.0'
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.17.0'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.0'
+    tasks.withType(JavaCompile).configureEach {
+        options.release = 21
+    }
 
-    implementation 'com.github.mizosoft.methanol:methanol:1.7.0'
-
-    implementation 'io.vertx:vertx-web-client:4.5.7'
-    implementation 'io.vertx:vertx-core:4.5.7'
-
-    implementation 'org.apache.logging.log4j:log4j-api:2.23.1'
-    implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
-
-    testImplementation platform('org.junit:junit-bom:5.10.2')
-    testImplementation  'org.junit.jupiter:junit-jupiter'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    testImplementation "io.gatehill.imposter:distro-embedded:3.38.2"
-    testImplementation "io.gatehill.imposter:imposter-server:3.38.2"
-    testImplementation "io.gatehill.imposter:config-dynamic:3.38.2"
-    testImplementation "io.gatehill.imposter:mock-openapi:3.38.2"
-
-    testImplementation 'org.mockito:mockito-core:5.11.0'
-}
-
-spotless {
     java {
-        target('**/java/**/*.java')
-        endWithNewline()
-        removeUnusedImports()
-        // '\\#' = static imports, '' = everything else
-        importOrder('\\#', 'java', 'javax', 'com.javadiscord', '')
-        eclipse().configFile("./spotless.xml")
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(21))
+        }
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
+
+    sourceSets {
+        test {
+            java {
+                srcDirs 'src/test/integration', 'src/test/unit'
+            }
+        }
+    }
+
+    dependencies {
+        implementation 'org.apache.logging.log4j:log4j-api:2.23.1'
+        implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
+
+        testImplementation platform('org.junit:junit-bom:5.10.2')
+        testImplementation  'org.junit.jupiter:junit-jupiter'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+        testImplementation 'org.mockito:mockito-core:5.11.0'
+        testImplementation project(":models")
     }
 }
 
@@ -76,20 +98,5 @@ tasks.register('bumpMajorVersion') {
         project.version = newVersion
         file('gradle.properties').text = "version=$newVersion"
         println "Version bumped to: $newVersion"
-    }
-}
-
-test {
-    useJUnitPlatform()
-    testLogging {
-        events "passed", "skipped", "failed"
-    }
-}
-
-sourceSets {
-    test {
-        java {
-            srcDirs 'src/test/integration', 'src/test/unit'
-        }
     }
 }
