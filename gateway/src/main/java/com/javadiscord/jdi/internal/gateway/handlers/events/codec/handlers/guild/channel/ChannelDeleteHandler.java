@@ -1,10 +1,10 @@
 package com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.channel;
 
+import com.javadiscord.jdi.core.models.channel.Channel;
 import com.javadiscord.jdi.internal.cache.Cache;
 import com.javadiscord.jdi.internal.cache.CacheInterface;
 import com.javadiscord.jdi.internal.gateway.ConnectionMediator;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.EventHandler;
-import com.javadiscord.jdi.internal.models.channel.Channel;
 
 public class ChannelDeleteHandler implements EventHandler<Channel> {
     @Override

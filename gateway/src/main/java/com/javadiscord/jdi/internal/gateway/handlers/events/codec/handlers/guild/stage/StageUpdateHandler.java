@@ -1,9 +1,9 @@
 package com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.stage;
 
+import com.javadiscord.jdi.core.models.stage.Stage;
 import com.javadiscord.jdi.internal.cache.Cache;
 import com.javadiscord.jdi.internal.gateway.ConnectionMediator;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.EventHandler;
-import com.javadiscord.jdi.internal.models.stage.Stage;
 
 public class StageUpdateHandler implements EventHandler<Stage> {
     @Override

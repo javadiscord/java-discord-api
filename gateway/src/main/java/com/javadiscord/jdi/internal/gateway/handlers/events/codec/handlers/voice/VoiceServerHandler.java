@@ -1,9 +1,9 @@
 package com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.voice;
 
+import com.javadiscord.jdi.core.models.voice.VoiceServer;
 import com.javadiscord.jdi.internal.cache.Cache;
 import com.javadiscord.jdi.internal.gateway.ConnectionMediator;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.EventHandler;
-import com.javadiscord.jdi.internal.models.voice.VoiceServer;
 
 public class VoiceServerHandler implements EventHandler<VoiceServer> {
     @Override

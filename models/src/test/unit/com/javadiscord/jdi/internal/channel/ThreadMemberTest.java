@@ -7,7 +7,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.javadiscord.jdi.internal.models.channel.ThreadMember;
+import com.javadiscord.jdi.core.models.channel.ThreadMember;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,9 +1,9 @@
 package com.javadiscord.jdi.internal.api.auto_moderation;
 
+import com.javadiscord.jdi.core.models.auto_moderation.AutoModerationAction;
+import com.javadiscord.jdi.core.models.auto_moderation.AutoModerationTriggerMetadata;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-import com.javadiscord.jdi.internal.models.auto_moderation.AutoModerationAction;
-import com.javadiscord.jdi.internal.models.auto_moderation.AutoModerationTriggerMetadata;
 
 import java.util.HashMap;
 import java.util.List;

@@ -1,10 +1,10 @@
 package com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild;
 
+import com.javadiscord.jdi.core.models.user.Member;
+import com.javadiscord.jdi.core.models.user.User;
 import com.javadiscord.jdi.internal.cache.Cache;
 import com.javadiscord.jdi.internal.gateway.ConnectionMediator;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.EventHandler;
-import com.javadiscord.jdi.internal.models.user.Member;
-import com.javadiscord.jdi.internal.models.user.User;
 
 public class GuildMemberRemoveHandler implements EventHandler<Member> {
     @Override

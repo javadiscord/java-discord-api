@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.internal.api.guild_scheduled_event;
 
+import com.javadiscord.jdi.core.models.guild.EntityMetadata;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-import com.javadiscord.jdi.internal.models.guild.EntityMetadata;
 
 import java.util.HashMap;
 import java.util.Map;

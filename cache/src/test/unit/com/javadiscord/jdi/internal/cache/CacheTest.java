@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.javadiscord.jdi.internal.models.guild.Guild;
+import com.javadiscord.jdi.core.models.guild.Guild;
 
 import org.junit.jupiter.api.Test;
 

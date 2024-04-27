@@ -1,11 +1,11 @@
 package com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.guild.sticker;
 
+import com.javadiscord.jdi.core.models.message.Sticker;
+import com.javadiscord.jdi.core.models.message.StickerUpdate;
 import com.javadiscord.jdi.internal.cache.Cache;
 import com.javadiscord.jdi.internal.cache.CacheInterface;
 import com.javadiscord.jdi.internal.gateway.ConnectionMediator;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.EventHandler;
-import com.javadiscord.jdi.internal.models.message.Sticker;
-import com.javadiscord.jdi.internal.models.message.StickerUpdate;
 
 public class StickerUpdateHandler implements EventHandler<StickerUpdate> {
     @Override

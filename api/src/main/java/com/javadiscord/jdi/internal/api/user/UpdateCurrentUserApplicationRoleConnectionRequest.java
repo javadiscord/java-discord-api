@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.internal.api.user;
 
+import com.javadiscord.jdi.core.models.application.ApplicationRoleConnectionMetadata;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-import com.javadiscord.jdi.internal.models.application.ApplicationRoleConnectionMetadata;
 
 import java.util.HashMap;
 import java.util.Map;

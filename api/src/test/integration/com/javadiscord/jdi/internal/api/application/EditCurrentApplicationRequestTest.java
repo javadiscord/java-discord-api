@@ -2,9 +2,9 @@ package com.javadiscord.jdi.internal.api.application;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.javadiscord.jdi.core.models.application.ApplicationInstallParams;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordResponseFuture;
-import com.javadiscord.jdi.internal.models.application.ApplicationInstallParams;
 
 import helpers.RestTestHelper;
 

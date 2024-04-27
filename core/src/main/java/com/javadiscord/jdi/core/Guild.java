@@ -2,21 +2,20 @@ package com.javadiscord.jdi.core;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.javadiscord.jdi.core.models.channel.Channel;
 import com.javadiscord.jdi.internal.api.channel.FetchChannelRequest;
 import com.javadiscord.jdi.internal.cache.Cache;
 import com.javadiscord.jdi.internal.cache.CacheInterface;
-import com.javadiscord.jdi.internal.models.channel.Channel;
 
 import java.util.concurrent.CompletableFuture;
 
 public class Guild {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-    private final com.javadiscord.jdi.internal.models.guild.Guild metadata;
+    private final com.javadiscord.jdi.core.models.guild.Guild metadata;
     private final CacheInterface<Object> cache;
     private final Discord discord;
 
-    public Guild(
-            com.javadiscord.jdi.internal.models.guild.Guild guild, Cache cache, Discord discord) {
+    public Guild(com.javadiscord.jdi.core.models.guild.Guild guild, Cache cache, Discord discord) {
         this.metadata = guild;
         this.cache = cache.getCacheForGuild(guild.id());
         this.discord = discord;
@@ -61,7 +60,7 @@ public class Guild {
         }
     }
 
-    public com.javadiscord.jdi.internal.models.guild.Guild getMetadata() {
+    public com.javadiscord.jdi.core.models.guild.Guild getMetadata() {
         return metadata;
     }
 }

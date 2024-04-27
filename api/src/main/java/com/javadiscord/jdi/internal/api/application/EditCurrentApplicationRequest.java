@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.internal.api.application;
 
+import com.javadiscord.jdi.core.models.application.ApplicationInstallParams;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-import com.javadiscord.jdi.internal.models.application.ApplicationInstallParams;
 
 import java.util.List;
 import java.util.Map;

@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.internal.api.guild;
 
+import com.javadiscord.jdi.core.models.guild.MFALevel;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-import com.javadiscord.jdi.internal.models.guild.MFALevel;
 
 import java.util.Map;
 

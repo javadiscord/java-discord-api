@@ -2,8 +2,8 @@ package com.javadiscord.jdi.internal.gateway.handlers.events.codec.models.channe
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.javadiscord.jdi.internal.models.channel.Channel;
-import com.javadiscord.jdi.internal.models.user.Member;
+import com.javadiscord.jdi.core.models.channel.Channel;
+import com.javadiscord.jdi.core.models.user.Member;
 
 import java.util.List;
 

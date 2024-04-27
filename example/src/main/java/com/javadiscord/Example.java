@@ -3,8 +3,8 @@ package com.javadiscord;
 import com.javadiscord.jdi.core.Guild;
 import com.javadiscord.jdi.core.annotations.EventListener;
 import com.javadiscord.jdi.core.annotations.MessageCreate;
-import com.javadiscord.jdi.internal.models.channel.Channel;
-import com.javadiscord.jdi.internal.models.message.Message;
+import com.javadiscord.jdi.core.models.channel.Channel;
+import com.javadiscord.jdi.core.models.message.Message;
 
 @EventListener
 public class Example {

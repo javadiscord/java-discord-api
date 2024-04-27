@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.internal.api.guild;
 
+import com.javadiscord.jdi.core.models.guild.GuildFeature;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-import com.javadiscord.jdi.internal.models.guild.GuildFeature;
 
 import java.util.HashMap;
 import java.util.List;

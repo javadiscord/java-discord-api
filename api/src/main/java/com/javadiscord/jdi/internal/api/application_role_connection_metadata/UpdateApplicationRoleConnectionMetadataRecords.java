@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.internal.api.application_role_connection_metadata;
 
+import com.javadiscord.jdi.core.models.application.ApplicationRoleConnectionMetadata;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-import com.javadiscord.jdi.internal.models.application.ApplicationRoleConnectionMetadata;
 
 public record UpdateApplicationRoleConnectionMetadataRecords(
         long applicationId, ApplicationRoleConnectionMetadata applicationRoleConnectionMetadata)

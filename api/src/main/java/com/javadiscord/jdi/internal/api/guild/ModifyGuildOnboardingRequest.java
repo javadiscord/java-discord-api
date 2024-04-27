@@ -1,9 +1,9 @@
 package com.javadiscord.jdi.internal.api.guild;
 
+import com.javadiscord.jdi.core.models.guild.OnboardingMode;
+import com.javadiscord.jdi.core.models.guild.OnboardingPrompt;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-import com.javadiscord.jdi.internal.models.guild.OnboardingMode;
-import com.javadiscord.jdi.internal.models.guild.OnboardingPrompt;
 
 import java.util.List;
 import java.util.Map;

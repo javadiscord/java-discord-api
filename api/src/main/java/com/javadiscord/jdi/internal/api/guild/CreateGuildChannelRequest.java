@@ -1,9 +1,9 @@
 package com.javadiscord.jdi.internal.api.guild;
 
+import com.javadiscord.jdi.core.models.channel.*;
+import com.javadiscord.jdi.core.models.guild.Tags;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-import com.javadiscord.jdi.internal.models.channel.*;
-import com.javadiscord.jdi.internal.models.guild.Tags;
 
 import java.util.HashMap;
 import java.util.List;

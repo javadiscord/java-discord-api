@@ -1,11 +1,11 @@
 package com.javadiscord.jdi.internal.api.channel;
 
 import com.github.mizosoft.methanol.MultipartBodyPublisher;
+import com.javadiscord.jdi.core.models.channel.ChannelMention;
+import com.javadiscord.jdi.core.models.message.MessageAttachment;
+import com.javadiscord.jdi.core.models.message.embed.Embed;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-import com.javadiscord.jdi.internal.models.channel.ChannelMention;
-import com.javadiscord.jdi.internal.models.message.MessageAttachment;
-import com.javadiscord.jdi.internal.models.message.embed.Embed;
 
 import java.util.List;
 

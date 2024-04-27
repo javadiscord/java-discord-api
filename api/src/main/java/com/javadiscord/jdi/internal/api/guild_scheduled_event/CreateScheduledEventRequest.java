@@ -1,9 +1,9 @@
 package com.javadiscord.jdi.internal.api.guild_scheduled_event;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.javadiscord.jdi.core.models.guild.EntityMetadata;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-import com.javadiscord.jdi.internal.models.guild.EntityMetadata;
 
 import java.time.OffsetDateTime;
 import java.util.HashMap;

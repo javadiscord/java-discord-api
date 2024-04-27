@@ -50,29 +50,20 @@ public class GatewayEventListener implements GatewayObserver {
                                                                 .getDeclaredField("guildId");
                                                 guildIdField.setAccessible(true);
                                                 long guildId = (long) guildIdField.get(event);
-                                                com.javadiscord.jdi.internal.models.guild.Guild
-                                                        model =
-                                                                (com.javadiscord.jdi.internal.models
-                                                                                .guild.Guild)
-                                                                        cache.getCacheForGuild(
-                                                                                        guildId)
-                                                                                .get(
-                                                                                        guildId,
-                                                                                        com
-                                                                                                .javadiscord
-                                                                                                .jdi
-                                                                                                .internal
-                                                                                                .models
-                                                                                                .guild
-                                                                                                .Guild
-                                                                                                .class);
+                                                com.javadiscord.jdi.core.models.guild.Guild model =
+                                                        (com.javadiscord.jdi.core.models.guild
+                                                                        .Guild)
+                                                                cache.getCacheForGuild(guildId)
+                                                                        .get(
+                                                                                guildId,
+                                                                                com.javadiscord.jdi
+                                                                                        .core.models
+                                                                                        .guild.Guild
+                                                                                        .class);
                                                 guild = new Guild(model, cache, discord);
                                             } catch (NoSuchFieldException
                                                     | IllegalAccessException e) {
                                                 /* Ignore */
-                                                System.out.println(
-                                                        "Failed to create guild: "
-                                                                + e.getMessage());
                                             }
                                             paramOrder.add(guild);
                                         }
