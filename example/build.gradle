@@ -1,11 +1,9 @@
-dependencies {
-    implementation project(":core")
-
-    /**
-     * Since we're not importing fat jar from :core we have to include these.
-     * It's a temp thing until we publish to an artifactory
-     */
-    implementation project(":annotations")
-    implementation project(":models")
-    implementation project(":gateway")
+allprojects {
+    dependencies {
+        implementation project(":core")
+        implementation project(":annotations")
+        implementation project(":models")
+        implementation project(":gateway")
+        implementation project(":api")
+    }
 }

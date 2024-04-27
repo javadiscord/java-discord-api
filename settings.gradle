@@ -5,4 +5,6 @@ include 'core'
 include 'api'
 include 'annotations'
 include 'cache'
+include 'example:echo-bot'
+findProject(':example:echo-bot')?.name = 'echo-bot'
 

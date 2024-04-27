@@ -1,0 +1,10 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+application {
+    mainClass = 'com.javadiscord.jdi.example.Main'
+}
+
+dependencies {}
