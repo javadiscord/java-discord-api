@@ -25,7 +25,7 @@ public class DiscordImageUtil {
     }
 
     public static boolean isNotImage(Path path) {
-        return IMAGE_EXTENSIONS.contains(getExtension(path));
+        return !IMAGE_EXTENSIONS.contains(getExtension(path));
     }
 
     private static String getExtension(Path path) {
