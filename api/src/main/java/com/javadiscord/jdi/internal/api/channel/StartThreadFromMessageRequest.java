@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public record StartThreadThreadFromMessageRequest(
+public record StartThreadFromMessageRequest(
         long channelId,
         long messageId,
         String name,
