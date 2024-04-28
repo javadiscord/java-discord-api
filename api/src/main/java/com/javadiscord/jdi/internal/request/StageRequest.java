@@ -6,8 +6,14 @@ import com.javadiscord.jdi.internal.api.stage.GetStageRequest;
 import com.javadiscord.jdi.internal.api.stage.ModifyStageRequest;
 import com.javadiscord.jdi.internal.request.builders.CreateStageBuilder;
 import com.javadiscord.jdi.internal.request.builders.ModifyStageBuilder;
+import com.javadiscord.jdi.internal.response.DiscordResponseParser;
 
-public class Stage {
+public class StageRequest {
+    private final DiscordResponseParser responseParser;
+
+    public StageRequest(DiscordResponseParser responseParser) {
+        this.responseParser = responseParser;
+    }
 
     public CreateStageRequest createStage(CreateStageBuilder builder) {
         return builder.build();

@@ -5,8 +5,14 @@ import com.javadiscord.jdi.internal.request.builders.CreateScheduledEventBuilder
 import com.javadiscord.jdi.internal.request.builders.GetScheduledEventBuilder;
 import com.javadiscord.jdi.internal.request.builders.GetScheduledEventUsersBuilder;
 import com.javadiscord.jdi.internal.request.builders.ListScheduledEventsBuilder;
+import com.javadiscord.jdi.internal.response.DiscordResponseParser;
 
-public class GuildScheduledEvent {
+public class GuildScheduledEventRequest {
+    private final DiscordResponseParser responseParser;
+
+    public GuildScheduledEventRequest(DiscordResponseParser responseParser) {
+        this.responseParser = responseParser;
+    }
 
     public CreateScheduledEventRequest createScheduledEvent(CreateScheduledEventBuilder builder) {
         return builder.build();

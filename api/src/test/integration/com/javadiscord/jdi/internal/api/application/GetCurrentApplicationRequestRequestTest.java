@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-class GetCurrentApplicationRequestTest extends RestTestHelper {
+class GetCurrentApplicationRequestRequestTest extends RestTestHelper {
 
     @Test
     void test() throws InterruptedException {

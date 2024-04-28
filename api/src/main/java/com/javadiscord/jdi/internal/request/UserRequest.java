@@ -4,11 +4,17 @@ import com.javadiscord.jdi.internal.api.user.*;
 import com.javadiscord.jdi.internal.request.builders.GetCurrentUserGuildsBuilder;
 import com.javadiscord.jdi.internal.request.builders.ModifyCurrentUserBuilder;
 import com.javadiscord.jdi.internal.request.builders.UpdateCurrentUserApplicationRoleConnectionBuilder;
+import com.javadiscord.jdi.internal.response.DiscordResponseParser;
 
 import java.util.List;
 import java.util.Map;
 
-public class User {
+public class UserRequest {
+    private final DiscordResponseParser responseParser;
+
+    public UserRequest(DiscordResponseParser responseParser) {
+        this.responseParser = responseParser;
+    }
 
     public CreateDMRequest createDM(long recipientId) {
         return new CreateDMRequest(recipientId);

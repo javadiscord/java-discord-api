@@ -6,6 +6,7 @@ repositories {
 
 dependencies {
     implementation project(":models")
+    implementation project(":cache")
 
     implementation 'com.github.mizosoft.methanol:methanol:1.7.0'
     implementation 'com.fasterxml.jackson.core:jackson-core:2.17.0'

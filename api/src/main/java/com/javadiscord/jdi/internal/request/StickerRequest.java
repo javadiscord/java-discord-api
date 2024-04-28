@@ -2,10 +2,17 @@ package com.javadiscord.jdi.internal.request;
 
 import com.javadiscord.jdi.internal.api.sticker.*;
 import com.javadiscord.jdi.internal.request.builders.ModifyGuildStickerBuilder;
+import com.javadiscord.jdi.internal.response.DiscordResponseParser;
 
 import java.nio.file.Path;
 
-public class Sticker {
+public class StickerRequest {
+    private final DiscordResponseParser responseParser;
+
+    public StickerRequest(DiscordResponseParser responseParser) {
+        this.responseParser = responseParser;
+    }
+
     public CreateGuildStickerRequest createGuildSticker(
             long guildId, String name, String description, String tags, Path filePath) {
         return new CreateGuildStickerRequest(guildId, name, description, tags, filePath);

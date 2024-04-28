@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-class EditCurrentApplicationRequestTest extends RestTestHelper {
+class EditCurrentApplicationRequestRequestTest extends RestTestHelper {
 
     @Test
     void test() throws InterruptedException {

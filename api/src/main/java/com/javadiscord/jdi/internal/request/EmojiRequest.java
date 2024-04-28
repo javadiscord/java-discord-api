@@ -2,10 +2,16 @@ package com.javadiscord.jdi.internal.request;
 
 import com.javadiscord.jdi.internal.api.emojis.*;
 import com.javadiscord.jdi.internal.request.builders.ModifyEmojiBuilder;
+import com.javadiscord.jdi.internal.response.DiscordResponseParser;
 
 import java.util.List;
 
-public class Emoji {
+public class EmojiRequest {
+    private final DiscordResponseParser responseParser;
+
+    public EmojiRequest(DiscordResponseParser responseParser) {
+        this.responseParser = responseParser;
+    }
 
     public CreateEmojiRequest createEmoji(
             long guildId, String name, String image, List<Long> roles) {

@@ -4,7 +4,7 @@ import helpers.RestTestHelper;
 
 import org.junit.jupiter.api.Test;
 
-class CreateAutoModerationRuleRequestTest extends RestTestHelper {
+class CreateAutoModerationRequestRuleRequestTest extends RestTestHelper {
 
     @Test
     void test() throws InterruptedException {}

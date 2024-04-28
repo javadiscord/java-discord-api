@@ -1,15 +1,23 @@
 package com.javadiscord.jdi.internal.request;
 
 import com.javadiscord.jdi.core.models.channel.ChannelMention;
+import com.javadiscord.jdi.core.models.invite.Invite;
 import com.javadiscord.jdi.core.models.message.MessageAttachment;
 import com.javadiscord.jdi.core.models.message.embed.Embed;
 import com.javadiscord.jdi.internal.api.channel.*;
 import com.javadiscord.jdi.internal.request.builders.*;
+import com.javadiscord.jdi.internal.response.AsyncResponse;
+import com.javadiscord.jdi.internal.response.DiscordResponseParser;
 
 import java.util.List;
 import java.util.Optional;
 
-public class Channel {
+public class ChannelRequest {
+    private final DiscordResponseParser responseParser;
+
+    public ChannelRequest(DiscordResponseParser responseParser) {
+        this.responseParser = responseParser;
+    }
 
     public AddThreadMemberRequest addThreadMember(long channelId, long userId) {
         return new AddThreadMemberRequest(channelId, userId);
@@ -19,9 +27,11 @@ public class Channel {
         return new BulkDeleteMessagesRequest(channelId, messageIds);
     }
 
-    public ChannelCreateInviteRequest createInvite(
+    public AsyncResponse<Invite> createInvite(
             long channelId, int maxAge, int maxUses, boolean temporary) {
-        return new ChannelCreateInviteRequest(channelId, maxAge, maxUses, temporary);
+        return responseParser.callAndParse(
+                Invite.class,
+                new ChannelCreateInviteRequest(channelId, maxAge, maxUses, temporary));
     }
 
     public CreateMessageRequest createMessage(CreateMessageBuilder builder) {
