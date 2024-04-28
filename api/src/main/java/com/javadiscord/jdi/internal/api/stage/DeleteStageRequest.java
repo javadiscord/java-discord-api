@@ -3,7 +3,7 @@ package com.javadiscord.jdi.internal.api.stage;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
-public record DeleteStageRequest(String channelId) implements DiscordRequest {
+public record DeleteStageRequest(long channelId) implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()

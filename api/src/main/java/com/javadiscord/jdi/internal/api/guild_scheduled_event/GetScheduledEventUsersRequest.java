@@ -10,7 +10,8 @@ public record GetScheduledEventUsersRequest(
         long scheduledEventId,
         Optional<Integer> limit,
         Optional<Boolean> withMember,
-        Optional<Long> before, // both of these can be provided but before will be favored
+        Optional<Long>
+                before, // TODO: handle; both of these can be provided but before will be favored
         Optional<Long> after)
         implements DiscordRequest {
 
