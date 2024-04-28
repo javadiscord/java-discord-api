@@ -39,8 +39,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.lang.annotation.Annotation;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class EventCodecHandler implements GatewayOperationHandler {
     private static final Logger LOGGER = LogManager.getLogger();

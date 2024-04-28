@@ -42,7 +42,8 @@ public class Discord {
     private final Gateway gateway;
     private final GatewaySetting gatewaySetting;
     private final Cache cache;
-    private final List<Object> eventListeners = new ArrayList<>();
+    private final List<Object> annotatedEventListeners = new ArrayList<>();
+    private final List<EventListener> eventListeners = new ArrayList<>();
 
     private Object listenerLoader;
 
@@ -119,8 +120,7 @@ public class Discord {
                 if (constructor.getParameterCount() == 1) {
                     Parameter parameters = constructor.getParameters()[0];
                     if (parameters.getType().equals(List.class)) {
-                        listenerLoader = constructor.newInstance(eventListeners);
-                        LOGGER.info("Using annotations");
+                        listenerLoader = constructor.newInstance(annotatedEventListeners);
                         return;
                     }
                 }
@@ -145,7 +145,8 @@ public class Discord {
                 new ConnectionDetails(gateway.url(), botToken, gatewaySetting);
         ConnectionMediator connectionMediator =
                 new ConnectionMediator(connectionDetails, webSocketManagerProxy);
-        connectionMediator.addObserver(new GatewayEventListener(this, cache));
+        connectionMediator.addObserver(new GatewayEventListenerAnnotations(this));
+        connectionMediator.addObserver(new GatewayEventListener(this));
         webSocketManagerProxy.start(connectionMediator);
 
         EXECUTOR.execute(discordRequestDispatcher);
@@ -155,8 +156,9 @@ public class Discord {
         EXECUTOR.execute(discordRequestDispatcher);
     }
 
-    private void registerListener() {
-        // TODO: Implement using something that extends EventListener
+    public void registerListener(EventListener eventListener) {
+        eventListeners.add(eventListener);
+        LOGGER.info("Registered listener {}", eventListener.getClass().getSimpleName());
     }
 
     public DiscordResponseFuture sendRequest(DiscordRequest request) {
@@ -188,7 +190,11 @@ public class Discord {
         return cache;
     }
 
-    public List<Object> getEventListeners() {
+    public List<Object> getAnnotatedEventListeners() {
+        return annotatedEventListeners;
+    }
+
+    public List<EventListener> getEventListeners() {
         return eventListeners;
     }
 }
