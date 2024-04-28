@@ -1,9 +1,6 @@
 package com.javadiscord.jdi.core;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.javadiscord.jdi.core.annotations.EventListener;
-import com.javadiscord.jdi.core.processor.ClassFileUtil;
-import com.javadiscord.jdi.core.processor.EventListenerValidator;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestDispatcher;
 import com.javadiscord.jdi.internal.api.DiscordResponseFuture;
@@ -17,6 +14,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Parameter;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -44,7 +43,8 @@ public class Discord {
     private final GatewaySetting gatewaySetting;
     private final Cache cache;
     private final List<Object> eventListeners = new ArrayList<>();
-    private final EventListenerValidator eventListenerValidator = new EventListenerValidator();
+
+    private Object listenerLoader;
 
     public Discord(String botToken) {
         this(
@@ -96,19 +96,44 @@ public class Discord {
                 new GatewaySetting().setEncoding(GatewayEncoding.JSON).setApiVersion(10);
         this.identifyRequest = identifyRequest;
         this.cache = cache;
+        if (annotationLibPresent()) {
+            loadAnnotations();
+        }
+    }
+
+    private boolean annotationLibPresent() {
+        String classpath = System.getProperty("java.class.path");
+        String[] classpathEntries = classpath.split(File.pathSeparator);
+        for (String entry : classpathEntries) {
+            if (entry.endsWith("annotations-1.0.0.jar")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void loadAnnotations() {
+        try {
+            Class<?> clazz = Class.forName("com.javadiscord.jdi.core.processor.ListenerLoader");
+            for (Constructor<?> constructor : clazz.getConstructors()) {
+                if (constructor.getParameterCount() == 1) {
+                    Parameter parameters = constructor.getParameters()[0];
+                    if (parameters.getType().equals(List.class)) {
+                        listenerLoader = constructor.newInstance(eventListeners);
+                        LOGGER.info("Using annotations");
+                        return;
+                    }
+                }
+            }
+        } catch (ClassNotFoundException
+                | InstantiationException
+                | IllegalAccessException
+                | InvocationTargetException ignore) {
+            /* Ignore */
+        }
     }
 
     public void start() {
-        try {
-            loadListeners();
-            if (eventListeners.isEmpty()) {
-                LOGGER.warn("No event listeners have been registered");
-            }
-        } catch (Exception e) {
-            LOGGER.error("Failed to load listeners", e);
-            throw new RuntimeException(e);
-        }
-
         WebSocketManager webSocketManager =
                 new WebSocketManager(
                         new GatewaySetting().setApiVersion(10).setEncoding(GatewayEncoding.JSON),
@@ -130,45 +155,12 @@ public class Discord {
         EXECUTOR.execute(discordRequestDispatcher);
     }
 
-    private void loadListeners() throws Exception {
-        List<File> classes = ClassFileUtil.getClassesInClassPath();
-        for (File classFile : classes) {
-            Class<?> clazz = Class.forName(ClassFileUtil.getClassName(classFile));
-            if (clazz.isAnnotationPresent(EventListener.class)) {
-                if (validateListener(clazz)) {
-                    registerListener(clazz);
-                } else {
-                    LOGGER.error("{} failed validation", clazz.getName());
-                }
-            }
-        }
-    }
-
-    private void registerListener(Class<?> clazz) {
-        try {
-            LOGGER.info("Registered listener {}", clazz.getName());
-            eventListeners.add(getZeroArgConstructor(clazz).newInstance());
-        } catch (Exception e) {
-            LOGGER.error("Failed to create {} instance", clazz.getName(), e);
-        }
-    }
-
-    boolean validateListener(Class<?> clazz) {
-        return eventListenerValidator.validate(clazz);
+    private void registerListener() {
+        // TODO: Implement using something that extends EventListener
     }
 
     public DiscordResponseFuture sendRequest(DiscordRequest request) {
         return discordRequestDispatcher.queue(request);
-    }
-
-    static Constructor<?> getZeroArgConstructor(Class<?> clazz) {
-        Constructor<?>[] constructors = clazz.getConstructors();
-        for (Constructor<?> constructor : constructors) {
-            if (constructor.getParameterCount() == 0) {
-                return constructor;
-            }
-        }
-        throw new RuntimeException("No zero arg constructor found for " + clazz.getName());
     }
 
     private static Gateway getGatewayURL(String authentication) {

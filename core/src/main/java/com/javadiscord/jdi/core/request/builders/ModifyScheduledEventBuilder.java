@@ -86,6 +86,18 @@ public class ModifyScheduledEventBuilder {
     }
 
     public ModifyScheduledEventRequest build() {
-        return new ModifyScheduledEventRequest(guildId, scheduledEventId, channelId, entityMetadata, name, privacyLevel, scheduledStartTime, scheduledEndTim, description, entityType, status, image);
+        return new ModifyScheduledEventRequest(
+                guildId,
+                scheduledEventId,
+                channelId,
+                entityMetadata,
+                name,
+                privacyLevel,
+                scheduledStartTime,
+                scheduledEndTim,
+                description,
+                entityType,
+                status,
+                image);
     }
 }
