@@ -3,9 +3,7 @@ package com.javadiscord.jdi.internal.request;
 import com.javadiscord.jdi.core.models.channel.ChannelMention;
 import com.javadiscord.jdi.core.models.message.MessageAttachment;
 import com.javadiscord.jdi.core.models.message.embed.Embed;
-import com.javadiscord.jdi.core.request.builders.*;
 import com.javadiscord.jdi.internal.api.channel.*;
-import com.javadiscord.jdi.internal.api.request.builders.*;
 import com.javadiscord.jdi.internal.request.builders.*;
 
 import java.util.List;
