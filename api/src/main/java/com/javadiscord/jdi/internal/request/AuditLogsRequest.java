@@ -15,6 +15,6 @@ public class AuditLogsRequest {
     }
 
     public AsyncResponse<List<AuditLogEntry>> getAuditLogs(GetAuditLogsBuilder builder) {
-        return responseParser.callAndParse(builder.build());
+        return responseParser.callAndParseList(AuditLogEntry.class, builder.build());
     }
 }

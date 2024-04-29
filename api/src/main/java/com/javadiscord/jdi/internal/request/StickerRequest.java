@@ -1,6 +1,7 @@
 package com.javadiscord.jdi.internal.request;
 
 import com.javadiscord.jdi.core.models.message.Sticker;
+import com.javadiscord.jdi.core.models.message.StickerPack;
 import com.javadiscord.jdi.internal.api.sticker.*;
 import com.javadiscord.jdi.internal.request.builders.ModifyGuildStickerBuilder;
 import com.javadiscord.jdi.internal.response.AsyncResponse;
@@ -34,12 +35,11 @@ public class StickerRequest {
     }
 
     public AsyncResponse<List<Sticker>> getGuildStickers(long guildId) {
-        return responseParser.callAndParse(new GetGuildStickersRequest(guildId));
+        return responseParser.callAndParseList(Sticker.class, new GetGuildStickersRequest(guildId));
     }
 
-    // TODO:
-    public GetStickerPacksRequest getStickerPacks() {
-        return new GetStickerPacksRequest();
+    public AsyncResponse<List<StickerPack>> getStickerPacks() {
+        return responseParser.callAndParseList(StickerPack.class, new GetStickerPacksRequest());
     }
 
     public AsyncResponse<Sticker> getSticker(long stickerId) {

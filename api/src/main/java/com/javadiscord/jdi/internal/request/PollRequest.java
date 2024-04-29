@@ -17,10 +17,10 @@ public class PollRequest {
     }
 
     public AsyncResponse<Poll> endPoll(long channelId, long messageId) {
-        return responseParser.callAndParse(new EndPollRequest(channelId, messageId));
+        return responseParser.callAndParse(Poll.class, new EndPollRequest(channelId, messageId));
     }
 
     public AsyncResponse<List<User>> getAnswerVoters(GetAnswerVotersBuilder builder) {
-        return responseParser.callAndParse(builder.build());
+        return responseParser.callAndParseList(User.class, builder.build());
     }
 }

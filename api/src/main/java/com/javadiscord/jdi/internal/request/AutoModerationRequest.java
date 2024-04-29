@@ -36,7 +36,8 @@ public class AutoModerationRequest {
     }
 
     public AsyncResponse<List<AutoModerationRule>> listAutoModerationRules(long guildId) {
-        return responseParser.callAndParse(new ListAutoModerationRulesRequest(guildId));
+        return responseParser.callAndParseList(
+                AutoModerationRule.class, new ListAutoModerationRulesRequest(guildId));
     }
 
     public AsyncResponse<AutoModerationRule> modifyAutoModerationRule(

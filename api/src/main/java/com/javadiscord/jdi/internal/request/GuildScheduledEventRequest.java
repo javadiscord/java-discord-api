@@ -1,5 +1,6 @@
 package com.javadiscord.jdi.internal.request;
 
+import com.javadiscord.jdi.core.models.scheduled_event.EventUser;
 import com.javadiscord.jdi.core.models.scheduled_event.ScheduledEvent;
 import com.javadiscord.jdi.internal.api.guild_scheduled_event.*;
 import com.javadiscord.jdi.internal.request.builders.CreateScheduledEventBuilder;
@@ -31,14 +32,13 @@ public class GuildScheduledEventRequest {
         return responseParser.callAndParse(ScheduledEvent.class, builder.build());
     }
 
-    // TODO: Fix
-    public GetScheduledEventUsersRequest getScheduledEventUsers(
+    public AsyncResponse<List<EventUser>> getScheduledEventUsers(
             GetScheduledEventUsersBuilder builder) {
-        return builder.build();
+        return responseParser.callAndParseList(EventUser.class, builder.build());
     }
 
     public AsyncResponse<List<ScheduledEvent>> listScheduledEvents(
             ListScheduledEventsBuilder builder) {
-        return responseParser.callAndParse(builder.build());
+        return responseParser.callAndParseList(ScheduledEvent.class, builder.build());
     }
 }

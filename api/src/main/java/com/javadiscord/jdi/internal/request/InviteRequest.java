@@ -14,10 +14,10 @@ public class InviteRequest {
     }
 
     public AsyncResponse<Invite> deleteInvite(String inviteCode) {
-        return responseParser.callAndParse(new DeleteInviteRequest(inviteCode));
+        return responseParser.callAndParse(Invite.class, new DeleteInviteRequest(inviteCode));
     }
 
     public AsyncResponse<Invite> getInvite(GetInviteRequestBuilder builder) {
-        return responseParser.callAndParse(builder.build());
+        return responseParser.callAndParse(Invite.class, builder.build());
     }
 }
