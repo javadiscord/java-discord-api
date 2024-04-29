@@ -1,12 +1,14 @@
-package com.javadiscord.jdi.internal.api.impl.webhook;
+package com.javadiscord.jdi.internal.api.webhook;
 
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
+import java.util.Optional;
+
 public record ExecuteGithubCompatibleWebhookRequest(long webhookId,
                                                     String webhookToken,
-                                                    long threadId,
-                                                    boolean waits) implements DiscordRequest {
+                                                    Optional<Long> threadId,
+                                                    Optional<Boolean> waits) implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
         DiscordRequestBuilder discordRequestBuilder =
@@ -14,8 +16,8 @@ public record ExecuteGithubCompatibleWebhookRequest(long webhookId,
                         .post()
                         .path("/webhooks/%s/%s/github".formatted(webhookId, webhookToken));
 
-        discordRequestBuilder.queryParam("thread_id", threadId);
-        discordRequestBuilder.queryParam("wait", waits);
+        threadId.ifPresent(val -> discordRequestBuilder.queryParam("thread_id", val));
+        waits.ifPresent(val -> discordRequestBuilder.queryParam("wait", val));
 
         return discordRequestBuilder;
     }

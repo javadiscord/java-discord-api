@@ -1,13 +1,14 @@
-package com.javadiscord.jdi.internal.api.impl.webhook;
+package com.javadiscord.jdi.internal.api.webhook;
 
 import com.github.mizosoft.methanol.MultipartBodyPublisher;
+import com.javadiscord.jdi.core.models.message.MessageAttachment;
+import com.javadiscord.jdi.core.models.poll.Poll;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-import com.javadiscord.jdi.internal.models.message.MessageAttachment;
-import com.javadiscord.jdi.internal.models.poll.Poll;
 
-import java.net.http.HttpRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -40,6 +41,22 @@ public record ExecuteWebhookRequest(
 
     @Override
     public DiscordRequestBuilder create() {
+        Map<String, Object> body = new HashMap<>();
+        content.ifPresent(val -> body.put("content", val));
+        username.ifPresent(val -> body.put("username", val));
+        avatarUrl.ifPresent(val -> body.put("avatar_url", val));
+        tts.ifPresent(val -> body.put("tts", val));
+        embeds.ifPresent(val -> body.put("embeds", val));
+        allowedMentions.ifPresent(val -> body.put("allowed_mentions", val));
+        components.ifPresent(val -> body.put("components", val));
+        files.ifPresent(val -> body.put("files", val));
+        body.put("payload_json", payloadJson);
+        attachments.ifPresent(val -> body.put("attachments", val));
+        flags.ifPresent(val -> body.put("flags", val));
+        threadName.ifPresent(val -> body.put("thread_name", val));
+        appliedTags.ifPresent(val -> body.put("applied_tags", val));
+        poll.ifPresent(val -> body.put("poll", val));
+
         DiscordRequestBuilder discordRequestBuilder =
                 new DiscordRequestBuilder()
                         .post()
@@ -48,7 +65,8 @@ public record ExecuteWebhookRequest(
                                 MultipartBodyPublisher.newBuilder()
                                         .textPart("payload_json", payloadJson)
                                         .build()
-                        );
+                        )
+                        .body(body);
 
         waits.ifPresent(val -> discordRequestBuilder.queryParam("wait", val));
         threadId.ifPresent(val -> discordRequestBuilder.queryParam("thread_id", val));

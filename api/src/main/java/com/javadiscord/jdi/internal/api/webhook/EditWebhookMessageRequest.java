@@ -1,4 +1,4 @@
-package com.javadiscord.jdi.internal.api.impl.webhook;
+package com.javadiscord.jdi.internal.api.webhook;
 
 import com.github.mizosoft.methanol.MultipartBodyPublisher;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
