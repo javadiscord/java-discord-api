@@ -16,7 +16,7 @@ public class ExampleNoAnnotate implements EventListener {
                 .onError(System.err::println);
 
         guild.auditLogs()
-                .getAuditLogs(new GetAuditLogsBuilder(guild.getMetadata().id()))
+                .getAuditLogs(new GetAuditLogsBuilder())
                 .onSuccess(res -> System.out.println("Result: " + res))
                 .onError(System.err::println);
     }

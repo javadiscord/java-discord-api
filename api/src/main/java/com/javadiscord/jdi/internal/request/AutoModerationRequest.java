@@ -11,37 +11,39 @@ import java.util.List;
 
 public class AutoModerationRequest {
     private final DiscordResponseParser responseParser;
+    private final long guildId;
 
-    public AutoModerationRequest(DiscordResponseParser responseParser) {
+    public AutoModerationRequest(DiscordResponseParser responseParser, long guildId) {
         this.responseParser = responseParser;
+        this.guildId = guildId;
     }
 
     public AsyncResponse<AutoModerationRule> createAutoModerationRuleRequest(
             CreateAutoModerationRuleBuilder builder) {
-        return responseParser.callAndParse(AutoModerationRule.class, builder.build());
+        return responseParser.callAndParse(
+                AutoModerationRule.class, builder.setGuildId(guildId).build());
     }
 
-    public AsyncResponse<AutoModerationRule> deleteAutoModerationRule(
-            long guildId, long autoModerationRuleId) {
+    public AsyncResponse<AutoModerationRule> deleteAutoModerationRule(long autoModerationRuleId) {
         return responseParser.callAndParse(
                 AutoModerationRule.class,
                 new DeleteAutoModerationRuleRequest(guildId, autoModerationRuleId));
     }
 
-    public AsyncResponse<AutoModerationRule> getAutoModerationRule(
-            long guildId, long autoModerationRuleId) {
+    public AsyncResponse<AutoModerationRule> getAutoModerationRule(long autoModerationRuleId) {
         return responseParser.callAndParse(
                 AutoModerationRule.class,
                 new GetAutoModerationRuleRequest(guildId, autoModerationRuleId));
     }
 
-    public AsyncResponse<List<AutoModerationRule>> listAutoModerationRules(long guildId) {
+    public AsyncResponse<List<AutoModerationRule>> listAutoModerationRules() {
         return responseParser.callAndParseList(
                 AutoModerationRule.class, new ListAutoModerationRulesRequest(guildId));
     }
 
     public AsyncResponse<AutoModerationRule> modifyAutoModerationRule(
             ModifyAutoModerationRuleBuilder builder) {
-        return responseParser.callAndParse(AutoModerationRule.class, builder.build());
+        return responseParser.callAndParse(
+                AutoModerationRule.class, builder.setGuildId(guildId).build());
     }
 }

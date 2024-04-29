@@ -6,13 +6,12 @@ import java.util.List;
 import java.util.Optional;
 
 public class ModifyEmojiBuilder {
-    private final long guildId;
+    private long guildId;
     private final long emojiId;
     private Optional<String> name;
     private Optional<List<Long>> roles;
 
-    public ModifyEmojiBuilder(long guildId, long emojiId) {
-        this.guildId = guildId;
+    public ModifyEmojiBuilder(long emojiId) {
         this.emojiId = emojiId;
         this.name = Optional.empty();
         this.roles = Optional.empty();
@@ -30,5 +29,10 @@ public class ModifyEmojiBuilder {
 
     public ModifyEmojiRequest build() {
         return new ModifyEmojiRequest(guildId, emojiId, name, roles);
+    }
+
+    public ModifyEmojiBuilder setGuildId(long guildId) {
+        this.guildId = guildId;
+        return this;
     }
 }

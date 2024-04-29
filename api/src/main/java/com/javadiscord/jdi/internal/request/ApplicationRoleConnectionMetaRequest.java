@@ -8,9 +8,12 @@ import com.javadiscord.jdi.internal.response.DiscordResponseParser;
 
 public class ApplicationRoleConnectionMetaRequest {
     private final DiscordResponseParser responseParser;
+    private final long guildId;
 
-    public ApplicationRoleConnectionMetaRequest(DiscordResponseParser responseParser) {
+    public ApplicationRoleConnectionMetaRequest(
+            DiscordResponseParser responseParser, long guildId) {
         this.responseParser = responseParser;
+        this.guildId = guildId;
     }
 
     public AsyncResponse<ApplicationRoleConnectionMetadata> getRecords(long applicationId) {

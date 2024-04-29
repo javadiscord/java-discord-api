@@ -8,9 +8,11 @@ import com.javadiscord.jdi.internal.response.DiscordResponseParser;
 
 public class InviteRequest {
     private final DiscordResponseParser responseParser;
+    private final long guildId;
 
-    public InviteRequest(DiscordResponseParser discordRequestDispatcher) {
+    public InviteRequest(DiscordResponseParser discordRequestDispatcher, long guildId) {
         this.responseParser = discordRequestDispatcher;
+        this.guildId = guildId;
     }
 
     public AsyncResponse<Invite> deleteInvite(String inviteCode) {

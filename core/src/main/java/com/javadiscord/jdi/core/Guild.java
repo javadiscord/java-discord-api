@@ -29,24 +29,27 @@ public class Guild {
         this.cache = cache;
         this.discord = discord;
 
-        DiscordResponseParser discordResponseParser =
-                new DiscordResponseParser(discord.getDiscordRequestDispatcher());
+        long guildId = guild.id();
 
-        this.applicationRequest = new ApplicationRequest(discordResponseParser);
+        DiscordResponseParser discordResponseParser =
+                new DiscordResponseParser(discord.getDiscordRequestDispatcher(), guildId);
+
+        this.applicationRequest = new ApplicationRequest(discordResponseParser, guildId);
         this.applicationRoleConnectionMetaRequest =
-                new ApplicationRoleConnectionMetaRequest(discordResponseParser);
-        this.auditLogsRequest = new AuditLogsRequest(discordResponseParser);
-        this.autoModerationRequest = new AutoModerationRequest(discordResponseParser);
-        this.channelRequest = new ChannelRequest(discordResponseParser);
-        this.emojiRequest = new EmojiRequest(discordResponseParser);
-        this.guildRequest = new GuildRequest(discordResponseParser);
-        this.guildScheduledEventRequest = new GuildScheduledEventRequest(discordResponseParser);
-        this.inviteRequest = new InviteRequest(discordResponseParser);
-        this.pollRequest = new PollRequest(discordResponseParser);
-        this.stageRequest = new StageRequest(discordResponseParser);
-        this.stickerRequest = new StickerRequest(discordResponseParser);
-        this.userRequest = new UserRequest(discordResponseParser);
-        this.voiceRequest = new VoiceRequest(discordResponseParser);
+                new ApplicationRoleConnectionMetaRequest(discordResponseParser, guildId);
+        this.auditLogsRequest = new AuditLogsRequest(discordResponseParser, guildId);
+        this.autoModerationRequest = new AutoModerationRequest(discordResponseParser, guildId);
+        this.channelRequest = new ChannelRequest(discordResponseParser, guildId);
+        this.emojiRequest = new EmojiRequest(discordResponseParser, guildId);
+        this.guildRequest = new GuildRequest(discordResponseParser, guildId);
+        this.guildScheduledEventRequest =
+                new GuildScheduledEventRequest(discordResponseParser, guildId);
+        this.inviteRequest = new InviteRequest(discordResponseParser, guildId);
+        this.pollRequest = new PollRequest(discordResponseParser, guildId);
+        this.stageRequest = new StageRequest(discordResponseParser, guildId);
+        this.stickerRequest = new StickerRequest(discordResponseParser, guildId);
+        this.userRequest = new UserRequest(discordResponseParser, guildId);
+        this.voiceRequest = new VoiceRequest(discordResponseParser, guildId);
     }
 
     public ChannelRequest channel() {

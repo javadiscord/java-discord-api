@@ -12,9 +12,11 @@ import java.util.Map;
 
 public class ApplicationRequest {
     private final DiscordResponseParser responseParser;
+    private final long guildId;
 
-    public ApplicationRequest(DiscordResponseParser responseParser) {
+    public ApplicationRequest(DiscordResponseParser responseParser, long guildId) {
         this.responseParser = responseParser;
+        this.guildId = guildId;
     }
 
     public AsyncResponse<Application> editCurrentApplication(

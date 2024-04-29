@@ -7,10 +7,10 @@ import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record StickerPack(
-        long id,
-        List<Sticker> stickers,
-        String name,
-        long sku_id,
+        @JsonProperty("id") long id,
+        @JsonProperty("stickers") List<Sticker> stickers,
+        @JsonProperty("name") String name,
+        @JsonProperty("sky_id") long skuId,
         @JsonProperty("cover_sticker_id") long coverStickerId,
-        String description,
+        @JsonProperty("description") String description,
         @JsonProperty("banner_asset_id") long bannerAssetId) {}

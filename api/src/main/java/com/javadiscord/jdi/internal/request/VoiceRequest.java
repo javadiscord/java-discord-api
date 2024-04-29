@@ -9,8 +9,10 @@ import java.util.List;
 
 public class VoiceRequest {
     private final DiscordResponseParser responseParser;
+    private final long guildId;
 
-    public VoiceRequest(DiscordResponseParser responseParser) {
+    public VoiceRequest(DiscordResponseParser responseParser, long guildId) {
+        this.guildId = guildId;
         this.responseParser = responseParser;
     }
 

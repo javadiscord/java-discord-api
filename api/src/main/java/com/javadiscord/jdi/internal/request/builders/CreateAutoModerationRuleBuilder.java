@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class CreateAutoModerationRuleBuilder {
-    private final long guildId;
+    private long guildId;
     private final String name;
     private final int eventType;
     private final int triggerType;
@@ -19,12 +19,7 @@ public class CreateAutoModerationRuleBuilder {
     private Optional<List<Long>> exemptChannels;
 
     public CreateAutoModerationRuleBuilder(
-            long guildId,
-            String name,
-            int eventType,
-            int triggerType,
-            List<AutoModerationAction> actions) {
-        this.guildId = guildId;
+            String name, int eventType, int triggerType, List<AutoModerationAction> actions) {
         this.name = name;
         this.eventType = eventType;
         this.triggerType = triggerType;
@@ -61,5 +56,10 @@ public class CreateAutoModerationRuleBuilder {
                 enabled,
                 exemptRoles,
                 exemptChannels);
+    }
+
+    public CreateAutoModerationRuleBuilder setGuildId(long guildId) {
+        this.guildId = guildId;
+        return this;
     }
 }

@@ -8,7 +8,7 @@ import java.time.OffsetDateTime;
 import java.util.Optional;
 
 public class CreateScheduledEventBuilder {
-    private final long guildId;
+    private long guildId;
     private final String name;
     private final int entityType;
     private final int privacyLevel;
@@ -21,12 +21,10 @@ public class CreateScheduledEventBuilder {
     private Optional<String> image;
 
     public CreateScheduledEventBuilder(
-            long guildId,
             String name,
             int entityType,
             PrivacyLevel privacyLevel,
             OffsetDateTime scheduledStartTime) {
-        this.guildId = guildId;
         this.name = name;
         this.entityType = entityType;
         this.privacyLevel = privacyLevel.ordinal();
@@ -75,5 +73,10 @@ public class CreateScheduledEventBuilder {
                 description,
                 entityType,
                 image);
+    }
+
+    public CreateScheduledEventBuilder setGuildId(long guildId) {
+        this.guildId = guildId;
+        return this;
     }
 }

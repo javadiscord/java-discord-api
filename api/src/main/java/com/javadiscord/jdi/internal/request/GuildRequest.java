@@ -6,29 +6,32 @@ import com.javadiscord.jdi.core.models.invite.Invite;
 import com.javadiscord.jdi.core.models.user.User;
 import com.javadiscord.jdi.core.models.voice.VoiceRegion;
 import com.javadiscord.jdi.core.models.voice.VoiceState;
+import com.javadiscord.jdi.internal.request.builders.BulkGuildBanBuilder;
 import com.javadiscord.jdi.internal.response.AsyncResponse;
 import com.javadiscord.jdi.internal.response.DiscordResponseParser;
 
 import java.util.List;
 
 public class GuildRequest {
-
     private final DiscordResponseParser responseParser;
+    private final long guildId;
 
-    public GuildRequest(DiscordResponseParser responseParser) {
+    public GuildRequest(DiscordResponseParser responseParser, long guildId) {
         this.responseParser = responseParser;
+        this.guildId = guildId;
     }
 
     public AsyncResponse<Void> addGuildMemberRole(long guildId, long userId, long roleId) {
         return responseParser.callAndParse(Void.class, null);
     }
 
-    public AsyncResponse<List<Member>> beginGuildPrune() {
+    public AsyncResponse<List<Member>> beginGuildPrune(
+            long guildId, int days, boolean computePruneCount, List<Long> includeRoles) {
         return responseParser.callAndParseList(Member.class, null);
     }
 
-    public AsyncResponse<Void> bulkGuildBan() {
-        return responseParser.callAndParse(Void.class, null);
+    public AsyncResponse<Void> bulkGuildBan(BulkGuildBanBuilder builder) {
+        return responseParser.callAndParse(Void.class, builder.setGuildId(guildId).build());
     }
 
     public AsyncResponse<Void> createGuildBan() {

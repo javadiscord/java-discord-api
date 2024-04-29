@@ -19,9 +19,11 @@ import java.util.Optional;
 
 public class ChannelRequest {
     private final DiscordResponseParser responseParser;
+    private final long guildId;
 
-    public ChannelRequest(DiscordResponseParser responseParser) {
+    public ChannelRequest(DiscordResponseParser responseParser, long guildId) {
         this.responseParser = responseParser;
+        this.guildId = guildId;
     }
 
     public AsyncResponse<ThreadMember> addThreadMember(long channelId, long userId) {

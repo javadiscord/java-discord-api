@@ -11,9 +11,11 @@ import java.util.List;
 
 public class PollRequest {
     private final DiscordResponseParser responseParser;
+    private final long guildId;
 
-    public PollRequest(DiscordResponseParser responseParser) {
+    public PollRequest(DiscordResponseParser responseParser, long guildId) {
         this.responseParser = responseParser;
+        this.guildId = guildId;
     }
 
     public AsyncResponse<Poll> endPoll(long channelId, long messageId) {

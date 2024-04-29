@@ -16,8 +16,10 @@ import java.util.Map;
 
 public class UserRequest {
     private final DiscordResponseParser responseParser;
+    private final long guildId;
 
-    public UserRequest(DiscordResponseParser responseParser) {
+    public UserRequest(DiscordResponseParser responseParser, long guildId) {
+        this.guildId = guildId;
         this.responseParser = responseParser;
     }
 
@@ -40,7 +42,7 @@ public class UserRequest {
                 Connection.class, new GetCurrentUserConnectionsRequest());
     }
 
-    public AsyncResponse<Member> getCurrentUserGuildMember(long guildId) {
+    public AsyncResponse<Member> getCurrentUserGuildMember() {
         return responseParser.callAndParse(
                 Member.class, new GetCurrentUserGuildMemberRequest(guildId));
     }
@@ -57,7 +59,7 @@ public class UserRequest {
         return responseParser.callAndParse(User.class, new GetUserRequest(userId));
     }
 
-    public AsyncResponse<Void> leaveGuild(long guildId) {
+    public AsyncResponse<Void> leaveGuild() {
         return responseParser.callAndParse(Void.class, new LeaveGuildRequest(guildId));
     }
 

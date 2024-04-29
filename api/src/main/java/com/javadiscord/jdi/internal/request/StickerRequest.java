@@ -12,8 +12,10 @@ import java.util.List;
 
 public class StickerRequest {
     private final DiscordResponseParser responseParser;
+    private final long guildId;
 
-    public StickerRequest(DiscordResponseParser responseParser) {
+    public StickerRequest(DiscordResponseParser responseParser, long guildId) {
+        this.guildId = guildId;
         this.responseParser = responseParser;
     }
 
@@ -24,17 +26,17 @@ public class StickerRequest {
                 new CreateGuildStickerRequest(guildId, name, description, tags, filePath));
     }
 
-    public AsyncResponse<Sticker> deleteGuildSticker(long guildId, long stickerId) {
+    public AsyncResponse<Sticker> deleteGuildSticker(long stickerId) {
         return responseParser.callAndParse(
                 Sticker.class, new DeleteGuildStickerRequest(guildId, stickerId));
     }
 
-    public AsyncResponse<Sticker> getGuildSticker(long guildId, long stickerId) {
+    public AsyncResponse<Sticker> getGuildSticker(long stickerId) {
         return responseParser.callAndParse(
                 Sticker.class, new GetGuildStickerRequest(guildId, stickerId));
     }
 
-    public AsyncResponse<List<Sticker>> getGuildStickers(long guildId) {
+    public AsyncResponse<List<Sticker>> getGuildStickers() {
         return responseParser.callAndParseList(Sticker.class, new GetGuildStickersRequest(guildId));
     }
 
@@ -47,6 +49,6 @@ public class StickerRequest {
     }
 
     public AsyncResponse<Sticker> modifyGuildSticker(ModifyGuildStickerBuilder builder) {
-        return responseParser.callAndParse(Sticker.class, builder.build());
+        return responseParser.callAndParse(Sticker.class, builder.setGuildId(guildId).build());
     }
 }

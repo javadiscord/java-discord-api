@@ -9,12 +9,15 @@ import java.util.List;
 
 public class AuditLogsRequest {
     private final DiscordResponseParser responseParser;
+    private final long guildId;
 
-    public AuditLogsRequest(DiscordResponseParser responseParser) {
+    public AuditLogsRequest(DiscordResponseParser responseParser, long guildId) {
         this.responseParser = responseParser;
+        this.guildId = guildId;
     }
 
     public AsyncResponse<List<AuditLogEntry>> getAuditLogs(GetAuditLogsBuilder builder) {
-        return responseParser.callAndParseList(AuditLogEntry.class, builder.build());
+        return responseParser.callAndParseList(
+                AuditLogEntry.class, builder.setGuildId(guildId).build());
     }
 }

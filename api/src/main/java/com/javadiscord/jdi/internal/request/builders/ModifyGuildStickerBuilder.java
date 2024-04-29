@@ -5,14 +5,13 @@ import com.javadiscord.jdi.internal.api.sticker.ModifyGuildStickerRequest;
 import java.util.Optional;
 
 public class ModifyGuildStickerBuilder {
-    private final long guildId;
+    private long guildId;
     private final long stickerId;
     private Optional<String> name;
     private Optional<String> description;
     private Optional<String> tags;
 
-    public ModifyGuildStickerBuilder(long guildId, long stickerId) {
-        this.guildId = guildId;
+    public ModifyGuildStickerBuilder(long stickerId) {
         this.stickerId = stickerId;
         this.name = Optional.empty();
         this.description = Optional.empty();
@@ -36,5 +35,10 @@ public class ModifyGuildStickerBuilder {
 
     public ModifyGuildStickerRequest build() {
         return new ModifyGuildStickerRequest(guildId, stickerId, name, description, tags);
+    }
+
+    public ModifyGuildStickerBuilder setGuildId(long guildId) {
+        this.guildId = guildId;
+        return this;
     }
 }

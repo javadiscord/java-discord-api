@@ -5,15 +5,14 @@ import com.javadiscord.jdi.internal.api.guild_scheduled_event.GetScheduledEventU
 import java.util.Optional;
 
 public class GetScheduledEventUsersBuilder {
-    private final long guildId;
+    private long guildId;
     private final long scheduledEventId;
     private Optional<Integer> limit;
     private Optional<Boolean> withMember;
     private Optional<Long> before;
     private Optional<Long> after;
 
-    public GetScheduledEventUsersBuilder(long guildId, long scheduledEventId) {
-        this.guildId = guildId;
+    public GetScheduledEventUsersBuilder(long scheduledEventId) {
         this.scheduledEventId = scheduledEventId;
         this.limit = Optional.empty();
         this.withMember = Optional.empty();
@@ -44,5 +43,10 @@ public class GetScheduledEventUsersBuilder {
     public GetScheduledEventUsersRequest build() {
         return new GetScheduledEventUsersRequest(
                 guildId, scheduledEventId, limit, withMember, before, after);
+    }
+
+    public GetScheduledEventUsersBuilder setGuildId(long guildId) {
+        this.guildId = guildId;
+        return this;
     }
 }

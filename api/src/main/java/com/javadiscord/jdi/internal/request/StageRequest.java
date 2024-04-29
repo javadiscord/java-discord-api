@@ -10,9 +10,11 @@ import com.javadiscord.jdi.internal.response.DiscordResponseParser;
 
 public class StageRequest {
     private final DiscordResponseParser responseParser;
+    private final long guildId;
 
-    public StageRequest(DiscordResponseParser responseParser) {
+    public StageRequest(DiscordResponseParser responseParser, long guildId) {
         this.responseParser = responseParser;
+        this.guildId = guildId;
     }
 
     public AsyncResponse<Stage> createStage(CreateStageBuilder builder) {

@@ -5,7 +5,7 @@ import com.javadiscord.jdi.internal.api.audit_logs.GetGuildAuditLogRequest;
 import java.util.Optional;
 
 public class GetAuditLogsBuilder {
-    private final long guildId;
+    private long guildId;
     private Optional<Long> userId;
     private Optional<Integer> actionType;
     private Optional<Long> before;
@@ -13,8 +13,7 @@ public class GetAuditLogsBuilder {
     private Optional<Integer> limit;
     private Optional<String> reason;
 
-    public GetAuditLogsBuilder(long guildId) {
-        this.guildId = guildId;
+    public GetAuditLogsBuilder() {
         this.userId = Optional.empty();
         this.actionType = Optional.empty();
         this.before = Optional.empty();
@@ -56,5 +55,10 @@ public class GetAuditLogsBuilder {
     public GetGuildAuditLogRequest build() {
         return new GetGuildAuditLogRequest(
                 guildId, userId, actionType, before, after, limit, reason);
+    }
+
+    public GetAuditLogsBuilder setGuildId(long guildId) {
+        this.guildId = guildId;
+        return this;
     }
 }
