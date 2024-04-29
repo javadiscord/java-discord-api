@@ -5,10 +5,9 @@ import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
 import java.util.Optional;
 
-public record ExecuteSlackCompatibleWebhookRequest(long webhookId,
-                                                   String webhookToken,
-                                                   Optional<Long> threadId,
-                                                   Optional<Boolean> waits) implements DiscordRequest {
+public record ExecuteSlackCompatibleWebhookRequest(
+        long webhookId, String webhookToken, Optional<Long> threadId, Optional<Boolean> waits)
+        implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
         DiscordRequestBuilder discordRequestBuilder =

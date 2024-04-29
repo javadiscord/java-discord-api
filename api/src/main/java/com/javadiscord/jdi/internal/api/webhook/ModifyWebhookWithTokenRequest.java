@@ -7,11 +7,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public record ModifyWebhookWithTokenRequest(long webhookId,
-                                            String webhookToken,
-                                            Optional<String> name,
-                                            Optional<String> avatar,
-                                            Optional<String> reason) implements DiscordRequest {
+public record ModifyWebhookWithTokenRequest(
+        long webhookId,
+        String webhookToken,
+        Optional<String> name,
+        Optional<String> avatar,
+        Optional<String> reason)
+        implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {

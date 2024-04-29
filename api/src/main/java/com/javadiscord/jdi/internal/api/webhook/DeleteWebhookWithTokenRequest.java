@@ -5,9 +5,8 @@ import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
 import java.util.Optional;
 
-public record DeleteWebhookWithTokenRequest(long webhookId,
-                                            String webhookToken,
-                                            Optional<String> reason) implements DiscordRequest {
+public record DeleteWebhookWithTokenRequest(
+        long webhookId, String webhookToken, Optional<String> reason) implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {

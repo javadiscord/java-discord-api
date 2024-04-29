@@ -7,11 +7,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public record ModifyWebhookRequest(String webhookId,
-                                   Optional<String> name,
-                                   Optional<String> avatar,
-                                   Optional<Long> channelId,
-                                   Optional<String> reason) implements DiscordRequest {
+public record ModifyWebhookRequest(
+        String webhookId,
+        Optional<String> name,
+        Optional<String> avatar,
+        Optional<Long> channelId,
+        Optional<String> reason)
+        implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {
@@ -19,7 +21,6 @@ public record ModifyWebhookRequest(String webhookId,
         name.ifPresent(val -> body.put("name", val));
         avatar.ifPresent(val -> body.put("avatar", val));
         channelId.ifPresent(val -> body.put("channel_id", val));
-
 
         DiscordRequestBuilder discordRequestBuilder =
                 new DiscordRequestBuilder()

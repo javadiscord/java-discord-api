@@ -30,12 +30,13 @@ public record ExecuteWebhookRequest(
         Optional<Integer> flags,
         Optional<String> threadName,
         Optional<List<Long>> appliedTags,
-        Optional<Poll> poll
-) implements DiscordRequest {
+        Optional<Poll> poll)
+        implements DiscordRequest {
 
     public ExecuteWebhookRequest {
         if (Stream.of(content, embeds, components, files, poll).noneMatch(Optional::isPresent)) {
-            throw new IllegalArgumentException("At least one of content, embeds, components, files, poll should be present");
+            throw new IllegalArgumentException(
+                    "At least one of content, embeds, components, files, poll should be present");
         }
     }
 
@@ -64,8 +65,7 @@ public record ExecuteWebhookRequest(
                         .multipartBody(
                                 MultipartBodyPublisher.newBuilder()
                                         .textPart("payload_json", payloadJson)
-                                        .build()
-                        )
+                                        .build())
                         .body(body);
 
         waits.ifPresent(val -> discordRequestBuilder.queryParam("wait", val));

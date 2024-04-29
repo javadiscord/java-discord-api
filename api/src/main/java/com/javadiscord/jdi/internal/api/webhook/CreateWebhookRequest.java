@@ -7,21 +7,22 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public record CreateWebhookRequest(long channelId,
-                                   String name,
-                                   Optional<String> avatar,
-                                   Optional<String> reason) implements DiscordRequest {
+public record CreateWebhookRequest(
+        long channelId, String name, Optional<String> avatar, Optional<String> reason)
+        implements DiscordRequest {
 
     public CreateWebhookRequest {
-        if (name.length() > 80 || name.isEmpty()) throw new IllegalArgumentException("Name must be <= 80 characters");
+        if (name.length() > 80 || name.isEmpty())
+            throw new IllegalArgumentException("Name must be <= 80 characters");
 
         // Must follow Discord's naming guidelines
         String[] disallowedSubstrings = {"clyde", "discord", "@", "#", ":", "```"};
         for (String s : disallowedSubstrings) {
-            if (name.toLowerCase().contains(s.toLowerCase())) { // Crude way of checking case insensitivity
+            if (name.toLowerCase()
+                    .contains(s.toLowerCase())) { // Crude way of checking case insensitivity
                 throw new IllegalArgumentException(
-                        "Cannot include one of the following characters: clyde, discord, @, #, :, ```"
-                );
+                        "Cannot include one of the following characters: clyde, discord, @, #, :,"
+                                + " ```");
             }
         }
     }
