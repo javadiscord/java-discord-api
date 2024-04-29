@@ -9,6 +9,7 @@ import com.javadiscord.jdi.internal.response.DiscordResponseParser;
 import java.util.List;
 import java.util.Map;
 
+// TODO:
 public class UserRequest {
     private final DiscordResponseParser responseParser;
 

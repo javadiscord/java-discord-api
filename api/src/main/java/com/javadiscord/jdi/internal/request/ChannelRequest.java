@@ -12,6 +12,7 @@ import com.javadiscord.jdi.internal.response.DiscordResponseParser;
 import java.util.List;
 import java.util.Optional;
 
+// TODO:
 public class ChannelRequest {
     private final DiscordResponseParser responseParser;
 

@@ -1,10 +1,13 @@
 package com.javadiscord.jdi.internal.request;
 
+import com.javadiscord.jdi.core.models.message.Sticker;
 import com.javadiscord.jdi.internal.api.sticker.*;
 import com.javadiscord.jdi.internal.request.builders.ModifyGuildStickerBuilder;
+import com.javadiscord.jdi.internal.response.AsyncResponse;
 import com.javadiscord.jdi.internal.response.DiscordResponseParser;
 
 import java.nio.file.Path;
+import java.util.List;
 
 public class StickerRequest {
     private final DiscordResponseParser responseParser;
@@ -13,32 +16,37 @@ public class StickerRequest {
         this.responseParser = responseParser;
     }
 
-    public CreateGuildStickerRequest createGuildSticker(
+    public AsyncResponse<Sticker> createGuildSticker(
             long guildId, String name, String description, String tags, Path filePath) {
-        return new CreateGuildStickerRequest(guildId, name, description, tags, filePath);
+        return responseParser.callAndParse(
+                Sticker.class,
+                new CreateGuildStickerRequest(guildId, name, description, tags, filePath));
     }
 
-    public DeleteGuildStickerRequest deleteGuildSticker(long guildId, long stickerId) {
-        return new DeleteGuildStickerRequest(guildId, stickerId);
+    public AsyncResponse<Sticker> deleteGuildSticker(long guildId, long stickerId) {
+        return responseParser.callAndParse(
+                Sticker.class, new DeleteGuildStickerRequest(guildId, stickerId));
     }
 
-    public GetGuildStickerRequest getGuildSticker(long guildId, long stickerId) {
-        return new GetGuildStickerRequest(guildId, stickerId);
+    public AsyncResponse<Sticker> getGuildSticker(long guildId, long stickerId) {
+        return responseParser.callAndParse(
+                Sticker.class, new GetGuildStickerRequest(guildId, stickerId));
     }
 
-    public GetGuildStickersRequest getGuildStickers(long guildId) {
-        return new GetGuildStickersRequest(guildId);
+    public AsyncResponse<List<Sticker>> getGuildStickers(long guildId) {
+        return responseParser.callAndParse(new GetGuildStickersRequest(guildId));
     }
 
+    // TODO:
     public GetStickerPacksRequest getStickerPacks() {
         return new GetStickerPacksRequest();
     }
 
-    public GetStickerRequest getSticker(long stickerId) {
-        return new GetStickerRequest(stickerId);
+    public AsyncResponse<Sticker> getSticker(long stickerId) {
+        return responseParser.callAndParse(Sticker.class, new GetStickerRequest(stickerId));
     }
 
-    public ModifyGuildStickerRequest modifyGuildSticker(ModifyGuildStickerBuilder builder) {
-        return builder.build();
+    public AsyncResponse<Sticker> modifyGuildSticker(ModifyGuildStickerBuilder builder) {
+        return responseParser.callAndParse(Sticker.class, builder.build());
     }
 }

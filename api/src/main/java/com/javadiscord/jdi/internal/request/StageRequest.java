@@ -1,11 +1,11 @@
 package com.javadiscord.jdi.internal.request;
 
-import com.javadiscord.jdi.internal.api.stage.CreateStageRequest;
+import com.javadiscord.jdi.core.models.stage.Stage;
 import com.javadiscord.jdi.internal.api.stage.DeleteStageRequest;
 import com.javadiscord.jdi.internal.api.stage.GetStageRequest;
-import com.javadiscord.jdi.internal.api.stage.ModifyStageRequest;
 import com.javadiscord.jdi.internal.request.builders.CreateStageBuilder;
 import com.javadiscord.jdi.internal.request.builders.ModifyStageBuilder;
+import com.javadiscord.jdi.internal.response.AsyncResponse;
 import com.javadiscord.jdi.internal.response.DiscordResponseParser;
 
 public class StageRequest {
@@ -15,19 +15,19 @@ public class StageRequest {
         this.responseParser = responseParser;
     }
 
-    public CreateStageRequest createStage(CreateStageBuilder builder) {
-        return builder.build();
+    public AsyncResponse<Stage> createStage(CreateStageBuilder builder) {
+        return responseParser.callAndParse(Stage.class, builder.build());
     }
 
-    public DeleteStageRequest deleteStage(long channelId) {
-        return new DeleteStageRequest(channelId);
+    public AsyncResponse<Stage> deleteStage(long channelId) {
+        return responseParser.callAndParse(Stage.class, new DeleteStageRequest(channelId));
     }
 
-    public GetStageRequest getStage(long channelId) {
-        return new GetStageRequest(channelId);
+    public AsyncResponse<Stage> getStage(long channelId) {
+        return responseParser.callAndParse(Stage.class, new GetStageRequest(channelId));
     }
 
-    public ModifyStageRequest modifyStage(ModifyStageBuilder builder) {
-        return builder.build();
+    public AsyncResponse<Stage> modifyStage(ModifyStageBuilder builder) {
+        return responseParser.callAndParse(Stage.class, builder.build());
     }
 }
