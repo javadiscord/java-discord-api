@@ -8,6 +8,7 @@ import com.javadiscord.jdi.core.models.message.Message;
 import com.javadiscord.jdi.core.models.message.MessageAttachment;
 import com.javadiscord.jdi.core.models.message.MessageReaction;
 import com.javadiscord.jdi.core.models.message.embed.Embed;
+import com.javadiscord.jdi.core.models.user.User;
 import com.javadiscord.jdi.internal.api.channel.*;
 import com.javadiscord.jdi.internal.request.builders.*;
 import com.javadiscord.jdi.internal.response.AsyncResponse;
@@ -87,12 +88,11 @@ public class ChannelRequest {
                 Void.class, new DeleteUserReactionRequest(channelId, messageId, emoji, userId));
     }
 
-    public EditChannelPermissionsRequest editChannelPermissions(
-            EditChannelPermissionsBuilder builder) {
-        return builder.build();
+    public AsyncResponse<Void> editChannelPermissions(EditChannelPermissionsBuilder builder) {
+        return responseParser.callAndParse(Void.class, builder.build());
     }
 
-    public EditMessageRequest editMessage(
+    public AsyncResponse<Message> editMessage(
             long channelId,
             long messageId,
             String content,
@@ -102,120 +102,134 @@ public class ChannelRequest {
             List<Object> components,
             List<Object> files,
             List<MessageAttachment> attachments) {
-        return new EditMessageRequest(
-                channelId,
-                messageId,
-                content,
-                embeds,
-                flags,
-                allowedMentions,
-                components,
-                files,
-                attachments);
+        return responseParser.callAndParse(
+                Message.class,
+                new EditMessageRequest(
+                        channelId,
+                        messageId,
+                        content,
+                        embeds,
+                        flags,
+                        allowedMentions,
+                        components,
+                        files,
+                        attachments));
     }
 
-    public FetchChannelMessageRequest fetchChannelMessage(long channelId, long messageId) {
-        return new FetchChannelMessageRequest(channelId, messageId);
+    public AsyncResponse<Message> fetchChannelMessage(long channelId, long messageId) {
+        return responseParser.callAndParse(
+                Message.class, new FetchChannelMessageRequest(channelId, messageId));
     }
 
-    public FetchChannelMessagesRequest fetchChannelMessages(FetchChannelMessagesBuilder builder) {
-        return builder.build();
+    public AsyncResponse<List<Message>> fetchChannelMessages(FetchChannelMessagesBuilder builder) {
+        return responseParser.callAndParseList(Message.class, builder.build());
     }
 
-    public FetchChannelRequest fetchChannel(long channelId) {
-        return new FetchChannelRequest(channelId);
+    public AsyncResponse<Channel> fetchChannel(long channelId) {
+        return responseParser.callAndParse(Channel.class, new FetchChannelRequest(channelId));
     }
 
-    public FetchUserReactionsToMessageRequest fetchUserReactionsToMessage(
+    public AsyncResponse<List<User>> fetchUserReactionsToMessage(
             FetchUserReactionsToMessageBuilder builder) {
-        return builder.build();
+        return responseParser.callAndParseList(User.class, builder.build());
     }
 
-    public FollowAnnouncementChannelRequest followAnnouncementChannel(long channelId) {
-        return new FollowAnnouncementChannelRequest(channelId);
+    public AsyncResponse<Channel> followAnnouncementChannel(long channelId) {
+        return responseParser.callAndParse(
+                Channel.class, new FollowAnnouncementChannelRequest(channelId));
     }
 
-    public GetChannelInvitesRequest channelInvites(long channelId) {
-        return new GetChannelInvitesRequest(channelId);
+    public AsyncResponse<List<Invite>> channelInvites(long channelId) {
+        return responseParser.callAndParseList(
+                Invite.class, new GetChannelInvitesRequest(channelId));
     }
 
-    public GetPinnedMessagesRequest channelPinnedMessages(long channelId) {
-        return new GetPinnedMessagesRequest(channelId);
+    public AsyncResponse<List<Message>> channelPinnedMessages(long channelId) {
+        return responseParser.callAndParseList(
+                Message.class, new GetPinnedMessagesRequest(channelId));
     }
 
-    public GetThreadMemberRequest getThreadMember(long channelId, long userId) {
-        return new GetThreadMemberRequest(channelId, userId, Optional.of(true));
+    public AsyncResponse<ThreadMember> getThreadMember(long channelId, long userId) {
+        return responseParser.callAndParse(
+                ThreadMember.class,
+                new GetThreadMemberRequest(channelId, userId, Optional.of(true)));
     }
 
-    public GroupDMAddRecipientRequest groupDMAddRecipient(
+    public AsyncResponse<Void> groupDMAddRecipient(
             long channelId, long userId, String accessToken, String nickname) {
-        return new GroupDMAddRecipientRequest(channelId, userId, accessToken, nickname);
+        return responseParser.callAndParse(
+                Void.class,
+                new GroupDMAddRecipientRequest(channelId, userId, accessToken, nickname));
     }
 
-    public GroupDMRemoveRecipientRequest groupDMRemoveRecipient(long channelId, long userId) {
-        return new GroupDMRemoveRecipientRequest(channelId, userId);
+    public AsyncResponse<Void> groupDMRemoveRecipient(long channelId, long userId) {
+        return responseParser.callAndParse(
+                Void.class, new GroupDMRemoveRecipientRequest(channelId, userId));
     }
 
-    public JoinThreadRequest joinThread(long channelId) {
-        return new JoinThreadRequest(channelId);
+    public AsyncResponse<Channel> joinThread(long channelId) {
+        return responseParser.callAndParse(Channel.class, new JoinThreadRequest(channelId));
     }
 
-    public LeaveThreadRequest leaveThread(long channelId) {
-        return new LeaveThreadRequest(channelId);
+    public AsyncResponse<Channel> leaveThread(long channelId) {
+        return responseParser.callAndParse(Channel.class, new LeaveThreadRequest(channelId));
     }
 
-    public ListJoinedPrivateArchivedThreadsRequest listJoinedPrivateArchivedThreads(
+    public AsyncResponse<List<Channel>> listJoinedPrivateArchivedThreads(
             ListJoinedPrivateArchivedThreadsBuilder builder) {
-        return builder.build();
+        return responseParser.callAndParseList(Channel.class, builder.build());
     }
 
-    public ListPrivateArchivedThreadsRequest listPrivateArchivedThreads(
+    public AsyncResponse<List<Channel>> listPrivateArchivedThreads(
             ListPrivateArchivedThreadsBuilder builder) {
-        return builder.build();
+        return responseParser.callAndParseList(Channel.class, builder.build());
     }
 
-    public ListPublicArchivedThreadsRequest listPublicArchivedThreads(
+    public AsyncResponse<List<Channel>> listPublicArchivedThreads(
             ListPublicArchivedThreadsBuilder builder) {
-        return builder.build();
+        return responseParser.callAndParseList(Channel.class, builder.build());
     }
 
-    public ListThreadMembersRequest listThreadMembers(ListThreadMembersBuilder builder) {
-        return builder.build();
+    public AsyncResponse<List<ThreadMember>> listThreadMembers(ListThreadMembersBuilder builder) {
+        return responseParser.callAndParseList(ThreadMember.class, builder.build());
     }
 
-    public ModifyChannelRequest modifyChannel(
+    public AsyncResponse<Channel> modifyChannel(
             long channelId, String name, String base64EncodedIcon) {
-        return new ModifyChannelRequest(channelId, name, base64EncodedIcon);
+        return responseParser.callAndParse(
+                Channel.class, new ModifyChannelRequest(channelId, name, base64EncodedIcon));
     }
 
-    public PinMessageRequest pinMessage(long channelId, long messageId) {
-        return new PinMessageRequest(channelId, messageId);
+    public AsyncResponse<Void> pinMessage(long channelId, long messageId) {
+        return responseParser.callAndParse(Void.class, new PinMessageRequest(channelId, messageId));
     }
 
-    public RemoveThreadMemberRequest removeThreadMember(long channelId, long userId) {
-        return new RemoveThreadMemberRequest(channelId, userId);
+    public AsyncResponse<ThreadMember> removeThreadMember(long channelId, long userId) {
+        return responseParser.callAndParse(
+                ThreadMember.class, new RemoveThreadMemberRequest(channelId, userId));
     }
 
-    public StartThreadFromMessageRequest startThreadFromMessage(
-            StartThreadFromMessageBuilder builder) {
-        return builder.build();
+    public AsyncResponse<Channel> startThreadFromMessage(StartThreadFromMessageBuilder builder) {
+        return responseParser.callAndParse(Channel.class, builder.build());
     }
 
-    public StartThreadInForumOrMediaChannelRequest startThreadInForumOrMediaChannel(
+    public AsyncResponse<Channel> startThreadInForumOrMediaChannel(
             StartThreadInForumOrMediaChannelBuilder builder) {
-        return builder.build();
+        return responseParser.callAndParse(Channel.class, builder.build());
     }
 
-    public StartThreadWithoutMessageRequest startThreadWithoutMessage(
+    public AsyncResponse<Channel> startThreadWithoutMessage(
             StartThreadWithoutMessageBuilder builder) {
-        return builder.build();
+        return responseParser.callAndParse(Channel.class, builder.build());
     }
 
-    public TriggerTypingIndicatorRequest typingIndicatorRequest(long channelId) {
-        return new TriggerTypingIndicatorRequest(channelId);
+    public AsyncResponse<Void> typingIndicatorRequest(long channelId) {
+        return responseParser.callAndParse(
+                Void.class, new TriggerTypingIndicatorRequest(channelId));
     }
 
-    public UnpinMessageRequest unpinMessage(long channelId, long messageId) {
-        return new UnpinMessageRequest(channelId, messageId);
+    public AsyncResponse<Void> unpinMessage(long channelId, long messageId) {
+        return responseParser.callAndParse(
+                Void.class, new UnpinMessageRequest(channelId, messageId));
     }
 }
