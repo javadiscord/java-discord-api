@@ -6,7 +6,11 @@ import com.javadiscord.jdi.core.models.invite.Invite;
 import com.javadiscord.jdi.core.models.user.User;
 import com.javadiscord.jdi.core.models.voice.VoiceRegion;
 import com.javadiscord.jdi.core.models.voice.VoiceState;
+import com.javadiscord.jdi.internal.api.guild.AddGuildMemberRoleRequest;
+import com.javadiscord.jdi.internal.api.guild.BeginGuildPruneRequest;
 import com.javadiscord.jdi.internal.request.builders.BulkGuildBanBuilder;
+import com.javadiscord.jdi.internal.request.builders.CreateGuildChannelBuilder;
+import com.javadiscord.jdi.internal.request.builders.GuildBanBuilder;
 import com.javadiscord.jdi.internal.response.AsyncResponse;
 import com.javadiscord.jdi.internal.response.DiscordResponseParser;
 
@@ -21,25 +25,28 @@ public class GuildRequest {
         this.guildId = guildId;
     }
 
-    public AsyncResponse<Void> addGuildMemberRole(long guildId, long userId, long roleId) {
-        return responseParser.callAndParse(Void.class, null);
+    public AsyncResponse<Void> addGuildMemberRole(long userId, long roleId) {
+        return responseParser.callAndParse(
+                Void.class, new AddGuildMemberRoleRequest(guildId, userId, roleId));
     }
 
     public AsyncResponse<List<Member>> beginGuildPrune(
-            long guildId, int days, boolean computePruneCount, List<Long> includeRoles) {
-        return responseParser.callAndParseList(Member.class, null);
+            int days, boolean computePruneCount, List<Long> includeRoles) {
+        return responseParser.callAndParseList(
+                Member.class,
+                new BeginGuildPruneRequest(guildId, days, computePruneCount, includeRoles));
     }
 
     public AsyncResponse<Void> bulkGuildBan(BulkGuildBanBuilder builder) {
         return responseParser.callAndParse(Void.class, builder.setGuildId(guildId).build());
     }
 
-    public AsyncResponse<Void> createGuildBan() {
-        return responseParser.callAndParse(Void.class, null);
+    public AsyncResponse<Void> createGuildBan(GuildBanBuilder builder) {
+        return responseParser.callAndParse(Void.class, builder.setGuildId(guildId).build());
     }
 
-    public AsyncResponse<Channel> createGuildChannel() {
-        return responseParser.callAndParse(Channel.class, null);
+    public AsyncResponse<Channel> createGuildChannel(CreateGuildChannelBuilder builder) {
+        return responseParser.callAndParse(Channel.class, builder.setGuildId(guildId).build());
     }
 
     public AsyncResponse<Guild> createGuild() {
