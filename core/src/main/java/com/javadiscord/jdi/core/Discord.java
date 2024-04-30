@@ -158,7 +158,7 @@ public class Discord {
 
     public void registerListener(EventListener eventListener) {
         eventListeners.add(eventListener);
-        LOGGER.info("Registered listener {}", eventListener.getClass().getSimpleName());
+        LOGGER.info("Registered listener {}", eventListener.getClass().getName());
     }
 
     public DiscordResponseFuture sendRequest(DiscordRequest request) {
@@ -175,6 +175,13 @@ public class Discord {
                             .build();
             HttpResponse<String> response =
                     httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() == 401) {
+                throw new RuntimeException("Invalid bot token provided");
+            }
+            if (response.statusCode() != 200) {
+                throw new RuntimeException("Unexpected error occurred: " + response.body());
+            }
             return OBJECT_MAPPER.readValue(response.body(), Gateway.class);
         } catch (Exception e) {
             LOGGER.error("Failed to fetch the gateway URL from discord");

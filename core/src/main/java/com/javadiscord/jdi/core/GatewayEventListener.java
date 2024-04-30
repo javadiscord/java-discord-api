@@ -22,9 +22,13 @@ import com.javadiscord.jdi.internal.gateway.handlers.events.codec.models.channel
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.models.channel.ThreadMember;
 import com.javadiscord.jdi.internal.gateway.handlers.events.codec.models.channel.ThreadSync;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.lang.reflect.Field;
 
 public class GatewayEventListener implements GatewayObserver {
+    private static final Logger LOGGER = LogManager.getLogger();
     private final Discord discord;
 
     public GatewayEventListener(Discord discord) {
@@ -46,7 +50,7 @@ public class GatewayEventListener implements GatewayObserver {
                                             com.javadiscord.jdi.core.models.guild.Guild.class);
             guild = new Guild(model, cache, discord);
         } catch (NoSuchFieldException | IllegalAccessException e) {
-            /* Ignore */
+            LOGGER.debug("{} did not come with a guildId field", event.getClass().getSimpleName());
         }
         return guild;
     }
@@ -136,7 +140,7 @@ public class GatewayEventListener implements GatewayObserver {
                         (AuditLogEntry) event, guild);
                 case APPLICATION_COMMAND_PERMISSIONS_UPDATE -> listener
                         .onApplicationPermissionCommandUpdate((Application) event, guild);
-                default -> throw new IllegalStateException("Unexpected value: " + eventType);
+                default -> LOGGER.trace("Unexpected value {}", eventType);
             }
         }
     }
