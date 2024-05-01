@@ -1,9 +1,8 @@
 package com.javadiscord.jdi.core;
 
+import com.javadiscord.jdi.core.api.*;
+import com.javadiscord.jdi.core.api.builders.CreateMessageBuilder;
 import com.javadiscord.jdi.internal.cache.Cache;
-import com.javadiscord.jdi.internal.request.*;
-import com.javadiscord.jdi.internal.request.builders.CreateMessageBuilder;
-import com.javadiscord.jdi.internal.response.DiscordResponseParser;
 
 public class Guild {
     private final com.javadiscord.jdi.core.models.guild.Guild metadata;

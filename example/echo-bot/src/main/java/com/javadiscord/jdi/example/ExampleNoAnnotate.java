@@ -2,8 +2,8 @@ package com.javadiscord.jdi.example;
 
 import com.javadiscord.jdi.core.EventListener;
 import com.javadiscord.jdi.core.Guild;
+import com.javadiscord.jdi.core.api.builders.GetAuditLogsBuilder;
 import com.javadiscord.jdi.core.models.message.Message;
-import com.javadiscord.jdi.internal.request.builders.GetAuditLogsBuilder;
 
 public class ExampleNoAnnotate implements EventListener {
 
