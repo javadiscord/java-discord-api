@@ -94,52 +94,53 @@ public class GatewayEventListener implements GatewayObserver {
                 case VOICE_STATE_UPDATE -> listener.onVoiceStateUpdate((VoiceState) event, guild);
                 case CHANNEL_PINS_UPDATE -> listener.onChannelPinUpdate((MessagePin) event, guild);
                 case GUILD_MEMBERS_CHUNK -> listener.onMemberChunk(event, guild);
-                case MESSAGE_DELETE_BULK -> listener.onMessageBulkDelete(
-                        (MessageBulkDelete) event, guild);
-                case VOICE_SERVER_UPDATE -> listener.onVoiceServerUpdate(
-                        (VoiceServer) event, guild);
-                case MESSAGE_REACTION_ADD -> listener.onMessageReactionAdd(
-                        (MessageReaction) event, guild);
-                case THREAD_MEMBER_UPDATE -> listener.onThreadMemberUpdate(
-                        (ThreadMember) event, guild);
-                case GUILD_STICKERS_UPDATE -> listener.onStickerUpdate(
-                        (StickerUpdate) event, guild);
+                case MESSAGE_DELETE_BULK ->
+                        listener.onMessageBulkDelete((MessageBulkDelete) event, guild);
+                case VOICE_SERVER_UPDATE ->
+                        listener.onVoiceServerUpdate((VoiceServer) event, guild);
+                case MESSAGE_REACTION_ADD ->
+                        listener.onMessageReactionAdd((MessageReaction) event, guild);
+                case THREAD_MEMBER_UPDATE ->
+                        listener.onThreadMemberUpdate((ThreadMember) event, guild);
+                case GUILD_STICKERS_UPDATE ->
+                        listener.onStickerUpdate((StickerUpdate) event, guild);
                 case STAGE_INSTANCE_CREATE -> listener.onStageCreate((Stage) event, guild);
                 case STAGE_INSTANCE_DELETE -> listener.onStageDelete((Stage) event, guild);
                 case STAGE_INSTANCE_UPDATE -> listener.onStageUpdate((Stage) event, guild);
-                case THREAD_MEMBERS_UPDATE -> listener.onThreadMembersUpdate(
-                        (ThreadMember) event, guild);
-                case MESSAGE_REACTION_REMOVE -> listener.onMessageReactionsRemoved(
-                        (MessageReactionsRemoved) event, guild);
-                case GUILD_INTEGRATIONS_UPDATE -> listener.onGuildIntegrationUpdate(
-                        (Integration) event, guild);
-                case AUTO_MODERATION_RULE_CREATE -> listener.onAutoModerationRuleCreate(
-                        (AutoModerationRule) event, guild);
-                case AUTO_MODERATION_RULE_DELETE -> listener.onAutoModerationRuleDelete(
-                        (AutoModerationRule) event, guild);
-                case AUTO_MODERATION_RULE_UPDATE -> listener.onAutoModerationRuleUpdate(
-                        (AutoModerationRule) event, guild);
-                case MESSAGE_REACTION_REMOVE_ALL -> listener.onMessageReactionRemovedAll(
-                        (MessageReactionsRemoved) event, guild);
-                case GUILD_SCHEDULED_EVENT_CREATE -> listener.onScheduledEventCreate(
-                        (ScheduledEvent) event, guild);
-                case GUILD_SCHEDULED_EVENT_DELETE -> listener.onScheduledEventDelete(
-                        (ScheduledEvent) event, guild);
-                case GUILD_SCHEDULED_EVENT_UPDATE -> listener.onScheduledEventUpdate(
-                        (ScheduledEvent) event, guild);
-                case MESSAGE_REACTION_REMOVE_EMOJI -> listener.onReactionRemove(
-                        (MessageReaction) event, guild);
-                case GUILD_SCHEDULED_EVENT_USER_ADD -> listener.onScheduledEventUserAdd(
-                        (EventUser) event, guild);
-                case AUTO_MODERATION_ACTION_EXECUTION -> listener.onAutoModerationRuleExecution(
-                        (AutoModerationRule) event, guild);
-                case GUILD_SCHEDULED_EVENT_USER_REMOVE -> listener.onScheduledEventUserRemove(
-                        (EventUser) event, guild);
+                case THREAD_MEMBERS_UPDATE ->
+                        listener.onThreadMembersUpdate((ThreadMember) event, guild);
+                case MESSAGE_REACTION_REMOVE ->
+                        listener.onMessageReactionsRemoved((MessageReactionsRemoved) event, guild);
+                case GUILD_INTEGRATIONS_UPDATE ->
+                        listener.onGuildIntegrationUpdate((Integration) event, guild);
+                case AUTO_MODERATION_RULE_CREATE ->
+                        listener.onAutoModerationRuleCreate((AutoModerationRule) event, guild);
+                case AUTO_MODERATION_RULE_DELETE ->
+                        listener.onAutoModerationRuleDelete((AutoModerationRule) event, guild);
+                case AUTO_MODERATION_RULE_UPDATE ->
+                        listener.onAutoModerationRuleUpdate((AutoModerationRule) event, guild);
+                case MESSAGE_REACTION_REMOVE_ALL ->
+                        listener.onMessageReactionRemovedAll(
+                                (MessageReactionsRemoved) event, guild);
+                case GUILD_SCHEDULED_EVENT_CREATE ->
+                        listener.onScheduledEventCreate((ScheduledEvent) event, guild);
+                case GUILD_SCHEDULED_EVENT_DELETE ->
+                        listener.onScheduledEventDelete((ScheduledEvent) event, guild);
+                case GUILD_SCHEDULED_EVENT_UPDATE ->
+                        listener.onScheduledEventUpdate((ScheduledEvent) event, guild);
+                case MESSAGE_REACTION_REMOVE_EMOJI ->
+                        listener.onReactionRemove((MessageReaction) event, guild);
+                case GUILD_SCHEDULED_EVENT_USER_ADD ->
+                        listener.onScheduledEventUserAdd((EventUser) event, guild);
+                case AUTO_MODERATION_ACTION_EXECUTION ->
+                        listener.onAutoModerationRuleExecution((AutoModerationRule) event, guild);
+                case GUILD_SCHEDULED_EVENT_USER_REMOVE ->
+                        listener.onScheduledEventUserRemove((EventUser) event, guild);
                 case GUILD_EMOJIS_UPDATE -> listener.onEmojiUpdate((Emoji) event, guild);
-                case GUILD_AUDIT_LOG_ENTRY_CREATE -> listener.onAuditLogEntryCreate(
-                        (AuditLogEntry) event, guild);
-                case APPLICATION_COMMAND_PERMISSIONS_UPDATE -> listener
-                        .onApplicationPermissionCommandUpdate((Application) event, guild);
+                case GUILD_AUDIT_LOG_ENTRY_CREATE ->
+                        listener.onAuditLogEntryCreate((AuditLogEntry) event, guild);
+                case APPLICATION_COMMAND_PERMISSIONS_UPDATE ->
+                        listener.onApplicationPermissionCommandUpdate((Application) event, guild);
                 default -> LOGGER.trace("Unexpected value {}", eventType);
             }
         }
