@@ -17,7 +17,6 @@ public record ModifyGuildMemberRequest(
         Optional<Boolean> mute,
         Optional<Boolean> deafen,
         Optional<Long> channelId,
-        // TODO: figure out how to correctly pass a timestamp to discord via the request
         Optional<OffsetDateTime> communicationDisabledUntil,
         Optional<Integer> flags)
         implements DiscordRequest {

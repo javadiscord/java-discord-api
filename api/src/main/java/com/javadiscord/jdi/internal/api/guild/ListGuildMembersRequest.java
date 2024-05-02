@@ -5,13 +5,8 @@ import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
 import java.util.Optional;
 
-public record ListGuildMembersRequest(
-        long guildId,
-        Optional<Integer> limit,
-        Optional<Long>
-                after // https://discord.com/developers/docs/resources/guild#list-guild-members
-        // read that to see what after does
-        ) implements DiscordRequest {
+public record ListGuildMembersRequest(long guildId, Optional<Integer> limit, Optional<Long> after)
+        implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {
