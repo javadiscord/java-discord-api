@@ -16,9 +16,9 @@ public record EditWebhookMessageRequest(
         Optional<Long> threadId,
         Optional<String> content,
         Optional<List<Embed>> embeds,
-        Optional<Object> allowedMentions,
+        Optional<Object> allowedMentions, // TODO: Create Model
         Optional<List<Object>> components,
-        Optional<Object> files,
+        Optional<Object> files, // TODO: Create Model
         Optional<String> payloadJson,
         Optional<List<MessageAttachment>> attachments)
         implements DiscordRequest {

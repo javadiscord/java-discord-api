@@ -2,6 +2,7 @@ package com.javadiscord.jdi.internal.api.webhook;
 
 import com.github.mizosoft.methanol.MultipartBodyPublisher;
 import com.javadiscord.jdi.core.models.message.MessageAttachment;
+import com.javadiscord.jdi.core.models.message.embed.Embed;
 import com.javadiscord.jdi.core.models.poll.Poll;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
@@ -21,10 +22,10 @@ public record ExecuteWebhookRequest(
         Optional<String> username,
         Optional<String> avatarUrl,
         Optional<Boolean> tts,
-        Optional<List<Object>> embeds,
-        Optional<Object> allowedMentions,
-        Optional<List<Object>> components,
-        Optional<Object> files,
+        Optional<List<Embed>> embeds,
+        Optional<Object> allowedMentions, // TODO: Create model
+        Optional<List<Object>> components, // TODO: Create model
+        Optional<Object> files, // TODO: Create model
         String payloadJson,
         Optional<List<MessageAttachment>> attachments,
         Optional<Integer> flags,
