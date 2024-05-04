@@ -20,8 +20,7 @@ public class GuildScheduledEventRequest {
     }
 
     public AsyncResponse<ScheduledEvent> createScheduledEvent(CreateScheduledEventBuilder builder) {
-        return responseParser.callAndParse(
-                ScheduledEvent.class, builder.guildId(guildId).build());
+        return responseParser.callAndParse(ScheduledEvent.class, builder.guildId(guildId).build());
     }
 
     public AsyncResponse<ScheduledEvent> deleteScheduledEvent(long scheduledEventId) {
@@ -30,14 +29,12 @@ public class GuildScheduledEventRequest {
     }
 
     public AsyncResponse<ScheduledEvent> getScheduledEvent(GetScheduledEventBuilder builder) {
-        return responseParser.callAndParse(
-                ScheduledEvent.class, builder.guildId(guildId).build());
+        return responseParser.callAndParse(ScheduledEvent.class, builder.guildId(guildId).build());
     }
 
     public AsyncResponse<List<EventUser>> getScheduledEventUsers(
             GetScheduledEventUsersBuilder builder) {
-        return responseParser.callAndParseList(
-                EventUser.class, builder.guildId(guildId).build());
+        return responseParser.callAndParseList(EventUser.class, builder.guildId(guildId).build());
     }
 
     public AsyncResponse<List<ScheduledEvent>> listScheduledEvents(

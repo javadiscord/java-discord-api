@@ -62,8 +62,7 @@ public final class ModifyGuildRequestBuilder {
         return this;
     }
 
-    public ModifyGuildRequestBuilder defaultMessageNotifications(
-            int defaultMessageNotifications) {
+    public ModifyGuildRequestBuilder defaultMessageNotifications(int defaultMessageNotifications) {
         this.defaultMessageNotifications = Optional.of(defaultMessageNotifications);
         return this;
     }
@@ -143,8 +142,7 @@ public final class ModifyGuildRequestBuilder {
         return this;
     }
 
-    public ModifyGuildRequestBuilder premiumProgressBarEnabled(
-            boolean premiumProgressBarEnabled) {
+    public ModifyGuildRequestBuilder premiumProgressBarEnabled(boolean premiumProgressBarEnabled) {
         this.premiumProgressBarEnabled = Optional.of(premiumProgressBarEnabled);
         return this;
     }

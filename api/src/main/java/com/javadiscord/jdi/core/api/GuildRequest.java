@@ -204,8 +204,7 @@ public class GuildRequest {
 
     public AsyncResponse<WelcomeScreen> modifyGuildWelcomeScreen(
             ModifyGuildWelcomeScreenRequestBuilder builder) {
-        return responseParser.callAndParse(
-                WelcomeScreen.class, builder.guildId(guildId).build());
+        return responseParser.callAndParse(WelcomeScreen.class, builder.guildId(guildId).build());
     }
 
     public AsyncResponse<WidgetObject> modifyGuildWidget(ModifyGuildWidgetRequestBuilder builder) {
