@@ -13,7 +13,7 @@ public class DiscordResponseParser {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private final DiscordRequestDispatcher dispatcher;
 
-    public DiscordResponseParser(DiscordRequestDispatcher dispatcher, long guildId) {
+    public DiscordResponseParser(DiscordRequestDispatcher dispatcher) {
         this.dispatcher = dispatcher;
     }
 
