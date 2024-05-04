@@ -1,12 +1,12 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import java.util.List;
-import java.util.Optional;
-
 import com.javadiscord.jdi.core.models.message.MessageAttachment;
 import com.javadiscord.jdi.core.models.message.embed.Embed;
 import com.javadiscord.jdi.core.models.poll.Poll;
 import com.javadiscord.jdi.internal.api.webhook.ExecuteWebhookRequest;
+
+import java.util.List;
+import java.util.Optional;
 
 public final class ExecuteWebhookRequestBuilder {
     private final long webhookId;
@@ -143,7 +143,6 @@ public final class ExecuteWebhookRequestBuilder {
                 flags,
                 threadName,
                 appliedTags,
-                poll
-        );
+                poll);
     }
 }

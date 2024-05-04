@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import java.util.Optional;
-
 import com.javadiscord.jdi.internal.api.webhook.ModifyWebhookRequest;
+
+import java.util.Optional;
 
 public final class ModifyWebhookRequestBuilder {
     private final String webhookId;

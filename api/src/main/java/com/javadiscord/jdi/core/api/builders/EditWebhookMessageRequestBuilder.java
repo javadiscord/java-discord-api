@@ -1,11 +1,11 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import java.util.Optional;
-import java.util.List;
-
 import com.javadiscord.jdi.core.models.message.MessageAttachment;
 import com.javadiscord.jdi.core.models.message.embed.Embed;
 import com.javadiscord.jdi.internal.api.webhook.EditWebhookMessageRequest;
+
+import java.util.List;
+import java.util.Optional;
 
 public final class EditWebhookMessageRequestBuilder {
     private final long webhookId;
@@ -86,7 +86,6 @@ public final class EditWebhookMessageRequestBuilder {
                 this.components,
                 this.files,
                 this.payloadJson,
-                this.attachments
-        );
+                this.attachments);
     }
 }

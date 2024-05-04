@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import java.util.Optional;
-
 import com.javadiscord.jdi.internal.api.webhook.GetWebhookMessageRequest;
+
+import java.util.Optional;
 
 public final class GetWebhookMessageRequestBuilder {
     private final long webhookId;
@@ -26,4 +26,3 @@ public final class GetWebhookMessageRequestBuilder {
         return new GetWebhookMessageRequest(webhookId, webhookToken, messageId, threadId);
     }
 }
-

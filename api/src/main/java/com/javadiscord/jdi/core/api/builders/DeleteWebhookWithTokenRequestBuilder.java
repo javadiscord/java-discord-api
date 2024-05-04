@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import java.util.Optional;
-
 import com.javadiscord.jdi.internal.api.webhook.DeleteWebhookWithTokenRequest;
+
+import java.util.Optional;
 
 public final class DeleteWebhookWithTokenRequestBuilder {
     private final long webhookId;
