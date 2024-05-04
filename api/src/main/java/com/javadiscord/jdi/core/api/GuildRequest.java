@@ -205,16 +205,16 @@ public class GuildRequest {
     public AsyncResponse<WelcomeScreen> modifyGuildWelcomeScreen(
             ModifyGuildWelcomeScreenRequestBuilder builder) {
         return responseParser.callAndParse(
-                WelcomeScreen.class, builder.setGuildId(guildId).build());
+                WelcomeScreen.class, builder.guildId(guildId).build());
     }
 
     public AsyncResponse<WidgetObject> modifyGuildWidget(ModifyGuildWidgetRequestBuilder builder) {
-        return responseParser.callAndParse(WidgetObject.class, builder.setGuildId(guildId).build());
+        return responseParser.callAndParse(WidgetObject.class, builder.guildId(guildId).build());
     }
 
     public AsyncResponse<VoiceState> modifyUserVoiceState(
             ModifyUserVoiceStateRequestBuilder builder) {
-        return responseParser.callAndParse(VoiceState.class, builder.setGuildId(guildId).build());
+        return responseParser.callAndParse(VoiceState.class, builder.guildId(guildId).build());
     }
 
     public AsyncResponse<Guild> removeGuildBan(long userId) {
@@ -228,6 +228,6 @@ public class GuildRequest {
 
     public AsyncResponse<List<Member>> searchGuildMembers(
             SearchGuildMembersRequestBuilder builder) {
-        return responseParser.callAndParseList(Member.class, builder.setGuildId(guildId).build());
+        return responseParser.callAndParseList(Member.class, builder.guildId(guildId).build());
     }
 }
