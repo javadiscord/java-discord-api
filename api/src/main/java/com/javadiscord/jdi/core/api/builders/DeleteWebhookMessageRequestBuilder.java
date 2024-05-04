@@ -17,7 +17,7 @@ public final class DeleteWebhookMessageRequestBuilder {
         this.threadId = Optional.empty();
     }
 
-    public DeleteWebhookMessageRequestBuilder setThreadId(long threadId) {
+    public DeleteWebhookMessageRequestBuilder threadId(long threadId) {
         this.threadId = Optional.of(threadId);
         return this;
     }

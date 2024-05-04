@@ -26,42 +26,42 @@ public final class ModifyGuildRoleRequestBuilder {
         this.mentionable = Optional.empty();
     }
 
-    public ModifyGuildRoleRequestBuilder setGuildId(long guildId) {
+    public ModifyGuildRoleRequestBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }
 
-    public ModifyGuildRoleRequestBuilder setName(String name) {
+    public ModifyGuildRoleRequestBuilder name(String name) {
         this.name = Optional.of(name);
         return this;
     }
 
-    public ModifyGuildRoleRequestBuilder setPermissions(String permissions) {
+    public ModifyGuildRoleRequestBuilder permissions(String permissions) {
         this.permissions = Optional.of(permissions);
         return this;
     }
 
-    public ModifyGuildRoleRequestBuilder setColor(int color) {
+    public ModifyGuildRoleRequestBuilder color(int color) {
         this.color = Optional.of(color);
         return this;
     }
 
-    public ModifyGuildRoleRequestBuilder setHoist(boolean hoist) {
+    public ModifyGuildRoleRequestBuilder hoist(boolean hoist) {
         this.hoist = Optional.of(hoist);
         return this;
     }
 
-    public ModifyGuildRoleRequestBuilder setIcon(String icon) {
+    public ModifyGuildRoleRequestBuilder icon(String icon) {
         this.icon = Optional.of(icon);
         return this;
     }
 
-    public ModifyGuildRoleRequestBuilder setUnicodeEmoji(String unicodeEmoji) {
+    public ModifyGuildRoleRequestBuilder unicodeEmoji(String unicodeEmoji) {
         this.unicodeEmoji = Optional.of(unicodeEmoji);
         return this;
     }
 
-    public ModifyGuildRoleRequestBuilder setMentionable(boolean mentionable) {
+    public ModifyGuildRoleRequestBuilder mentionable(boolean mentionable) {
         this.mentionable = Optional.of(mentionable);
         return this;
     }

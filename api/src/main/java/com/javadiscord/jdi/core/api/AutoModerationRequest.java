@@ -19,7 +19,7 @@ public class AutoModerationRequest {
     public AsyncResponse<AutoModerationRule> createAutoModerationRuleRequest(
             CreateAutoModerationRuleBuilder builder) {
         return responseParser.callAndParse(
-                AutoModerationRule.class, builder.setGuildId(guildId).build());
+                AutoModerationRule.class, builder.guildId(guildId).build());
     }
 
     public AsyncResponse<AutoModerationRule> deleteAutoModerationRule(long autoModerationRuleId) {
@@ -42,6 +42,6 @@ public class AutoModerationRequest {
     public AsyncResponse<AutoModerationRule> modifyAutoModerationRule(
             ModifyAutoModerationRuleBuilder builder) {
         return responseParser.callAndParse(
-                AutoModerationRule.class, builder.setGuildId(guildId).build());
+                AutoModerationRule.class, builder.guildId(guildId).build());
     }
 }

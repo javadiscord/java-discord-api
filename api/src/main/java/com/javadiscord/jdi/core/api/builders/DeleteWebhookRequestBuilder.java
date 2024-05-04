@@ -13,7 +13,7 @@ public final class DeleteWebhookRequestBuilder {
         this.reason = Optional.empty();
     }
 
-    public DeleteWebhookRequestBuilder setReason(String reason) {
+    public DeleteWebhookRequestBuilder reason(String reason) {
         this.reason = Optional.of(reason);
         return this;
     }

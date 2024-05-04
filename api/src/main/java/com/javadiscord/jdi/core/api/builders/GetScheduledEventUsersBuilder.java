@@ -45,7 +45,7 @@ public class GetScheduledEventUsersBuilder {
                 guildId, scheduledEventId, limit, withMember, before, after);
     }
 
-    public GetScheduledEventUsersBuilder setGuildId(long guildId) {
+    public GetScheduledEventUsersBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }

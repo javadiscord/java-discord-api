@@ -14,17 +14,17 @@ public final class ModifyGuildWidgetRequestBuilder {
         this.channelId = Optional.empty();
     }
 
-    public ModifyGuildWidgetRequestBuilder setGuildId(long guildId) {
+    public ModifyGuildWidgetRequestBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }
 
-    public ModifyGuildWidgetRequestBuilder setEnabled(Boolean enabled) {
+    public ModifyGuildWidgetRequestBuilder enabled(Boolean enabled) {
         this.enabled = Optional.of(enabled);
         return this;
     }
 
-    public ModifyGuildWidgetRequestBuilder setChannelId(Long channelId) {
+    public ModifyGuildWidgetRequestBuilder channelId(Long channelId) {
         this.channelId = Optional.of(channelId);
         return this;
     }

@@ -28,43 +28,43 @@ public final class ModifyGuildMemberRequestBuilder {
         this.flags = Optional.empty();
     }
 
-    public ModifyGuildMemberRequestBuilder setGuildId(long guildId) {
+    public ModifyGuildMemberRequestBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }
 
-    public ModifyGuildMemberRequestBuilder setNick(String nick) {
+    public ModifyGuildMemberRequestBuilder nick(String nick) {
         this.nick = Optional.of(nick);
         return this;
     }
 
-    public ModifyGuildMemberRequestBuilder setRoles(List<Long> roles) {
+    public ModifyGuildMemberRequestBuilder roles(List<Long> roles) {
         this.roles = Optional.of(roles);
         return this;
     }
 
-    public ModifyGuildMemberRequestBuilder setMute(boolean mute) {
+    public ModifyGuildMemberRequestBuilder mute(boolean mute) {
         this.mute = Optional.of(mute);
         return this;
     }
 
-    public ModifyGuildMemberRequestBuilder setDeafen(boolean deafen) {
+    public ModifyGuildMemberRequestBuilder deafen(boolean deafen) {
         this.deafen = Optional.of(deafen);
         return this;
     }
 
-    public ModifyGuildMemberRequestBuilder setChannelId(long channelId) {
+    public ModifyGuildMemberRequestBuilder channelId(long channelId) {
         this.channelId = Optional.of(channelId);
         return this;
     }
 
-    public ModifyGuildMemberRequestBuilder setCommunicationDisabledUntil(
+    public ModifyGuildMemberRequestBuilder communicationDisabledUntil(
             OffsetDateTime communicationDisabledUntil) {
         this.communicationDisabledUntil = Optional.of(communicationDisabledUntil);
         return this;
     }
 
-    public ModifyGuildMemberRequestBuilder setFlags(int flags) {
+    public ModifyGuildMemberRequestBuilder flags(int flags) {
         this.flags = Optional.of(flags);
         return this;
     }

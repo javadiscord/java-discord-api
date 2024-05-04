@@ -18,18 +18,18 @@ public class UpdateCurrentUserApplicationRoleConnectionBuilder {
         this.metadata = Optional.empty();
     }
 
-    public UpdateCurrentUserApplicationRoleConnectionBuilder setPlatformName(String platformName) {
+    public UpdateCurrentUserApplicationRoleConnectionBuilder platformName(String platformName) {
         this.platformName = Optional.of(platformName);
         return this;
     }
 
-    public UpdateCurrentUserApplicationRoleConnectionBuilder setPlatformUsername(
+    public UpdateCurrentUserApplicationRoleConnectionBuilder platformUsername(
             String platformUsername) {
         this.platformUsername = Optional.of(platformUsername);
         return this;
     }
 
-    public UpdateCurrentUserApplicationRoleConnectionBuilder setMetadata(
+    public UpdateCurrentUserApplicationRoleConnectionBuilder metadata(
             ApplicationRoleConnectionMetadata metadata) {
         this.metadata = Optional.of(metadata);
         return this;

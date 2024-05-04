@@ -15,13 +15,13 @@ public class BulkGuildBanBuilder {
         this.deleteMessageSeconds = Optional.empty();
     }
 
-    public BulkGuildBanBuilder deleteMessageSeconds(Optional<Integer> deleteMessageSeconds) {
-        this.deleteMessageSeconds = deleteMessageSeconds;
+    public BulkGuildBanBuilder guildId(long guildId) {
+        this.guildId = guildId;
         return this;
     }
 
-    public BulkGuildBanBuilder setGuildId(long guildId) {
-        this.guildId = guildId;
+    public BulkGuildBanBuilder deleteMessageSeconds(int deleteMessageSeconds) {
+        this.deleteMessageSeconds = Optional.of(deleteMessageSeconds);
         return this;
     }
 

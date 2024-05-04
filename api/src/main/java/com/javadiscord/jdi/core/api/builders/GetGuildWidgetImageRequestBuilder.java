@@ -12,12 +12,12 @@ public final class GetGuildWidgetImageRequestBuilder {
         this.style = Optional.empty();
     }
 
-    public GetGuildWidgetImageRequestBuilder setGuildId(long guildId) {
+    public GetGuildWidgetImageRequestBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }
 
-    public GetGuildWidgetImageRequestBuilder setStyle(String style) {
+    public GetGuildWidgetImageRequestBuilder style(String style) {
         this.style = Optional.of(style);
         return this;
     }

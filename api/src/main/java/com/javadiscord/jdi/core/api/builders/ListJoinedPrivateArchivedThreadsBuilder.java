@@ -15,12 +15,12 @@ public class ListJoinedPrivateArchivedThreadsBuilder {
         this.limit = Optional.empty();
     }
 
-    public ListJoinedPrivateArchivedThreadsBuilder setBefore(long before) {
+    public ListJoinedPrivateArchivedThreadsBuilder before(long before) {
         this.before = Optional.of(before);
         return this;
     }
 
-    public ListJoinedPrivateArchivedThreadsBuilder setLimit(int limit) {
+    public ListJoinedPrivateArchivedThreadsBuilder limit(int limit) {
         this.limit = Optional.of(limit);
         return this;
     }

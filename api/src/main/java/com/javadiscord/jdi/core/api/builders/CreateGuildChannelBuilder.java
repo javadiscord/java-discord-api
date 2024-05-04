@@ -72,7 +72,7 @@ public class CreateGuildChannelBuilder {
                 defaultThreadRateLimitPerUser);
     }
 
-    public CreateGuildChannelBuilder setGuildId(long guildId) {
+    public CreateGuildChannelBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }

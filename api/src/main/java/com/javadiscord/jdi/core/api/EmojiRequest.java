@@ -33,6 +33,6 @@ public class EmojiRequest {
     }
 
     public AsyncResponse<Emoji> modifyEmoji(ModifyEmojiBuilder builder) {
-        return responseParser.callAndParse(Emoji.class, builder.setGuildId(guildId).build());
+        return responseParser.callAndParse(Emoji.class, builder.guildId(guildId).build());
     }
 }

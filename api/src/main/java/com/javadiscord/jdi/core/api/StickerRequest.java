@@ -47,6 +47,6 @@ public class StickerRequest {
     }
 
     public AsyncResponse<Sticker> modifyGuildSticker(ModifyGuildStickerBuilder builder) {
-        return responseParser.callAndParse(Sticker.class, builder.setGuildId(guildId).build());
+        return responseParser.callAndParse(Sticker.class, builder.guildId(guildId).build());
     }
 }

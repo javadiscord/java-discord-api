@@ -78,7 +78,7 @@ public class ModifyAutoModerationRuleBuilder {
                 exemptChannel);
     }
 
-    public ModifyAutoModerationRuleBuilder setGuildId(long guildId) {
+    public ModifyAutoModerationRuleBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }

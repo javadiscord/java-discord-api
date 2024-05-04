@@ -24,42 +24,42 @@ public class CreateGuildRoleBuilder {
         this.mentionable = Optional.empty();
     }
 
-    public CreateGuildRoleBuilder setGuildId(long guildId) {
+    public CreateGuildRoleBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }
 
-    public CreateGuildRoleBuilder setName(String name) {
+    public CreateGuildRoleBuilder name(String name) {
         this.name = Optional.of(name);
         return this;
     }
 
-    public CreateGuildRoleBuilder setPermissions(String permissions) {
+    public CreateGuildRoleBuilder permissions(String permissions) {
         this.permissions = Optional.of(permissions);
         return this;
     }
 
-    public CreateGuildRoleBuilder setColor(int color) {
+    public CreateGuildRoleBuilder color(int color) {
         this.color = Optional.of(color);
         return this;
     }
 
-    public CreateGuildRoleBuilder setHoist(boolean hoist) {
+    public CreateGuildRoleBuilder hoist(boolean hoist) {
         this.hoist = Optional.of(hoist);
         return this;
     }
 
-    public CreateGuildRoleBuilder setIcon(String icon) {
+    public CreateGuildRoleBuilder icon(String icon) {
         this.icon = Optional.of(icon);
         return this;
     }
 
-    public CreateGuildRoleBuilder setUnicodeEmoji(String unicodeEmoji) {
+    public CreateGuildRoleBuilder unicodeEmoji(String unicodeEmoji) {
         this.unicodeEmoji = Optional.of(unicodeEmoji);
         return this;
     }
 
-    public CreateGuildRoleBuilder setMentionable(boolean mentionable) {
+    public CreateGuildRoleBuilder mentionable(boolean mentionable) {
         this.mentionable = Optional.of(mentionable);
         return this;
     }

@@ -12,12 +12,12 @@ public final class ModifyCurrentMemberRequestBuilder {
         this.nick = Optional.empty();
     }
 
-    public ModifyCurrentMemberRequestBuilder setGuildId(long guildId) {
+    public ModifyCurrentMemberRequestBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }
 
-    public ModifyCurrentMemberRequestBuilder setNick(String nick) {
+    public ModifyCurrentMemberRequestBuilder nick(String nick) {
         this.nick = Optional.of(nick);
         return this;
     }

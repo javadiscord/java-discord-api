@@ -31,7 +31,7 @@ public class ModifyEmojiBuilder {
         return new ModifyEmojiRequest(guildId, emojiId, name, roles);
     }
 
-    public ModifyEmojiBuilder setGuildId(long guildId) {
+    public ModifyEmojiBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }

@@ -15,17 +15,17 @@ public final class GetGuildPruneCountRequestBuilder {
         this.includeRoles = Optional.empty();
     }
 
-    public GetGuildPruneCountRequestBuilder setGuildId(long guildId) {
+    public GetGuildPruneCountRequestBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }
 
-    public GetGuildPruneCountRequestBuilder setDays(int days) {
+    public GetGuildPruneCountRequestBuilder days(int days) {
         this.days = Optional.of(days);
         return this;
     }
 
-    public GetGuildPruneCountRequestBuilder setIncludeRoles(List<Long> includeRoles) {
+    public GetGuildPruneCountRequestBuilder includeRoles(List<Long> includeRoles) {
         this.includeRoles = Optional.of(includeRoles);
         return this;
     }

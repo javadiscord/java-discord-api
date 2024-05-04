@@ -33,15 +33,15 @@ public class GuildRequest {
     }
 
     public AsyncResponse<Void> bulkGuildBan(BulkGuildBanBuilder builder) {
-        return responseParser.callAndParse(Void.class, builder.setGuildId(guildId).build());
+        return responseParser.callAndParse(Void.class, builder.guildId(guildId).build());
     }
 
     public AsyncResponse<Void> createGuildBan(GuildBanBuilder builder) {
-        return responseParser.callAndParse(Void.class, builder.setGuildId(guildId).build());
+        return responseParser.callAndParse(Void.class, builder.guildId(guildId).build());
     }
 
     public AsyncResponse<Channel> createGuildChannel(CreateGuildChannelBuilder builder) {
-        return responseParser.callAndParse(Channel.class, builder.setGuildId(guildId).build());
+        return responseParser.callAndParse(Channel.class, builder.guildId(guildId).build());
     }
 
     public AsyncResponse<Guild> createGuild(CreateGuildBuilder builder) {
@@ -49,7 +49,7 @@ public class GuildRequest {
     }
 
     public AsyncResponse<Role> createGuildRole(CreateGuildRoleBuilder builder) {
-        return responseParser.callAndParse(Role.class, builder.setGuildId(guildId).build());
+        return responseParser.callAndParse(Role.class, builder.guildId(guildId).build());
     }
 
     public AsyncResponse<Void> deleteGuildIntegration(long integrationId) {
@@ -101,11 +101,11 @@ public class GuildRequest {
     }
 
     public AsyncResponse<PruneCount> guildPruneCount(GetGuildPruneCountRequestBuilder builder) {
-        return responseParser.callAndParse(PruneCount.class, builder.setGuildId(guildId).build());
+        return responseParser.callAndParse(PruneCount.class, builder.guildId(guildId).build());
     }
 
     public AsyncResponse<Guild> guild(GetGuildRequestBuilder builder) {
-        return responseParser.callAndParse(Guild.class, builder.setGuildId(guildId).build());
+        return responseParser.callAndParse(Guild.class, builder.guildId(guildId).build());
     }
 
     public AsyncResponse<List<Role>> guildRoles() {
@@ -127,7 +127,7 @@ public class GuildRequest {
     }
 
     public AsyncResponse<WidgetObject> guildWidgetImage(GetGuildWidgetImageRequestBuilder builder) {
-        return responseParser.callAndParse(WidgetObject.class, builder.setGuildId(guildId).build());
+        return responseParser.callAndParse(WidgetObject.class, builder.guildId(guildId).build());
     }
 
     public AsyncResponse<byte[]> guildWidget() {
@@ -145,21 +145,21 @@ public class GuildRequest {
     }
 
     public AsyncResponse<List<Member>> listGuildMembers(ListGuildMembersRequestBuilder builder) {
-        return responseParser.callAndParseList(Member.class, builder.setGuildId(guildId).build());
+        return responseParser.callAndParseList(Member.class, builder.guildId(guildId).build());
     }
 
     public AsyncResponse<Member> modifyCurrentMember(ModifyCurrentMemberRequestBuilder builder) {
-        return responseParser.callAndParse(Member.class, builder.setGuildId(guildId).build());
+        return responseParser.callAndParse(Member.class, builder.guildId(guildId).build());
     }
 
     @Deprecated
     public AsyncResponse<User> modifyCurrentUserNick(ModifyCurrentUserNickRequestBuilder builder) {
-        return responseParser.callAndParse(User.class, builder.setGuildId(guildId).build());
+        return responseParser.callAndParse(User.class, builder.guildId(guildId).build());
     }
 
     public AsyncResponse<VoiceState> modifyCurrentUserVoiceState(
             ModifyCurrentUserVoiceStateRequestBuilder builder) {
-        return responseParser.callAndParse(VoiceState.class, builder.setGuildId(guildId).build());
+        return responseParser.callAndParse(VoiceState.class, builder.guildId(guildId).build());
     }
 
     public AsyncResponse<Channel> modifyGuildChannelPositions(
@@ -174,7 +174,7 @@ public class GuildRequest {
     }
 
     public AsyncResponse<Member> modifyGuildMember(ModifyGuildMemberRequestBuilder builder) {
-        return responseParser.callAndParse(Member.class, builder.setGuildId(guildId).build());
+        return responseParser.callAndParse(Member.class, builder.guildId(guildId).build());
     }
 
     public AsyncResponse<Onboarding> modifyGuildOnboarding(
@@ -189,7 +189,7 @@ public class GuildRequest {
     }
 
     public AsyncResponse<Guild> modifyGuild(ModifyGuildRequestBuilder builder) {
-        return responseParser.callAndParse(Guild.class, builder.setGuildId(guildId).build());
+        return responseParser.callAndParse(Guild.class, builder.guildId(guildId).build());
     }
 
     public AsyncResponse<List<Role>> modifyGuildRolePositions(
@@ -199,7 +199,7 @@ public class GuildRequest {
     }
 
     public AsyncResponse<Role> modifyGuildRole(ModifyGuildRoleRequestBuilder builder) {
-        return responseParser.callAndParse(Role.class, builder.setGuildId(guildId).build());
+        return responseParser.callAndParse(Role.class, builder.guildId(guildId).build());
     }
 
     public AsyncResponse<WelcomeScreen> modifyGuildWelcomeScreen(

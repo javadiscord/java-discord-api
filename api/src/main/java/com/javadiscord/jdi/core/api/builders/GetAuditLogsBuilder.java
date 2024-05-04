@@ -22,32 +22,32 @@ public class GetAuditLogsBuilder {
         this.reason = Optional.empty();
     }
 
-    public GetAuditLogsBuilder setUserId(long userId) {
+    public GetAuditLogsBuilder userId(long userId) {
         this.userId = Optional.of(userId);
         return this;
     }
 
-    public GetAuditLogsBuilder setActionType(Integer actionType) {
+    public GetAuditLogsBuilder actionType(Integer actionType) {
         this.actionType = Optional.of(actionType);
         return this;
     }
 
-    public GetAuditLogsBuilder setBefore(Long before) {
+    public GetAuditLogsBuilder before(Long before) {
         this.before = Optional.of(before);
         return this;
     }
 
-    public GetAuditLogsBuilder setAfter(Long after) {
+    public GetAuditLogsBuilder after(Long after) {
         this.after = Optional.of(after);
         return this;
     }
 
-    public GetAuditLogsBuilder setLimit(Integer limit) {
+    public GetAuditLogsBuilder limit(Integer limit) {
         this.limit = Optional.of(limit);
         return this;
     }
 
-    public GetAuditLogsBuilder setReason(String reason) {
+    public GetAuditLogsBuilder reason(String reason) {
         this.reason = Optional.of(reason);
         return this;
     }
@@ -57,7 +57,7 @@ public class GetAuditLogsBuilder {
                 guildId, userId, actionType, before, after, limit, reason);
     }
 
-    public GetAuditLogsBuilder setGuildId(long guildId) {
+    public GetAuditLogsBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }

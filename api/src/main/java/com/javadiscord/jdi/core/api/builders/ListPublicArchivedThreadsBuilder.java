@@ -16,12 +16,12 @@ public class ListPublicArchivedThreadsBuilder {
         this.limit = Optional.empty();
     }
 
-    public ListPublicArchivedThreadsBuilder setBefore(OffsetDateTime before) {
+    public ListPublicArchivedThreadsBuilder before(OffsetDateTime before) {
         this.before = Optional.of(before);
         return this;
     }
 
-    public ListPublicArchivedThreadsBuilder setLimit(int limit) {
+    public ListPublicArchivedThreadsBuilder limit(int limit) {
         this.limit = Optional.of(limit);
         return this;
     }

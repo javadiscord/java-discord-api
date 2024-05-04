@@ -37,7 +37,7 @@ public class ModifyGuildStickerBuilder {
         return new ModifyGuildStickerRequest(guildId, stickerId, name, description, tags);
     }
 
-    public ModifyGuildStickerBuilder setGuildId(long guildId) {
+    public ModifyGuildStickerBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }

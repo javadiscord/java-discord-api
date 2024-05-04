@@ -12,12 +12,12 @@ public final class GetGuildRequestBuilder {
         this.withCounts = Optional.empty();
     }
 
-    public GetGuildRequestBuilder setGuildId(long guildId) {
+    public GetGuildRequestBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }
 
-    public GetGuildRequestBuilder setWithCounts(boolean withCounts) {
+    public GetGuildRequestBuilder withCounts(boolean withCounts) {
         this.withCounts = Optional.of(withCounts);
         return this;
     }

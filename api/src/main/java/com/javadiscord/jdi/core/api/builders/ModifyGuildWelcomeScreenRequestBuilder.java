@@ -17,23 +17,23 @@ public final class ModifyGuildWelcomeScreenRequestBuilder {
         this.description = Optional.empty();
     }
 
-    public ModifyGuildWelcomeScreenRequestBuilder setGuildId(long guildId) {
+    public ModifyGuildWelcomeScreenRequestBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }
 
-    public ModifyGuildWelcomeScreenRequestBuilder setEnabled(boolean enabled) {
+    public ModifyGuildWelcomeScreenRequestBuilder enabled(boolean enabled) {
         this.enabled = Optional.of(enabled);
         return this;
     }
 
-    public ModifyGuildWelcomeScreenRequestBuilder setWelcomeChannels(
+    public ModifyGuildWelcomeScreenRequestBuilder welcomeChannels(
             WelcomeScreenChannel welcomeChannels) {
         this.welcomeChannels = Optional.of(welcomeChannels);
         return this;
     }
 
-    public ModifyGuildWelcomeScreenRequestBuilder setDescription(String description) {
+    public ModifyGuildWelcomeScreenRequestBuilder description(String description) {
         this.description = Optional.of(description);
         return this;
     }

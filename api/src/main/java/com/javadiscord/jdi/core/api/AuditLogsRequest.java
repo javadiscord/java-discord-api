@@ -16,6 +16,6 @@ public class AuditLogsRequest {
 
     public AsyncResponse<List<AuditLogEntry>> getAuditLogs(GetAuditLogsBuilder builder) {
         return responseParser.callAndParseList(
-                AuditLogEntry.class, builder.setGuildId(guildId).build());
+                AuditLogEntry.class, builder.guildId(guildId).build());
     }
 }

@@ -17,22 +17,22 @@ public final class ModifyCurrentUserVoiceStateRequestBuilder {
         this.requestToSpeakTimestamp = Optional.empty();
     }
 
-    public ModifyCurrentUserVoiceStateRequestBuilder setGuildId(long guildId) {
+    public ModifyCurrentUserVoiceStateRequestBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }
 
-    public ModifyCurrentUserVoiceStateRequestBuilder setChannelId(long channelId) {
+    public ModifyCurrentUserVoiceStateRequestBuilder channelId(long channelId) {
         this.channelId = Optional.of(channelId);
         return this;
     }
 
-    public ModifyCurrentUserVoiceStateRequestBuilder setSuppress(boolean suppress) {
+    public ModifyCurrentUserVoiceStateRequestBuilder suppress(boolean suppress) {
         this.suppress = Optional.of(suppress);
         return this;
     }
 
-    public ModifyCurrentUserVoiceStateRequestBuilder setRequestToSpeakTimestamp(
+    public ModifyCurrentUserVoiceStateRequestBuilder requestToSpeakTimestamp(
             OffsetDateTime requestToSpeakTimestamp) {
         this.requestToSpeakTimestamp = Optional.of(requestToSpeakTimestamp);
         return this;

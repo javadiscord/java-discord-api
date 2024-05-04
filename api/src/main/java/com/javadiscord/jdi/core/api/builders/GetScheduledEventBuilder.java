@@ -23,7 +23,7 @@ public class GetScheduledEventBuilder {
         return new GetScheduledEventRequest(guildId, scheduledEventId, withUserCount);
     }
 
-    public GetScheduledEventBuilder setGuildId(long guildId) {
+    public GetScheduledEventBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }

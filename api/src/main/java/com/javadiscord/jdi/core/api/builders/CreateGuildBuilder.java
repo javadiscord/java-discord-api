@@ -34,52 +34,52 @@ public class CreateGuildBuilder {
         this.systemChannelFlags = Optional.empty();
     }
 
-    public CreateGuildBuilder setIcon(String icon) {
+    public CreateGuildBuilder icon(String icon) {
         this.icon = Optional.of(icon);
         return this;
     }
 
-    public CreateGuildBuilder setVerificationLevel(int verificationLevel) {
+    public CreateGuildBuilder verificationLevel(int verificationLevel) {
         this.verificationLevel = Optional.of(verificationLevel);
         return this;
     }
 
-    public CreateGuildBuilder setDefaultMessageNotifications(int defaultMessageNotifications) {
+    public CreateGuildBuilder defaultMessageNotifications(int defaultMessageNotifications) {
         this.defaultMessageNotifications = Optional.of(defaultMessageNotifications);
         return this;
     }
 
-    public CreateGuildBuilder setExplicitContentFilter(int explicitContentFilter) {
+    public CreateGuildBuilder explicitContentFilter(int explicitContentFilter) {
         this.explicitContentFilter = Optional.of(explicitContentFilter);
         return this;
     }
 
-    public CreateGuildBuilder setRoles(List<Role> roles) {
+    public CreateGuildBuilder roles(List<Role> roles) {
         this.roles = Optional.of(roles);
         return this;
     }
 
-    public CreateGuildBuilder setChannels(List<Channel> channels) {
+    public CreateGuildBuilder channels(List<Channel> channels) {
         this.channels = Optional.of(channels);
         return this;
     }
 
-    public CreateGuildBuilder setAfkChannelId(long afkChannelId) {
+    public CreateGuildBuilder afkChannelId(long afkChannelId) {
         this.afkChannelId = Optional.of(afkChannelId);
         return this;
     }
 
-    public CreateGuildBuilder setAfkTimeout(int afkTimeout) {
+    public CreateGuildBuilder afkTimeout(int afkTimeout) {
         this.afkTimeout = Optional.of(afkTimeout);
         return this;
     }
 
-    public CreateGuildBuilder setSystemChannelId(long systemChannelId) {
+    public CreateGuildBuilder systemChannelId(long systemChannelId) {
         this.systemChannelId = Optional.of(systemChannelId);
         return this;
     }
 
-    public CreateGuildBuilder setSystemChannelFlags(int systemChannelFlags) {
+    public CreateGuildBuilder systemChannelFlags(int systemChannelFlags) {
         this.systemChannelFlags = Optional.of(systemChannelFlags);
         return this;
     }

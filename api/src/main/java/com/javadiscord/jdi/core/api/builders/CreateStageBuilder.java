@@ -19,12 +19,12 @@ public class CreateStageBuilder {
         this.guildScheduledEventId = Optional.empty();
     }
 
-    public CreateStageBuilder setSendStartNotification(boolean sendStartNotification) {
+    public CreateStageBuilder sendStartNotification(boolean sendStartNotification) {
         this.sendStartNotification = Optional.of(sendStartNotification);
         return this;
     }
 
-    public CreateStageBuilder setGuildScheduledEventId(long guildScheduledEventId) {
+    public CreateStageBuilder guildScheduledEventId(long guildScheduledEventId) {
         this.guildScheduledEventId = Optional.of(guildScheduledEventId);
         return this;
     }

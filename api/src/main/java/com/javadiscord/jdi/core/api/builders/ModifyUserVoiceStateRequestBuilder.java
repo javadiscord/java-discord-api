@@ -16,17 +16,17 @@ public final class ModifyUserVoiceStateRequestBuilder {
         this.suppress = Optional.empty();
     }
 
-    public ModifyUserVoiceStateRequestBuilder setGuildId(long guildId) {
+    public ModifyUserVoiceStateRequestBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }
 
-    public ModifyUserVoiceStateRequestBuilder setChannelId(long channelId) {
+    public ModifyUserVoiceStateRequestBuilder channelId(long channelId) {
         this.channelId = Optional.of(channelId);
         return this;
     }
 
-    public ModifyUserVoiceStateRequestBuilder setSuppress(boolean suppress) {
+    public ModifyUserVoiceStateRequestBuilder suppress(boolean suppress) {
         this.suppress = Optional.of(suppress);
         return this;
     }

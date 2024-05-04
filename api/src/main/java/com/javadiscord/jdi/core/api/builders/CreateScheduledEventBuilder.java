@@ -75,7 +75,7 @@ public class CreateScheduledEventBuilder {
                 image);
     }
 
-    public CreateScheduledEventBuilder setGuildId(long guildId) {
+    public CreateScheduledEventBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }

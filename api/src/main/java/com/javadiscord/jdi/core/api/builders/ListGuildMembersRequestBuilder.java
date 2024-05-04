@@ -14,17 +14,17 @@ public final class ListGuildMembersRequestBuilder {
         this.after = Optional.empty();
     }
 
-    public ListGuildMembersRequestBuilder setGuildId(long guildId) {
+    public ListGuildMembersRequestBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }
 
-    public ListGuildMembersRequestBuilder setLimit(int limit) {
+    public ListGuildMembersRequestBuilder limit(int limit) {
         this.limit = Optional.of(limit);
         return this;
     }
 
-    public ListGuildMembersRequestBuilder setAfter(long after) {
+    public ListGuildMembersRequestBuilder after(long after) {
         this.after = Optional.of(after);
         return this;
     }

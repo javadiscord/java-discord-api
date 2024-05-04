@@ -14,17 +14,17 @@ public final class SearchGuildMembersRequestBuilder {
         this.limit = Optional.empty();
     }
 
-    public SearchGuildMembersRequestBuilder setGuildId(long guildId) {
+    public SearchGuildMembersRequestBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }
 
-    public SearchGuildMembersRequestBuilder setQuery(String query) {
+    public SearchGuildMembersRequestBuilder query(String query) {
         this.query = Optional.of(query);
         return this;
     }
 
-    public SearchGuildMembersRequestBuilder setLimit(Integer limit) {
+    public SearchGuildMembersRequestBuilder limit(Integer limit) {
         this.limit = Optional.of(limit);
         return this;
     }

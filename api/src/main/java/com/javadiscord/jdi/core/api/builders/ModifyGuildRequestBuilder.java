@@ -52,104 +52,104 @@ public final class ModifyGuildRequestBuilder {
         this.safetyAlertsChannelId = Optional.empty();
     }
 
-    public ModifyGuildRequestBuilder setGuildId(long guildId) {
+    public ModifyGuildRequestBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }
 
-    public ModifyGuildRequestBuilder setVerificationLevel(int verificationLevel) {
+    public ModifyGuildRequestBuilder verificationLevel(int verificationLevel) {
         this.verificationLevel = Optional.of(verificationLevel);
         return this;
     }
 
-    public ModifyGuildRequestBuilder setDefaultMessageNotifications(
+    public ModifyGuildRequestBuilder defaultMessageNotifications(
             int defaultMessageNotifications) {
         this.defaultMessageNotifications = Optional.of(defaultMessageNotifications);
         return this;
     }
 
-    public ModifyGuildRequestBuilder setExplicitContentFilter(int explicitContentFilter) {
+    public ModifyGuildRequestBuilder explicitContentFilter(int explicitContentFilter) {
         this.explicitContentFilter = Optional.of(explicitContentFilter);
         return this;
     }
 
-    public ModifyGuildRequestBuilder setAfkChannelId(long afkChannelId) {
+    public ModifyGuildRequestBuilder afkChannelId(long afkChannelId) {
         this.afkChannelId = Optional.of(afkChannelId);
         return this;
     }
 
-    public ModifyGuildRequestBuilder setAfkTimeout(int afkTimeout) {
+    public ModifyGuildRequestBuilder afkTimeout(int afkTimeout) {
         this.afkTimeout = Optional.of(afkTimeout);
         return this;
     }
 
-    public ModifyGuildRequestBuilder setIcon(String icon) {
+    public ModifyGuildRequestBuilder icon(String icon) {
         this.icon = Optional.of(icon);
         return this;
     }
 
-    public ModifyGuildRequestBuilder setOwnerId(long ownerId) {
+    public ModifyGuildRequestBuilder ownerId(long ownerId) {
         this.ownerId = Optional.of(ownerId);
         return this;
     }
 
-    public ModifyGuildRequestBuilder setSplash(String splash) {
+    public ModifyGuildRequestBuilder splash(String splash) {
         this.splash = Optional.of(splash);
         return this;
     }
 
-    public ModifyGuildRequestBuilder setDiscoverySplash(String discoverySplash) {
+    public ModifyGuildRequestBuilder discoverySplash(String discoverySplash) {
         this.discoverySplash = Optional.of(discoverySplash);
         return this;
     }
 
-    public ModifyGuildRequestBuilder setBanner(String banner) {
+    public ModifyGuildRequestBuilder banner(String banner) {
         this.banner = Optional.of(banner);
         return this;
     }
 
-    public ModifyGuildRequestBuilder setSystemChannelId(long systemChannelId) {
+    public ModifyGuildRequestBuilder systemChannelId(long systemChannelId) {
         this.systemChannelId = Optional.of(systemChannelId);
         return this;
     }
 
-    public ModifyGuildRequestBuilder setSystemChannelFlags(int systemChannelFlags) {
+    public ModifyGuildRequestBuilder systemChannelFlags(int systemChannelFlags) {
         this.systemChannelFlags = Optional.of(systemChannelFlags);
         return this;
     }
 
-    public ModifyGuildRequestBuilder setRulesChannelId(long rulesChannelId) {
+    public ModifyGuildRequestBuilder rulesChannelId(long rulesChannelId) {
         this.rulesChannelId = Optional.of(rulesChannelId);
         return this;
     }
 
-    public ModifyGuildRequestBuilder setPublicUpdatesChannelId(long publicUpdatesChannelId) {
+    public ModifyGuildRequestBuilder publicUpdatesChannelId(long publicUpdatesChannelId) {
         this.publicUpdatesChannelId = Optional.of(publicUpdatesChannelId);
         return this;
     }
 
-    public ModifyGuildRequestBuilder setPreferredLocale(String preferredLocale) {
+    public ModifyGuildRequestBuilder preferredLocale(String preferredLocale) {
         this.preferredLocale = Optional.of(preferredLocale);
         return this;
     }
 
-    public ModifyGuildRequestBuilder setFeatures(List<GuildFeature> features) {
+    public ModifyGuildRequestBuilder features(List<GuildFeature> features) {
         this.features = Optional.of(features);
         return this;
     }
 
-    public ModifyGuildRequestBuilder setDescription(String description) {
+    public ModifyGuildRequestBuilder description(String description) {
         this.description = Optional.of(description);
         return this;
     }
 
-    public ModifyGuildRequestBuilder setPremiumProgressBarEnabled(
+    public ModifyGuildRequestBuilder premiumProgressBarEnabled(
             boolean premiumProgressBarEnabled) {
         this.premiumProgressBarEnabled = Optional.of(premiumProgressBarEnabled);
         return this;
     }
 
-    public ModifyGuildRequestBuilder setSafetyAlertsChannelId(long safetyAlertsChannelId) {
+    public ModifyGuildRequestBuilder safetyAlertsChannelId(long safetyAlertsChannelId) {
         this.safetyAlertsChannelId = Optional.of(safetyAlertsChannelId);
         return this;
     }

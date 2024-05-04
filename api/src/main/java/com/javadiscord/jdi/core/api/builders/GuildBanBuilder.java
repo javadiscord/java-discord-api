@@ -14,7 +14,7 @@ public class GuildBanBuilder {
         this.deleteMessageSeconds = Optional.empty();
     }
 
-    public GuildBanBuilder setGuildId(long guildId) {
+    public GuildBanBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }

@@ -15,7 +15,7 @@ public final class DeleteWebhookWithTokenRequestBuilder {
         this.reason = Optional.empty();
     }
 
-    public DeleteWebhookWithTokenRequestBuilder setReason(String reason) {
+    public DeleteWebhookWithTokenRequestBuilder reason(String reason) {
         this.reason = Optional.of(reason);
         return this;
     }

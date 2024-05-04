@@ -17,12 +17,12 @@ public final class CreateWebhookRequestBuilder {
         this.reason = Optional.empty();
     }
 
-    public CreateWebhookRequestBuilder setAvatar(String avatar) {
+    public CreateWebhookRequestBuilder avatar(String avatar) {
         this.avatar = Optional.of(avatar);
         return this;
     }
 
-    public CreateWebhookRequestBuilder setReason(String reason) {
+    public CreateWebhookRequestBuilder reason(String reason) {
         this.reason = Optional.of(reason);
         return this;
     }
