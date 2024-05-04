@@ -10,7 +10,7 @@ public final class GetGuildPruneCountRequestBuilder {
     private Optional<Integer> days;
     private Optional<List<Long>> includeRoles;
 
-    public GetGuildPruneCountRequestBuilder(long guildId) {
+    public GetGuildPruneCountRequestBuilder() {
         this.days = Optional.empty();
         this.includeRoles = Optional.empty();
     }

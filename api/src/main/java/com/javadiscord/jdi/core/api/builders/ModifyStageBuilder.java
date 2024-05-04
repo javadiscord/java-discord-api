@@ -5,14 +5,14 @@ import com.javadiscord.jdi.internal.api.stage.ModifyStageRequest;
 import java.util.Optional;
 
 public class ModifyStageBuilder {
-    private final String channelId;
+    private final long channelId;
     private Optional<String> topic;
     private Optional<Integer> privacyLevel;
 
-    public ModifyStageBuilder(String channelId) {
+    public ModifyStageBuilder(long channelId) {
         this.channelId = channelId;
-        topic = Optional.empty();
-        privacyLevel = Optional.empty();
+        this.topic = Optional.empty();
+        this.privacyLevel = Optional.empty();
     }
 
     public ModifyStageBuilder topic(String topic) {

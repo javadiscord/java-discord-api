@@ -17,8 +17,8 @@ public final class GetGuildRequestBuilder {
         return this;
     }
 
-    public GetGuildRequestBuilder setWithCounts(Optional<Boolean> withCounts) {
-        this.withCounts = withCounts;
+    public GetGuildRequestBuilder setWithCounts(boolean withCounts) {
+        this.withCounts = Optional.of(withCounts);
         return this;
     }
 

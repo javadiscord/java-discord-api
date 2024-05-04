@@ -8,7 +8,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record Onboarding(
         @JsonProperty("guild_id") long guildId,
-        List<OnboardingPrompt> prompts,
+        @JsonProperty("prompts") List<OnboardingPrompt> prompts,
         @JsonProperty("default_channel_ids") List<Long> defaultChannelIds,
-        boolean enabled,
-        OnboardingMode mode) {}
+        @JsonProperty("enabled") boolean enabled,
+        @JsonProperty("mode") OnboardingMode mode) {}

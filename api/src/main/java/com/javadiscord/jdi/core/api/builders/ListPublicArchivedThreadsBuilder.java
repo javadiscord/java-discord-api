@@ -21,7 +21,7 @@ public class ListPublicArchivedThreadsBuilder {
         return this;
     }
 
-    public ListPublicArchivedThreadsBuilder setLimit(Integer limit) {
+    public ListPublicArchivedThreadsBuilder setLimit(int limit) {
         this.limit = Optional.of(limit);
         return this;
     }

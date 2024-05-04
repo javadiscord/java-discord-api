@@ -7,14 +7,16 @@ import java.util.Optional;
 public class EditChannelPermissionsBuilder {
     private final long channelId;
     private final long overwriteId;
+    private final int type;
     private Optional<String> allow;
     private Optional<String> deny;
-    private final int type;
 
     public EditChannelPermissionsBuilder(long channelId, long overwriteId, int type) {
         this.channelId = channelId;
         this.overwriteId = overwriteId;
         this.type = type;
+        this.allow = Optional.empty();
+        this.deny = Optional.empty();
     }
 
     public EditChannelPermissionsBuilder allow(String allow) {

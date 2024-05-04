@@ -17,17 +17,17 @@ public class GetInviteRequestBuilder {
         this.guildScheduledEventId = Optional.empty();
     }
 
-    public GetInviteRequestBuilder withCounts(Boolean withCounts) {
+    public GetInviteRequestBuilder withCounts(boolean withCounts) {
         this.withCounts = Optional.of(withCounts);
         return this;
     }
 
-    public GetInviteRequestBuilder withExpiration(Boolean withExpiration) {
+    public GetInviteRequestBuilder withExpiration(boolean withExpiration) {
         this.withExpiration = Optional.of(withExpiration);
         return this;
     }
 
-    public GetInviteRequestBuilder withGuildScheduledEventId(Long guildScheduledEventId) {
+    public GetInviteRequestBuilder withGuildScheduledEventId(long guildScheduledEventId) {
         this.guildScheduledEventId = Optional.of(guildScheduledEventId);
         return this;
     }

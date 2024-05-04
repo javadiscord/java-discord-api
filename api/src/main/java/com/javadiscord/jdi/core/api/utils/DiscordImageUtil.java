@@ -3,12 +3,11 @@ package com.javadiscord.jdi.core.api.utils;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
 public class DiscordImageUtil {
-    private static final List<String> IMAGE_EXTENSIONS = Arrays.asList("jpg", "jpeg", "png", "gif");
+    private static final List<String> IMAGE_EXTENSIONS = List.of("jpg", "jpeg", "png", "gif");
 
     private DiscordImageUtil() {}
 

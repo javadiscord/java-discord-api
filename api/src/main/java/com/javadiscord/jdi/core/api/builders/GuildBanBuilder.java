@@ -11,6 +11,7 @@ public class GuildBanBuilder {
 
     public GuildBanBuilder(long userId) {
         this.userId = userId;
+        this.deleteMessageSeconds = Optional.empty();
     }
 
     public GuildBanBuilder setGuildId(long guildId) {
@@ -18,8 +19,8 @@ public class GuildBanBuilder {
         return this;
     }
 
-    public GuildBanBuilder deleteMessageSeconds(Optional<Integer> deleteMessageSeconds) {
-        this.deleteMessageSeconds = deleteMessageSeconds;
+    public GuildBanBuilder deleteMessageSeconds(int deleteMessageSeconds) {
+        this.deleteMessageSeconds = Optional.of(deleteMessageSeconds);
         return this;
     }
 

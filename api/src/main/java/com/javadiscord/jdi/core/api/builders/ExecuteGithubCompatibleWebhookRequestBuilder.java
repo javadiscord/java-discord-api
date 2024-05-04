@@ -17,13 +17,13 @@ public final class ExecuteGithubCompatibleWebhookRequestBuilder {
         this.waits = Optional.empty();
     }
 
-    public ExecuteGithubCompatibleWebhookRequestBuilder threadId(Optional<Long> threadId) {
-        this.threadId = threadId;
+    public ExecuteGithubCompatibleWebhookRequestBuilder threadId(long threadId) {
+        this.threadId = Optional.of(threadId);
         return this;
     }
 
-    public ExecuteGithubCompatibleWebhookRequestBuilder waits(Optional<Boolean> waits) {
-        this.waits = waits;
+    public ExecuteGithubCompatibleWebhookRequestBuilder waits(boolean waits) {
+        this.waits = Optional.of(waits);
         return this;
     }
 
