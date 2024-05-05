@@ -7,8 +7,6 @@ import com.javadiscord.jdi.core.models.user.User;
 
 import java.time.OffsetDateTime;
 
-// TODO: finish implementation
-// https://discord.com/developers/docs/resources/guild#integration-object
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record Integration(
         @JsonProperty("id") long id,
