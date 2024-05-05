@@ -1,5 +1,6 @@
 package com.javadiscord.jdi.internal.api.channel;
 
+import com.javadiscord.jdi.core.models.guild.ForumMediaThreadMessageParam;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
@@ -13,7 +14,7 @@ public record StartThreadInForumOrMediaChannelRequest(
         String name,
         Optional<Integer> autoArchiveDuration,
         Optional<Integer> rateLimitPerUser,
-        Object message, // TODO: Create Forum and Media Thread Message Params Object
+        ForumMediaThreadMessageParam message,
         Optional<List<Long>> appliedTags,
         Optional<Object> files, // TODO: Create Files object
         Optional<String> payloadJson)
