@@ -31,7 +31,6 @@ public record ModifyScheduledEventRequest(
         // entityMetadata (entity_metadata), scheduledEndTime are all required
         if (entityType.isPresent() && entityType.get() == 3) {
             if (entityMetadata.isEmpty() || scheduledEndTime.isEmpty()) {
-                // TODO: replace with custom exceptions when implemented
                 throw new IllegalArgumentException(
                         "When entityType is EXTERNAL, both entityMetadata and scheduledEndTime must"
                                 + " be provided");
