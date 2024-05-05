@@ -7,18 +7,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public record CreateGuildFromTemplateRequest(
-        String templateCode, String name, Optional<String> icon) implements DiscordRequest {
+public record ModifyGuildTemplateRequest(
+        long guildId, String templateCode, Optional<String> name, Optional<String> description)
+        implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {
         Map<String, String> body = new HashMap<>();
-        body.put("name", name);
-        icon.ifPresent(it -> body.put("icon", it));
+        name.ifPresent(n -> body.put("name", n));
+        description.ifPresent(desc -> body.put("description", desc));
 
         return new DiscordRequestBuilder()
-                .post()
-                .path("/guilds/templates/%s".formatted(templateCode))
+                .patch()
+                .path("/guilds/%s/templates/%s".formatted(guildId, templateCode))
                 .body(body);
     }
 }
