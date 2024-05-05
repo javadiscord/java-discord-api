@@ -1,15 +1,15 @@
 package com.javadiscord.jdi.core.api;
 
-import com.javadiscord.jdi.core.api.builders.CreateWebhookRequestBuilder;
-import com.javadiscord.jdi.core.api.builders.DeleteWebhookMessageRequestBuilder;
-import com.javadiscord.jdi.core.api.builders.DeleteWebhookRequestBuilder;
-import com.javadiscord.jdi.core.api.builders.DeleteWebhookWithTokenRequestBuilder;
-import com.javadiscord.jdi.core.api.builders.EditWebhookMessageRequestBuilder;
-import com.javadiscord.jdi.core.api.builders.ExecuteGithubCompatibleWebhookRequestBuilder;
-import com.javadiscord.jdi.core.api.builders.ExecuteSlackCompatibleWebhookRequestBuilder;
-import com.javadiscord.jdi.core.api.builders.ExecuteWebhookRequestBuilder;
-import com.javadiscord.jdi.core.api.builders.GetWebhookMessageRequestBuilder;
-import com.javadiscord.jdi.core.api.builders.ModifyWebhookRequestBuilder;
+import com.javadiscord.jdi.core.api.builders.CreateWebhookBuilder;
+import com.javadiscord.jdi.core.api.builders.DeleteWebhookBuilder;
+import com.javadiscord.jdi.core.api.builders.DeleteWebhookMessageBuilder;
+import com.javadiscord.jdi.core.api.builders.DeleteWebhookWithTokenBuilder;
+import com.javadiscord.jdi.core.api.builders.EditWebhookMessageBuilder;
+import com.javadiscord.jdi.core.api.builders.ExecuteGithubCompatibleWebhookBuilder;
+import com.javadiscord.jdi.core.api.builders.ExecuteSlackCompatibleWebhooBuilder;
+import com.javadiscord.jdi.core.api.builders.ExecuteWebhookBuilder;
+import com.javadiscord.jdi.core.api.builders.GetWebhookMessageBuilder;
+import com.javadiscord.jdi.core.api.builders.ModifyWebhookBuilder;
 import com.javadiscord.jdi.core.models.message.Message;
 import com.javadiscord.jdi.core.models.webhook.Webhook;
 import com.javadiscord.jdi.internal.api.webhook.GetChannelWebhooksRequest;
@@ -26,38 +26,37 @@ public final class WebhookRequest {
         this.responseParser = responseParser;
     }
 
-    public AsyncResponse<Webhook> createWebhook(CreateWebhookRequestBuilder builder) {
+    public AsyncResponse<Webhook> createWebhook(CreateWebhookBuilder builder) {
         return responseParser.callAndParse(Webhook.class, builder.build());
     }
 
-    public AsyncResponse<Void> deleteWebhookMessage(DeleteWebhookMessageRequestBuilder builder) {
+    public AsyncResponse<Void> deleteWebhookMessage(DeleteWebhookMessageBuilder builder) {
         return responseParser.callAndParse(Void.class, builder.build());
     }
 
-    public AsyncResponse<Void> deleteWebhook(DeleteWebhookRequestBuilder builder) {
+    public AsyncResponse<Void> deleteWebhook(DeleteWebhookBuilder builder) {
         return responseParser.callAndParse(Void.class, builder.build());
     }
 
-    public AsyncResponse<Void> deleteWebhookWithToken(
-            DeleteWebhookWithTokenRequestBuilder builder) {
+    public AsyncResponse<Void> deleteWebhookWithToken(DeleteWebhookWithTokenBuilder builder) {
         return responseParser.callAndParse(Void.class, builder.build());
     }
 
-    public AsyncResponse<Message> editWebhookMessage(EditWebhookMessageRequestBuilder builder) {
+    public AsyncResponse<Message> editWebhookMessage(EditWebhookMessageBuilder builder) {
         return responseParser.callAndParse(Message.class, builder.build());
     }
 
     public AsyncResponse<Void> executeGithubCompatibleWebhook(
-            ExecuteGithubCompatibleWebhookRequestBuilder builder) {
+            ExecuteGithubCompatibleWebhookBuilder builder) {
         return responseParser.callAndParse(Void.class, builder.build());
     }
 
     public AsyncResponse<Void> executeSlackCompatibleWebhook(
-            ExecuteSlackCompatibleWebhookRequestBuilder builder) {
+            ExecuteSlackCompatibleWebhooBuilder builder) {
         return responseParser.callAndParse(Void.class, builder.build());
     }
 
-    public AsyncResponse<Void> executeWebhook(ExecuteWebhookRequestBuilder builder) {
+    public AsyncResponse<Void> executeWebhook(ExecuteWebhookBuilder builder) {
         return responseParser.callAndParse(Void.class, builder.build());
     }
 
@@ -70,7 +69,7 @@ public final class WebhookRequest {
         return responseParser.callAndParseList(Webhook.class, new GetGuildWebhooksRequest(guildId));
     }
 
-    public AsyncResponse<Message> getWebhookMessage(GetWebhookMessageRequestBuilder builder) {
+    public AsyncResponse<Message> getWebhookMessage(GetWebhookMessageBuilder builder) {
         return responseParser.callAndParse(Message.class, builder.build());
     }
 
@@ -83,11 +82,11 @@ public final class WebhookRequest {
                 Webhook.class, new GetWebhookWithTokenRequest(webhookId, webhookToken));
     }
 
-    public AsyncResponse<Void> modifyWebhook(ModifyWebhookRequestBuilder builder) {
+    public AsyncResponse<Void> modifyWebhook(ModifyWebhookBuilder builder) {
         return responseParser.callAndParse(Void.class, builder.build());
     }
 
-    public AsyncResponse<Void> modifyWebhookWithToken(ModifyWebhookRequestBuilder builder) {
+    public AsyncResponse<Void> modifyWebhookWithToken(ModifyWebhookBuilder builder) {
         return responseParser.callAndParse(Void.class, builder.build());
     }
 }

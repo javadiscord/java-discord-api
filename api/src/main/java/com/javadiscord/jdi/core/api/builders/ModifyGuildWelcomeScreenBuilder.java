@@ -5,35 +5,34 @@ import com.javadiscord.jdi.internal.api.guild.ModifyGuildWelcomeScreenRequest;
 
 import java.util.Optional;
 
-public final class ModifyGuildWelcomeScreenRequestBuilder {
+public final class ModifyGuildWelcomeScreenBuilder {
     private long guildId;
     private Optional<Boolean> enabled;
     private Optional<WelcomeScreenChannel> welcomeChannels;
     private Optional<String> description;
 
-    public ModifyGuildWelcomeScreenRequestBuilder() {
+    public ModifyGuildWelcomeScreenBuilder() {
         this.enabled = Optional.empty();
         this.welcomeChannels = Optional.empty();
         this.description = Optional.empty();
     }
 
-    public ModifyGuildWelcomeScreenRequestBuilder guildId(long guildId) {
+    public ModifyGuildWelcomeScreenBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }
 
-    public ModifyGuildWelcomeScreenRequestBuilder enabled(boolean enabled) {
+    public ModifyGuildWelcomeScreenBuilder enabled(boolean enabled) {
         this.enabled = Optional.of(enabled);
         return this;
     }
 
-    public ModifyGuildWelcomeScreenRequestBuilder welcomeChannels(
-            WelcomeScreenChannel welcomeChannels) {
+    public ModifyGuildWelcomeScreenBuilder welcomeChannels(WelcomeScreenChannel welcomeChannels) {
         this.welcomeChannels = Optional.of(welcomeChannels);
         return this;
     }
 
-    public ModifyGuildWelcomeScreenRequestBuilder description(String description) {
+    public ModifyGuildWelcomeScreenBuilder description(String description) {
         this.description = Optional.of(description);
         return this;
     }

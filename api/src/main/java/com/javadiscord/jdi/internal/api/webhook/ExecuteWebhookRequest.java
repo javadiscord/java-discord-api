@@ -1,12 +1,15 @@
 package com.javadiscord.jdi.internal.api.webhook;
 
 import com.github.mizosoft.methanol.MultipartBodyPublisher;
+import com.javadiscord.jdi.core.models.channel.AllowedMentions;
 import com.javadiscord.jdi.core.models.message.MessageAttachment;
 import com.javadiscord.jdi.core.models.message.embed.Embed;
 import com.javadiscord.jdi.core.models.poll.Poll;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
+import java.io.FileNotFoundException;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,10 +26,9 @@ public record ExecuteWebhookRequest(
         Optional<String> avatarUrl,
         Optional<Boolean> tts,
         Optional<List<Embed>> embeds,
-        Optional<Object> allowedMentions, // TODO: Create model
-        Optional<List<Object>> components, // TODO: Create model
-        Optional<Object> files, // TODO: Create model
-        String payloadJson,
+        Optional<AllowedMentions> allowedMentions,
+        Optional<List<Integer>> components,
+        Optional<List<Path>> files,
         Optional<List<MessageAttachment>> attachments,
         Optional<Integer> flags,
         Optional<String> threadName,
@@ -43,6 +45,8 @@ public record ExecuteWebhookRequest(
 
     @Override
     public DiscordRequestBuilder create() {
+        MultipartBodyPublisher.Builder bodyBuilder = MultipartBodyPublisher.newBuilder();
+
         Map<String, Object> body = new HashMap<>();
         content.ifPresent(val -> body.put("content", val));
         username.ifPresent(val -> body.put("username", val));
@@ -51,23 +55,29 @@ public record ExecuteWebhookRequest(
         embeds.ifPresent(val -> body.put("embeds", val));
         allowedMentions.ifPresent(val -> body.put("allowed_mentions", val));
         components.ifPresent(val -> body.put("components", val));
-        files.ifPresent(val -> body.put("files", val));
-        body.put("payload_json", payloadJson);
         attachments.ifPresent(val -> body.put("attachments", val));
         flags.ifPresent(val -> body.put("flags", val));
         threadName.ifPresent(val -> body.put("thread_name", val));
         appliedTags.ifPresent(val -> body.put("applied_tags", val));
         poll.ifPresent(val -> body.put("poll", val));
 
+        bodyBuilder.textPart("payload_json", body);
+
+        files.ifPresent(
+                paths -> {
+                    for (int i = 0; i < paths.size(); i++) {
+                        try {
+                            bodyBuilder.filePart("file[%d]".formatted(i), paths.get(i));
+                        } catch (FileNotFoundException ignored) {
+                        }
+                    }
+                });
+
         DiscordRequestBuilder discordRequestBuilder =
                 new DiscordRequestBuilder()
                         .post()
                         .path("/webhooks/%s/%s".formatted(webhookId, webhookToken))
-                        .multipartBody(
-                                MultipartBodyPublisher.newBuilder()
-                                        .textPart("payload_json", payloadJson)
-                                        .build())
-                        .body(body);
+                        .multipartBody(bodyBuilder.build());
 
         waits.ifPresent(val -> discordRequestBuilder.queryParam("wait", val));
         threadId.ifPresent(val -> discordRequestBuilder.queryParam("thread_id", val));

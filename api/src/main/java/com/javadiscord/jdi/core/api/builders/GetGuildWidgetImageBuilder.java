@@ -1,23 +1,24 @@
 package com.javadiscord.jdi.core.api.builders;
 
+import com.javadiscord.jdi.core.models.guild.WidgetStyleOptions;
 import com.javadiscord.jdi.internal.api.guild.GetGuildWidgetImageRequest;
 
 import java.util.Optional;
 
-public final class GetGuildWidgetImageRequestBuilder {
+public final class GetGuildWidgetImageBuilder {
     private long guildId;
-    private Optional<String> style;
+    private Optional<WidgetStyleOptions> style;
 
-    public GetGuildWidgetImageRequestBuilder() {
+    public GetGuildWidgetImageBuilder() {
         this.style = Optional.empty();
     }
 
-    public GetGuildWidgetImageRequestBuilder guildId(long guildId) {
+    public GetGuildWidgetImageBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }
 
-    public GetGuildWidgetImageRequestBuilder style(String style) {
+    public GetGuildWidgetImageBuilder style(WidgetStyleOptions style) {
         this.style = Optional.of(style);
         return this;
     }

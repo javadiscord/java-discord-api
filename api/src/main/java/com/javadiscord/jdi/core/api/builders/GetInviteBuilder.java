@@ -4,30 +4,30 @@ import com.javadiscord.jdi.internal.api.invite.GetInviteRequest;
 
 import java.util.Optional;
 
-public class GetInviteRequestBuilder {
+public class GetInviteBuilder {
     private final String inviteCode;
     private Optional<Boolean> withCounts;
     private Optional<Boolean> withExpiration;
     private Optional<Long> guildScheduledEventId;
 
-    public GetInviteRequestBuilder(String inviteCode) {
+    public GetInviteBuilder(String inviteCode) {
         this.inviteCode = inviteCode;
         this.withCounts = Optional.empty();
         this.withExpiration = Optional.empty();
         this.guildScheduledEventId = Optional.empty();
     }
 
-    public GetInviteRequestBuilder withCounts(boolean withCounts) {
+    public GetInviteBuilder withCounts(boolean withCounts) {
         this.withCounts = Optional.of(withCounts);
         return this;
     }
 
-    public GetInviteRequestBuilder withExpiration(boolean withExpiration) {
+    public GetInviteBuilder withExpiration(boolean withExpiration) {
         this.withExpiration = Optional.of(withExpiration);
         return this;
     }
 
-    public GetInviteRequestBuilder withGuildScheduledEventId(long guildScheduledEventId) {
+    public GetInviteBuilder withGuildScheduledEventId(long guildScheduledEventId) {
         this.guildScheduledEventId = Optional.of(guildScheduledEventId);
         return this;
     }

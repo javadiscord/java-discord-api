@@ -4,7 +4,7 @@ import com.javadiscord.jdi.internal.api.guild.ModifyGuildRoleRequest;
 
 import java.util.Optional;
 
-public final class ModifyGuildRoleRequestBuilder {
+public final class ModifyGuildRoleBuilder {
     private long guildId;
     private final long roleId;
     private Optional<String> name;
@@ -15,7 +15,7 @@ public final class ModifyGuildRoleRequestBuilder {
     private Optional<String> unicodeEmoji;
     private Optional<Boolean> mentionable;
 
-    public ModifyGuildRoleRequestBuilder(long roleId) {
+    public ModifyGuildRoleBuilder(long roleId) {
         this.roleId = roleId;
         this.name = Optional.empty();
         this.permissions = Optional.empty();
@@ -26,42 +26,42 @@ public final class ModifyGuildRoleRequestBuilder {
         this.mentionable = Optional.empty();
     }
 
-    public ModifyGuildRoleRequestBuilder guildId(long guildId) {
+    public ModifyGuildRoleBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }
 
-    public ModifyGuildRoleRequestBuilder name(String name) {
+    public ModifyGuildRoleBuilder name(String name) {
         this.name = Optional.of(name);
         return this;
     }
 
-    public ModifyGuildRoleRequestBuilder permissions(String permissions) {
+    public ModifyGuildRoleBuilder permissions(String permissions) {
         this.permissions = Optional.of(permissions);
         return this;
     }
 
-    public ModifyGuildRoleRequestBuilder color(int color) {
+    public ModifyGuildRoleBuilder color(int color) {
         this.color = Optional.of(color);
         return this;
     }
 
-    public ModifyGuildRoleRequestBuilder hoist(boolean hoist) {
+    public ModifyGuildRoleBuilder hoist(boolean hoist) {
         this.hoist = Optional.of(hoist);
         return this;
     }
 
-    public ModifyGuildRoleRequestBuilder icon(String icon) {
+    public ModifyGuildRoleBuilder icon(String icon) {
         this.icon = Optional.of(icon);
         return this;
     }
 
-    public ModifyGuildRoleRequestBuilder unicodeEmoji(String unicodeEmoji) {
+    public ModifyGuildRoleBuilder unicodeEmoji(String unicodeEmoji) {
         this.unicodeEmoji = Optional.of(unicodeEmoji);
         return this;
     }
 
-    public ModifyGuildRoleRequestBuilder mentionable(boolean mentionable) {
+    public ModifyGuildRoleBuilder mentionable(boolean mentionable) {
         this.mentionable = Optional.of(mentionable);
         return this;
     }

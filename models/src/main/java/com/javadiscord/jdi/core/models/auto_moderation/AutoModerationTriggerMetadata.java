@@ -9,7 +9,7 @@ import java.util.List;
 public record AutoModerationTriggerMetadata(
         @JsonProperty("keyword_filter") List<String> keywordFilter,
         @JsonProperty("regex_patterns") List<String> regexPatterns,
-        @JsonProperty("presets") List<Integer> presets, // AutoModerationKeywordPresetType
+        @JsonProperty("presets") List<AutoModerationKeywordPresetTypes> presets,
         @JsonProperty("allow_list") List<String> allowList,
         @JsonProperty("mention_total_limit") int totalMentionLimit,
         @JsonProperty("mention_raid_protection_enabled") boolean mentionRaidProtectionEnabled) {}

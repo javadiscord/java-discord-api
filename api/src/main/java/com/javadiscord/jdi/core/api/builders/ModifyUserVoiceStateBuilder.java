@@ -4,29 +4,29 @@ import com.javadiscord.jdi.internal.api.guild.ModifyUserVoiceStateRequest;
 
 import java.util.Optional;
 
-public final class ModifyUserVoiceStateRequestBuilder {
+public final class ModifyUserVoiceStateBuilder {
     private long guildId;
     private final long userId;
     private Optional<Long> channelId;
     private Optional<Boolean> suppress;
 
-    public ModifyUserVoiceStateRequestBuilder(long userId) {
+    public ModifyUserVoiceStateBuilder(long userId) {
         this.userId = userId;
         this.channelId = Optional.empty();
         this.suppress = Optional.empty();
     }
 
-    public ModifyUserVoiceStateRequestBuilder guildId(long guildId) {
+    public ModifyUserVoiceStateBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }
 
-    public ModifyUserVoiceStateRequestBuilder channelId(long channelId) {
+    public ModifyUserVoiceStateBuilder channelId(long channelId) {
         this.channelId = Optional.of(channelId);
         return this;
     }
 
-    public ModifyUserVoiceStateRequestBuilder suppress(boolean suppress) {
+    public ModifyUserVoiceStateBuilder suppress(boolean suppress) {
         this.suppress = Optional.of(suppress);
         return this;
     }

@@ -4,27 +4,27 @@ import com.javadiscord.jdi.internal.api.guild.ListGuildMembersRequest;
 
 import java.util.Optional;
 
-public final class ListGuildMembersRequestBuilder {
+public final class ListGuildMembersBuilder {
     private long guildId;
     private Optional<Integer> limit;
     private Optional<Long> after;
 
-    public ListGuildMembersRequestBuilder() {
+    public ListGuildMembersBuilder() {
         this.limit = Optional.empty();
         this.after = Optional.empty();
     }
 
-    public ListGuildMembersRequestBuilder guildId(long guildId) {
+    public ListGuildMembersBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }
 
-    public ListGuildMembersRequestBuilder limit(int limit) {
+    public ListGuildMembersBuilder limit(int limit) {
         this.limit = Optional.of(limit);
         return this;
     }
 
-    public ListGuildMembersRequestBuilder after(long after) {
+    public ListGuildMembersBuilder after(long after) {
         this.after = Optional.of(after);
         return this;
     }

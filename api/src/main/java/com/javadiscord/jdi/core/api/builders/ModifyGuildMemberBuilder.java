@@ -6,7 +6,7 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 
-public final class ModifyGuildMemberRequestBuilder {
+public final class ModifyGuildMemberBuilder {
     private long guildId;
     private final long userId;
     private Optional<String> nick;
@@ -17,7 +17,7 @@ public final class ModifyGuildMemberRequestBuilder {
     private Optional<OffsetDateTime> communicationDisabledUntil;
     private Optional<Integer> flags;
 
-    public ModifyGuildMemberRequestBuilder(long userId) {
+    public ModifyGuildMemberBuilder(long userId) {
         this.userId = userId;
         this.nick = Optional.empty();
         this.roles = Optional.empty();
@@ -28,43 +28,43 @@ public final class ModifyGuildMemberRequestBuilder {
         this.flags = Optional.empty();
     }
 
-    public ModifyGuildMemberRequestBuilder guildId(long guildId) {
+    public ModifyGuildMemberBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }
 
-    public ModifyGuildMemberRequestBuilder nick(String nick) {
+    public ModifyGuildMemberBuilder nick(String nick) {
         this.nick = Optional.of(nick);
         return this;
     }
 
-    public ModifyGuildMemberRequestBuilder roles(List<Long> roles) {
+    public ModifyGuildMemberBuilder roles(List<Long> roles) {
         this.roles = Optional.of(roles);
         return this;
     }
 
-    public ModifyGuildMemberRequestBuilder mute(boolean mute) {
+    public ModifyGuildMemberBuilder mute(boolean mute) {
         this.mute = Optional.of(mute);
         return this;
     }
 
-    public ModifyGuildMemberRequestBuilder deafen(boolean deafen) {
+    public ModifyGuildMemberBuilder deafen(boolean deafen) {
         this.deafen = Optional.of(deafen);
         return this;
     }
 
-    public ModifyGuildMemberRequestBuilder channelId(long channelId) {
+    public ModifyGuildMemberBuilder channelId(long channelId) {
         this.channelId = Optional.of(channelId);
         return this;
     }
 
-    public ModifyGuildMemberRequestBuilder communicationDisabledUntil(
+    public ModifyGuildMemberBuilder communicationDisabledUntil(
             OffsetDateTime communicationDisabledUntil) {
         this.communicationDisabledUntil = Optional.of(communicationDisabledUntil);
         return this;
     }
 
-    public ModifyGuildMemberRequestBuilder flags(int flags) {
+    public ModifyGuildMemberBuilder flags(int flags) {
         this.flags = Optional.of(flags);
         return this;
     }

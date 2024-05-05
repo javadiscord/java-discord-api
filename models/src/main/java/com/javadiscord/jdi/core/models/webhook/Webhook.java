@@ -9,7 +9,7 @@ import com.javadiscord.jdi.core.models.user.User;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record Webhook(
         @JsonProperty("id") long id,
-        @JsonProperty("type") long type,
+        @JsonProperty("type") WebhookType type,
         @JsonProperty("guild_id") long guildId,
         @JsonProperty("channel_id") long channelId,
         @JsonProperty("user") User user,

@@ -4,16 +4,16 @@ import com.javadiscord.jdi.internal.api.webhook.DeleteWebhookRequest;
 
 import java.util.Optional;
 
-public final class DeleteWebhookRequestBuilder {
+public final class DeleteWebhookBuilder {
     private final long webhookId;
     private Optional<String> reason;
 
-    public DeleteWebhookRequestBuilder(long webhookId) {
+    public DeleteWebhookBuilder(long webhookId) {
         this.webhookId = webhookId;
         this.reason = Optional.empty();
     }
 
-    public DeleteWebhookRequestBuilder reason(String reason) {
+    public DeleteWebhookBuilder reason(String reason) {
         this.reason = Optional.of(reason);
         return this;
     }

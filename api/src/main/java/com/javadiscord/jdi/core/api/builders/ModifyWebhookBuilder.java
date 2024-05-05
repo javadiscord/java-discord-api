@@ -4,14 +4,14 @@ import com.javadiscord.jdi.internal.api.webhook.ModifyWebhookRequest;
 
 import java.util.Optional;
 
-public final class ModifyWebhookRequestBuilder {
+public final class ModifyWebhookBuilder {
     private final String webhookId;
     private Optional<String> name;
     private Optional<String> avatar;
     private Optional<Long> channelId;
     private Optional<String> reason;
 
-    public ModifyWebhookRequestBuilder(String webhookId) {
+    public ModifyWebhookBuilder(String webhookId) {
         this.webhookId = webhookId;
         this.name = Optional.empty();
         this.avatar = Optional.empty();
@@ -19,22 +19,22 @@ public final class ModifyWebhookRequestBuilder {
         this.reason = Optional.empty();
     }
 
-    public ModifyWebhookRequestBuilder name(String name) {
+    public ModifyWebhookBuilder name(String name) {
         this.name = Optional.of(name);
         return this;
     }
 
-    public ModifyWebhookRequestBuilder avatar(String avatar) {
+    public ModifyWebhookBuilder avatar(String avatar) {
         this.avatar = Optional.of(avatar);
         return this;
     }
 
-    public ModifyWebhookRequestBuilder channelId(long channelId) {
+    public ModifyWebhookBuilder channelId(long channelId) {
         this.channelId = Optional.of(channelId);
         return this;
     }
 
-    public ModifyWebhookRequestBuilder reason(String reason) {
+    public ModifyWebhookBuilder reason(String reason) {
         this.reason = Optional.of(reason);
         return this;
     }

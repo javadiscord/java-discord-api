@@ -4,25 +4,25 @@ import com.javadiscord.jdi.internal.api.webhook.ExecuteSlackCompatibleWebhookReq
 
 import java.util.Optional;
 
-public final class ExecuteSlackCompatibleWebhookRequestBuilder {
+public final class ExecuteSlackCompatibleWebhooBuilder {
     private long webhookId;
     private String webhookToken;
     private Optional<Long> threadId;
     private Optional<Boolean> waits;
 
-    public ExecuteSlackCompatibleWebhookRequestBuilder(long webhookId, String webhookToken) {
+    public ExecuteSlackCompatibleWebhooBuilder(long webhookId, String webhookToken) {
         this.webhookId = webhookId;
         this.webhookToken = webhookToken;
         this.threadId = Optional.empty();
         this.waits = Optional.empty();
     }
 
-    public ExecuteSlackCompatibleWebhookRequestBuilder threadId(long threadId) {
+    public ExecuteSlackCompatibleWebhooBuilder threadId(long threadId) {
         this.threadId = Optional.of(threadId);
         return this;
     }
 
-    public ExecuteSlackCompatibleWebhookRequestBuilder waits(boolean waits) {
+    public ExecuteSlackCompatibleWebhooBuilder waits(boolean waits) {
         this.waits = Optional.of(waits);
         return this;
     }

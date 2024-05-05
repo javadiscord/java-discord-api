@@ -1,6 +1,6 @@
 package com.javadiscord.jdi.core.api;
 
-import com.javadiscord.jdi.core.api.builders.GetInviteRequestBuilder;
+import com.javadiscord.jdi.core.api.builders.GetInviteBuilder;
 import com.javadiscord.jdi.core.models.invite.Invite;
 import com.javadiscord.jdi.internal.api.invite.DeleteInviteRequest;
 
@@ -17,7 +17,7 @@ public class InviteRequest {
         return responseParser.callAndParse(Invite.class, new DeleteInviteRequest(inviteCode));
     }
 
-    public AsyncResponse<Invite> getInvite(GetInviteRequestBuilder builder) {
+    public AsyncResponse<Invite> getInvite(GetInviteBuilder builder) {
         return responseParser.callAndParse(Invite.class, builder.build());
     }
 }

@@ -4,27 +4,27 @@ import com.javadiscord.jdi.internal.api.guild.SearchGuildMembersRequest;
 
 import java.util.Optional;
 
-public final class SearchGuildMembersRequestBuilder {
+public final class SearchGuildMembersBuilder {
     private long guildId;
     private Optional<String> query;
     private Optional<Integer> limit;
 
-    public SearchGuildMembersRequestBuilder() {
+    public SearchGuildMembersBuilder() {
         this.query = Optional.empty();
         this.limit = Optional.empty();
     }
 
-    public SearchGuildMembersRequestBuilder guildId(long guildId) {
+    public SearchGuildMembersBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }
 
-    public SearchGuildMembersRequestBuilder query(String query) {
+    public SearchGuildMembersBuilder query(String query) {
         this.query = Optional.of(query);
         return this;
     }
 
-    public SearchGuildMembersRequestBuilder limit(Integer limit) {
+    public SearchGuildMembersBuilder limit(Integer limit) {
         this.limit = Optional.of(limit);
         return this;
     }

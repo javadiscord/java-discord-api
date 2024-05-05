@@ -12,14 +12,14 @@ public enum ApplicationRoleConnectionMetadataType {
     BOOLEAN_EQUAL(7),
     BOOLEAN_NOT_EQUAL(8);
 
-    private final int val;
+    private final int value;
 
-    ApplicationRoleConnectionMetadataType(int val) {
-        this.val = val;
+    ApplicationRoleConnectionMetadataType(int value) {
+        this.value = value;
     }
 
     @JsonValue
-    public int val() {
-        return val;
+    public int value() {
+        return value;
     }
 }

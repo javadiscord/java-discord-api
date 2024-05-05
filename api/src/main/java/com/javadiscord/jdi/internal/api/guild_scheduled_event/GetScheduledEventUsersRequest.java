@@ -10,12 +10,15 @@ public record GetScheduledEventUsersRequest(
         long scheduledEventId,
         Optional<Integer> limit,
         Optional<Boolean> withMember,
-        Optional<Long>
-                before, // TODO: handle; both of these can be provided but before will be favored
+        Optional<Long> before,
         Optional<Long> after)
         implements DiscordRequest {
 
     public GetScheduledEventUsersRequest {
+        if (before.isPresent() && after.isPresent()) {
+            after = Optional.empty();
+        }
+
         if (limit.isPresent() && limit.get() > 100) {
             throw new IllegalArgumentException("limit must be less than 100");
         }

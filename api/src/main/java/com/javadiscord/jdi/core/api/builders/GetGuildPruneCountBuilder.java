@@ -5,27 +5,27 @@ import com.javadiscord.jdi.internal.api.guild.GetGuildPruneCountRequest;
 import java.util.List;
 import java.util.Optional;
 
-public final class GetGuildPruneCountRequestBuilder {
+public final class GetGuildPruneCountBuilder {
     private long guildId;
     private Optional<Integer> days;
     private Optional<List<Long>> includeRoles;
 
-    public GetGuildPruneCountRequestBuilder() {
+    public GetGuildPruneCountBuilder() {
         this.days = Optional.empty();
         this.includeRoles = Optional.empty();
     }
 
-    public GetGuildPruneCountRequestBuilder guildId(long guildId) {
+    public GetGuildPruneCountBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }
 
-    public GetGuildPruneCountRequestBuilder days(int days) {
+    public GetGuildPruneCountBuilder days(int days) {
         this.days = Optional.of(days);
         return this;
     }
 
-    public GetGuildPruneCountRequestBuilder includeRoles(List<Long> includeRoles) {
+    public GetGuildPruneCountBuilder includeRoles(List<Long> includeRoles) {
         this.includeRoles = Optional.of(includeRoles);
         return this;
     }

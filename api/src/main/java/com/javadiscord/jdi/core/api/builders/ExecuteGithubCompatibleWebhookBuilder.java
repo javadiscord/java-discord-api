@@ -4,25 +4,25 @@ import com.javadiscord.jdi.internal.api.webhook.ExecuteGithubCompatibleWebhookRe
 
 import java.util.Optional;
 
-public final class ExecuteGithubCompatibleWebhookRequestBuilder {
+public final class ExecuteGithubCompatibleWebhookBuilder {
     private final long webhookId;
     private final String webhookToken;
     private Optional<Long> threadId;
     private Optional<Boolean> waits;
 
-    public ExecuteGithubCompatibleWebhookRequestBuilder(long webhookId, String webhookToken) {
+    public ExecuteGithubCompatibleWebhookBuilder(long webhookId, String webhookToken) {
         this.webhookId = webhookId;
         this.webhookToken = webhookToken;
         this.threadId = Optional.empty();
         this.waits = Optional.empty();
     }
 
-    public ExecuteGithubCompatibleWebhookRequestBuilder threadId(long threadId) {
+    public ExecuteGithubCompatibleWebhookBuilder threadId(long threadId) {
         this.threadId = Optional.of(threadId);
         return this;
     }
 
-    public ExecuteGithubCompatibleWebhookRequestBuilder waits(boolean waits) {
+    public ExecuteGithubCompatibleWebhookBuilder waits(boolean waits) {
         this.waits = Optional.of(waits);
         return this;
     }

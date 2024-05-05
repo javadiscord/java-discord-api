@@ -4,27 +4,27 @@ import com.javadiscord.jdi.internal.api.guild.ModifyGuildWidgetRequest;
 
 import java.util.Optional;
 
-public final class ModifyGuildWidgetRequestBuilder {
+public final class ModifyGuildWidgetBuilder {
     private long guildId;
     private Optional<Boolean> enabled;
     private Optional<Long> channelId;
 
-    public ModifyGuildWidgetRequestBuilder() {
+    public ModifyGuildWidgetBuilder() {
         this.enabled = Optional.empty();
         this.channelId = Optional.empty();
     }
 
-    public ModifyGuildWidgetRequestBuilder guildId(long guildId) {
+    public ModifyGuildWidgetBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }
 
-    public ModifyGuildWidgetRequestBuilder enabled(Boolean enabled) {
+    public ModifyGuildWidgetBuilder enabled(Boolean enabled) {
         this.enabled = Optional.of(enabled);
         return this;
     }
 
-    public ModifyGuildWidgetRequestBuilder channelId(Long channelId) {
+    public ModifyGuildWidgetBuilder channelId(Long channelId) {
         this.channelId = Optional.of(channelId);
         return this;
     }

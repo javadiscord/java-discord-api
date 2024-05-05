@@ -9,7 +9,7 @@ public enum WidgetStyleOptions {
 
     private final String style;
 
-    private WidgetStyleOptions(String style) {
+    WidgetStyleOptions(String style) {
         this.style = style;
     }
 

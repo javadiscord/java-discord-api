@@ -4,20 +4,20 @@ import com.javadiscord.jdi.internal.api.guild.ModifyCurrentUserNickRequest;
 
 import java.util.Optional;
 
-public final class ModifyCurrentUserNickRequestBuilder {
+public final class ModifyCurrentUserNickBuilder {
     private long guildId;
     private Optional<String> nick;
 
-    public ModifyCurrentUserNickRequestBuilder() {
+    public ModifyCurrentUserNickBuilder() {
         this.nick = Optional.empty();
     }
 
-    public ModifyCurrentUserNickRequestBuilder guildId(long guildId) {
+    public ModifyCurrentUserNickBuilder guildId(long guildId) {
         this.guildId = guildId;
         return this;
     }
 
-    public ModifyCurrentUserNickRequestBuilder nick(String nick) {
+    public ModifyCurrentUserNickBuilder nick(String nick) {
         this.nick = Optional.of(nick);
         return this;
     }

@@ -2,13 +2,10 @@ package com.javadiscord.jdi.core.api;
 
 import com.javadiscord.jdi.core.api.builders.*;
 import com.javadiscord.jdi.core.models.channel.Channel;
-import com.javadiscord.jdi.core.models.channel.ChannelMention;
 import com.javadiscord.jdi.core.models.channel.ThreadMember;
 import com.javadiscord.jdi.core.models.invite.Invite;
 import com.javadiscord.jdi.core.models.message.Message;
-import com.javadiscord.jdi.core.models.message.MessageAttachment;
 import com.javadiscord.jdi.core.models.message.MessageReaction;
-import com.javadiscord.jdi.core.models.message.embed.Embed;
 import com.javadiscord.jdi.core.models.user.User;
 import com.javadiscord.jdi.internal.api.channel.*;
 
@@ -92,28 +89,8 @@ public class ChannelRequest {
         return responseParser.callAndParse(Void.class, builder.build());
     }
 
-    public AsyncResponse<Message> editMessage(
-            long channelId,
-            long messageId,
-            String content,
-            List<Embed> embeds,
-            int flags,
-            List<ChannelMention> allowedMentions,
-            List<Object> components,
-            List<Object> files,
-            List<MessageAttachment> attachments) {
-        return responseParser.callAndParse(
-                Message.class,
-                new EditMessageRequest(
-                        channelId,
-                        messageId,
-                        content,
-                        embeds,
-                        flags,
-                        allowedMentions,
-                        components,
-                        files,
-                        attachments));
+    public AsyncResponse<Message> editMessage(EditMessageBuilder builder) {
+        return responseParser.callAndParse(Message.class, builder.build());
     }
 
     public AsyncResponse<Message> fetchChannelMessage(long channelId, long messageId) {

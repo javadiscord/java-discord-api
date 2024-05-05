@@ -4,14 +4,14 @@ import com.javadiscord.jdi.internal.api.webhook.ModifyWebhookWithTokenRequest;
 
 import java.util.Optional;
 
-public final class ModifyWebhookWithTokenRequestBuilder {
+public final class ModifyWebhookWithTokenBuilder {
     private final long webhookId;
     private final String webhookToken;
     private Optional<String> name;
     private Optional<String> avatar;
     private Optional<String> reason;
 
-    public ModifyWebhookWithTokenRequestBuilder(long webhookId, String webhookToken) {
+    public ModifyWebhookWithTokenBuilder(long webhookId, String webhookToken) {
         this.webhookId = webhookId;
         this.webhookToken = webhookToken;
         this.name = Optional.empty();
@@ -19,17 +19,17 @@ public final class ModifyWebhookWithTokenRequestBuilder {
         this.reason = Optional.empty();
     }
 
-    public ModifyWebhookWithTokenRequestBuilder name(String name) {
+    public ModifyWebhookWithTokenBuilder name(String name) {
         this.name = Optional.of(name);
         return this;
     }
 
-    public ModifyWebhookWithTokenRequestBuilder avatar(String avatar) {
+    public ModifyWebhookWithTokenBuilder avatar(String avatar) {
         this.avatar = Optional.of(avatar);
         return this;
     }
 
-    public ModifyWebhookWithTokenRequestBuilder reason(String reason) {
+    public ModifyWebhookWithTokenBuilder reason(String reason) {
         this.reason = Optional.of(reason);
         return this;
     }

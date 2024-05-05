@@ -6,6 +6,7 @@ import com.javadiscord.jdi.core.models.message.MessageReference;
 import com.javadiscord.jdi.core.models.message.embed.Embed;
 import com.javadiscord.jdi.internal.api.channel.CreateMessageRequest;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,9 +19,9 @@ public class CreateMessageBuilder {
     private Optional<List<Embed>> embeds;
     private Optional<List<ChannelMention>> mentions;
     private Optional<List<MessageReference>> messageReferences;
-    private Optional<List<Object>> components; // TODO: Create Components object
+    private Optional<List<Integer>> components;
     private Optional<List<Long>> stickerIds;
-    private Optional<Object> files; // TODO: Create File object
+    private Optional<List<Path>> files;
     private Optional<String> payloadJson;
     private List<MessageAttachment> attachments;
     private Optional<Integer> flags;
@@ -73,7 +74,7 @@ public class CreateMessageBuilder {
         return this;
     }
 
-    public CreateMessageBuilder components(List<Object> components) {
+    public CreateMessageBuilder components(List<Integer> components) {
         this.components = Optional.of(components);
         return this;
     }
@@ -83,7 +84,7 @@ public class CreateMessageBuilder {
         return this;
     }
 
-    public CreateMessageBuilder files(Object files) {
+    public CreateMessageBuilder files(List<Path> files) {
         this.files = Optional.of(files);
         return this;
     }
