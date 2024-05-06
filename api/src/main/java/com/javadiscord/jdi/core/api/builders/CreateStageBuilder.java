@@ -10,6 +10,7 @@ public class CreateStageBuilder {
     private final int privacyLevel;
     private Optional<Boolean> sendStartNotification;
     private Optional<Long> guildScheduledEventId;
+    private Optional<String> auditReason;
 
     public CreateStageBuilder(long channelId, String topic, int privacyLevel) {
         this.channelId = channelId;
@@ -17,6 +18,7 @@ public class CreateStageBuilder {
         this.privacyLevel = privacyLevel;
         this.sendStartNotification = Optional.empty();
         this.guildScheduledEventId = Optional.empty();
+        this.auditReason = Optional.empty();
     }
 
     public CreateStageBuilder sendStartNotification(boolean sendStartNotification) {
@@ -29,8 +31,18 @@ public class CreateStageBuilder {
         return this;
     }
 
+    public CreateStageBuilder auditReason(String auditReason) {
+        this.auditReason = Optional.of(auditReason);
+        return this;
+    }
+
     public CreateStageRequest build() {
         return new CreateStageRequest(
-                channelId, topic, privacyLevel, sendStartNotification, guildScheduledEventId);
+                channelId,
+                topic,
+                privacyLevel,
+                sendStartNotification,
+                guildScheduledEventId,
+                auditReason);
     }
 }
