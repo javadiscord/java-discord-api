@@ -18,7 +18,7 @@ public record Integration(
         @JsonProperty("syncing") boolean syncing,
         @JsonProperty("role_id") long roleId,
         @JsonProperty("enable_emoticons") boolean enableEmoticons,
-        @JsonProperty("expire_behaviour") int expireBehaviour,
+        @JsonProperty("expire_behaviour") IntegrationExpireBehaviour expireBehaviour,
         @JsonProperty("expire_grace_period") int expireGracePeriod,
         @JsonProperty("user") User user,
         @JsonProperty("account") IntegrationAccount account,

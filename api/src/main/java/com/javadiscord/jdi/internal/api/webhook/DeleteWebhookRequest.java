@@ -5,7 +5,7 @@ import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
 import java.util.Optional;
 
-public record DeleteWebhookRequest(String webhookId, Optional<String> reason)
+public record DeleteWebhookRequest(long webhookId, Optional<String> reason)
         implements DiscordRequest {
 
     @Override

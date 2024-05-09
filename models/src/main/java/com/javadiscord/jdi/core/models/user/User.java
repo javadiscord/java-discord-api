@@ -19,6 +19,6 @@ public record User(
         @JsonProperty("verified") boolean verified,
         @JsonProperty("email") String email,
         @JsonProperty("flags") int flags,
-        @JsonProperty("premium_type") int premiumType,
+        @JsonProperty("premium_type") PremiumType premiumType,
         @JsonProperty("public_flags") int publicFlags,
         @JsonProperty("avtar_decoration") String avatarDecoration) {}

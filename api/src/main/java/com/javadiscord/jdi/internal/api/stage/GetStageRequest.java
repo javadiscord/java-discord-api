@@ -3,7 +3,7 @@ package com.javadiscord.jdi.internal.api.stage;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
-public record GetStageRequest(String channelId) implements DiscordRequest {
+public record GetStageRequest(long channelId) implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder().get().path("/stage-instances/%s".formatted(channelId));

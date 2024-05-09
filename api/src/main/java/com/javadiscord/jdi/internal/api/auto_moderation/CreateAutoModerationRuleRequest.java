@@ -15,8 +15,8 @@ public record CreateAutoModerationRuleRequest(
         String name,
         int eventType,
         int triggerType,
-        Optional<AutoModerationTriggerMetadata> triggerMetadata,
         List<AutoModerationAction> actions,
+        Optional<AutoModerationTriggerMetadata> triggerMetadata,
         Optional<Boolean> enabled,
         Optional<List<Long>> exemptRoles,
         Optional<List<Long>> exemptChannels)

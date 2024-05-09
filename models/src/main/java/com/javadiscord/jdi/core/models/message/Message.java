@@ -42,7 +42,7 @@ public record Message(
         @JsonProperty("interaction_metadata") MessageInteractionMetadata interactionMetadata,
         @JsonProperty("interaction") MessageInteraction interaction,
         @JsonProperty("thread") Channel thread,
-        // @JsonProperty("components") List<MessageComponent> components,
+        @JsonProperty("components") List<Component> components,
         @JsonProperty("sticker_items") List<StickerItem> stickerItems,
         @JsonProperty("stickers") List<Sticker> stickers,
         @JsonProperty("position") int position,

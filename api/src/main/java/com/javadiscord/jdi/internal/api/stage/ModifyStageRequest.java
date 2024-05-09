@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public record ModifyStageRequest(
-        String channelId, Optional<String> topic, Optional<Integer> privacyLevel)
+        long channelId, Optional<String> topic, Optional<Integer> privacyLevel)
         implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {

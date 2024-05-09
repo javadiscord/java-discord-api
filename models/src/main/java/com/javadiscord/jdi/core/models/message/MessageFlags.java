@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.models.message;
 
 public enum MessageFlags {
-    CROSSPOSTED(1),
-    IS_CROSSPOST(1 << 1),
+    CROSS_POSTED(1),
+    IS_CROSS_POST(1 << 1),
     SUPPRESS_EMBEDS(1 << 2),
     SOURCE_MESSAGE_DELETED(1 << 3),
     URGENT(1 << 4),

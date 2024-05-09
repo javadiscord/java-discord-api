@@ -1,6 +1,5 @@
 dependencies {
     implementation project(":models")
-    implementation project(":annotations")
     implementation project(":cache")
 
     implementation 'com.github.mizosoft.methanol:methanol:1.7.0'

@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class WebSocketRetryHandler {
     private static final Logger LOGGER = LogManager.getLogger();
     private final Vertx vertx;
-    private AtomicInteger attempts;
+    private final AtomicInteger attempts;
 
     public WebSocketRetryHandler(Vertx vertx) {
         this.vertx = vertx;
