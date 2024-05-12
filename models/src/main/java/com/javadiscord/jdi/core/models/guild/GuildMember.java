@@ -9,7 +9,7 @@ import java.time.OffsetDateTime;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record Member(
+public record GuildMember(
         @JsonProperty("user") User user,
         @JsonProperty("nick") String nick,
         @JsonProperty("avatar") String avatar,

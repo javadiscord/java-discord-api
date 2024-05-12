@@ -1,7 +1,7 @@
 package com.javadiscord.jdi.core.api.builders;
 
 import com.javadiscord.jdi.core.models.guild.EntityMetadata;
-import com.javadiscord.jdi.core.models.guild.PrivacyLevel;
+import com.javadiscord.jdi.core.models.scheduled_event.ScheduledEntityType;
 import com.javadiscord.jdi.internal.api.guild_scheduled_event.CreateScheduledEventRequest;
 
 import java.time.OffsetDateTime;
@@ -10,7 +10,7 @@ import java.util.Optional;
 public class CreateScheduledEventBuilder {
     private long guildId;
     private final String name;
-    private final int entityType;
+    private final ScheduledEntityType entityType;
     private final int privacyLevel;
     private final OffsetDateTime scheduledStartTime;
 
@@ -21,13 +21,10 @@ public class CreateScheduledEventBuilder {
     private Optional<String> image;
 
     public CreateScheduledEventBuilder(
-            String name,
-            int entityType,
-            PrivacyLevel privacyLevel,
-            OffsetDateTime scheduledStartTime) {
+            String name, ScheduledEntityType entityType, OffsetDateTime scheduledStartTime) {
         this.name = name;
         this.entityType = entityType;
-        this.privacyLevel = privacyLevel.ordinal();
+        this.privacyLevel = 2;
         this.scheduledStartTime = scheduledStartTime;
         this.channelId = Optional.empty();
         this.entityMetadata = Optional.empty();

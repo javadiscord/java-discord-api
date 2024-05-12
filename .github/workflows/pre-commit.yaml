@@ -19,4 +19,6 @@ jobs:
           gradle-version: 8.7
 
       - name: Build with Gradle
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
         run: gradle build

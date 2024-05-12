@@ -2,10 +2,12 @@ package com.javadiscord.jdi.internal.api.guild_scheduled_event;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.javadiscord.jdi.core.models.guild.EntityMetadata;
+import com.javadiscord.jdi.core.models.scheduled_event.ScheduledEntityType;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
 import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -21,7 +23,7 @@ public record CreateScheduledEventRequest(
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
                 Optional<OffsetDateTime> scheduledEndTime,
         Optional<String> description,
-        int entityType,
+        ScheduledEntityType entityType,
         Optional<String> image)
         implements DiscordRequest {
 
@@ -32,10 +34,16 @@ public record CreateScheduledEventRequest(
         entityMetadata.ifPresent(val -> body.put("entity_metadata", val));
         body.put("name", name);
         body.put("privacy_level", privacyLevel);
-        body.put("scheduled_start_time", scheduledStartTime);
-        scheduledEndTime.ifPresent(val -> body.put("scheduled_end_time", val));
+        body.put(
+                "scheduled_start_time",
+                scheduledStartTime.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
+        scheduledEndTime.ifPresent(
+                val ->
+                        body.put(
+                                "scheduled_end_time",
+                                val.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)));
         description.ifPresent(val -> body.put("description", val));
-        body.put("entity_type", entityType);
+        body.put("entity_type", entityType.ordinal() + 1);
         image.ifPresent(val -> body.put("image", val));
         return new DiscordRequestBuilder()
                 .post()

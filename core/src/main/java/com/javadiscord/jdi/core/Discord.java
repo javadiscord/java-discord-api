@@ -184,7 +184,7 @@ public class Discord {
             }
             return OBJECT_MAPPER.readValue(response.body(), Gateway.class);
         } catch (Exception e) {
-            LOGGER.error("Failed to fetch the gateway URL from discord");
+            LOGGER.error("Failed to fetch the gateway URL from discord", e);
             throw new RuntimeException(e);
         }
     }

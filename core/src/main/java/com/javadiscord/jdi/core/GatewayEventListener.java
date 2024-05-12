@@ -11,6 +11,7 @@ import com.javadiscord.jdi.core.models.message.*;
 import com.javadiscord.jdi.core.models.scheduled_event.EventUser;
 import com.javadiscord.jdi.core.models.scheduled_event.ScheduledEvent;
 import com.javadiscord.jdi.core.models.stage.Stage;
+import com.javadiscord.jdi.core.models.user.Member;
 import com.javadiscord.jdi.core.models.user.User;
 import com.javadiscord.jdi.core.models.voice.VoiceServer;
 import com.javadiscord.jdi.core.models.voice.VoiceState;
@@ -36,6 +37,13 @@ public class GatewayEventListener implements GatewayObserver {
     }
 
     static Guild getGuild(Discord discord, Object event) {
+        if (event instanceof com.javadiscord.jdi.core.models.guild.Guild) {
+            return new Guild(
+                    (com.javadiscord.jdi.core.models.guild.Guild) event,
+                    discord.getCache(),
+                    discord);
+        }
+
         Cache cache = discord.getCache();
         Guild guild = null;
         try {

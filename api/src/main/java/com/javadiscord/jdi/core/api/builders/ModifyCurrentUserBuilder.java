@@ -6,12 +6,10 @@ import java.util.Optional;
 
 public class ModifyCurrentUserBuilder {
     private final String username;
-    private final String type;
     private Optional<String> avatarImage;
 
-    public ModifyCurrentUserBuilder(String username, String type) {
+    public ModifyCurrentUserBuilder(String username) {
         this.username = username;
-        this.type = type;
         this.avatarImage = Optional.empty();
     }
 
@@ -21,6 +19,6 @@ public class ModifyCurrentUserBuilder {
     }
 
     public ModifyCurrentUserRequest build() {
-        return new ModifyCurrentUserRequest(username, avatarImage, type);
+        return new ModifyCurrentUserRequest(username, avatarImage);
     }
 }
