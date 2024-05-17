@@ -8,7 +8,6 @@ import com.javadiscord.jdi.internal.cache.Cache;
 import com.javadiscord.jdi.internal.cache.CacheType;
 import com.javadiscord.jdi.internal.gateway.*;
 import com.javadiscord.jdi.internal.gateway.identify.IdentifyRequest;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class Discord {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -45,6 +46,7 @@ public class Discord {
     private final List<Object> annotatedEventListeners = new ArrayList<>();
     private final List<EventListener> eventListeners = new ArrayList<>();
 
+    private WebSocketManager webSocketManager;
     private Object listenerLoader;
 
     public Discord(String botToken) {
@@ -126,21 +128,21 @@ public class Discord {
                 }
             }
         } catch (ClassNotFoundException
-                | InstantiationException
-                | IllegalAccessException
-                | InvocationTargetException ignore) {
+                 | InstantiationException
+                 | IllegalAccessException
+                 | InvocationTargetException ignore) {
             /* Ignore */
         }
     }
 
     public void start() {
-        WebSocketManager webSocketManager =
+        this.webSocketManager =
                 new WebSocketManager(
                         new GatewaySetting().setApiVersion(10).setEncoding(GatewayEncoding.JSON),
                         identifyRequest,
                         cache);
 
-        WebSocketManagerProxy webSocketManagerProxy = new WebSocketManagerProxy(webSocketManager);
+        WebSocketManagerProxy webSocketManagerProxy = new WebSocketManagerProxy(this.webSocketManager);
         ConnectionDetails connectionDetails =
                 new ConnectionDetails(gateway.url(), botToken, gatewaySetting);
         ConnectionMediator connectionMediator =
@@ -150,6 +152,27 @@ public class Discord {
         webSocketManagerProxy.start(connectionMediator);
 
         EXECUTOR.execute(discordRequestDispatcher);
+    }
+
+    public void stop() {
+        if (this.webSocketManager != null) {
+            this.webSocketManager.stop();
+        }
+
+        ThreadPoolExecutor threadPool = (ThreadPoolExecutor) EXECUTOR;
+        if (threadPool.getPoolSize() > 0) threadPool.shutdown();
+
+        try {
+            if (!threadPool.awaitTermination(30, TimeUnit.SECONDS)) {
+                threadPool.shutdownNow();
+                if (!threadPool.awaitTermination(30, TimeUnit.SECONDS)) {
+                    LOGGER.error("Threads not terminated properly");
+                }
+            }
+        } catch (InterruptedException ie) {
+            threadPool.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
     }
 
     public void startWithoutGatewayEvents() {
