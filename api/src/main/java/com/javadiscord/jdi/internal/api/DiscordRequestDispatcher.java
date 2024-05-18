@@ -90,9 +90,11 @@ public class DiscordRequestDispatcher implements Runnable {
                 case HttpMethod.DELETE -> requestBuilder.DELETE();
                 case HttpMethod.PUT -> requestBuilder.PUT(discordRequestBuilder.getBody());
                 case HttpMethod.PATCH ->
-                        requestBuilder.method(HttpMethod.PATCH.name(), discordRequestBuilder.getBody());
-                default -> throw new IllegalArgumentException(
-                        "Unsupported HTTP method: " + discordRequestBuilder.getMethod());
+                        requestBuilder.method(
+                                HttpMethod.PATCH.name(), discordRequestBuilder.getBody());
+                default ->
+                        throw new IllegalArgumentException(
+                                "Unsupported HTTP method: " + discordRequestBuilder.getMethod());
             }
 
             HttpRequest httpRequest = requestBuilder.build();
