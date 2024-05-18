@@ -19,6 +19,7 @@ public class DiscordRequestDispatcher implements Runnable {
                     : "https://discord.com/api";
 
     private static final Logger LOGGER = LogManager.getLogger();
+    private final HttpClient httpClient;
     private final BlockingQueue<DiscordRequestBuilder> queue;
     private final String botToken;
     private int numberOfRequestsSent;
@@ -26,6 +27,7 @@ public class DiscordRequestDispatcher implements Runnable {
 
     public DiscordRequestDispatcher(String botToken) {
         this.botToken = botToken;
+        this.httpClient = HttpClient.newBuilder().build();
         this.queue = new LinkedBlockingQueue<>();
         this.numberOfRequestsSent = 0;
         this.timeSinceLastRequest = 0;
@@ -61,7 +63,7 @@ public class DiscordRequestDispatcher implements Runnable {
     }
 
     private void sendRequest(DiscordRequestBuilder discordRequestBuilder) {
-        try (HttpClient httpClient = HttpClient.newBuilder().build()) {
+        try {
             HttpRequest.Builder requestBuilder =
                     HttpRequest.newBuilder()
                             .uri(
@@ -83,24 +85,14 @@ public class DiscordRequestDispatcher implements Runnable {
             }
 
             switch (discordRequestBuilder.getMethod()) {
-                case HttpMethod.GET:
-                    requestBuilder.GET();
-                    break;
-                case HttpMethod.POST:
-                    requestBuilder.POST(discordRequestBuilder.getBody());
-                    break;
-                case HttpMethod.DELETE:
-                    requestBuilder.DELETE();
-                    break;
-                case HttpMethod.PUT:
-                    requestBuilder.PUT(discordRequestBuilder.getBody());
-                    break;
-                case HttpMethod.PATCH:
-                    requestBuilder.method(HttpMethod.PATCH.name(), discordRequestBuilder.getBody());
-                    break;
-                default:
-                    throw new IllegalArgumentException(
-                            "Unsupported HTTP method: " + discordRequestBuilder.getMethod());
+                case HttpMethod.GET -> requestBuilder.GET();
+                case HttpMethod.POST -> requestBuilder.POST(discordRequestBuilder.getBody());
+                case HttpMethod.DELETE -> requestBuilder.DELETE();
+                case HttpMethod.PUT -> requestBuilder.PUT(discordRequestBuilder.getBody());
+                case HttpMethod.PATCH ->
+                        requestBuilder.method(HttpMethod.PATCH.name(), discordRequestBuilder.getBody());
+                default -> throw new IllegalArgumentException(
+                        "Unsupported HTTP method: " + discordRequestBuilder.getMethod());
             }
 
             HttpRequest httpRequest = requestBuilder.build();
