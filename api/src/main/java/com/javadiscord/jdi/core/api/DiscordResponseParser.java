@@ -22,16 +22,16 @@ public class DiscordResponseParser {
         AsyncResponse<List<T>> asyncResponse = new AsyncResponse<>();
         DiscordResponseFuture future = dispatcher.queue(request);
         future.onSuccess(
-                res -> {
-                    if (res.status() >= 200 && res.status() < 300) {
+                response -> {
+                    if (isSuccessfulResponse(response)) {
                         try {
-                            List<T> resultList = parseResponseFromList(clazz, res.body());
+                            List<T> resultList = parseResponseFromList(clazz, response.body());
                             asyncResponse.setResult(resultList);
                         } catch (Exception e) {
                             asyncResponse.setException(e);
                         }
                     } else {
-                        asyncResponse.setException(errorResponseException(res));
+                        asyncResponse.setException(errorResponseException(response));
                     }
                 });
         future.onError(asyncResponse::setException);
@@ -42,16 +42,16 @@ public class DiscordResponseParser {
         AsyncResponse<List<T>> asyncResponse = new AsyncResponse<>();
         DiscordResponseFuture future = dispatcher.queue(request);
         future.onSuccess(
-                res -> {
-                    if (res.status() >= 200 && res.status() < 300) {
+                response -> {
+                    if (isSuccessfulResponse(response)) {
                         try {
-                            List<T> resultList = parseResponseFromMap(key, res.body());
+                            List<T> resultList = parseResponseFromMap(key, response.body());
                             asyncResponse.setResult(resultList);
                         } catch (Exception e) {
                             asyncResponse.setException(e);
                         }
                     } else {
-                        asyncResponse.setException(errorResponseException(res));
+                        asyncResponse.setException(errorResponseException(response));
                     }
                 });
         future.onError(asyncResponse::setException);
@@ -87,7 +87,7 @@ public class DiscordResponseParser {
 
     private <T> void success(
             Class<T> type, DiscordResponse response, AsyncResponse<T> asyncResponse) {
-        if (response.status() >= 200 && response.status() < 300) {
+        if (isSuccessfulResponse(response)) {
             try {
                 T result = OBJECT_MAPPER.readValue(response.body(), type);
                 asyncResponse.setResult(result);
@@ -97,6 +97,10 @@ public class DiscordResponseParser {
         } else {
             asyncResponse.setException(errorResponseException(response));
         }
+    }
+
+    private boolean isSuccessfulResponse(DiscordResponse response) {
+        return response.status() >= 200 && response.status() < 300;
     }
 
     private Throwable errorResponseException(DiscordResponse response) {
