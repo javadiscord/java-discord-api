@@ -68,9 +68,12 @@ public class DiscordResponseParser {
 
     private <T> List<T> parseResponseFromMap(String key, String response)
             throws JsonProcessingException {
-        Map<String, List<T>> res = OBJECT_MAPPER.readValue(
-                response,
-                OBJECT_MAPPER.getTypeFactory().constructMapType(Map.class, String.class, List.class));
+        Map<String, List<T>> res =
+                OBJECT_MAPPER.readValue(
+                        response,
+                        OBJECT_MAPPER
+                                .getTypeFactory()
+                                .constructMapType(Map.class, String.class, List.class));
         return res.get(key);
     }
 
@@ -97,10 +100,7 @@ public class DiscordResponseParser {
     }
 
     private Throwable errorResponseException(DiscordResponse response) {
-       return new Exception(
-                "Received HTTP status code "
-                        + response.status()
-                        + " "
-                        + response.body());
+        return new Exception(
+                "Received HTTP status code " + response.status() + " " + response.body());
     }
 }
