@@ -22,14 +22,13 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class Discord {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final Executor EXECUTOR = Executors.newCachedThreadPool();
+    private static final ExecutorService EXECUTOR = Executors.newCachedThreadPool();
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private static final String WEBSITE = "https://javadiscord.com/";
 
@@ -161,18 +160,16 @@ public class Discord {
             this.webSocketManager.stop();
         }
 
-        ThreadPoolExecutor threadPool = (ThreadPoolExecutor) EXECUTOR;
-        if (threadPool.getPoolSize() > 0) threadPool.shutdown();
-
+        EXECUTOR.shutdown();
         try {
-            if (!threadPool.awaitTermination(30, TimeUnit.SECONDS)) {
-                threadPool.shutdownNow();
-                if (!threadPool.awaitTermination(30, TimeUnit.SECONDS)) {
+            if (!EXECUTOR.awaitTermination(30, TimeUnit.SECONDS)) {
+                EXECUTOR.shutdownNow();
+                if (!EXECUTOR.awaitTermination(30, TimeUnit.SECONDS)) {
                     LOGGER.error("Threads not terminated properly");
                 }
             }
         } catch (InterruptedException ie) {
-            threadPool.shutdownNow();
+            EXECUTOR.shutdownNow();
             Thread.currentThread().interrupt();
         }
     }
