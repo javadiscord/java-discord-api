@@ -8,6 +8,7 @@ import com.javadiscord.jdi.internal.api.DiscordResponse;
 import com.javadiscord.jdi.internal.api.DiscordResponseFuture;
 
 import java.util.List;
+import java.util.Map;
 
 public class DiscordResponseParser {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
@@ -23,7 +24,7 @@ public class DiscordResponseParser {
         future.onSuccess(
                 res -> {
                     try {
-                        List<T> resultList = parseResponse(clazz, res.body());
+                        List<T> resultList = parseResponseFromList(clazz, res.body());
                         asyncResponse.setResult(resultList);
                     } catch (Exception e) {
                         asyncResponse.setException(e);
@@ -33,12 +34,36 @@ public class DiscordResponseParser {
         return asyncResponse;
     }
 
-    private <T> List<T> parseResponse(Class<T> elementType, String response)
+    public <T> AsyncResponse<List<T>> callAndParseMap(String key, DiscordRequest request) {
+        AsyncResponse<List<T>> asyncResponse = new AsyncResponse<>();
+        DiscordResponseFuture future = dispatcher.queue(request);
+        future.onSuccess(
+                res -> {
+                    try {
+                        List<T> resultList = parseResponseFromMap(key, res.body());
+                        asyncResponse.setResult(resultList);
+                    } catch (Exception e) {
+                        asyncResponse.setException(e);
+                    }
+                });
+        future.onError(asyncResponse::setException);
+        return asyncResponse;
+    }
+
+    private <T> List<T> parseResponseFromList(Class<T> elementType, String response)
             throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(
                 response,
                 objectMapper.getTypeFactory().constructCollectionType(List.class, elementType));
+    }
+
+    private <T> List<T> parseResponseFromMap(String key, String response)
+            throws JsonProcessingException {
+        Map<String, List<T>> res = OBJECT_MAPPER.readValue(
+                response,
+                OBJECT_MAPPER.getTypeFactory().constructMapType(Map.class, String.class, List.class));
+        return res.get(key);
     }
 
     public <T> AsyncResponse<T> callAndParse(Class<T> clazz, DiscordRequest request) {
