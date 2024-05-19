@@ -23,11 +23,15 @@ public class DiscordResponseParser {
         DiscordResponseFuture future = dispatcher.queue(request);
         future.onSuccess(
                 res -> {
-                    try {
-                        List<T> resultList = parseResponseFromList(clazz, res.body());
-                        asyncResponse.setResult(resultList);
-                    } catch (Exception e) {
-                        asyncResponse.setException(e);
+                    if (res.status() >= 200 && res.status() < 300) {
+                        try {
+                            List<T> resultList = parseResponseFromList(clazz, res.body());
+                            asyncResponse.setResult(resultList);
+                        } catch (Exception e) {
+                            asyncResponse.setException(e);
+                        }
+                    } else {
+                        asyncResponse.setException(errorResponseException(res));
                     }
                 });
         future.onError(asyncResponse::setException);
@@ -39,11 +43,15 @@ public class DiscordResponseParser {
         DiscordResponseFuture future = dispatcher.queue(request);
         future.onSuccess(
                 res -> {
-                    try {
-                        List<T> resultList = parseResponseFromMap(key, res.body());
-                        asyncResponse.setResult(resultList);
-                    } catch (Exception e) {
-                        asyncResponse.setException(e);
+                    if (res.status() >= 200 && res.status() < 300) {
+                        try {
+                            List<T> resultList = parseResponseFromMap(key, res.body());
+                            asyncResponse.setResult(resultList);
+                        } catch (Exception e) {
+                            asyncResponse.setException(e);
+                        }
+                    } else {
+                        asyncResponse.setException(errorResponseException(res));
                     }
                 });
         future.onError(asyncResponse::setException);
@@ -84,12 +92,15 @@ public class DiscordResponseParser {
                 asyncResponse.setException(e);
             }
         } else {
-            asyncResponse.setException(
-                    new Exception(
-                            "Received HTTP status code "
-                                    + response.status()
-                                    + " "
-                                    + response.body()));
+            asyncResponse.setException(errorResponseException(response));
         }
+    }
+
+    private Throwable errorResponseException(DiscordResponse response) {
+       return new Exception(
+                "Received HTTP status code "
+                        + response.status()
+                        + " "
+                        + response.body());
     }
 }
