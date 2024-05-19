@@ -8,6 +8,7 @@ import com.javadiscord.jdi.internal.cache.Cache;
 import com.javadiscord.jdi.internal.cache.CacheType;
 import com.javadiscord.jdi.internal.gateway.*;
 import com.javadiscord.jdi.internal.gateway.identify.IdentifyRequest;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -128,9 +129,9 @@ public class Discord {
                 }
             }
         } catch (ClassNotFoundException
-                 | InstantiationException
-                 | IllegalAccessException
-                 | InvocationTargetException ignore) {
+                | InstantiationException
+                | IllegalAccessException
+                | InvocationTargetException ignore) {
             /* Ignore */
         }
     }
@@ -142,7 +143,8 @@ public class Discord {
                         identifyRequest,
                         cache);
 
-        WebSocketManagerProxy webSocketManagerProxy = new WebSocketManagerProxy(this.webSocketManager);
+        WebSocketManagerProxy webSocketManagerProxy =
+                new WebSocketManagerProxy(this.webSocketManager);
         ConnectionDetails connectionDetails =
                 new ConnectionDetails(gateway.url(), botToken, gatewaySetting);
         ConnectionMediator connectionMediator =
