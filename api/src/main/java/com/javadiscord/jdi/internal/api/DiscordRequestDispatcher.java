@@ -41,7 +41,7 @@ public class DiscordRequestDispatcher implements Runnable {
 
     @Override
     public void run() {
-        running = new AtomicBoolean(true);
+        running.set(true);
 
         while (running.get()) {
             long currentTime = System.currentTimeMillis();
@@ -66,7 +66,6 @@ public class DiscordRequestDispatcher implements Runnable {
 
     public void stop() {
         running.set(false);
-        // TODO implementation of stop method, handling queue
     }
 
     private void sendRequest(DiscordRequestBuilder discordRequestBuilder) {
