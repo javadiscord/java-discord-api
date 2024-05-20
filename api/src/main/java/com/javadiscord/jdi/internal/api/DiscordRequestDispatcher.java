@@ -22,6 +22,7 @@ public class DiscordRequestDispatcher implements Runnable {
     private final HttpClient httpClient;
     private final BlockingQueue<DiscordRequestBuilder> queue;
     private final String botToken;
+    private boolean appIsActive;
     private int numberOfRequestsSent;
     private long timeSinceLastRequest;
 
@@ -31,6 +32,7 @@ public class DiscordRequestDispatcher implements Runnable {
         this.queue = new LinkedBlockingQueue<>();
         this.numberOfRequestsSent = 0;
         this.timeSinceLastRequest = 0;
+        this.appIsActive = true;
     }
 
     public DiscordResponseFuture queue(DiscordRequest discordRequest) {
@@ -41,7 +43,8 @@ public class DiscordRequestDispatcher implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+
+        while (appIsActive) {
             long currentTime = System.currentTimeMillis();
             long elapsed = currentTime - timeSinceLastRequest;
 
@@ -121,5 +124,9 @@ public class DiscordRequestDispatcher implements Runnable {
                 .flatMap(key -> Stream.of(key, headers.get(key).toString()))
                 .toList()
                 .toArray(new String[0]);
+    }
+
+    public void setAppIsActive(boolean appIsActive) {
+        this.appIsActive = appIsActive;
     }
 }
