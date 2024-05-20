@@ -175,6 +175,8 @@ public class Discord {
             EXECUTOR.shutdownNow();
             Thread.currentThread().interrupt();
         }
+
+        discordRequestDispatcher.setAppIsActive(false);
     }
 
     public void startWithoutGatewayEvents() {
