@@ -172,7 +172,6 @@ public class Discord {
             LOGGER.error(
                     "Termination was interrupted within {} seconds. Trying to re-cancel thread.",
                     30);
-            EXECUTOR.shutdownNow();
             Thread.currentThread().interrupt();
         }
 
