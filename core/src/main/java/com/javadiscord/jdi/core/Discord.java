@@ -167,13 +167,13 @@ public class Discord {
             if (!EXECUTOR.awaitTermination(30, TimeUnit.SECONDS)) {
                 EXECUTOR.shutdownNow();
                 if (!EXECUTOR.awaitTermination(30, TimeUnit.SECONDS)) {
-                    LOGGER.error("Threads not terminated properly");
+                    LOGGER.error(
+                            "Executor failed to shutdown within the specified time limit, some"
+                                    + " tasks may still be running");
                 }
             }
         } catch (InterruptedException ie) {
-            LOGGER.error(
-                    "Termination was interrupted within {} seconds. Trying to re-cancel thread.",
-                    30);
+            LOGGER.error("Termination was interrupted within {} seconds.", 30);
             Thread.currentThread().interrupt();
         }
     }
