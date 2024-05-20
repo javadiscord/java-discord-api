@@ -10,6 +10,7 @@ import java.net.http.HttpResponse;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
 
 public class DiscordRequestDispatcher implements Runnable {
@@ -22,7 +23,7 @@ public class DiscordRequestDispatcher implements Runnable {
     private final HttpClient httpClient;
     private final BlockingQueue<DiscordRequestBuilder> queue;
     private final String botToken;
-    private boolean appIsActive;
+    private AtomicBoolean running;
     private int numberOfRequestsSent;
     private long timeSinceLastRequest;
 
@@ -32,7 +33,6 @@ public class DiscordRequestDispatcher implements Runnable {
         this.queue = new LinkedBlockingQueue<>();
         this.numberOfRequestsSent = 0;
         this.timeSinceLastRequest = 0;
-        this.appIsActive = true;
     }
 
     public DiscordResponseFuture queue(DiscordRequest discordRequest) {
@@ -43,8 +43,9 @@ public class DiscordRequestDispatcher implements Runnable {
 
     @Override
     public void run() {
+        running = new AtomicBoolean(true);
 
-        while (appIsActive) {
+        while (running.get()) {
             long currentTime = System.currentTimeMillis();
             long elapsed = currentTime - timeSinceLastRequest;
 
@@ -63,6 +64,11 @@ public class DiscordRequestDispatcher implements Runnable {
                 /* Ignore */
             }
         }
+    }
+
+    public void stop() {
+        running.set(false);
+        // TODO implementation of stop method, handling queue
     }
 
     private void sendRequest(DiscordRequestBuilder discordRequestBuilder) {
@@ -124,9 +130,5 @@ public class DiscordRequestDispatcher implements Runnable {
                 .flatMap(key -> Stream.of(key, headers.get(key).toString()))
                 .toList()
                 .toArray(new String[0]);
-    }
-
-    public void setAppIsActive(boolean appIsActive) {
-        this.appIsActive = appIsActive;
     }
 }
