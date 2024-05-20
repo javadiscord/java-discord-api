@@ -160,6 +160,8 @@ public class Discord {
             this.webSocketManager.stop();
         }
 
+        discordRequestDispatcher.stop();
+
         EXECUTOR.shutdown();
         try {
             if (!EXECUTOR.awaitTermination(30, TimeUnit.SECONDS)) {
@@ -174,8 +176,6 @@ public class Discord {
                     30);
             Thread.currentThread().interrupt();
         }
-
-        discordRequestDispatcher.stop();
     }
 
     public void startWithoutGatewayEvents() {

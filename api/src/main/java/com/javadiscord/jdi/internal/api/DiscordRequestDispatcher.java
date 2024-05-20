@@ -23,7 +23,7 @@ public class DiscordRequestDispatcher implements Runnable {
     private final HttpClient httpClient;
     private final BlockingQueue<DiscordRequestBuilder> queue;
     private final String botToken;
-    private AtomicBoolean running;
+    private AtomicBoolean running = new AtomicBoolean(false);
     private int numberOfRequestsSent;
     private long timeSinceLastRequest;
 
