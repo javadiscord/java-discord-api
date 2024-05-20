@@ -167,7 +167,7 @@ public class Discord {
             if (!EXECUTOR.awaitTermination(30, TimeUnit.SECONDS)) {
                 EXECUTOR.shutdownNow();
                 if (!EXECUTOR.awaitTermination(30, TimeUnit.SECONDS)) {
-                    LOGGER.error(
+                    LOGGER.warn(
                             "Executor failed to shutdown within the specified time limit, some"
                                     + " tasks may still be running");
                 }
