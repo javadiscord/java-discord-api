@@ -17,7 +17,7 @@ public class DiscordRequestBuilder {
     private final Map<String, Object> queryParameters = new HashMap<>();
     private HttpMethod method;
     private String path;
-    private HttpRequest.BodyPublisher body;
+    private HttpRequest.BodyPublisher body = HttpRequest.BodyPublishers.noBody();
 
     public DiscordRequestBuilder putHeader(String name, Object value) {
         this.headers.put(name, value);

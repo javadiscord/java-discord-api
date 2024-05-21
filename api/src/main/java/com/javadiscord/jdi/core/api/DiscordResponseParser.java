@@ -35,10 +35,9 @@ public class DiscordResponseParser {
 
     private <T> List<T> parseResponse(Class<T> elementType, String response)
             throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(
+        return OBJECT_MAPPER.readValue(
                 response,
-                objectMapper.getTypeFactory().constructCollectionType(List.class, elementType));
+                OBJECT_MAPPER.getTypeFactory().constructCollectionType(List.class, elementType));
     }
 
     public <T> AsyncResponse<T> callAndParse(Class<T> clazz, DiscordRequest request) {
