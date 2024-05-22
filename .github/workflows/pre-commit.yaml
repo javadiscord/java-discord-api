@@ -6,6 +6,10 @@ on:
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
+
+    environment:
+      name: Tests
+
     steps:
       - uses: actions/checkout@v3
 
@@ -19,4 +23,6 @@ jobs:
           gradle-version: 8.7
 
       - name: Build with Gradle
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
         run: gradle build

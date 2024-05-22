@@ -2,6 +2,8 @@ package com.javadiscord.jdi.internal.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.github.mizosoft.methanol.MultipartBodyPublisher;
 
 import java.net.URLEncoder;
@@ -11,7 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DiscordRequestBuilder {
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private static final ObjectMapper OBJECT_MAPPER =
+            JsonMapper.builder().addModule(new JavaTimeModule()).build();
     private final DiscordResponseFuture future = new DiscordResponseFuture();
     private final Map<String, Object> headers = new HashMap<>();
     private final Map<String, Object> queryParameters = new HashMap<>();

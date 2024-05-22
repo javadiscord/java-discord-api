@@ -3,6 +3,7 @@ package com.javadiscord.jdi.core.api;
 import com.javadiscord.jdi.core.api.builders.GetCurrentUserGuildsBuilder;
 import com.javadiscord.jdi.core.api.builders.ModifyCurrentUserBuilder;
 import com.javadiscord.jdi.core.api.builders.UpdateCurrentUserApplicationRoleConnectionBuilder;
+import com.javadiscord.jdi.core.models.channel.Channel;
 import com.javadiscord.jdi.core.models.guild.Guild;
 import com.javadiscord.jdi.core.models.user.Connection;
 import com.javadiscord.jdi.core.models.user.Member;
@@ -21,12 +22,14 @@ public class UserRequest {
         this.responseParser = responseParser;
     }
 
-    public CreateDMRequest createDM(long recipientId) {
-        return new CreateDMRequest(recipientId);
+    public AsyncResponse<Channel> createDM(long recipientId) {
+        return responseParser.callAndParse(Channel.class, new CreateDMRequest(recipientId));
     }
 
-    public CreateGroupDMRequest createGroupDM(List<String> accessTokens, Map<Long, String> nicks) {
-        return new CreateGroupDMRequest(accessTokens, nicks);
+    public AsyncResponse<Channel> createGroupDM(
+            List<String> accessTokens, Map<Long, String> nicks) {
+        return responseParser.callAndParse(
+                Channel.class, new CreateGroupDMRequest(accessTokens, nicks));
     }
 
     public AsyncResponse<Connection> getCurrentUserApplicationRoleConnection(long applicationId) {

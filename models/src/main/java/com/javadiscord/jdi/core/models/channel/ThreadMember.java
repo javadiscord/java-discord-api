@@ -3,7 +3,7 @@ package com.javadiscord.jdi.core.models.channel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.javadiscord.jdi.core.models.guild.Member;
+import com.javadiscord.jdi.core.models.guild.GuildMember;
 
 import java.time.OffsetDateTime;
 
@@ -15,4 +15,4 @@ public record ThreadMember(
                 @JsonProperty("join_timestamp")
                 OffsetDateTime joinTime,
         @JsonProperty("flags") int flags,
-        @JsonProperty("member") Member member) {}
+        @JsonProperty("member") GuildMember guildMember) {}

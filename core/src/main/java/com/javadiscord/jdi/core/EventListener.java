@@ -11,6 +11,7 @@ import com.javadiscord.jdi.core.models.message.*;
 import com.javadiscord.jdi.core.models.scheduled_event.EventUser;
 import com.javadiscord.jdi.core.models.scheduled_event.ScheduledEvent;
 import com.javadiscord.jdi.core.models.stage.Stage;
+import com.javadiscord.jdi.core.models.user.Member;
 import com.javadiscord.jdi.core.models.user.User;
 import com.javadiscord.jdi.core.models.voice.VoiceServer;
 import com.javadiscord.jdi.core.models.voice.VoiceState;
@@ -45,7 +46,7 @@ public interface EventListener {
 
     default void onScheduledEventUpdate(ScheduledEvent scheduledEvent, Guild guild) {}
 
-    default void onGuildMemberAdd(Member member, Guild guild) {}
+    default void onGuildMemberAdd(Member guildMember, Guild guild) {}
 
     default void onStageCreate(Stage stage, Guild guild) {}
 
@@ -112,13 +113,13 @@ public interface EventListener {
 
     default void onAutoModerationRuleUpdate(AutoModerationRule autoModerationRule, Guild guild) {}
 
-    default void onGuildMemberRemove(Member member, Guild guild) {}
+    default void onGuildMemberRemove(Member guildMember, Guild guild) {}
 
     default void onChannelPinUpdate(MessagePin messagePin, Guild guild) {}
 
     default void onThreadCreate(Thread thread, Guild guild) {}
 
-    default void onGuildMemberUpdate(Member member, Guild guild) {}
+    default void onGuildMemberUpdate(Member guildMember, Guild guild) {}
 
     default void onGuildRoleCreate(Role role, Guild guild) {}
 
