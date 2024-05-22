@@ -82,8 +82,9 @@ public class WebSocketHandler implements Handler<WebSocket> {
     }
 
     private void handleClose(Void unused) {
-        retryHandler.retry(
-                () -> connectionMediator.getWebSocketManagerProxy().start(connectionMediator));
+        LOGGER.warn(
+                "The web socket connection to discord was closed. You will no longer receive"
+                        + " gateway events.");
     }
 
     void handleClose(int status, String reason) {
@@ -106,8 +107,13 @@ public class WebSocketHandler implements Handler<WebSocket> {
                         "Discord has updated their API, please use the latest updates on"
                                 + " https://javadiscord.com/");
                 break;
+            case GatewayCloseEventCode.DISALLOWED_INTENTS:
+                LOGGER.error(
+                        "You do not have all the required intents set on your bot. Visit"
+                                + " https://discord.com/developers/applications/");
+                break;
             default:
-                LOGGER.error("[{}] {}", status, reason);
+                LOGGER.error("Web socket close reason [{}] {}", status, reason);
                 break;
         }
     }
