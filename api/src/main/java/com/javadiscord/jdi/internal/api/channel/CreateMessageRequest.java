@@ -8,7 +8,6 @@ import com.javadiscord.jdi.core.models.message.embed.Embed;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
-import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
@@ -46,25 +45,22 @@ public record CreateMessageRequest(
         messageReferences.ifPresent(val -> body.put("message_reference", val));
         components.ifPresent(val -> body.put("components", val));
         stickerIds.ifPresent(val -> body.put("sticker_ids", val));
-        payloadJson.ifPresent(val -> body.put("payload_json", val));
         flags.ifPresent(val -> body.put("flags", val));
         enforceNonce.ifPresent(val -> body.put("enforce_nonce", val));
 
-        bodyBuilder.textPart("payload_json", body);
+        if (payloadJson.isPresent()) {
 
-        files.ifPresent(
-                paths -> {
-                    for (int i = 0; i < paths.size(); i++) {
-                        try {
-                            bodyBuilder.filePart("file[%d]".formatted(i), paths.get(i));
-                        } catch (FileNotFoundException ignored) {
-                        }
-                    }
-                });
+            bodyBuilder.textPart("payload_json", body);
+
+            return new DiscordRequestBuilder()
+                    .post()
+                    .path("/channels/%s/messages".formatted(channelId))
+                    .multipartBody(bodyBuilder.build());
+        }
 
         return new DiscordRequestBuilder()
                 .post()
                 .path("/channels/%s/messages".formatted(channelId))
-                .multipartBody(bodyBuilder.build());
+                .body(body);
     }
 }
