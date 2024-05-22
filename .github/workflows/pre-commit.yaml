@@ -6,6 +6,10 @@ on:
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
+
+    environment:
+      name: Tests
+
     steps:
       - uses: actions/checkout@v3
 
