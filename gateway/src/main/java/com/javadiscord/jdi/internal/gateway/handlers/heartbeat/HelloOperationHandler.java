@@ -28,8 +28,8 @@ public class HelloOperationHandler implements GatewayOperationHandler {
     public void handle(GatewayEvent event, ConnectionMediator connectionMediator) {
         JsonNode jsonData = event.data();
         try {
-            HeartbeatData heartbeatData
-                = OBJECT_MAPPER.readValue(jsonData.toString(), HeartbeatData.class);
+            HeartbeatData heartbeatData =
+                OBJECT_MAPPER.readValue(jsonData.toString(), HeartbeatData.class);
             heartbeatService.startHeartbeat(
                 connectionMediator.getWebSocketManagerProxy().getWebSocket(),
                 heartbeatData.interval

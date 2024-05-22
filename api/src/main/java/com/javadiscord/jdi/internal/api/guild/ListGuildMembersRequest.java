@@ -13,8 +13,8 @@ public record ListGuildMembersRequest(
 
     @Override
     public DiscordRequestBuilder create() {
-        DiscordRequestBuilder discordRequestBuilder
-            = new DiscordRequestBuilder().get().path("/guilds/%s/members".formatted(guildId));
+        DiscordRequestBuilder discordRequestBuilder =
+            new DiscordRequestBuilder().get().path("/guilds/%s/members".formatted(guildId));
 
         limit.ifPresent(val -> discordRequestBuilder.queryParam("limit", val));
         after.ifPresent(val -> discordRequestBuilder.queryParam("after", val));

@@ -12,8 +12,8 @@ public record DeleteWebhookRequest(
 
     @Override
     public DiscordRequestBuilder create() {
-        DiscordRequestBuilder discordRequestBuilder
-            = new DiscordRequestBuilder().delete().path("/webhooks/%s".formatted(webhookId));
+        DiscordRequestBuilder discordRequestBuilder =
+            new DiscordRequestBuilder().delete().path("/webhooks/%s".formatted(webhookId));
         reason.ifPresent(reason -> discordRequestBuilder.putHeader("X-Audit-Log-Reason", reason));
 
         return discordRequestBuilder;

@@ -39,8 +39,8 @@ public record CreateWebhookRequest(
         body.put("name", name);
         avatar.ifPresent(val -> body.put("avatar", val));
 
-        DiscordRequestBuilder discordRequestBuilder
-            = new DiscordRequestBuilder()
+        DiscordRequestBuilder discordRequestBuilder =
+            new DiscordRequestBuilder()
                 .post()
                 .path("/channels/%s/webhooks".formatted(channelId))
                 .body(body);

@@ -40,8 +40,8 @@ public interface CacheInterface<T> {
                     .map(
                         parameter -> {
                             try {
-                                Field field
-                                    = recordClass.getDeclaredField(
+                                Field field =
+                                    recordClass.getDeclaredField(
                                         parameter.getName()
                                     );
                                 field.setAccessible(true);

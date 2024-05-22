@@ -100,8 +100,8 @@ public class IdentifyRequest {
         }
 
         public IdentifyRequest build() {
-            Data data
-                = new Data(
+            Data data =
+                new Data(
                     token,
                     new Properties(os, browser, device),
                     compress,

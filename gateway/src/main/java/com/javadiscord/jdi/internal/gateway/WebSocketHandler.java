@@ -49,8 +49,8 @@ public class WebSocketHandler implements Handler<WebSocket> {
         );
         OPERATION_HANDLER.put(GatewayOpcode.DISPATCH, new EventCodecHandler(cache));
 
-        ReconnectGatewayOperationHandler reconnectMessageHandler
-            = new ReconnectGatewayOperationHandler();
+        ReconnectGatewayOperationHandler reconnectMessageHandler =
+            new ReconnectGatewayOperationHandler();
         OPERATION_HANDLER.put(GatewayOpcode.RECONNECT, reconnectMessageHandler);
         OPERATION_HANDLER.put(GatewayOpcode.INVALID_SESSION, reconnectMessageHandler);
     }
@@ -65,14 +65,14 @@ public class WebSocketHandler implements Handler<WebSocket> {
         LOGGER.trace("Received message from gateway: {}", buffer);
 
         try {
-            GatewayEvent gatewayEvent
-                = OBJECT_MAPPER.readValue(buffer.toString(), GatewayEvent.class);
+            GatewayEvent gatewayEvent =
+                OBJECT_MAPPER.readValue(buffer.toString(), GatewayEvent.class);
 
             connectionMediator.getConnectionDetails().setSequence(gatewayEvent.sequenceNumber());
 
             if (OPERATION_HANDLER.containsKey(gatewayEvent.opcode())) {
-                GatewayOperationHandler gatewayOperationHandler
-                    = OPERATION_HANDLER.get(gatewayEvent.opcode());
+                GatewayOperationHandler gatewayOperationHandler =
+                    OPERATION_HANDLER.get(gatewayEvent.opcode());
                 gatewayOperationHandler.handle(gatewayEvent, connectionMediator);
             } else {
                 LOGGER.warn("Unknown opcode {}", gatewayEvent.opcode());

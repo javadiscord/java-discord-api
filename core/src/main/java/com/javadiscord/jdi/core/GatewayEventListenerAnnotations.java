@@ -219,8 +219,8 @@ public class GatewayEventListenerAnnotations implements GatewayObserver {
         }
         Class<? extends Annotation> annotationClass;
         try {
-            annotationClass
-                = (Class<? extends Annotation>) Class
+            annotationClass =
+                (Class<? extends Annotation>) Class
                     .forName(EVENT_TYPE_ANNOTATIONS.get(eventType));
         } catch (ClassNotFoundException e) {
             LOGGER.error("Could not find annotation binding for {}", eventType);

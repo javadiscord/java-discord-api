@@ -13,8 +13,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class DiscordRequestDispatcher implements Runnable {
-    private static final String BASE_URL
-        = System.getProperty("DISCORD_BASE_URL") != null
+    private static final String BASE_URL =
+        System.getProperty("DISCORD_BASE_URL") != null
             ? System.getProperty("DISCORD_BASE_URL")
             : "https://discord.com/api";
 
@@ -64,8 +64,8 @@ public class DiscordRequestDispatcher implements Runnable {
 
     private void sendRequest(DiscordRequestBuilder discordRequestBuilder) {
         try {
-            HttpRequest.Builder requestBuilder
-                = HttpRequest.newBuilder()
+            HttpRequest.Builder requestBuilder =
+                HttpRequest.newBuilder()
                     .uri(
                         URI.create(
                             "%s%s%s"
@@ -104,8 +104,8 @@ public class DiscordRequestDispatcher implements Runnable {
 
             HttpRequest httpRequest = requestBuilder.build();
 
-            HttpResponse<String> response
-                = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            HttpResponse<String> response =
+                httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
 
             numberOfRequestsSent++;
             timeSinceLastRequest = System.currentTimeMillis();

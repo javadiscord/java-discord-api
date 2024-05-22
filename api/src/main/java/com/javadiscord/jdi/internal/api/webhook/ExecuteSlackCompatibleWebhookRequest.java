@@ -13,8 +13,8 @@ public record ExecuteSlackCompatibleWebhookRequest(
 ) implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
-        DiscordRequestBuilder discordRequestBuilder
-            = new DiscordRequestBuilder()
+        DiscordRequestBuilder discordRequestBuilder =
+            new DiscordRequestBuilder()
                 .post()
                 .path("/webhooks/%s/%s/slack".formatted(webhookId, webhookToken));
 

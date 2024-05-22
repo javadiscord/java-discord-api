@@ -13,8 +13,8 @@ public record DeleteWebhookMessageRequest(
 ) implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
-        DiscordRequestBuilder discordRequestBuilder
-            = new DiscordRequestBuilder()
+        DiscordRequestBuilder discordRequestBuilder =
+            new DiscordRequestBuilder()
                 .delete()
                 .path(
                     "/webhooks/%s/%s/messages/%s"

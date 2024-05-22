@@ -18,8 +18,8 @@ public record ListPublicArchivedThreadsRequest(
 
     @Override
     public DiscordRequestBuilder create() {
-        DiscordRequestBuilder discordRequestBuilder
-            = new DiscordRequestBuilder()
+        DiscordRequestBuilder discordRequestBuilder =
+            new DiscordRequestBuilder()
                 .get()
                 .path("/channels/%s/threads/archived/public".formatted(channelId));
 

@@ -21,8 +21,8 @@ public record CreateGuildStickerRequest(
     public DiscordRequestBuilder create() {
         HttpRequest.BodyPublisher body;
         try {
-            body
-                = MultipartBodyPublisher.newBuilder()
+            body =
+                MultipartBodyPublisher.newBuilder()
                     .textPart("name", name)
                     .textPart("description", description)
                     .textPart("tags", tags)

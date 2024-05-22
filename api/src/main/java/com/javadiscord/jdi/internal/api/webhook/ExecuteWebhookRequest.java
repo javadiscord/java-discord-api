@@ -75,8 +75,8 @@ public record ExecuteWebhookRequest(
             }
         );
 
-        DiscordRequestBuilder discordRequestBuilder
-            = new DiscordRequestBuilder()
+        DiscordRequestBuilder discordRequestBuilder =
+            new DiscordRequestBuilder()
                 .post()
                 .path("/webhooks/%s/%s".formatted(webhookId, webhookToken))
                 .multipartBody(bodyBuilder.build());

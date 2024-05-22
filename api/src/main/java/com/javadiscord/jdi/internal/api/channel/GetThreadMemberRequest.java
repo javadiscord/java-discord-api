@@ -13,8 +13,8 @@ public record GetThreadMemberRequest(
 
     @Override
     public DiscordRequestBuilder create() {
-        DiscordRequestBuilder discordRequestBuilder
-            = new DiscordRequestBuilder()
+        DiscordRequestBuilder discordRequestBuilder =
+            new DiscordRequestBuilder()
                 .get()
                 .path("/channels/%s/thread-members/%s".formatted(channelId, userId));
 

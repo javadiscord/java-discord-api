@@ -21,8 +21,8 @@ public record GetAnswerVotersRequest(
 
     @Override
     public DiscordRequestBuilder create() {
-        DiscordRequestBuilder builder
-            = new DiscordRequestBuilder()
+        DiscordRequestBuilder builder =
+            new DiscordRequestBuilder()
                 .path(
                     "/channels/%s/polls/%s/answers/%s"
                         .formatted(channelId, messageId, answerId)

@@ -15,8 +15,8 @@ import org.apache.logging.log4j.Logger;
 
 public class HeartbeatService {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final ScheduledExecutorService EXECUTOR_SERVICE
-        = Executors.newScheduledThreadPool(2);
+    private static final ScheduledExecutorService EXECUTOR_SERVICE =
+        Executors.newScheduledThreadPool(2);
     private final ConnectionMediator connectionMediator;
     private final AtomicBoolean receivedHeartbeatAck;
     private final AtomicInteger missedHeartbeatAck;

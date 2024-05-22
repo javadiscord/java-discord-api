@@ -20,8 +20,8 @@ public record GetGuildBansRequest(
 
     @Override
     public DiscordRequestBuilder create() {
-        DiscordRequestBuilder discordRequestBuilder
-            = new DiscordRequestBuilder().get().path("/guilds/%s/bans".formatted(guildId));
+        DiscordRequestBuilder discordRequestBuilder =
+            new DiscordRequestBuilder().get().path("/guilds/%s/bans".formatted(guildId));
 
         limit.ifPresent(val -> discordRequestBuilder.queryParam("limit", val));
         before.ifPresent(val -> discordRequestBuilder.queryParam("before", val));

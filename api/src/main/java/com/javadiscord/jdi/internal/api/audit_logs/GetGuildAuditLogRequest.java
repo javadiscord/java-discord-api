@@ -23,8 +23,8 @@ public record GetGuildAuditLogRequest(
 
     @Override
     public DiscordRequestBuilder create() {
-        DiscordRequestBuilder discordRequestBuilder
-            = new DiscordRequestBuilder().get().path("/guilds/%s/audit-logs".formatted(guildId));
+        DiscordRequestBuilder discordRequestBuilder =
+            new DiscordRequestBuilder().get().path("/guilds/%s/audit-logs".formatted(guildId));
 
         userId.ifPresent(val -> discordRequestBuilder.queryParam("user_id", val));
         actionType.ifPresent(val -> discordRequestBuilder.queryParam("action_type", val));

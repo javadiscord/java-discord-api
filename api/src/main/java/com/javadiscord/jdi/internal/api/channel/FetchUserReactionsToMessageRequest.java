@@ -15,8 +15,8 @@ public record FetchUserReactionsToMessageRequest(
 
     @Override
     public DiscordRequestBuilder create() {
-        DiscordRequestBuilder discordRequestBuilder
-            = new DiscordRequestBuilder()
+        DiscordRequestBuilder discordRequestBuilder =
+            new DiscordRequestBuilder()
                 .get()
                 .path(
                     "/channels/%s/messages/%s/reactions/%s"

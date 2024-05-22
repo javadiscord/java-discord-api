@@ -26,8 +26,8 @@ public record GetScheduledEventUsersRequest(
 
     @Override
     public DiscordRequestBuilder create() {
-        DiscordRequestBuilder discordRequestBuilder
-            = new DiscordRequestBuilder()
+        DiscordRequestBuilder discordRequestBuilder =
+            new DiscordRequestBuilder()
                 .get()
                 .path(
                     "/guilds/%s/scheduled-events/%s/users"

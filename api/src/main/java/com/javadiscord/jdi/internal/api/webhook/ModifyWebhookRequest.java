@@ -22,8 +22,8 @@ public record ModifyWebhookRequest(
         avatar.ifPresent(val -> body.put("avatar", val));
         channelId.ifPresent(val -> body.put("channel_id", val));
 
-        DiscordRequestBuilder discordRequestBuilder
-            = new DiscordRequestBuilder()
+        DiscordRequestBuilder discordRequestBuilder =
+            new DiscordRequestBuilder()
                 .patch()
                 .path("/webhooks/%s".formatted(webhookId))
                 .body(body);

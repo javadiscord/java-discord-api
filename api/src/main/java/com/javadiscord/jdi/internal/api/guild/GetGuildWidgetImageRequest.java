@@ -12,8 +12,8 @@ public record GetGuildWidgetImageRequest(
 ) implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
-        DiscordRequestBuilder discordRequestBuilder
-            = new DiscordRequestBuilder().get().path("/guilds/%s/widget.png".formatted(guildId));
+        DiscordRequestBuilder discordRequestBuilder =
+            new DiscordRequestBuilder().get().path("/guilds/%s/widget.png".formatted(guildId));
 
         style.ifPresent(val -> discordRequestBuilder.queryParam("style", val.name()));
 

@@ -49,8 +49,8 @@ public class GatewayEventListener implements GatewayObserver {
                 guildId = (long) guildIdField.get(event);
             }
 
-            com.javadiscord.jdi.core.models.guild.Guild model
-                = (com.javadiscord.jdi.core.models.guild.Guild) cache.getCacheForGuild(guildId)
+            com.javadiscord.jdi.core.models.guild.Guild model =
+                (com.javadiscord.jdi.core.models.guild.Guild) cache.getCacheForGuild(guildId)
                     .get(
                         guildId,
                         com.javadiscord.jdi.core.models.guild.Guild.class

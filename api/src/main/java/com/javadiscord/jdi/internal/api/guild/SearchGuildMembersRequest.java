@@ -22,8 +22,8 @@ public record SearchGuildMembersRequest(
 
     @Override
     public DiscordRequestBuilder create() {
-        DiscordRequestBuilder discordRequestBuilder
-            = new DiscordRequestBuilder()
+        DiscordRequestBuilder discordRequestBuilder =
+            new DiscordRequestBuilder()
                 .get()
                 .path("/guilds/%s/members/search".formatted(guildId));
 

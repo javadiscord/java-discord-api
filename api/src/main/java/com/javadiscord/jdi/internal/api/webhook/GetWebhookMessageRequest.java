@@ -13,8 +13,8 @@ public record GetWebhookMessageRequest(
 ) implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
-        DiscordRequestBuilder discordRequestBuilder
-            = new DiscordRequestBuilder()
+        DiscordRequestBuilder discordRequestBuilder =
+            new DiscordRequestBuilder()
                 .get()
                 .path(
                     "/webhooks/%s/%s/messages/%s"

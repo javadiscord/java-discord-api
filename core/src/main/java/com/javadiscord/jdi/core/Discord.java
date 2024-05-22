@@ -31,8 +31,8 @@ public class Discord {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private static final String WEBSITE = "https://javadiscord.com/";
 
-    private static final String BASE_URL
-        = System.getProperty("DISCORD_BASE_URL") != null
+    private static final String BASE_URL =
+        System.getProperty("DISCORD_BASE_URL") != null
             ? System.getProperty("DISCORD_BASE_URL")
             : "https://discord.com/api";
 
@@ -95,8 +95,8 @@ public class Discord {
         this.botToken = botToken;
         this.discordRequestDispatcher = new DiscordRequestDispatcher(botToken);
         this.gateway = getGatewayURL(botToken);
-        this.gatewaySetting
-            = new GatewaySetting().setEncoding(GatewayEncoding.JSON).setApiVersion(10);
+        this.gatewaySetting =
+            new GatewaySetting().setEncoding(GatewayEncoding.JSON).setApiVersion(10);
         this.identifyRequest = identifyRequest;
         this.cache = cache;
         if (annotationLibPresent()) {
@@ -138,18 +138,18 @@ public class Discord {
     }
 
     public void start() {
-        WebSocketManager webSocketManager
-            = new WebSocketManager(
+        WebSocketManager webSocketManager =
+            new WebSocketManager(
                 new GatewaySetting().setApiVersion(10).setEncoding(GatewayEncoding.JSON),
                 identifyRequest,
                 cache
             );
 
         WebSocketManagerProxy webSocketManagerProxy = new WebSocketManagerProxy(webSocketManager);
-        ConnectionDetails connectionDetails
-            = new ConnectionDetails(gateway.url(), botToken, gatewaySetting);
-        ConnectionMediator connectionMediator
-            = new ConnectionMediator(connectionDetails, webSocketManagerProxy);
+        ConnectionDetails connectionDetails =
+            new ConnectionDetails(gateway.url(), botToken, gatewaySetting);
+        ConnectionMediator connectionMediator =
+            new ConnectionMediator(connectionDetails, webSocketManagerProxy);
         connectionMediator.addObserver(new GatewayEventListenerAnnotations(this));
         connectionMediator.addObserver(new GatewayEventListener(this));
         webSocketManagerProxy.start(connectionMediator);
@@ -172,14 +172,14 @@ public class Discord {
 
     private static Gateway getGatewayURL(String authentication) {
         try (HttpClient httpClient = HttpClient.newBuilder().build()) {
-            HttpRequest request
-                = HttpRequest.newBuilder()
+            HttpRequest request =
+                HttpRequest.newBuilder()
                     .uri(URI.create(BASE_URL + "/gateway/bot"))
                     .header("Authorization", "Bot " + authentication)
                     .GET()
                     .build();
-            HttpResponse<String> response
-                = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            HttpResponse<String> response =
+                httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
             if (response.statusCode() == 401) {
                 throw new RuntimeException("Invalid bot token provided");

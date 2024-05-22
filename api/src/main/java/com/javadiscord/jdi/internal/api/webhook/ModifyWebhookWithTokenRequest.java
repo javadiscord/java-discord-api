@@ -21,8 +21,8 @@ public record ModifyWebhookWithTokenRequest(
         name.ifPresent(val -> body.put("name", val));
         avatar.ifPresent(val -> body.put("avatar", val));
 
-        DiscordRequestBuilder discordRequestBuilder
-            = new DiscordRequestBuilder()
+        DiscordRequestBuilder discordRequestBuilder =
+            new DiscordRequestBuilder()
                 .patch()
                 .path("/webhooks/%s/%s".formatted(webhookId, webhookToken))
                 .body(body);

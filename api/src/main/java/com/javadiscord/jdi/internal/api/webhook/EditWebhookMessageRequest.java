@@ -52,8 +52,8 @@ public record EditWebhookMessageRequest(
             }
         );
 
-        DiscordRequestBuilder discordRequestBuilder
-            = new DiscordRequestBuilder()
+        DiscordRequestBuilder discordRequestBuilder =
+            new DiscordRequestBuilder()
                 .patch()
                 .path(
                     "/webhooks/%s/%s/messages/%s"

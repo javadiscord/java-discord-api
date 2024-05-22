@@ -13,8 +13,8 @@ public record ExecuteGithubCompatibleWebhookRequest(
 ) implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
-        DiscordRequestBuilder discordRequestBuilder
-            = new DiscordRequestBuilder()
+        DiscordRequestBuilder discordRequestBuilder =
+            new DiscordRequestBuilder()
                 .post()
                 .path("/webhooks/%s/%s/github".formatted(webhookId, webhookToken));
 

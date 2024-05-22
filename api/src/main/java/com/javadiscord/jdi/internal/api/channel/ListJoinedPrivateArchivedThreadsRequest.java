@@ -13,8 +13,8 @@ public record ListJoinedPrivateArchivedThreadsRequest(
 
     @Override
     public DiscordRequestBuilder create() {
-        DiscordRequestBuilder discordRequestBuilder
-            = new DiscordRequestBuilder()
+        DiscordRequestBuilder discordRequestBuilder =
+            new DiscordRequestBuilder()
                 .get()
                 .path(
                     "/channels/%s/users/@me/threads/archived/private"

@@ -35,8 +35,8 @@ public class WebSocketManager {
     public void start(ConnectionMediator connectionMediator) {
         String gatewayURL = connectionMediator.getConnectionDetails().getGatewayURL();
 
-        WebSocketConnectOptions webSocketConnectOptions
-            = new WebSocketConnectOptions()
+        WebSocketConnectOptions webSocketConnectOptions =
+            new WebSocketConnectOptions()
                 .addHeader("Origin", "localhost")
                 .setAbsoluteURI(
                     "%s/?v=%d&encoding=%s"
@@ -56,8 +56,8 @@ public class WebSocketManager {
 
                     this.webSocket = webSocket;
 
-                    WebSocketHandler webSocketHandler
-                        = new WebSocketHandler(connectionMediator, retryHandler, cache);
+                    WebSocketHandler webSocketHandler =
+                        new WebSocketHandler(connectionMediator, retryHandler, cache);
 
                     webSocketHandler.handle(webSocket);
 

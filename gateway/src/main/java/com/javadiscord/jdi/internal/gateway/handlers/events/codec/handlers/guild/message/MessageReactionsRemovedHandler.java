@@ -14,8 +14,8 @@ public class MessageReactionsRemovedHandler implements EventHandler<MessageReact
         Cache cache
     ) {
         if (cache.getCacheForGuild(event.guildId()).isCached(event.messageId(), Message.class)) {
-            Message message
-                = (Message) cache.getCacheForGuild(event.guildId())
+            Message message =
+                (Message) cache.getCacheForGuild(event.guildId())
                     .get(event.messageId(), Message.class);
             message.messageReactions().clear();
         }

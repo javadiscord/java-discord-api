@@ -15,8 +15,8 @@ public record GetGuildPruneCountRequest(
 
     @Override
     public DiscordRequestBuilder create() {
-        DiscordRequestBuilder discordRequestBuilder
-            = new DiscordRequestBuilder().get().path("/guilds/%s/prune".formatted(guildId));
+        DiscordRequestBuilder discordRequestBuilder =
+            new DiscordRequestBuilder().get().path("/guilds/%s/prune".formatted(guildId));
 
         days.ifPresent(val -> discordRequestBuilder.queryParam("days", val));
         includeRoles.ifPresent(

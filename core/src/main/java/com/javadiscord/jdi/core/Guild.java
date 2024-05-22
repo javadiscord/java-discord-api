@@ -30,19 +30,19 @@ public class Guild {
 
         long guildId = guild.id();
 
-        DiscordResponseParser discordResponseParser
-            = new DiscordResponseParser(discord.getDiscordRequestDispatcher());
+        DiscordResponseParser discordResponseParser =
+            new DiscordResponseParser(discord.getDiscordRequestDispatcher());
 
         this.applicationRequest = new ApplicationRequest(discordResponseParser, guildId);
-        this.applicationRoleConnectionMetaRequest
-            = new ApplicationRoleConnectionMetaRequest(discordResponseParser, guildId);
+        this.applicationRoleConnectionMetaRequest =
+            new ApplicationRoleConnectionMetaRequest(discordResponseParser, guildId);
         this.auditLogsRequest = new AuditLogsRequest(discordResponseParser, guildId);
         this.autoModerationRequest = new AutoModerationRequest(discordResponseParser, guildId);
         this.channelRequest = new ChannelRequest(discordResponseParser, guildId);
         this.emojiRequest = new EmojiRequest(discordResponseParser, guildId);
         this.guildRequest = new GuildRequest(discordResponseParser, guildId);
-        this.guildScheduledEventRequest
-            = new GuildScheduledEventRequest(discordResponseParser, guildId);
+        this.guildScheduledEventRequest =
+            new GuildScheduledEventRequest(discordResponseParser, guildId);
         this.inviteRequest = new InviteRequest(discordResponseParser, guildId);
         this.pollRequest = new PollRequest(discordResponseParser, guildId);
         this.stageRequest = new StageRequest(discordResponseParser, guildId);
