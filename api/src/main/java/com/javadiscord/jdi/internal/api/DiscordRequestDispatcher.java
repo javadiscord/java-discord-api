@@ -1,5 +1,6 @@
 package com.javadiscord.jdi.internal.api;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -23,7 +24,7 @@ public class DiscordRequestDispatcher implements Runnable {
     private final HttpClient httpClient;
     private final BlockingQueue<DiscordRequestBuilder> queue;
     private final String botToken;
-    private AtomicBoolean running = new AtomicBoolean(false);
+    private final AtomicBoolean running = new AtomicBoolean(false);
     private int numberOfRequestsSent;
     private long timeSinceLastRequest;
 
@@ -48,20 +49,14 @@ public class DiscordRequestDispatcher implements Runnable {
         while (running.get()) {
             long currentTime = System.currentTimeMillis();
             long elapsed = currentTime - timeSinceLastRequest;
-
-            if (elapsed < 1000 && numberOfRequestsSent >= 50) {
-                try {
-                    Thread.sleep(1000 - elapsed);
-                } catch (InterruptedException e) {
-                    /* Ignore */
-                }
-                numberOfRequestsSent = 0;
-            }
-
             try {
+                if (elapsed < 1000 && numberOfRequestsSent >= 50) {
+                    Thread.sleep(1000L - elapsed);
+                    numberOfRequestsSent = 0;
+                }
                 sendRequest(queue.take());
             } catch (InterruptedException e) {
-                /* Ignore */
+                Thread.currentThread().interrupt();
             }
         }
     }
@@ -71,6 +66,7 @@ public class DiscordRequestDispatcher implements Runnable {
     }
 
     private void sendRequest(DiscordRequestBuilder discordRequestBuilder) {
+        LOGGER.debug("Sending request {}", discordRequestBuilder);
         try {
             HttpRequest.Builder requestBuilder =
                 HttpRequest.newBuilder()
@@ -126,7 +122,11 @@ public class DiscordRequestDispatcher implements Runnable {
                 )
             );
 
-        } catch (Exception e) {
+        } catch (InterruptedException e) {
+            LOGGER.error("Thread was interrupted", e);
+            discordRequestBuilder.setFailureError(e);
+            Thread.currentThread().interrupt();
+        } catch (IOException e) {
             LOGGER.error(
                 "Failed to send request to {}{}", BASE_URL, discordRequestBuilder.getPath(), e
             );

@@ -5,6 +5,7 @@ import java.net.http.HttpRequest;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -129,5 +130,42 @@ public class DiscordRequestBuilder {
 
     protected void setFailureError(Throwable ex) {
         future.setException(ex);
+    }
+
+    @Override
+    public String toString() {
+        String headersString =
+            headers.entrySet().stream()
+                .map(entry -> entry.getKey() + "=" + entry.getValue())
+                .collect(Collectors.joining(", "));
+
+        String queryParamsString =
+            queryParameters.entrySet().stream()
+                .map(entry -> entry.getKey() + "=" + entry.getValue())
+                .collect(Collectors.joining(", "));
+
+        String bodyString;
+        try {
+            bodyString = OBJECT_MAPPER.writeValueAsString(body);
+        } catch (Exception e) {
+            bodyString = "Error converting body to string: " + e.getMessage();
+        }
+
+        return this.getClass().getName()
+            + "{"
+            + "method="
+            + method
+            + ", path='"
+            + path
+            + '\''
+            + ", headers={"
+            + headersString
+            + '}'
+            + ", queryParameters={"
+            + queryParamsString
+            + '}'
+            + ", body="
+            + bodyString
+            + '}';
     }
 }
