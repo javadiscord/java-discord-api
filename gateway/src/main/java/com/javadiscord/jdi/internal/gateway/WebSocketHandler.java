@@ -1,7 +1,8 @@
 package com.javadiscord.jdi.internal.gateway;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.javadiscord.jdi.internal.cache.Cache;
 import com.javadiscord.jdi.internal.gateway.handlers.GatewayOperationHandler;
 import com.javadiscord.jdi.internal.gateway.handlers.ReconnectGatewayOperationHandler;
@@ -10,15 +11,13 @@ import com.javadiscord.jdi.internal.gateway.handlers.heartbeat.HeartbeatAckOpera
 import com.javadiscord.jdi.internal.gateway.handlers.heartbeat.HeartbeatService;
 import com.javadiscord.jdi.internal.gateway.handlers.heartbeat.HelloOperationHandler;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.vertx.core.Handler;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.WebSocket;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class WebSocketHandler implements Handler<WebSocket> {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -29,9 +28,10 @@ public class WebSocketHandler implements Handler<WebSocket> {
     private final Cache cache;
 
     public WebSocketHandler(
-            ConnectionMediator connectionMediator,
-            WebSocketRetryHandler retryHandler,
-            Cache cache) {
+        ConnectionMediator connectionMediator,
+        WebSocketRetryHandler retryHandler,
+        Cache cache
+    ) {
         this.connectionMediator = connectionMediator;
         this.retryHandler = retryHandler;
         this.cache = cache;
@@ -42,13 +42,15 @@ public class WebSocketHandler implements Handler<WebSocket> {
         HeartbeatService heartbeatService = new HeartbeatService(connectionMediator);
         OPERATION_HANDLER.put(GatewayOpcode.HELLO, new HelloOperationHandler(heartbeatService));
         OPERATION_HANDLER.put(
-                GatewayOpcode.HEARTBEAT_ACK, new HeartbeatAckOperationHandler(heartbeatService));
+            GatewayOpcode.HEARTBEAT_ACK, new HeartbeatAckOperationHandler(heartbeatService)
+        );
         OPERATION_HANDLER.put(
-                GatewayOpcode.HEARTBEAT, new HeartbeatAckOperationHandler(heartbeatService));
+            GatewayOpcode.HEARTBEAT, new HeartbeatAckOperationHandler(heartbeatService)
+        );
         OPERATION_HANDLER.put(GatewayOpcode.DISPATCH, new EventCodecHandler(cache));
 
-        ReconnectGatewayOperationHandler reconnectMessageHandler =
-                new ReconnectGatewayOperationHandler();
+        ReconnectGatewayOperationHandler reconnectMessageHandler
+            = new ReconnectGatewayOperationHandler();
         OPERATION_HANDLER.put(GatewayOpcode.RECONNECT, reconnectMessageHandler);
         OPERATION_HANDLER.put(GatewayOpcode.INVALID_SESSION, reconnectMessageHandler);
     }
@@ -63,14 +65,14 @@ public class WebSocketHandler implements Handler<WebSocket> {
         LOGGER.trace("Received message from gateway: {}", buffer);
 
         try {
-            GatewayEvent gatewayEvent =
-                    OBJECT_MAPPER.readValue(buffer.toString(), GatewayEvent.class);
+            GatewayEvent gatewayEvent
+                = OBJECT_MAPPER.readValue(buffer.toString(), GatewayEvent.class);
 
             connectionMediator.getConnectionDetails().setSequence(gatewayEvent.sequenceNumber());
 
             if (OPERATION_HANDLER.containsKey(gatewayEvent.opcode())) {
-                GatewayOperationHandler gatewayOperationHandler =
-                        OPERATION_HANDLER.get(gatewayEvent.opcode());
+                GatewayOperationHandler gatewayOperationHandler
+                    = OPERATION_HANDLER.get(gatewayEvent.opcode());
                 gatewayOperationHandler.handle(gatewayEvent, connectionMediator);
             } else {
                 LOGGER.warn("Unknown opcode {}", gatewayEvent.opcode());
@@ -83,7 +85,8 @@ public class WebSocketHandler implements Handler<WebSocket> {
 
     private void handleClose(Void unused) {
         retryHandler.retry(
-                () -> connectionMediator.getWebSocketManagerProxy().start(connectionMediator));
+            () -> connectionMediator.getWebSocketManagerProxy().start(connectionMediator)
+        );
     }
 
     void handleClose(int status, String reason) {
@@ -103,8 +106,9 @@ public class WebSocketHandler implements Handler<WebSocket> {
             case GatewayCloseEventCode.INVALID_API_VERSION:
             case GatewayCloseEventCode.UNKNOWN_OPCODE:
                 LOGGER.error(
-                        "Discord has updated their API, please use the latest updates on"
-                                + " https://javadiscord.com/");
+                    "Discord has updated their API, please use the latest updates on"
+                        + " https://javadiscord.com/"
+                );
                 break;
             default:
                 LOGGER.error("[{}] {}", status, reason);

@@ -9,7 +9,10 @@ import com.javadiscord.jdi.core.models.message.Message;
 public class EchoHandler {
 
     @MessageCreate
-    public void echoMessages(Message message, Guild guild) {
+    public void echoMessages(
+        Message message,
+        Guild guild
+    ) {
         System.out.println("EchoHandler");
     }
 }

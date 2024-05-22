@@ -8,7 +8,8 @@ public class ConnectionDetails {
     private int sequence;
 
     public ConnectionDetails(
-            String gatewayURL, String authorization, GatewaySetting gatewaySetting) {
+        String gatewayURL, String authorization, GatewaySetting gatewaySetting
+    ) {
         this.gatewayURL = gatewayURL;
         this.authorization = authorization;
         this.gatewaySetting = gatewaySetting;

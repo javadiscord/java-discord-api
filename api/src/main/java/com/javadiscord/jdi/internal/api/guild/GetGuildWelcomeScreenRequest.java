@@ -8,7 +8,7 @@ public record GetGuildWelcomeScreenRequest(long guildId) implements DiscordReque
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-                .get()
-                .path("/guilds/%s/welcome-screen".formatted(guildId));
+            .get()
+            .path("/guilds/%s/welcome-screen".formatted(guildId));
     }
 }

@@ -1,12 +1,12 @@
 package com.javadiscord.jdi.core.api;
 
+import java.nio.file.Path;
+import java.util.List;
+
 import com.javadiscord.jdi.core.api.builders.ModifyGuildStickerBuilder;
 import com.javadiscord.jdi.core.models.message.Sticker;
 import com.javadiscord.jdi.core.models.message.StickerPack;
 import com.javadiscord.jdi.internal.api.sticker.*;
-
-import java.nio.file.Path;
-import java.util.List;
 
 public class StickerRequest {
     private final DiscordResponseParser responseParser;
@@ -18,20 +18,28 @@ public class StickerRequest {
     }
 
     public AsyncResponse<Sticker> createGuildSticker(
-            long guildId, String name, String description, String tags, Path filePath) {
+        long guildId,
+        String name,
+        String description,
+        String tags,
+        Path filePath
+    ) {
         return responseParser.callAndParse(
-                Sticker.class,
-                new CreateGuildStickerRequest(guildId, name, description, tags, filePath));
+            Sticker.class,
+            new CreateGuildStickerRequest(guildId, name, description, tags, filePath)
+        );
     }
 
     public AsyncResponse<Sticker> deleteGuildSticker(long stickerId) {
         return responseParser.callAndParse(
-                Sticker.class, new DeleteGuildStickerRequest(guildId, stickerId));
+            Sticker.class, new DeleteGuildStickerRequest(guildId, stickerId)
+        );
     }
 
     public AsyncResponse<Sticker> getGuildSticker(long stickerId) {
         return responseParser.callAndParse(
-                Sticker.class, new GetGuildStickerRequest(guildId, stickerId));
+            Sticker.class, new GetGuildStickerRequest(guildId, stickerId)
+        );
     }
 
     public AsyncResponse<List<Sticker>> getGuildStickers() {

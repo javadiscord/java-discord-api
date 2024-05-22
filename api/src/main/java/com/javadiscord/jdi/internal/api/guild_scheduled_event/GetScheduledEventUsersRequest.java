@@ -1,18 +1,18 @@
 package com.javadiscord.jdi.internal.api.guild_scheduled_event;
 
+import java.util.Optional;
+
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
-import java.util.Optional;
-
 public record GetScheduledEventUsersRequest(
-        long guildId,
-        long scheduledEventId,
-        Optional<Integer> limit,
-        Optional<Boolean> withMember,
-        Optional<Long> before,
-        Optional<Long> after)
-        implements DiscordRequest {
+    long guildId,
+    long scheduledEventId,
+    Optional<Integer> limit,
+    Optional<Boolean> withMember,
+    Optional<Long> before,
+    Optional<Long> after
+) implements DiscordRequest {
 
     public GetScheduledEventUsersRequest {
         if (before.isPresent() && after.isPresent()) {
@@ -26,12 +26,13 @@ public record GetScheduledEventUsersRequest(
 
     @Override
     public DiscordRequestBuilder create() {
-        DiscordRequestBuilder discordRequestBuilder =
-                new DiscordRequestBuilder()
-                        .get()
-                        .path(
-                                "/guilds/%s/scheduled-events/%s/users"
-                                        .formatted(guildId, scheduledEventId));
+        DiscordRequestBuilder discordRequestBuilder
+            = new DiscordRequestBuilder()
+                .get()
+                .path(
+                    "/guilds/%s/scheduled-events/%s/users"
+                        .formatted(guildId, scheduledEventId)
+                );
 
         limit.ifPresent(val -> discordRequestBuilder.queryParam("limit", val));
         withMember.ifPresent(val -> discordRequestBuilder.queryParam("with_member", val));

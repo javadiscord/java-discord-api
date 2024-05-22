@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.stage.ModifyStageRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.stage.ModifyStageRequest;
 
 public class ModifyStageBuilder {
     private final long channelId;

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record PollAnswerCount(
-        @JsonProperty("id") int id,
-        @JsonProperty("count") int count,
-        @JsonProperty("me_voted") boolean meVoted) {}
+    @JsonProperty("id") int id,
+    @JsonProperty("count") int count,
+    @JsonProperty("me_voted") boolean meVoted
+) {}

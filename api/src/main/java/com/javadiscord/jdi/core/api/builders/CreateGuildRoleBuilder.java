@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.guild.CreateGuildRoleRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.guild.CreateGuildRoleRequest;
 
 public class CreateGuildRoleBuilder {
     private long guildId;
@@ -66,6 +66,14 @@ public class CreateGuildRoleBuilder {
 
     public CreateGuildRoleRequest build() {
         return new CreateGuildRoleRequest(
-                guildId, name, permissions, color, hoist, icon, unicodeEmoji, mentionable);
+            guildId,
+            name,
+            permissions,
+            color,
+            hoist,
+            icon,
+            unicodeEmoji,
+            mentionable
+        );
     }
 }

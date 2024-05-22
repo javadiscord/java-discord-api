@@ -1,13 +1,13 @@
 package com.javadiscord.jdi.core.processor;
 
+import java.io.File;
+import java.lang.reflect.Constructor;
+import java.util.List;
+
 import com.javadiscord.jdi.core.annotations.EventListener;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.io.File;
-import java.lang.reflect.Constructor;
-import java.util.List;
 
 public class ListenerLoader {
     private static final Logger LOGGER = LogManager.getLogger();

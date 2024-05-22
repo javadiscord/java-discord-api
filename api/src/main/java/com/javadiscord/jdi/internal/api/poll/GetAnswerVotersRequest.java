@@ -1,17 +1,17 @@
 package com.javadiscord.jdi.internal.api.poll;
 
+import java.util.Optional;
+
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
-import java.util.Optional;
-
 public record GetAnswerVotersRequest(
-        long channelId,
-        long messageId,
-        long answerId,
-        Optional<Long> after,
-        Optional<Integer> limit)
-        implements DiscordRequest {
+    long channelId,
+    long messageId,
+    long answerId,
+    Optional<Long> after,
+    Optional<Integer> limit
+) implements DiscordRequest {
 
     public GetAnswerVotersRequest {
         if (limit.isPresent() && (limit.get() > 100 || limit.get() < 0)) {
@@ -21,12 +21,13 @@ public record GetAnswerVotersRequest(
 
     @Override
     public DiscordRequestBuilder create() {
-        DiscordRequestBuilder builder =
-                new DiscordRequestBuilder()
-                        .path(
-                                "/channels/%s/polls/%s/answers/%s"
-                                        .formatted(channelId, messageId, answerId))
-                        .get();
+        DiscordRequestBuilder builder
+            = new DiscordRequestBuilder()
+                .path(
+                    "/channels/%s/polls/%s/answers/%s"
+                        .formatted(channelId, messageId, answerId)
+                )
+                .get();
 
         after.ifPresent(val -> builder.queryParam("after", val));
         limit.ifPresent(val -> builder.queryParam("limit", val));

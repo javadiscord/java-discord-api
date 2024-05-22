@@ -1,13 +1,13 @@
 package com.javadiscord.jdi.core.api.builders;
 
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Optional;
+
 import com.javadiscord.jdi.core.models.channel.ChannelMention;
 import com.javadiscord.jdi.core.models.message.MessageAttachment;
 import com.javadiscord.jdi.core.models.message.embed.Embed;
 import com.javadiscord.jdi.internal.api.channel.EditMessageRequest;
-
-import java.nio.file.Path;
-import java.util.List;
-import java.util.Optional;
 
 public class EditMessageBuilder {
     private final long channelId;
@@ -69,14 +69,15 @@ public class EditMessageBuilder {
 
     public EditMessageRequest build() {
         return new EditMessageRequest(
-                channelId,
-                messageId,
-                content,
-                embeds,
-                flags,
-                allowedMentions,
-                components,
-                files,
-                attachments);
+            channelId,
+            messageId,
+            content,
+            embeds,
+            flags,
+            allowedMentions,
+            components,
+            files,
+            attachments
+        );
     }
 }

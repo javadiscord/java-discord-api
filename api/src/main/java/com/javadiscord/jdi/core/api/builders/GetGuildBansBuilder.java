@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.guild.GetGuildBansRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.guild.GetGuildBansRequest;
 
 public class GetGuildBansBuilder {
     private long guildId;

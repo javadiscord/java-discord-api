@@ -1,5 +1,7 @@
 package com.javadiscord.jdi.core.api;
 
+import java.util.List;
+
 import com.javadiscord.jdi.core.api.builders.CreateWebhookBuilder;
 import com.javadiscord.jdi.core.api.builders.DeleteWebhookBuilder;
 import com.javadiscord.jdi.core.api.builders.DeleteWebhookMessageBuilder;
@@ -16,8 +18,6 @@ import com.javadiscord.jdi.internal.api.webhook.GetChannelWebhooksRequest;
 import com.javadiscord.jdi.internal.api.webhook.GetGuildWebhooksRequest;
 import com.javadiscord.jdi.internal.api.webhook.GetWebhookRequest;
 import com.javadiscord.jdi.internal.api.webhook.GetWebhookWithTokenRequest;
-
-import java.util.List;
 
 public final class WebhookRequest {
     private final DiscordResponseParser responseParser;
@@ -47,12 +47,14 @@ public final class WebhookRequest {
     }
 
     public AsyncResponse<Void> executeGithubCompatibleWebhook(
-            ExecuteGithubCompatibleWebhookBuilder builder) {
+        ExecuteGithubCompatibleWebhookBuilder builder
+    ) {
         return responseParser.callAndParse(Void.class, builder.build());
     }
 
     public AsyncResponse<Void> executeSlackCompatibleWebhook(
-            ExecuteSlackCompatibleWebhooBuilder builder) {
+        ExecuteSlackCompatibleWebhooBuilder builder
+    ) {
         return responseParser.callAndParse(Void.class, builder.build());
     }
 
@@ -62,7 +64,8 @@ public final class WebhookRequest {
 
     public AsyncResponse<List<Webhook>> getChannelWebhooks(long channelId) {
         return responseParser.callAndParseList(
-                Webhook.class, new GetChannelWebhooksRequest(channelId));
+            Webhook.class, new GetChannelWebhooksRequest(channelId)
+        );
     }
 
     public AsyncResponse<List<Webhook>> getGuildWebhooks(long guildId) {
@@ -79,7 +82,8 @@ public final class WebhookRequest {
 
     public AsyncResponse<Webhook> getWebhookWithToken(long webhookId, String webhookToken) {
         return responseParser.callAndParse(
-                Webhook.class, new GetWebhookWithTokenRequest(webhookId, webhookToken));
+            Webhook.class, new GetWebhookWithTokenRequest(webhookId, webhookToken)
+        );
     }
 
     public AsyncResponse<Void> modifyWebhook(ModifyWebhookBuilder builder) {

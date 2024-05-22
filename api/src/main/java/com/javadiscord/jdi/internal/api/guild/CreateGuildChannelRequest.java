@@ -1,48 +1,50 @@
 package com.javadiscord.jdi.internal.api.guild;
 
-import com.javadiscord.jdi.core.models.channel.*;
-import com.javadiscord.jdi.core.models.guild.Tags;
-import com.javadiscord.jdi.internal.api.DiscordRequest;
-import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.javadiscord.jdi.core.models.channel.*;
+import com.javadiscord.jdi.core.models.guild.Tags;
+import com.javadiscord.jdi.internal.api.DiscordRequest;
+import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
+
 public record CreateGuildChannelRequest(
-        long guildId,
-        String name,
-        Optional<ChannelType> type,
-        Optional<String> topic,
-        Optional<Integer> bitrate,
-        Optional<Integer> userLimit,
-        Optional<Integer> rateLimitPerUser,
-        Optional<Integer> position,
-        Optional<List<Overwrite>> permissionOverwrites,
-        Optional<Long> parentId,
-        Optional<Boolean> nsfw,
-        Optional<String> rtcRegion,
-        Optional<VideoQualityMode> videoQualityMode,
-        Optional<Integer> defaultAutoArchiveDuration,
-        Optional<DefaultReaction> defaultReactionEmoji,
-        Optional<List<Tags>> availableTags,
-        Optional<SortOrderType> defaultSortOrder,
-        Optional<ForumLayoutType> defaultForumLayout,
-        Optional<Integer> defaultThreadRateLimitPerUser)
-        implements DiscordRequest {
+    long guildId,
+    String name,
+    Optional<ChannelType> type,
+    Optional<String> topic,
+    Optional<Integer> bitrate,
+    Optional<Integer> userLimit,
+    Optional<Integer> rateLimitPerUser,
+    Optional<Integer> position,
+    Optional<List<Overwrite>> permissionOverwrites,
+    Optional<Long> parentId,
+    Optional<Boolean> nsfw,
+    Optional<String> rtcRegion,
+    Optional<VideoQualityMode> videoQualityMode,
+    Optional<Integer> defaultAutoArchiveDuration,
+    Optional<DefaultReaction> defaultReactionEmoji,
+    Optional<List<Tags>> availableTags,
+    Optional<SortOrderType> defaultSortOrder,
+    Optional<ForumLayoutType> defaultForumLayout,
+    Optional<Integer> defaultThreadRateLimitPerUser
+) implements DiscordRequest {
 
     public CreateGuildChannelRequest {
         if (name.isEmpty() || name.length() > 100) {
             throw new IllegalArgumentException(
-                    "Channel name must be between 1 and 100 character's long");
+                "Channel name must be between 1 and 100 character's long"
+            );
         }
 
         if (topic.isPresent()) {
             String value = topic.get();
             if (value.length() > 1024) {
                 throw new IllegalArgumentException(
-                        "Channel topic must be between 0 and 1024 characters");
+                    "Channel topic must be between 0 and 1024 characters"
+                );
             }
         }
 
@@ -50,7 +52,8 @@ public record CreateGuildChannelRequest(
             int value = rateLimitPerUser.get();
             if (value < 0 || value > 21600) {
                 throw new IllegalArgumentException(
-                        "Rate limit per user must be between 0 and 21,600");
+                    "Rate limit per user must be between 0 and 21,600"
+                );
             }
         }
 
@@ -83,11 +86,12 @@ public record CreateGuildChannelRequest(
         defaultSortOrder.ifPresent(val -> body.put("default_sort_order", val));
         defaultForumLayout.ifPresent(val -> body.put("default_forum_layout", val));
         defaultThreadRateLimitPerUser.ifPresent(
-                val -> body.put("default_thread_rate_limit_per_user", val));
+            val -> body.put("default_thread_rate_limit_per_user", val)
+        );
 
         return new DiscordRequestBuilder()
-                .post()
-                .path("/guilds/%s/channels".formatted(guildId))
-                .body(body);
+            .post()
+            .path("/guilds/%s/channels".formatted(guildId))
+            .body(body);
     }
 }

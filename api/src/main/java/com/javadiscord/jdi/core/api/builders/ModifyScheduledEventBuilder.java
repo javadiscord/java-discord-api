@@ -1,10 +1,10 @@
 package com.javadiscord.jdi.core.api.builders;
 
+import java.util.Optional;
+
 import com.javadiscord.jdi.core.models.guild.EntityMetadata;
 import com.javadiscord.jdi.core.models.guild.PrivacyLevel;
 import com.javadiscord.jdi.internal.api.guild_scheduled_event.ModifyScheduledEventRequest;
-
-import java.util.Optional;
 
 public class ModifyScheduledEventBuilder {
     private final long guildId;
@@ -87,17 +87,18 @@ public class ModifyScheduledEventBuilder {
 
     public ModifyScheduledEventRequest build() {
         return new ModifyScheduledEventRequest(
-                guildId,
-                scheduledEventId,
-                channelId,
-                entityMetadata,
-                name,
-                privacyLevel,
-                scheduledStartTime,
-                scheduledEndTim,
-                description,
-                entityType,
-                status,
-                image);
+            guildId,
+            scheduledEventId,
+            channelId,
+            entityMetadata,
+            name,
+            privacyLevel,
+            scheduledStartTime,
+            scheduledEndTim,
+            description,
+            entityType,
+            status,
+            image
+        );
     }
 }

@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.user.ModifyCurrentUserRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.user.ModifyCurrentUserRequest;
 
 public class ModifyCurrentUserBuilder {
     private final String username;

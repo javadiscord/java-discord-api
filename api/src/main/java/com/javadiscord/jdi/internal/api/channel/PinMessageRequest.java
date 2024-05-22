@@ -8,7 +8,7 @@ public record PinMessageRequest(long channelId, long messageId) implements Disco
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-                .put()
-                .path("/channels/%s/pins/%s".formatted(channelId, messageId));
+            .put()
+            .path("/channels/%s/pins/%s".formatted(channelId, messageId));
     }
 }

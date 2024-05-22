@@ -1,9 +1,9 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.emojis.ModifyEmojiRequest;
-
 import java.util.List;
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.emojis.ModifyEmojiRequest;
 
 public class ModifyEmojiBuilder {
     private long guildId;

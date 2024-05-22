@@ -1,9 +1,9 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.guild.GetGuildPruneCountRequest;
-
 import java.util.List;
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.guild.GetGuildPruneCountRequest;
 
 public final class GetGuildPruneCountBuilder {
     private long guildId;

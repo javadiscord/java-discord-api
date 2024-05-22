@@ -8,7 +8,7 @@ public record LeaveThreadRequest(long channelId) implements DiscordRequest {
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-                .delete()
-                .path("/channels/%s/thread-members/@me".formatted(channelId));
+            .delete()
+            .path("/channels/%s/thread-members/@me".formatted(channelId));
     }
 }

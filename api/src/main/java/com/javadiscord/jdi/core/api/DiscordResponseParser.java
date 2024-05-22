@@ -1,13 +1,14 @@
 package com.javadiscord.jdi.core.api;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
+
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestDispatcher;
 import com.javadiscord.jdi.internal.api.DiscordResponse;
 import com.javadiscord.jdi.internal.api.DiscordResponseFuture;
 
-import java.util.List;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class DiscordResponseParser {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
@@ -21,23 +22,27 @@ public class DiscordResponseParser {
         AsyncResponse<List<T>> asyncResponse = new AsyncResponse<>();
         DiscordResponseFuture future = dispatcher.queue(request);
         future.onSuccess(
-                res -> {
-                    try {
-                        List<T> resultList = parseResponse(clazz, res.body());
-                        asyncResponse.setResult(resultList);
-                    } catch (Exception e) {
-                        asyncResponse.setException(e);
-                    }
-                });
+            res -> {
+                try {
+                    List<T> resultList = parseResponse(clazz, res.body());
+                    asyncResponse.setResult(resultList);
+                } catch (Exception e) {
+                    asyncResponse.setException(e);
+                }
+            }
+        );
         future.onError(asyncResponse::setException);
         return asyncResponse;
     }
 
-    private <T> List<T> parseResponse(Class<T> elementType, String response)
-            throws JsonProcessingException {
+    private <T> List<T> parseResponse(
+        Class<T> elementType,
+        String response
+    ) throws JsonProcessingException {
         return OBJECT_MAPPER.readValue(
-                response,
-                OBJECT_MAPPER.getTypeFactory().constructCollectionType(List.class, elementType));
+            response,
+            OBJECT_MAPPER.getTypeFactory().constructCollectionType(List.class, elementType)
+        );
     }
 
     public <T> AsyncResponse<T> callAndParse(Class<T> clazz, DiscordRequest request) {
@@ -49,7 +54,10 @@ public class DiscordResponseParser {
     }
 
     private <T> void success(
-            Class<T> type, DiscordResponse response, AsyncResponse<T> asyncResponse) {
+        Class<T> type,
+        DiscordResponse response,
+        AsyncResponse<T> asyncResponse
+    ) {
         if (response.status() >= 200 && response.status() < 300) {
             try {
                 T result = OBJECT_MAPPER.readValue(response.body(), type);
@@ -59,11 +67,13 @@ public class DiscordResponseParser {
             }
         } else {
             asyncResponse.setException(
-                    new Exception(
-                            "Received HTTP status code "
-                                    + response.status()
-                                    + " "
-                                    + response.body()));
+                new Exception(
+                    "Received HTTP status code "
+                        + response.status()
+                        + " "
+                        + response.body()
+                )
+            );
         }
     }
 }

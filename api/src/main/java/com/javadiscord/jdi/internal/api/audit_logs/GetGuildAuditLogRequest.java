@@ -1,19 +1,19 @@
 package com.javadiscord.jdi.internal.api.audit_logs;
 
+import java.util.Optional;
+
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
-import java.util.Optional;
-
 public record GetGuildAuditLogRequest(
-        long guildId,
-        Optional<Long> userId,
-        Optional<Integer> actionType,
-        Optional<Long> before,
-        Optional<Long> after,
-        Optional<Integer> limit,
-        Optional<String> reason)
-        implements DiscordRequest {
+    long guildId,
+    Optional<Long> userId,
+    Optional<Integer> actionType,
+    Optional<Long> before,
+    Optional<Long> after,
+    Optional<Integer> limit,
+    Optional<String> reason
+) implements DiscordRequest {
 
     public GetGuildAuditLogRequest {
         if (limit.isPresent() && (limit.get() > 100 || limit.get() < 1)) {
@@ -23,8 +23,8 @@ public record GetGuildAuditLogRequest(
 
     @Override
     public DiscordRequestBuilder create() {
-        DiscordRequestBuilder discordRequestBuilder =
-                new DiscordRequestBuilder().get().path("/guilds/%s/audit-logs".formatted(guildId));
+        DiscordRequestBuilder discordRequestBuilder
+            = new DiscordRequestBuilder().get().path("/guilds/%s/audit-logs".formatted(guildId));
 
         userId.ifPresent(val -> discordRequestBuilder.queryParam("user_id", val));
         actionType.ifPresent(val -> discordRequestBuilder.queryParam("action_type", val));

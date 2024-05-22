@@ -8,5 +8,8 @@ import com.javadiscord.jdi.internal.gateway.handlers.events.codec.EventHandler;
 public class IntegrationUpdateHandler implements EventHandler<IntegrationUpdate> {
     @Override
     public void handle(
-            IntegrationUpdate event, ConnectionMediator connectionMediator, Cache cache) {}
+        IntegrationUpdate event,
+        ConnectionMediator connectionMediator,
+        Cache cache
+    ) {}
 }

@@ -1,9 +1,9 @@
 package com.javadiscord.jdi.core.api.builders;
 
+import java.util.Optional;
+
 import com.javadiscord.jdi.core.models.application.ApplicationRoleConnectionMetadata;
 import com.javadiscord.jdi.internal.api.user.UpdateCurrentUserApplicationRoleConnectionRequest;
-
-import java.util.Optional;
 
 public class UpdateCurrentUserApplicationRoleConnectionBuilder {
     private final long applicationId;
@@ -24,19 +24,25 @@ public class UpdateCurrentUserApplicationRoleConnectionBuilder {
     }
 
     public UpdateCurrentUserApplicationRoleConnectionBuilder platformUsername(
-            String platformUsername) {
+        String platformUsername
+    ) {
         this.platformUsername = Optional.of(platformUsername);
         return this;
     }
 
     public UpdateCurrentUserApplicationRoleConnectionBuilder metadata(
-            ApplicationRoleConnectionMetadata metadata) {
+        ApplicationRoleConnectionMetadata metadata
+    ) {
         this.metadata = Optional.of(metadata);
         return this;
     }
 
     public UpdateCurrentUserApplicationRoleConnectionRequest build() {
         return new UpdateCurrentUserApplicationRoleConnectionRequest(
-                applicationId, platformName, platformUsername, metadata);
+            applicationId,
+            platformName,
+            platformUsername,
+            metadata
+        );
     }
 }

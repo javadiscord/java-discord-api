@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.audit_logs.GetGuildAuditLogRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.audit_logs.GetGuildAuditLogRequest;
 
 public class GetAuditLogsBuilder {
     private long guildId;
@@ -54,7 +54,14 @@ public class GetAuditLogsBuilder {
 
     public GetGuildAuditLogRequest build() {
         return new GetGuildAuditLogRequest(
-                guildId, userId, actionType, before, after, limit, reason);
+            guildId,
+            userId,
+            actionType,
+            before,
+            after,
+            limit,
+            reason
+        );
     }
 
     public GetAuditLogsBuilder guildId(long guildId) {

@@ -1,11 +1,11 @@
 package com.javadiscord.jdi.core.api.builders;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.javadiscord.jdi.core.models.channel.Channel;
 import com.javadiscord.jdi.core.models.guild.Role;
 import com.javadiscord.jdi.internal.api.guild.CreateGuildRequest;
-
-import java.util.List;
-import java.util.Optional;
 
 public class CreateGuildBuilder {
     private final String name;
@@ -86,16 +86,17 @@ public class CreateGuildBuilder {
 
     public CreateGuildRequest build() {
         return new CreateGuildRequest(
-                name,
-                icon,
-                verificationLevel,
-                defaultMessageNotifications,
-                explicitContentFilter,
-                roles,
-                channels,
-                afkChannelId,
-                afkTimeout,
-                systemChannelId,
-                systemChannelFlags);
+            name,
+            icon,
+            verificationLevel,
+            defaultMessageNotifications,
+            explicitContentFilter,
+            roles,
+            channels,
+            afkChannelId,
+            afkTimeout,
+            systemChannelId,
+            systemChannelFlags
+        );
     }
 }
