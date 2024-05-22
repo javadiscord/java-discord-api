@@ -22,12 +22,13 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Discord {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final Executor EXECUTOR = Executors.newCachedThreadPool();
+    private static final ExecutorService EXECUTOR = Executors.newCachedThreadPool();
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private static final String WEBSITE = "https://javadiscord.com/";
 
@@ -45,6 +46,7 @@ public class Discord {
     private final List<Object> annotatedEventListeners = new ArrayList<>();
     private final List<EventListener> eventListeners = new ArrayList<>();
 
+    private WebSocketManager webSocketManager;
     private Object listenerLoader;
 
     public Discord(String botToken) {
@@ -134,13 +136,14 @@ public class Discord {
     }
 
     public void start() {
-        WebSocketManager webSocketManager =
+        this.webSocketManager =
                 new WebSocketManager(
                         new GatewaySetting().setApiVersion(10).setEncoding(GatewayEncoding.JSON),
                         identifyRequest,
                         cache);
 
-        WebSocketManagerProxy webSocketManagerProxy = new WebSocketManagerProxy(webSocketManager);
+        WebSocketManagerProxy webSocketManagerProxy =
+                new WebSocketManagerProxy(this.webSocketManager);
         ConnectionDetails connectionDetails =
                 new ConnectionDetails(gateway.url(), botToken, gatewaySetting);
         ConnectionMediator connectionMediator =
@@ -150,6 +153,29 @@ public class Discord {
         webSocketManagerProxy.start(connectionMediator);
 
         EXECUTOR.execute(discordRequestDispatcher);
+    }
+
+    public void stop() {
+        if (this.webSocketManager != null) {
+            this.webSocketManager.stop();
+        }
+
+        discordRequestDispatcher.stop();
+
+        EXECUTOR.shutdown();
+        try {
+            if (!EXECUTOR.awaitTermination(30, TimeUnit.SECONDS)) {
+                EXECUTOR.shutdownNow();
+                if (!EXECUTOR.awaitTermination(30, TimeUnit.SECONDS)) {
+                    LOGGER.warn(
+                            "Executor failed to shutdown within the specified time limit, some"
+                                    + " tasks may still be running");
+                }
+            }
+        } catch (InterruptedException ie) {
+            LOGGER.error("Termination was interrupted within {} seconds.", 30);
+            Thread.currentThread().interrupt();
+        }
     }
 
     public void startWithoutGatewayEvents() {

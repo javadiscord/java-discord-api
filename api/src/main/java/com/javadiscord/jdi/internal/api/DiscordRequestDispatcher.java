@@ -10,6 +10,7 @@ import java.net.http.HttpResponse;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
 
 public class DiscordRequestDispatcher implements Runnable {
@@ -22,6 +23,7 @@ public class DiscordRequestDispatcher implements Runnable {
     private final HttpClient httpClient;
     private final BlockingQueue<DiscordRequestBuilder> queue;
     private final String botToken;
+    private AtomicBoolean running = new AtomicBoolean(false);
     private int numberOfRequestsSent;
     private long timeSinceLastRequest;
 
@@ -41,7 +43,9 @@ public class DiscordRequestDispatcher implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        running.set(true);
+
+        while (running.get()) {
             long currentTime = System.currentTimeMillis();
             long elapsed = currentTime - timeSinceLastRequest;
 
@@ -60,6 +64,10 @@ public class DiscordRequestDispatcher implements Runnable {
                 /* Ignore */
             }
         }
+    }
+
+    public void stop() {
+        running.set(false);
     }
 
     private void sendRequest(DiscordRequestBuilder discordRequestBuilder) {
