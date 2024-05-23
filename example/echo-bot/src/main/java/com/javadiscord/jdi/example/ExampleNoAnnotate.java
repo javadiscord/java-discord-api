@@ -11,13 +11,13 @@ public class ExampleNoAnnotate implements EventListener {
     public void onMessageCreate(Message message, Guild guild) {
         System.out.println("Received a message in ExampleNoAnnotate");
         guild.channel()
-                .createInvite(1232064259085828228L, 1000, 10, true)
-                .onSuccess(res -> System.out.println("Result: " + res))
-                .onError(System.err::println);
+            .createInvite(1232064259085828228L, 1000, 10, true)
+            .onSuccess(res -> System.out.println("Result: " + res))
+            .onError(System.err::println);
 
         guild.auditLogs()
-                .getAuditLogs(new GetAuditLogsBuilder())
-                .onSuccess(res -> System.out.println("Result: " + res))
-                .onError(System.err::println);
+            .getAuditLogs(new GetAuditLogsBuilder())
+            .onSuccess(res -> System.out.println("Result: " + res))
+            .onError(System.err::println);
     }
 }

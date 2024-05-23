@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record EmbedField(
-        @JsonProperty("name") String name,
-        @JsonProperty("value") String value,
-        @JsonProperty("inline") boolean inline) {}
+    @JsonProperty("name") String name,
+    @JsonProperty("value") String value,
+    @JsonProperty("inline") boolean inline
+) {}

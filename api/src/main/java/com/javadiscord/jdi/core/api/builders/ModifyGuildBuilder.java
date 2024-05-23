@@ -1,10 +1,10 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.core.models.guild.GuildFeature;
-import com.javadiscord.jdi.internal.api.guild.ModifyGuildRequest;
-
 import java.util.List;
 import java.util.Optional;
+
+import com.javadiscord.jdi.core.models.guild.GuildFeature;
+import com.javadiscord.jdi.internal.api.guild.ModifyGuildRequest;
 
 public final class ModifyGuildBuilder {
     private long guildId;
@@ -154,26 +154,27 @@ public final class ModifyGuildBuilder {
 
     public ModifyGuildRequest build() {
         return new ModifyGuildRequest(
-                guildId,
-                name,
-                verificationLevel,
-                defaultMessageNotifications,
-                explicitContentFilter,
-                afkChannelId,
-                afkTimeout,
-                icon,
-                ownerId,
-                splash,
-                discoverySplash,
-                banner,
-                systemChannelId,
-                systemChannelFlags,
-                rulesChannelId,
-                publicUpdatesChannelId,
-                preferredLocale,
-                features,
-                description,
-                premiumProgressBarEnabled,
-                safetyAlertsChannelId);
+            guildId,
+            name,
+            verificationLevel,
+            defaultMessageNotifications,
+            explicitContentFilter,
+            afkChannelId,
+            afkTimeout,
+            icon,
+            ownerId,
+            splash,
+            discoverySplash,
+            banner,
+            systemChannelId,
+            systemChannelFlags,
+            rulesChannelId,
+            publicUpdatesChannelId,
+            preferredLocale,
+            features,
+            description,
+            premiumProgressBarEnabled,
+            safetyAlertsChannelId
+        );
     }
 }

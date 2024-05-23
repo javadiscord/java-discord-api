@@ -1,5 +1,7 @@
 package com.javadiscord.jdi.core.api;
 
+import java.util.List;
+
 import com.javadiscord.jdi.core.api.builders.CreateScheduledEventBuilder;
 import com.javadiscord.jdi.core.api.builders.GetScheduledEventBuilder;
 import com.javadiscord.jdi.core.api.builders.GetScheduledEventUsersBuilder;
@@ -7,8 +9,6 @@ import com.javadiscord.jdi.core.api.builders.ListScheduledEventsBuilder;
 import com.javadiscord.jdi.core.models.scheduled_event.EventUser;
 import com.javadiscord.jdi.core.models.scheduled_event.ScheduledEvent;
 import com.javadiscord.jdi.internal.api.guild_scheduled_event.*;
-
-import java.util.List;
 
 public class GuildScheduledEventRequest {
     private final DiscordResponseParser responseParser;
@@ -25,7 +25,8 @@ public class GuildScheduledEventRequest {
 
     public AsyncResponse<ScheduledEvent> deleteScheduledEvent(long scheduledEventId) {
         return responseParser.callAndParse(
-                ScheduledEvent.class, new DeleteScheduledEventRequest(guildId, scheduledEventId));
+            ScheduledEvent.class, new DeleteScheduledEventRequest(guildId, scheduledEventId)
+        );
     }
 
     public AsyncResponse<ScheduledEvent> getScheduledEvent(GetScheduledEventBuilder builder) {
@@ -33,13 +34,16 @@ public class GuildScheduledEventRequest {
     }
 
     public AsyncResponse<List<EventUser>> getScheduledEventUsers(
-            GetScheduledEventUsersBuilder builder) {
+        GetScheduledEventUsersBuilder builder
+    ) {
         return responseParser.callAndParseList(EventUser.class, builder.guildId(guildId).build());
     }
 
     public AsyncResponse<List<ScheduledEvent>> listScheduledEvents(
-            ListScheduledEventsBuilder builder) {
+        ListScheduledEventsBuilder builder
+    ) {
         return responseParser.callAndParseList(
-                ScheduledEvent.class, builder.guildId(guildId).build());
+            ScheduledEvent.class, builder.guildId(guildId).build()
+        );
     }
 }

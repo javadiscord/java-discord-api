@@ -8,7 +8,7 @@ public record RemoveThreadMemberRequest(long channelId, long userId) implements 
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-                .delete()
-                .path("/channels/%s/thread-members/%s".formatted(channelId, userId));
+            .delete()
+            .path("/channels/%s/thread-members/%s".formatted(channelId, userId));
     }
 }

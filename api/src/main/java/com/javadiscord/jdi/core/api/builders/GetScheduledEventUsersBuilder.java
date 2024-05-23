@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.guild_scheduled_event.GetScheduledEventUsersRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.guild_scheduled_event.GetScheduledEventUsersRequest;
 
 public class GetScheduledEventUsersBuilder {
     private long guildId;
@@ -42,7 +42,13 @@ public class GetScheduledEventUsersBuilder {
 
     public GetScheduledEventUsersRequest build() {
         return new GetScheduledEventUsersRequest(
-                guildId, scheduledEventId, limit, withMember, before, after);
+            guildId,
+            scheduledEventId,
+            limit,
+            withMember,
+            before,
+            after
+        );
     }
 
     public GetScheduledEventUsersBuilder guildId(long guildId) {

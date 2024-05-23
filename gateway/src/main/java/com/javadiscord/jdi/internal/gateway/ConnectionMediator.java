@@ -1,9 +1,9 @@
 package com.javadiscord.jdi.internal.gateway;
 
-import com.javadiscord.jdi.internal.gateway.handlers.events.codec.GatewayObserver;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.javadiscord.jdi.internal.gateway.handlers.events.codec.GatewayObserver;
 
 public class ConnectionMediator {
     private final ConnectionDetails connectionDetails;
@@ -11,7 +11,8 @@ public class ConnectionMediator {
     private final List<GatewayObserver> observers = new ArrayList<>();
 
     public ConnectionMediator(
-            ConnectionDetails connectionDetails, WebSocketManagerProxy webSocketManagerProxy) {
+        ConnectionDetails connectionDetails, WebSocketManagerProxy webSocketManagerProxy
+    ) {
         this.connectionDetails = connectionDetails;
         this.webSocketManagerProxy = webSocketManagerProxy;
     }

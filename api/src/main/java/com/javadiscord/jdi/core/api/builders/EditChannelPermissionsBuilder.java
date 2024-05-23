@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.channel.EditChannelPermissionsRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.channel.EditChannelPermissionsRequest;
 
 public class EditChannelPermissionsBuilder {
     private final long channelId;

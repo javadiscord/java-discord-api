@@ -1,9 +1,9 @@
 package com.javadiscord.jdi.core.api;
 
+import java.util.List;
+
 import com.javadiscord.jdi.core.api.builders.GetAuditLogsBuilder;
 import com.javadiscord.jdi.core.models.audit_log.AuditLogEntry;
-
-import java.util.List;
 
 public class AuditLogsRequest {
     private final DiscordResponseParser responseParser;
@@ -16,6 +16,7 @@ public class AuditLogsRequest {
 
     public AsyncResponse<List<AuditLogEntry>> getAuditLogs(GetAuditLogsBuilder builder) {
         return responseParser.callAndParseMap(
-                "audit_log_entries", builder.guildId(guildId).build());
+            "audit_log_entries", builder.guildId(guildId).build()
+        );
     }
 }

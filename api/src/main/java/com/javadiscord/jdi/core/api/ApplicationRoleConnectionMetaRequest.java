@@ -9,23 +9,29 @@ public class ApplicationRoleConnectionMetaRequest {
     private final long guildId;
 
     public ApplicationRoleConnectionMetaRequest(
-            DiscordResponseParser responseParser, long guildId) {
+        DiscordResponseParser responseParser, long guildId
+    ) {
         this.responseParser = responseParser;
         this.guildId = guildId;
     }
 
     public AsyncResponse<ApplicationRoleConnectionMetadata> getRecords(long applicationId) {
         return responseParser.callAndParse(
-                ApplicationRoleConnectionMetadata.class,
-                new GetApplicationRoleConnectionMetadataRecords(applicationId));
+            ApplicationRoleConnectionMetadata.class,
+            new GetApplicationRoleConnectionMetadataRecords(applicationId)
+        );
     }
 
     public AsyncResponse<ApplicationRoleConnectionMetadata> updateRecords(
-            long applicationId,
-            ApplicationRoleConnectionMetadata applicationRoleConnectionMetadata) {
+        long applicationId,
+        ApplicationRoleConnectionMetadata applicationRoleConnectionMetadata
+    ) {
         return responseParser.callAndParse(
-                ApplicationRoleConnectionMetadata.class,
-                new UpdateApplicationRoleConnectionMetadataRecords(
-                        applicationId, applicationRoleConnectionMetadata));
+            ApplicationRoleConnectionMetadata.class,
+            new UpdateApplicationRoleConnectionMetadataRecords(
+                applicationId,
+                applicationRoleConnectionMetadata
+            )
+        );
     }
 }

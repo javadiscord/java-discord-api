@@ -1,11 +1,11 @@
 package com.javadiscord.jdi.core.api;
 
+import java.util.List;
+
 import com.javadiscord.jdi.core.api.builders.ModifyAutoModerationRuleBuilder;
 import com.javadiscord.jdi.core.models.auto_moderation.AutoModerationRule;
 import com.javadiscord.jdi.core.request.builders.CreateAutoModerationRuleBuilder;
 import com.javadiscord.jdi.internal.api.auto_moderation.*;
-
-import java.util.List;
 
 public class AutoModerationRequest {
     private final DiscordResponseParser responseParser;
@@ -17,31 +17,38 @@ public class AutoModerationRequest {
     }
 
     public AsyncResponse<AutoModerationRule> createAutoModerationRuleRequest(
-            CreateAutoModerationRuleBuilder builder) {
+        CreateAutoModerationRuleBuilder builder
+    ) {
         return responseParser.callAndParse(
-                AutoModerationRule.class, builder.guildId(guildId).build());
+            AutoModerationRule.class, builder.guildId(guildId).build()
+        );
     }
 
     public AsyncResponse<AutoModerationRule> deleteAutoModerationRule(long autoModerationRuleId) {
         return responseParser.callAndParse(
-                AutoModerationRule.class,
-                new DeleteAutoModerationRuleRequest(guildId, autoModerationRuleId));
+            AutoModerationRule.class,
+            new DeleteAutoModerationRuleRequest(guildId, autoModerationRuleId)
+        );
     }
 
     public AsyncResponse<AutoModerationRule> getAutoModerationRule(long autoModerationRuleId) {
         return responseParser.callAndParse(
-                AutoModerationRule.class,
-                new GetAutoModerationRuleRequest(guildId, autoModerationRuleId));
+            AutoModerationRule.class,
+            new GetAutoModerationRuleRequest(guildId, autoModerationRuleId)
+        );
     }
 
     public AsyncResponse<List<AutoModerationRule>> listAutoModerationRules() {
         return responseParser.callAndParseList(
-                AutoModerationRule.class, new ListAutoModerationRulesRequest(guildId));
+            AutoModerationRule.class, new ListAutoModerationRulesRequest(guildId)
+        );
     }
 
     public AsyncResponse<AutoModerationRule> modifyAutoModerationRule(
-            ModifyAutoModerationRuleBuilder builder) {
+        ModifyAutoModerationRuleBuilder builder
+    ) {
         return responseParser.callAndParse(
-                AutoModerationRule.class, builder.guildId(guildId).build());
+            AutoModerationRule.class, builder.guildId(guildId).build()
+        );
     }
 }

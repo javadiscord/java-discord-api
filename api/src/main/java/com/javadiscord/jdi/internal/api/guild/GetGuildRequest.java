@@ -1,14 +1,16 @@
 package com.javadiscord.jdi.internal.api.guild;
 
-import com.javadiscord.jdi.internal.api.DiscordRequest;
-import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public record GetGuildRequest(long guildId, Optional<Boolean> withCounts)
-        implements DiscordRequest {
+import com.javadiscord.jdi.internal.api.DiscordRequest;
+import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
+
+public record GetGuildRequest(
+    long guildId,
+    Optional<Boolean> withCounts
+) implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {

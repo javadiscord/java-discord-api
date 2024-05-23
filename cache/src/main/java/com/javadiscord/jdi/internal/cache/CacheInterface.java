@@ -35,37 +35,39 @@ public interface CacheInterface<T> {
                 currentValues[i] = field.get(original);
             }
 
-            return (T)
-                    constructor.newInstance(
-                            Stream.of(constructor.getParameters())
-                                    .map(
-                                            parameter -> {
-                                                try {
-                                                    Field field =
-                                                            recordClass.getDeclaredField(
-                                                                    parameter.getName());
-                                                    field.setAccessible(true);
-                                                    Object value = field.get(updated);
-                                                    if (value != null) {
-                                                        return value;
-                                                    }
-                                                    return currentValues[
-                                                            (int)
-                                                                            Stream.of(
-                                                                                            constructor
-                                                                                                    .getParameters())
-                                                                                    .filter(
-                                                                                            p ->
-                                                                                                    p
-                                                                                                            == parameter)
-                                                                                    .count()
-                                                                    - 1];
-                                                } catch (IllegalAccessException
-                                                        | NoSuchFieldException e) {
-                                                    throw new RuntimeException(e);
-                                                }
-                                            })
-                                    .toArray());
+            return (T) constructor.newInstance(
+                Stream.of(constructor.getParameters())
+                    .map(
+                        parameter -> {
+                            try {
+                                Field field =
+                                    recordClass.getDeclaredField(
+                                        parameter.getName()
+                                    );
+                                field.setAccessible(true);
+                                Object value = field.get(updated);
+                                if (value != null) {
+                                    return value;
+                                }
+                                return currentValues[(int) Stream.of(
+                                    constructor
+                                        .getParameters()
+                                )
+                                    .filter(
+                                        p -> p == parameter
+                                    )
+                                    .count()
+                                    - 1];
+                            } catch (
+                                IllegalAccessException
+                                | NoSuchFieldException e
+                            ) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    )
+                    .toArray()
+            );
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException(e);
         }

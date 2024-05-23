@@ -1,10 +1,5 @@
 package com.javadiscord.jdi.internal.api.channel;
 
-import com.github.mizosoft.methanol.MultipartBodyPublisher;
-import com.javadiscord.jdi.core.models.channel.ForumAndMediaThreadMessageParams;
-import com.javadiscord.jdi.internal.api.DiscordRequest;
-import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -12,15 +7,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.javadiscord.jdi.core.models.channel.ForumAndMediaThreadMessageParams;
+import com.javadiscord.jdi.internal.api.DiscordRequest;
+import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
+
+import com.github.mizosoft.methanol.MultipartBodyPublisher;
+
 public record StartThreadInForumOrMediaChannelRequest(
-        long channelId,
-        String name,
-        Optional<Integer> autoArchiveDuration,
-        Optional<Integer> rateLimitPerUser,
-        ForumAndMediaThreadMessageParams message,
-        Optional<List<Long>> appliedTags,
-        Optional<List<Path>> files)
-        implements DiscordRequest {
+    long channelId,
+    String name,
+    Optional<Integer> autoArchiveDuration,
+    Optional<Integer> rateLimitPerUser,
+    ForumAndMediaThreadMessageParams message,
+    Optional<List<Long>> appliedTags,
+    Optional<List<Path>> files
+) implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {
@@ -37,18 +38,18 @@ public record StartThreadInForumOrMediaChannelRequest(
         bodyBuilder.textPart("payload_json", body);
 
         files.ifPresent(
-                paths -> {
-                    for (int i = 0; i < paths.size(); i++) {
-                        try {
-                            bodyBuilder.filePart("file[%d]".formatted(i), paths.get(i));
-                        } catch (FileNotFoundException ignored) {
-                        }
-                    }
-                });
+            paths -> {
+                for (int i = 0; i < paths.size(); i++) {
+                    try {
+                        bodyBuilder.filePart("file[%d]".formatted(i), paths.get(i));
+                    } catch (FileNotFoundException ignored) {}
+                }
+            }
+        );
 
         return new DiscordRequestBuilder()
-                .post()
-                .path("/channels/%s/threads".formatted(channelId))
-                .multipartBody(bodyBuilder.build());
+            .post()
+            .path("/channels/%s/threads".formatted(channelId))
+            .multipartBody(bodyBuilder.build());
     }
 }
