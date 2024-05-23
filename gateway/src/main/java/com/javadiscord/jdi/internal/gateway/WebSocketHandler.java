@@ -20,7 +20,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class WebSocketHandler implements Handler<WebSocket> {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger(WebSocketHandler.class);
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private static final Map<Integer, GatewayOperationHandler> OPERATION_HANDLER = new HashMap<>();
     private final ConnectionMediator connectionMediator;

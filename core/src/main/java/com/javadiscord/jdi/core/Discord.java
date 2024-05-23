@@ -27,7 +27,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Discord {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger(Discord.class);
     private static final ExecutorService EXECUTOR = Executors.newCachedThreadPool();
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private static final String WEBSITE = "https://javadiscord.com/";

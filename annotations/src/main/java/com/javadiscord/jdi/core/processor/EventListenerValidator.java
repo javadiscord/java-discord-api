@@ -12,7 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class EventListenerValidator {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger(EventListenerValidator.class);
     private static final Map<Class<? extends Annotation>, String[]> EXPECTED_PARAM_TYPES_MAP =
         new HashMap<>();
 

@@ -19,7 +19,7 @@ public class DiscordRequestDispatcher implements Runnable {
             ? System.getProperty("DISCORD_BASE_URL")
             : "https://discord.com/api";
 
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger(DiscordRequestDispatcher.class);
     private final HttpClient httpClient;
     private final BlockingQueue<DiscordRequestBuilder> queue;
     private final String botToken;

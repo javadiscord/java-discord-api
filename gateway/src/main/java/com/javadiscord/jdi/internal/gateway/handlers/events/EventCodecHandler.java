@@ -40,7 +40,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class EventCodecHandler implements GatewayOperationHandler {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger(EventCodecHandler.class);
     private static final Map<EventType, EventDecoder<?>> EVENT_DECODERS = new HashMap<>();
     private static final Map<EventType, EventHandler<?>> EVENT_HANDLERS = new HashMap<>();
 

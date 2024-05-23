@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class ListenerLoader {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger(ListenerLoader.class);
     private final EventListenerValidator eventListenerValidator = new EventListenerValidator();
     private final List<Object> eventListeners;
 

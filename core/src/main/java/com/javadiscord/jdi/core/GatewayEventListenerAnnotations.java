@@ -15,7 +15,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class GatewayEventListenerAnnotations implements GatewayObserver {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger(GatewayEventListenerAnnotations.class);
     public static final Map<EventType, String> EVENT_TYPE_ANNOTATIONS = new HashMap<>();
 
     static {
