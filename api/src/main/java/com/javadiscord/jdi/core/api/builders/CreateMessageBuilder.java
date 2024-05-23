@@ -1,7 +1,6 @@
 package com.javadiscord.jdi.core.api.builders;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,8 +21,7 @@ public class CreateMessageBuilder {
     private Optional<List<Integer>> components;
     private Optional<List<Long>> stickerIds;
     private Optional<List<Path>> files;
-    private Optional<String> payloadJson;
-    private List<MessageAttachment> attachments;
+    private Optional<List<MessageAttachment>> attachments;
     private Optional<Integer> flags;
     private Optional<Boolean> enforceNonce;
 
@@ -38,8 +36,7 @@ public class CreateMessageBuilder {
         this.components = Optional.empty();
         this.stickerIds = Optional.empty();
         this.files = Optional.empty();
-        this.payloadJson = Optional.empty();
-        this.attachments = new ArrayList<>();
+        this.attachments = Optional.empty();
         this.flags = Optional.empty();
         this.enforceNonce = Optional.empty();
     }
@@ -89,13 +86,8 @@ public class CreateMessageBuilder {
         return this;
     }
 
-    public CreateMessageBuilder payloadJson(String payloadJson) {
-        this.payloadJson = Optional.of(payloadJson);
-        return this;
-    }
-
     public CreateMessageBuilder attachments(List<MessageAttachment> attachments) {
-        this.attachments = attachments;
+        this.attachments = Optional.of(attachments);
         return this;
     }
 
@@ -121,7 +113,6 @@ public class CreateMessageBuilder {
             components,
             stickerIds,
             files,
-            payloadJson,
             attachments,
             flags,
             enforceNonce
