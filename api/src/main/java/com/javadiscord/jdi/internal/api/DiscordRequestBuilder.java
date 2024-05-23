@@ -147,7 +147,7 @@ public class DiscordRequestBuilder {
         String bodyString;
         try {
             bodyString = OBJECT_MAPPER.writeValueAsString(body);
-        } catch (Exception e) {
+        } catch (JsonProcessingException e) {
             bodyString = "Error converting body to string: " + e.getMessage();
         }
 
