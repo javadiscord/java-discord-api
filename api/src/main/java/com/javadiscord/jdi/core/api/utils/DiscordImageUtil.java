@@ -26,7 +26,7 @@ public class DiscordImageUtil {
         return !IMAGE_EXTENSIONS.contains(getExtension(path));
     }
 
-    private static String getExtension(Path path) {
+    public static String getExtension(Path path) {
         String fileName = path.getFileName().toString().toLowerCase();
         return fileName.substring(fileName.lastIndexOf('.') + 1);
     }
