@@ -5,15 +5,15 @@ import com.javadiscord.jdi.internal.cache.Cache;
 import java.lang.reflect.Field;
 import java.util.List;
 
-public class CacheHandler {
+public class CacheUpdateHandler {
 
     private final Cache cache;
 
-    public CacheHandler(Cache cache) {
+    public CacheUpdateHandler(Cache cache) {
         this.cache = cache;
     }
 
-    public <T> void cacheResult(T result) {
+    public <T> void updateCache(T result) {
         try {
             Field guildIdField = result.getClass().getDeclaredField("guildId");
             Field idField = result.getClass().getDeclaredField("id");
@@ -24,11 +24,12 @@ public class CacheHandler {
             cache.getCacheForGuild(guildId).add(id, result);
         } catch (IllegalAccessException | NoSuchFieldException e) {
             // NoSuchFieldException means we don't want to cache result
+            // Other exceptions should be caught in payload validation layer
         }
     }
 
-    public <T> void cacheResult(List<T> resultList) {
-        resultList.forEach(this::cacheResult);
+    public <T> void updateCache(List<T> resultList) {
+        resultList.forEach(this::updateCache);
     }
 
     private long getLongFromField(Field field) throws IllegalAccessException {
