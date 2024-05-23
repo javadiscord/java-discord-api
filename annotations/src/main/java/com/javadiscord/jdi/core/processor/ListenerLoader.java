@@ -23,16 +23,20 @@ public class ListenerLoader {
         }
     }
 
-    public void loadListeners() throws Exception {
+    public void loadListeners() {
         List<File> classes = ClassFileUtil.getClassesInClassPath();
         for (File classFile : classes) {
-            Class<?> clazz = Class.forName(ClassFileUtil.getClassName(classFile));
-            if (clazz.isAnnotationPresent(EventListener.class)) {
-                if (validateListener(clazz)) {
-                    registerListener(clazz);
-                } else {
-                    LOGGER.error("{} failed validation", clazz.getName());
+            try {
+                Class<?> clazz = Class.forName(ClassFileUtil.getClassName(classFile));
+                if (clazz.isAnnotationPresent(EventListener.class)) {
+                    if (validateListener(clazz)) {
+                        registerListener(clazz);
+                    } else {
+                        LOGGER.error("{} failed validation", clazz.getName());
+                    }
                 }
+            } catch (Exception ignore) {
+                /* Ignore */
             }
         }
     }

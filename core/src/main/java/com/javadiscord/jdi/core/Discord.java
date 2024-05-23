@@ -1,6 +1,5 @@
 package com.javadiscord.jdi.core;
 
-import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Parameter;
@@ -102,19 +101,18 @@ public class Discord {
         this.identifyRequest = identifyRequest;
         this.cache = cache;
         if (annotationLibPresent()) {
+            LOGGER.info("Annotation lib is present, loading annotations listeners...");
             loadAnnotations();
         }
     }
 
     private boolean annotationLibPresent() {
-        String classpath = System.getProperty("java.class.path");
-        String[] classpathEntries = classpath.split(File.pathSeparator);
-        for (String entry : classpathEntries) {
-            if (entry.endsWith("annotations-1.0.0.jar")) {
-                return true;
-            }
+        try {
+            Class.forName("com.javadiscord.jdi.core.processor.ListenerLoader");
+            return true;
+        } catch (Exception e) {
+            return false;
         }
-        return false;
     }
 
     private void loadAnnotations() {
