@@ -2,24 +2,24 @@ package com.javadiscord.jdi.core.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.javadiscord.jdi.core.api.utils.CacheHandler;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestDispatcher;
 import com.javadiscord.jdi.internal.api.DiscordResponse;
 import com.javadiscord.jdi.internal.api.DiscordResponseFuture;
 import com.javadiscord.jdi.internal.cache.Cache;
 
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 
 public class DiscordResponseParser {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private final DiscordRequestDispatcher dispatcher;
-    private final Cache cache;
+    private final CacheHandler cacheHandler;
 
     public DiscordResponseParser(DiscordRequestDispatcher dispatcher, Cache cache) {
         this.dispatcher = dispatcher;
-        this.cache = cache;
+        this.cacheHandler = new CacheHandler(cache);
     }
 
     public <T> AsyncResponse<List<T>> callAndParseList(Class<T> clazz, DiscordRequest request) {
@@ -31,10 +31,7 @@ public class DiscordResponseParser {
                         try {
                             List<T> resultList = parseResponseFromList(clazz, response.body());
                             asyncResponse.setResult(resultList);
-                            for (T result : resultList) {
-                                cacheResult(result);
-                            }
-                        } catch (NoSuchFieldException e) { // ignore
+                            cacheHandler.cacheResult(resultList);
                         } catch (Exception e) {
                             asyncResponse.setException(e);
                         }
@@ -62,10 +59,7 @@ public class DiscordResponseParser {
                         try {
                             List<T> resultList = parseResponseFromMap(key, response.body());
                             asyncResponse.setResult(resultList);
-                            for(T result : resultList) {
-                                cacheResult(result);
-                            }
-                        } catch (NoSuchFieldException e) { // ignore
+                            cacheHandler.cacheResult(resultList);
                         } catch (Exception e){
                             asyncResponse.setException(e);
                         }
@@ -102,32 +96,13 @@ public class DiscordResponseParser {
             try {
                 T result = OBJECT_MAPPER.readValue(response.body(), type);
                 asyncResponse.setResult(result);
-                cacheResult(result);
-            } catch(NoSuchFieldException e) { // ignore
-            } catch (JsonProcessingException | IllegalAccessException e) {
+                cacheHandler.cacheResult(result);
+            } catch (JsonProcessingException e) {
                 asyncResponse.setException(e);
             }
         } else {
             asyncResponse.setException(errorResponseException(response));
         }
-    }
-
-    private <T> void cacheResult(T result) throws IllegalAccessException, NoSuchFieldException {
-        Field guildIdField = result.getClass().getDeclaredField("guildId");
-        Field idField = result.getClass().getDeclaredField("id");
-
-        long guildId = getLongFromField(guildIdField);
-        long id = getLongFromField(idField);
-
-        cache.getCacheForGuild(guildId).add(id, result);
-    }
-
-    private long getLongFromField(Field field) throws IllegalAccessException {
-        field.setAccessible(true);
-        if (field.getType() == String.class) {
-            return Long.parseLong((String) field.get(field.getName()));
-        }
-        return (long) field.get(field.getName());
     }
 
     private boolean isSuccessfulResponse(DiscordResponse response) {
