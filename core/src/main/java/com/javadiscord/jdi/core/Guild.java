@@ -16,6 +16,7 @@ public class Guild {
     private final EmojiRequest emojiRequest;
     private final GuildRequest guildRequest;
     private final GuildScheduledEventRequest guildScheduledEventRequest;
+    private final GuildTemplateRequest guildTemplateRequest;
     private final InviteRequest inviteRequest;
     private final PollRequest pollRequest;
     private final StageRequest stageRequest;
@@ -43,6 +44,7 @@ public class Guild {
         this.guildRequest = new GuildRequest(discordResponseParser, guildId);
         this.guildScheduledEventRequest =
             new GuildScheduledEventRequest(discordResponseParser, guildId);
+        this.guildTemplateRequest = new GuildTemplateRequest(discordResponseParser, guildId);
         this.inviteRequest = new InviteRequest(discordResponseParser, guildId);
         this.pollRequest = new PollRequest(discordResponseParser, guildId);
         this.stageRequest = new StageRequest(discordResponseParser, guildId);
@@ -93,6 +95,10 @@ public class Guild {
 
     public GuildScheduledEventRequest scheduledEvent() {
         return guildScheduledEventRequest;
+    }
+
+    public GuildTemplateRequest guildTemplate() {
+        return guildTemplateRequest;
     }
 
     public InviteRequest invite() {
