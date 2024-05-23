@@ -29,7 +29,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class GatewayEventListener implements GatewayObserver {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger(GatewayEventListener.class);
     private final Discord discord;
 
     public GatewayEventListener(Discord discord) {

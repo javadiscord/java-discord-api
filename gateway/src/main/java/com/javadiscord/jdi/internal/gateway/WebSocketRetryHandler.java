@@ -7,7 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class WebSocketRetryHandler {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger(WebSocketRetryHandler.class);
     private final Vertx vertx;
     private final AtomicInteger attempts;
 

@@ -8,7 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class ResumeEventHandler implements EventHandler<ResumeEvent> {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger(ResumeEventHandler.class);
 
     @Override
     public void handle(ResumeEvent message, ConnectionMediator connectionMediator, Cache cache) {

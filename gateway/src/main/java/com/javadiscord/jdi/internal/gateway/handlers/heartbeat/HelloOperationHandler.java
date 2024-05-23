@@ -13,7 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class HelloOperationHandler implements GatewayOperationHandler {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger(HelloOperationHandler.class);
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private final HeartbeatService heartbeatService;
 
