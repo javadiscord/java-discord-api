@@ -1,11 +1,11 @@
 package com.javadiscord.jdi.core.api.builders;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.javadiscord.jdi.core.models.channel.*;
 import com.javadiscord.jdi.core.models.guild.Tags;
 import com.javadiscord.jdi.internal.api.guild.CreateGuildChannelRequest;
-
-import java.util.List;
-import java.util.Optional;
 
 public class CreateGuildChannelBuilder {
     private long guildId;
@@ -51,25 +51,26 @@ public class CreateGuildChannelBuilder {
 
     public CreateGuildChannelRequest build() {
         return new CreateGuildChannelRequest(
-                guildId,
-                name,
-                type,
-                topic,
-                bitrate,
-                userLimit,
-                rateLimitPerUser,
-                position,
-                permissionOverwrites,
-                parentId,
-                nsfw,
-                rtcRegion,
-                videoQualityMode,
-                defaultAutoArchiveDuration,
-                defaultReactionEmoji,
-                availableTags,
-                defaultSortOrder,
-                defaultForumLayout,
-                defaultThreadRateLimitPerUser);
+            guildId,
+            name,
+            type,
+            topic,
+            bitrate,
+            userLimit,
+            rateLimitPerUser,
+            position,
+            permissionOverwrites,
+            parentId,
+            nsfw,
+            rtcRegion,
+            videoQualityMode,
+            defaultAutoArchiveDuration,
+            defaultReactionEmoji,
+            availableTags,
+            defaultSortOrder,
+            defaultForumLayout,
+            defaultThreadRateLimitPerUser
+        );
     }
 
     public CreateGuildChannelBuilder guildId(long guildId) {
@@ -158,7 +159,8 @@ public class CreateGuildChannelBuilder {
     }
 
     public CreateGuildChannelBuilder defaultThreadRateLimitPerUser(
-            int defaultThreadRateLimitPerUser) {
+        int defaultThreadRateLimitPerUser
+    ) {
         this.defaultThreadRateLimitPerUser = Optional.of(defaultThreadRateLimitPerUser);
         return this;
     }

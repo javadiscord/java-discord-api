@@ -16,17 +16,12 @@ subprojects {
 
     spotless {
         java {
-            importOrder()
-            googleJavaFormat()
-                    .aosp()
-                    .reflowLongStrings()
-                    .formatJavadoc(true)
-                    .reorderImports(true)
-                    .groupArtifact('com.google.googlejavaformat:google-java-format')
+            target('**/java/**/*.java')
             trimTrailingWhitespace()
-            indentWithSpaces()
-            endWithNewline()
-        }
+            removeUnusedImports()
+            // '\\#' = static imports, '' = everything else
+            importOrder('\\#', 'java', 'javax', 'com.javadiscord', '')
+            eclipse().configFile("${rootProject.rootDir}/spotless.xml")}
     }
 
     group = 'com.javadiscord'

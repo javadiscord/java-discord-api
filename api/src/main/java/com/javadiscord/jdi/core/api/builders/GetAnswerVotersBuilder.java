@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.poll.GetAnswerVotersRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.poll.GetAnswerVotersRequest;
 
 public class GetAnswerVotersBuilder {
     private final long channelId;

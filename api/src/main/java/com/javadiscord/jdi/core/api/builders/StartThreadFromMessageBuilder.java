@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.channel.StartThreadFromMessageRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.channel.StartThreadFromMessageRequest;
 
 public class StartThreadFromMessageBuilder {
     private final long channelId;
@@ -31,6 +31,11 @@ public class StartThreadFromMessageBuilder {
 
     public StartThreadFromMessageRequest build() {
         return new StartThreadFromMessageRequest(
-                channelId, messageId, name, autoArchiveDuration, rateLimitPerUser);
+            channelId,
+            messageId,
+            name,
+            autoArchiveDuration,
+            rateLimitPerUser
+        );
     }
 }

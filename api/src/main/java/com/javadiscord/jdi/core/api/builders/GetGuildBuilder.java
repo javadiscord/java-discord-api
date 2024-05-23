@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.guild.GetGuildRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.guild.GetGuildRequest;
 
 public final class GetGuildBuilder {
     private long guildId;

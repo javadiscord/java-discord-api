@@ -5,14 +5,15 @@ import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
 public record UpdateApplicationRoleConnectionMetadataRecords(
-        long applicationId, ApplicationRoleConnectionMetadata applicationRoleConnectionMetadata)
-        implements DiscordRequest {
+    long applicationId,
+    ApplicationRoleConnectionMetadata applicationRoleConnectionMetadata
+) implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-                .path("/applications/%s/role-connections/metadata".formatted(applicationId))
-                .put()
-                .body(applicationRoleConnectionMetadata);
+            .path("/applications/%s/role-connections/metadata".formatted(applicationId))
+            .put()
+            .body(applicationRoleConnectionMetadata);
     }
 }

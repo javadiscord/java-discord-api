@@ -1,12 +1,5 @@
 package com.javadiscord.jdi.internal.api.channel;
 
-import com.github.mizosoft.methanol.MultipartBodyPublisher;
-import com.javadiscord.jdi.core.models.channel.ChannelMention;
-import com.javadiscord.jdi.core.models.message.MessageAttachment;
-import com.javadiscord.jdi.core.models.message.embed.Embed;
-import com.javadiscord.jdi.internal.api.DiscordRequest;
-import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -14,17 +7,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.javadiscord.jdi.core.models.channel.ChannelMention;
+import com.javadiscord.jdi.core.models.message.MessageAttachment;
+import com.javadiscord.jdi.core.models.message.embed.Embed;
+import com.javadiscord.jdi.internal.api.DiscordRequest;
+import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
+
+import com.github.mizosoft.methanol.MultipartBodyPublisher;
+
 public record EditMessageRequest(
-        long channelId,
-        long messageId,
-        Optional<String> content,
-        Optional<List<Embed>> embeds,
-        Optional<Integer> flags,
-        Optional<List<ChannelMention>> allowedMentions,
-        Optional<List<Integer>> components,
-        Optional<List<Path>> files,
-        Optional<List<MessageAttachment>> attachments)
-        implements DiscordRequest {
+    long channelId,
+    long messageId,
+    Optional<String> content,
+    Optional<List<Embed>> embeds,
+    Optional<Integer> flags,
+    Optional<List<ChannelMention>> allowedMentions,
+    Optional<List<Integer>> components,
+    Optional<List<Path>> files,
+    Optional<List<MessageAttachment>> attachments
+) implements DiscordRequest {
 
     // TODO: Fix sending files/attachments
     @Override
@@ -43,18 +44,18 @@ public record EditMessageRequest(
         bodyBuilder.textPart("payload_json", body);
 
         files.ifPresent(
-                paths -> {
-                    for (int i = 0; i < paths.size(); i++) {
-                        try {
-                            bodyBuilder.filePart("file[%d]".formatted(i), paths.get(i));
-                        } catch (FileNotFoundException ignored) {
-                        }
-                    }
-                });
+            paths -> {
+                for (int i = 0; i < paths.size(); i++) {
+                    try {
+                        bodyBuilder.filePart("file[%d]".formatted(i), paths.get(i));
+                    } catch (FileNotFoundException ignored) {}
+                }
+            }
+        );
 
         return new DiscordRequestBuilder()
-                .patch()
-                .path("/channels/%s/messages/%s".formatted(channelId, messageId))
-                .multipartBody(bodyBuilder.build());
+            .patch()
+            .path("/channels/%s/messages/%s".formatted(channelId, messageId))
+            .multipartBody(bodyBuilder.build());
     }
 }

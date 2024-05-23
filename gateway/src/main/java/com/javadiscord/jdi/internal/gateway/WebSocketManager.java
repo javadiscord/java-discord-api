@@ -1,16 +1,15 @@
 package com.javadiscord.jdi.internal.gateway;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.javadiscord.jdi.internal.cache.Cache;
 import com.javadiscord.jdi.internal.gateway.identify.IdentifyRequest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.WebSocket;
 import io.vertx.core.http.WebSocketConnectOptions;
 import io.vertx.core.http.WebSocketFrame;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,7 +23,8 @@ public class WebSocketManager {
     private WebSocket webSocket;
 
     public WebSocketManager(
-            GatewaySetting gatewaySetting, IdentifyRequest identifyRequest, Cache cache) {
+        GatewaySetting gatewaySetting, IdentifyRequest identifyRequest, Cache cache
+    ) {
         this.gatewaySetting = gatewaySetting;
         this.identifyRequest = identifyRequest;
         this.vertx = Vertx.vertx();
@@ -36,43 +36,47 @@ public class WebSocketManager {
         String gatewayURL = connectionMediator.getConnectionDetails().getGatewayURL();
 
         WebSocketConnectOptions webSocketConnectOptions =
-                new WebSocketConnectOptions()
-                        .addHeader("Origin", "localhost")
-                        .setAbsoluteURI(
-                                "%s/?v=%d&encoding=%s"
-                                        .formatted(
-                                                gatewayURL,
-                                                gatewaySetting.getApiVersion(),
-                                                gatewaySetting.getEncoding()))
-                        .setSsl(true);
+            new WebSocketConnectOptions()
+                .addHeader("Origin", "localhost")
+                .setAbsoluteURI(
+                    "%s/?v=%d&encoding=%s"
+                        .formatted(
+                            gatewayURL,
+                            gatewaySetting.getApiVersion(),
+                            gatewaySetting.getEncoding()
+                        )
+                )
+                .setSsl(true);
 
         vertx.createWebSocketClient()
-                .connect(webSocketConnectOptions)
-                .onSuccess(
-                        webSocket -> {
-                            LOGGER.info("Connected to Discord");
+            .connect(webSocketConnectOptions)
+            .onSuccess(
+                webSocket -> {
+                    LOGGER.info("Connected to Discord");
 
-                            this.webSocket = webSocket;
+                    this.webSocket = webSocket;
 
-                            WebSocketHandler webSocketHandler =
-                                    new WebSocketHandler(connectionMediator, retryHandler, cache);
+                    WebSocketHandler webSocketHandler =
+                        new WebSocketHandler(connectionMediator, retryHandler, cache);
 
-                            webSocketHandler.handle(webSocket);
+                    webSocketHandler.handle(webSocket);
 
-                            webSocket.frameHandler(frame -> frameHandler(frame, webSocketHandler));
+                    webSocket.frameHandler(frame -> frameHandler(frame, webSocketHandler));
 
-                            if (retryHandler.hasRetried()) {
-                                retryHandler.clear();
-                                sendResumeEvent(webSocket, connectionMediator);
-                            } else {
-                                sendIdentify(webSocket, identifyRequest);
-                            }
-                        })
-                .onFailure(
-                        error -> {
-                            LOGGER.warn("Failed to connect to {} {}", gatewayURL, error.getCause());
-                            retryHandler.retry(() -> restart(connectionMediator));
-                        });
+                    if (retryHandler.hasRetried()) {
+                        retryHandler.clear();
+                        sendResumeEvent(webSocket, connectionMediator);
+                    } else {
+                        sendIdentify(webSocket, identifyRequest);
+                    }
+                }
+            )
+            .onFailure(
+                error -> {
+                    LOGGER.warn("Failed to connect to {} {}", gatewayURL, error.getCause());
+                    retryHandler.retry(() -> restart(connectionMediator));
+                }
+            );
     }
 
     private void frameHandler(WebSocketFrame frame, WebSocketHandler webSocketHandler) {
@@ -99,7 +103,8 @@ public class WebSocketManager {
     private static void sendIdentify(WebSocket webSocket, IdentifyRequest identifyRequest) {
         try {
             webSocket.write(
-                    Buffer.buffer((new ObjectMapper().writeValueAsString(identifyRequest))));
+                Buffer.buffer((new ObjectMapper().writeValueAsString(identifyRequest)))
+            );
         } catch (JsonProcessingException e) {
             LOGGER.error("Failed to send identify request, restarting bot");
         }
@@ -111,8 +116,8 @@ public class WebSocketManager {
         int sequence = connectionMediator.getConnectionDetails().getSequence();
         int opcode = GatewayOpcode.RESUME;
         webSocket.write(
-                Buffer.buffer(
-                        """
+            Buffer.buffer(
+                """
                     {
                       "op": %d,
                       "d": {
@@ -122,6 +127,8 @@ public class WebSocketManager {
                       }
                     }
                     """
-                                .formatted(opcode, botToken, sessionId, sequence)));
+                    .formatted(opcode, botToken, sessionId, sequence)
+            )
+        );
     }
 }

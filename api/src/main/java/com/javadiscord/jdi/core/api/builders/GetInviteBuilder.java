@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.invite.GetInviteRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.invite.GetInviteRequest;
 
 public class GetInviteBuilder {
     private final String inviteCode;

@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.channel.FetchChannelMessagesRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.channel.FetchChannelMessagesRequest;
 
 public class FetchChannelMessagesBuilder {
     private final long channelId;

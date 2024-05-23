@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.guild.ModifyGuildRoleRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.guild.ModifyGuildRoleRequest;
 
 public final class ModifyGuildRoleBuilder {
     private long guildId;
@@ -68,6 +68,15 @@ public final class ModifyGuildRoleBuilder {
 
     public ModifyGuildRoleRequest build() {
         return new ModifyGuildRoleRequest(
-                guildId, roleId, name, permissions, color, hoist, icon, unicodeEmoji, mentionable);
+            guildId,
+            roleId,
+            name,
+            permissions,
+            color,
+            hoist,
+            icon,
+            unicodeEmoji,
+            mentionable
+        );
     }
 }

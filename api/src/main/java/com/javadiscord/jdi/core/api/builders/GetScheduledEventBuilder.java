@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.guild_scheduled_event.GetScheduledEventRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.guild_scheduled_event.GetScheduledEventRequest;
 
 public class GetScheduledEventBuilder {
     private long guildId;

@@ -1,11 +1,11 @@
 package com.javadiscord.jdi.core.request.builders;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.javadiscord.jdi.core.models.auto_moderation.AutoModerationAction;
 import com.javadiscord.jdi.core.models.auto_moderation.AutoModerationTriggerMetadata;
 import com.javadiscord.jdi.internal.api.auto_moderation.CreateAutoModerationRuleRequest;
-
-import java.util.List;
-import java.util.Optional;
 
 public class CreateAutoModerationRuleBuilder {
     private long guildId;
@@ -19,7 +19,8 @@ public class CreateAutoModerationRuleBuilder {
     private Optional<List<Long>> exemptChannels;
 
     public CreateAutoModerationRuleBuilder(
-            String name, int eventType, int triggerType, List<AutoModerationAction> actions) {
+        String name, int eventType, int triggerType, List<AutoModerationAction> actions
+    ) {
         this.name = name;
         this.eventType = eventType;
         this.triggerType = triggerType;
@@ -47,15 +48,16 @@ public class CreateAutoModerationRuleBuilder {
 
     public CreateAutoModerationRuleRequest build() {
         return new CreateAutoModerationRuleRequest(
-                guildId,
-                name,
-                eventType,
-                triggerType,
-                actions,
-                triggerMetadata,
-                enabled,
-                exemptRoles,
-                exemptChannels);
+            guildId,
+            name,
+            eventType,
+            triggerType,
+            actions,
+            triggerMetadata,
+            enabled,
+            exemptRoles,
+            exemptChannels
+        );
     }
 
     public CreateAutoModerationRuleBuilder guildId(long guildId) {

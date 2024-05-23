@@ -42,7 +42,9 @@ public interface EventListener {
     default void onMessageReactionsRemoved(MessageReactionsRemoved reactionsRemoved, Guild guild) {}
 
     default void onMessageReactionRemovedAll(
-            MessageReactionsRemoved reactionsRemoved, Guild guild) {}
+        MessageReactionsRemoved reactionsRemoved,
+        Guild guild
+    ) {}
 
     default void onScheduledEventUpdate(ScheduledEvent scheduledEvent, Guild guild) {}
 
@@ -59,7 +61,9 @@ public interface EventListener {
     default void onEntitlementCreate(Entitlement entitlement, Guild guild) {}
 
     default void onAutoModerationRuleExecution(
-            AutoModerationRule autoModerationRule, Guild guild) {}
+        AutoModerationRule autoModerationRule,
+        Guild guild
+    ) {}
 
     default void onMessageUpdate(Message message, Guild guild) {}
 

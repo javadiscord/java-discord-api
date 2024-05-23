@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.webhook.CreateWebhookRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.webhook.CreateWebhookRequest;
 
 public final class CreateWebhookBuilder {
     private final long channelId;

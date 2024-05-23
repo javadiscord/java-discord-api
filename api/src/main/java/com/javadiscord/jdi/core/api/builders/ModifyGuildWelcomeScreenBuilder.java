@@ -1,9 +1,9 @@
 package com.javadiscord.jdi.core.api.builders;
 
+import java.util.Optional;
+
 import com.javadiscord.jdi.core.models.guild.WelcomeScreenChannel;
 import com.javadiscord.jdi.internal.api.guild.ModifyGuildWelcomeScreenRequest;
-
-import java.util.Optional;
 
 public final class ModifyGuildWelcomeScreenBuilder {
     private long guildId;

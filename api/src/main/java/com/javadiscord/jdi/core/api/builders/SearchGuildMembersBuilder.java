@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.guild.SearchGuildMembersRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.guild.SearchGuildMembersRequest;
 
 public final class SearchGuildMembersBuilder {
     private long guildId;

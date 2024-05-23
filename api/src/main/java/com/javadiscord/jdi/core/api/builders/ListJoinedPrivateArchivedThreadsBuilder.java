@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.channel.ListJoinedPrivateArchivedThreadsRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.channel.ListJoinedPrivateArchivedThreadsRequest;
 
 public class ListJoinedPrivateArchivedThreadsBuilder {
     private final long channelId;

@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.guild.ModifyCurrentMemberRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.guild.ModifyCurrentMemberRequest;
 
 public final class ModifyCurrentMemberBuilder {
     private long guildId;

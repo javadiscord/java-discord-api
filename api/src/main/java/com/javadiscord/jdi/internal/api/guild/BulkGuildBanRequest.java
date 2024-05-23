@@ -1,16 +1,18 @@
 package com.javadiscord.jdi.internal.api.guild;
 
-import com.javadiscord.jdi.internal.api.DiscordRequest;
-import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.javadiscord.jdi.internal.api.DiscordRequest;
+import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
+
 public record BulkGuildBanRequest(
-        long guildId, List<Long> userIds, Optional<Integer> deleteMessageSeconds)
-        implements DiscordRequest {
+    long guildId,
+    List<Long> userIds,
+    Optional<Integer> deleteMessageSeconds
+) implements DiscordRequest {
 
     public BulkGuildBanRequest {
         if (userIds.size() > 200) {
@@ -29,8 +31,8 @@ public record BulkGuildBanRequest(
         deleteMessageSeconds.ifPresent(val -> body.put("delete_message_seconds", val));
 
         return new DiscordRequestBuilder()
-                .post()
-                .path("/guilds/%s/bulk-ban".formatted(guildId))
-                .body(body);
+            .post()
+            .path("/guilds/%s/bulk-ban".formatted(guildId))
+            .body(body);
     }
 }

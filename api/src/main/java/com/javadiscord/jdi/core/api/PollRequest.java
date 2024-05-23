@@ -1,11 +1,11 @@
 package com.javadiscord.jdi.core.api;
 
+import java.util.List;
+
 import com.javadiscord.jdi.core.api.builders.GetAnswerVotersBuilder;
 import com.javadiscord.jdi.core.models.poll.Poll;
 import com.javadiscord.jdi.core.models.user.User;
 import com.javadiscord.jdi.internal.api.poll.EndPollRequest;
-
-import java.util.List;
 
 public class PollRequest {
     private final DiscordResponseParser responseParser;
