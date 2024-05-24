@@ -31,7 +31,7 @@ public class StickerRequest {
 
     public AsyncResponse<Void> deleteGuildSticker(long stickerId) {
         return responseParser.callAndParse(
-                Void.class, new DeleteGuildStickerRequest(guildId, stickerId)
+            Void.class, new DeleteGuildStickerRequest(guildId, stickerId)
         );
     }
 
