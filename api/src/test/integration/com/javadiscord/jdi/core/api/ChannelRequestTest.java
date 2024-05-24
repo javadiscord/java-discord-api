@@ -5,6 +5,7 @@ import com.javadiscord.jdi.core.api.builders.CreateMessageBuilder;
 import com.javadiscord.jdi.core.models.invite.Invite;
 import com.javadiscord.jdi.core.models.message.Message;
 import helpers.LiveDiscordHelper;
+import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -146,5 +148,62 @@ class ChannelRequestTest {
         asyncResponse.onError(Assertions::fail);
 
         assertTrue(latch.await(30, TimeUnit.SECONDS));
+    }
+
+    @Test
+    void testPinAndUnpinMessage() throws InterruptedException {
+        AtomicReference<Long> messageId = new AtomicReference<>();
+
+        {
+            CountDownLatch latch = new CountDownLatch(1);
+
+            long testChannelId = 1242792813700055134L;
+
+            AsyncResponse<Message> asyncResponse = guild
+                    .channel()
+                    .createMessage(new CreateMessageBuilder(testChannelId)
+                            .content("Hello, World!"));
+
+            asyncResponse.onSuccess(res -> {
+                messageId.set(res.id());
+                latch.countDown();
+            });
+
+            asyncResponse.onError(Assertions::fail);
+
+            assertTrue(latch.await(30, TimeUnit.SECONDS));
+        }
+
+        {
+            CountDownLatch latch = new CountDownLatch(1);
+
+            long testChannelId = 1242792813700055134L;
+
+            AsyncResponse<Void> asyncResponse = guild
+                    .channel()
+                    .pinMessage(testChannelId, messageId.get());
+
+            asyncResponse.onSuccess(res -> latch.countDown());
+
+            asyncResponse.onError(Assertions::fail);
+
+            assertTrue(latch.await(30, TimeUnit.SECONDS));
+        }
+
+        {
+            CountDownLatch latch = new CountDownLatch(1);
+
+            long testChannelId = 1242792813700055134L;
+
+            AsyncResponse<Void> asyncResponse = guild
+                    .channel()
+                    .unpinMessage(testChannelId, messageId.get());
+
+            asyncResponse.onSuccess(res -> latch.countDown());
+
+            asyncResponse.onError(Assertions::fail);
+
+            assertTrue(latch.await(30, TimeUnit.SECONDS));
+        }
     }
 }
