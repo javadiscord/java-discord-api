@@ -2,6 +2,7 @@ package com.javadiscord.jdi.core.api;
 
 import com.javadiscord.jdi.core.Guild;
 import com.javadiscord.jdi.core.api.builders.CreateMessageBuilder;
+import com.javadiscord.jdi.core.models.invite.Invite;
 import com.javadiscord.jdi.core.models.message.Message;
 import helpers.LiveDiscordHelper;
 import org.junit.jupiter.api.Assertions;
@@ -87,6 +88,60 @@ class ChannelRequestTest {
             assertEquals("Hello, World!", res.content());
             latch.countDown();
         });
+
+        asyncResponse.onError(Assertions::fail);
+
+        assertTrue(latch.await(30, TimeUnit.SECONDS));
+    }
+
+    @Test
+    void testCreateInvite() throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
+
+        long testChannelId = 1242792813700055134L;
+
+        AsyncResponse<Invite> asyncResponse = guild.channel().createInvite(testChannelId, 10000, 10, true);
+
+        asyncResponse.onSuccess(res -> {
+            assertEquals(10000, res.maxAge());
+            assertEquals(10, res.maxUses());
+            assertTrue(res.temporary());
+            assertNotNull(res.code());
+            latch.countDown();
+        });
+
+        asyncResponse.onError(Assertions::fail);
+
+        assertTrue(latch.await(30, TimeUnit.SECONDS));
+    }
+
+    @Test
+    void testChannelInvites() throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
+
+        long testChannelId = 1242792813700055134L;
+
+        AsyncResponse<List<Invite>> asyncResponse = guild.channel().channelInvites(testChannelId);
+
+        asyncResponse.onSuccess(res -> {
+            assertFalse(res.isEmpty());
+            latch.countDown();
+        });
+
+        asyncResponse.onError(Assertions::fail);
+
+        assertTrue(latch.await(30, TimeUnit.SECONDS));
+    }
+
+    @Test
+    void testTypingIndicator() throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
+
+        long testChannelId = 1242792813700055134L;
+
+        AsyncResponse<Void> asyncResponse = guild.channel().typingIndicatorRequest(testChannelId);
+
+        asyncResponse.onSuccess(res -> latch.countDown());
 
         asyncResponse.onError(Assertions::fail);
 
