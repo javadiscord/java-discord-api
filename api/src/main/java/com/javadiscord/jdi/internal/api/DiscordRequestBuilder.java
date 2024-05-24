@@ -57,7 +57,7 @@ public class DiscordRequestBuilder {
 
     public DiscordRequestBuilder multipartBody(MultipartBodyPublisher body) {
         this.body = body;
-        this.headers.put("Content-Type", "multipart/form-data");
+        this.headers.put("Content-Type", "multipart/form-data; boundary=" + body.boundary());
         return this;
     }
 

@@ -18,7 +18,6 @@ public class StickerRequest {
     }
 
     public AsyncResponse<Sticker> createGuildSticker(
-        long guildId,
         String name,
         String description,
         String tags,
@@ -30,9 +29,9 @@ public class StickerRequest {
         );
     }
 
-    public AsyncResponse<Sticker> deleteGuildSticker(long stickerId) {
+    public AsyncResponse<Void> deleteGuildSticker(long stickerId) {
         return responseParser.callAndParse(
-            Sticker.class, new DeleteGuildStickerRequest(guildId, stickerId)
+            Void.class, new DeleteGuildStickerRequest(guildId, stickerId)
         );
     }
 

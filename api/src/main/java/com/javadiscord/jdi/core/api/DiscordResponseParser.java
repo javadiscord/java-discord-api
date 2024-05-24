@@ -100,7 +100,10 @@ public class DiscordResponseParser {
     ) {
         if (isSuccessfulResponse(response)) {
             try {
-                T result = OBJECT_MAPPER.readValue(response.body(), type);
+                T result = null;
+                if (!response.body().isEmpty()) {
+                    result = OBJECT_MAPPER.readValue(response.body(), type);
+                }
                 asyncResponse.setResult(result);
             } catch (JsonProcessingException e) {
                 asyncResponse.setException(e);
