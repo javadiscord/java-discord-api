@@ -23,8 +23,7 @@ public class CacheUpdateHandler {
 
             cache.getCacheForGuild(guildId).add(id, result);
         } catch (IllegalAccessException | NoSuchFieldException e) {
-            // NoSuchFieldException means we don't want to cache result
-            // Other exceptions should be caught in payload validation layer
+            // NoSuchFieldException: don't cache result
         }
     }
 
