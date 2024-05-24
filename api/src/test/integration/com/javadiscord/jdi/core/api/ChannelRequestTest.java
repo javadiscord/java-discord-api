@@ -4,6 +4,7 @@ import com.javadiscord.jdi.core.Guild;
 import com.javadiscord.jdi.core.api.builders.CreateMessageBuilder;
 import com.javadiscord.jdi.core.api.builders.FetchChannelMessagesBuilder;
 import com.javadiscord.jdi.core.models.channel.Channel;
+import com.javadiscord.jdi.core.models.emoji.Emoji;
 import com.javadiscord.jdi.core.models.invite.Invite;
 import com.javadiscord.jdi.core.models.message.Message;
 import helpers.LiveDiscordHelper;
@@ -229,7 +230,7 @@ class ChannelRequestTest {
     }
 
     @Test
-    void testFetchChannel() throws Exception {
+    void testFetchChannel() throws InterruptedException {
         CountDownLatch latch = new CountDownLatch(1);
 
         long testChannelId = 1242792813700055134L;
@@ -247,5 +248,61 @@ class ChannelRequestTest {
         asyncResponse.onError(Assertions::fail);
 
         assertTrue(latch.await(30, TimeUnit.SECONDS));
+    }
+
+
+
+    @Test
+    void testCreateReaction() throws InterruptedException {
+        AtomicReference<Long> messageId = new AtomicReference<>();
+        long testChannelId = 1242792813700055134L;
+
+        {
+            CountDownLatch latch = new CountDownLatch(1);
+
+            AsyncResponse<Message> asyncResponse = guild
+                    .channel()
+                    .createMessage(new CreateMessageBuilder(testChannelId)
+                            .content("Hello, World!"));
+
+            asyncResponse.onSuccess(res -> {
+                messageId.set(res.id());
+                latch.countDown();
+            });
+
+            asyncResponse.onError(Assertions::fail);
+
+            assertTrue(latch.await(30, TimeUnit.SECONDS));
+        }
+
+        AtomicReference<Emoji> emoji = new AtomicReference<>();
+        {
+            CountDownLatch latch = new CountDownLatch(1);
+            AsyncResponse<List<Emoji>> asyncResponse = guild
+                    .emoji()
+                    .getEmojis();
+
+            asyncResponse.onSuccess(res -> {
+                assertFalse(res.isEmpty());
+                emoji.set(res.getFirst());
+                latch.countDown();
+            });
+
+            asyncResponse.onError(Assertions::fail);
+
+            assertTrue(latch.await(30, TimeUnit.SECONDS));
+        }
+
+        {
+            CountDownLatch latch = new CountDownLatch(1);
+            AsyncResponse<Void> asyncResponse = guild
+                    .channel().createReaction(testChannelId, messageId.get(), emoji.get());
+
+            asyncResponse.onSuccess(res -> latch.countDown());
+
+            asyncResponse.onError(Assertions::fail);
+
+            assertTrue(latch.await(30, TimeUnit.SECONDS));
+        }
     }
 }

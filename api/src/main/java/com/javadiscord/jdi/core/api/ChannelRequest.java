@@ -6,9 +6,9 @@ import java.util.Optional;
 import com.javadiscord.jdi.core.api.builders.*;
 import com.javadiscord.jdi.core.models.channel.Channel;
 import com.javadiscord.jdi.core.models.channel.ThreadMember;
+import com.javadiscord.jdi.core.models.emoji.Emoji;
 import com.javadiscord.jdi.core.models.invite.Invite;
 import com.javadiscord.jdi.core.models.message.Message;
-import com.javadiscord.jdi.core.models.message.MessageReaction;
 import com.javadiscord.jdi.core.models.user.User;
 import com.javadiscord.jdi.internal.api.channel.*;
 
@@ -49,13 +49,13 @@ public class ChannelRequest {
         return responseParser.callAndParse(Message.class, builder.build());
     }
 
-    public AsyncResponse<MessageReaction> createReaction(
+    public AsyncResponse<Void> createReaction(
         long channelId,
         long messageId,
-        String emoji
+        Emoji emoji
     ) {
         return responseParser.callAndParse(
-            MessageReaction.class, new CreateReactionRequest(channelId, messageId, emoji)
+            Void.class, new CreateReactionRequest(channelId, messageId, emoji)
         );
     }
 
