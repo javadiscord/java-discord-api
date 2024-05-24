@@ -2,10 +2,10 @@ package com.javadiscord.jdi.core.api;
 
 import com.javadiscord.jdi.core.Guild;
 import com.javadiscord.jdi.core.api.builders.CreateMessageBuilder;
+import com.javadiscord.jdi.core.api.builders.FetchChannelMessagesBuilder;
 import com.javadiscord.jdi.core.models.invite.Invite;
 import com.javadiscord.jdi.core.models.message.Message;
 import helpers.LiveDiscordHelper;
-import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -205,5 +205,25 @@ class ChannelRequestTest {
 
             assertTrue(latch.await(30, TimeUnit.SECONDS));
         }
+    }
+
+    @Test
+    void testFetchChannelMessages() throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
+
+        long testChannelId = 1242792813700055134L;
+
+        AsyncResponse<List<Message>> asyncResponse = guild
+                .channel()
+                .fetchChannelMessages(new FetchChannelMessagesBuilder(testChannelId, 100));
+
+        asyncResponse.onSuccess(res -> {
+            assertFalse(res.isEmpty());
+            latch.countDown();
+        });
+
+        asyncResponse.onError(Assertions::fail);
+
+        assertTrue(latch.await(30, TimeUnit.SECONDS));
     }
 }

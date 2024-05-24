@@ -32,7 +32,7 @@ public record FetchChannelMessagesRequest(
         after.ifPresent(val -> requestBuilder.queryParam("after", val));
 
         requestBuilder.queryParam("limit", limit);
-        requestBuilder.path("/channels/%s".formatted(channelId));
+        requestBuilder.path("/channels/%s/messages".formatted(channelId));
         return requestBuilder;
     }
 }
