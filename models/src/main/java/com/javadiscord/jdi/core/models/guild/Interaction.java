@@ -16,8 +16,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public record Interaction(
     @JsonProperty("id") long id,
     @JsonProperty("application_id") long applicationId,
-    @JsonProperty("type") String type,
+    @JsonProperty("type") InteractionType type,
     @JsonProperty("data") InteractionData data,
+    @JsonProperty("guild") Guild guild,
     @JsonProperty("guild_id") long guildId,
     @JsonProperty("channel") Channel channel,
     @JsonProperty("channel_id") long channelId,
@@ -31,5 +32,5 @@ public record Interaction(
     @JsonProperty("guild_locale") String guildLocale,
     @JsonProperty("entitlements") List<Entitlement> entitlements,
     @JsonAlias("authorizing_integration_owners") Map<String, Object> authorizingIntegrationOwners,
-    @JsonProperty("context") String context
+    @JsonProperty("context") InteractionContext context
 ) {}
