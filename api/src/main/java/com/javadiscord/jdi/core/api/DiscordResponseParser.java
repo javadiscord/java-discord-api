@@ -23,18 +23,18 @@ public class DiscordResponseParser {
         AsyncResponse<List<T>> asyncResponse = new AsyncResponse<>();
         DiscordResponseFuture future = dispatcher.queue(request);
         future.onSuccess(
-            response -> {
-                if (isSuccessfulResponse(response)) {
-                    try {
-                        List<T> resultList = parseResponseFromList(clazz, response.body());
-                        asyncResponse.setResult(resultList);
-                    } catch (Exception e) {
-                        asyncResponse.setException(e);
+                response -> {
+                    if (isSuccessfulResponse(response)) {
+                        try {
+                            List<T> resultList = parseResponseFromList(clazz, response.body());
+                            asyncResponse.setResult(resultList);
+                        } catch (Exception e) {
+                            asyncResponse.setException(e);
+                        }
+                    } else {
+                        asyncResponse.setException(errorResponseException(response));
                     }
-                } else {
-                    asyncResponse.setException(errorResponseException(response));
                 }
-            }
         );
         future.onError(asyncResponse::setException);
         return asyncResponse;
@@ -44,44 +44,44 @@ public class DiscordResponseParser {
         AsyncResponse<List<T>> asyncResponse = new AsyncResponse<>();
         DiscordResponseFuture future = dispatcher.queue(request);
         future.onSuccess(
-            response -> {
-                if (isSuccessfulResponse(response)) {
-                    try {
-                        List<T> resultList = parseResponseFromMap(key, response.body());
-                        asyncResponse.setResult(resultList);
-                    } catch (Exception e) {
-                        asyncResponse.setException(e);
+                response -> {
+                    if (isSuccessfulResponse(response)) {
+                        try {
+                            List<T> resultList = parseResponseFromMap(key, response.body());
+                            asyncResponse.setResult(resultList);
+                        } catch (Exception e) {
+                            asyncResponse.setException(e);
+                        }
+                    } else {
+                        asyncResponse.setException(errorResponseException(response));
                     }
-                } else {
-                    asyncResponse.setException(errorResponseException(response));
                 }
-            }
         );
         future.onError(asyncResponse::setException);
         return asyncResponse;
     }
 
     private <T> List<T> parseResponseFromList(
-        Class<T> elementType,
-        String response
+            Class<T> elementType,
+            String response
     ) throws JsonProcessingException {
         return OBJECT_MAPPER.readValue(
-            response,
-            OBJECT_MAPPER.getTypeFactory().constructCollectionType(List.class, elementType)
+                response,
+                OBJECT_MAPPER.getTypeFactory().constructCollectionType(List.class, elementType)
         );
     }
 
     private <T> List<T> parseResponseFromMap(
-        String key,
-        String response
+            String key,
+            String response
     ) throws JsonProcessingException {
         Map<String, List<T>> res =
-            OBJECT_MAPPER.readValue(
-                response,
-                OBJECT_MAPPER
-                    .getTypeFactory()
-                    .constructMapType(Map.class, String.class, List.class)
-            );
+                OBJECT_MAPPER.readValue(
+                        response,
+                        OBJECT_MAPPER
+                                .getTypeFactory()
+                                .constructMapType(Map.class, String.class, List.class)
+                );
         return res.get(key);
     }
 
@@ -94,13 +94,16 @@ public class DiscordResponseParser {
     }
 
     private <T> void success(
-        Class<T> type,
-        DiscordResponse response,
-        AsyncResponse<T> asyncResponse
+            Class<T> type,
+            DiscordResponse response,
+            AsyncResponse<T> asyncResponse
     ) {
         if (isSuccessfulResponse(response)) {
             try {
-                T result = OBJECT_MAPPER.readValue(response.body(), type);
+                T result = null;
+                if (!response.body().isEmpty()) {
+                    result = OBJECT_MAPPER.readValue(response.body(), type);
+                }
                 asyncResponse.setResult(result);
             } catch (JsonProcessingException e) {
                 asyncResponse.setException(e);
@@ -116,7 +119,7 @@ public class DiscordResponseParser {
 
     private Throwable errorResponseException(DiscordResponse response) {
         return new Exception(
-            "Received HTTP status code " + response.status() + " " + response.body()
+                "Received HTTP status code " + response.status() + " " + response.body()
         );
     }
 }

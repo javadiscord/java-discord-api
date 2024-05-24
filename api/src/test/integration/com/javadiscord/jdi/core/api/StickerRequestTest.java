@@ -8,7 +8,6 @@ import com.javadiscord.jdi.core.models.message.StickerType;
 import helpers.LiveDiscordHelper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.net.URISyntaxException;
@@ -66,20 +65,13 @@ class StickerRequestTest {
 
         if(stickerId.get() != null) {
             guild.sticker().deleteGuildSticker(stickerId.get())
-                    .onError(Assertions::fail)
-                    .onSuccess(res -> {
-                        assertEquals(stickerName, res.name());
-                        assertEquals(description, res.description());
-                        assertEquals(tags, res.tags());
-                        assertEquals(stickerId.get(), res.id());
-                    });
+                    .onError(Assertions::fail);
         } else {
             fail();
         }
     }
 
     @Test
-    @Disabled
     void testModifySticker() throws InterruptedException, URISyntaxException {
         CountDownLatch createLatch = new CountDownLatch(1);
 
@@ -107,8 +99,6 @@ class StickerRequestTest {
 
         assertTrue(createLatch.await(30, TimeUnit.SECONDS));
 
-        Thread.sleep(10000);
-
         CountDownLatch modifyLatch = new CountDownLatch(1);
 
         guild.sticker()
@@ -122,14 +112,20 @@ class StickerRequestTest {
                     assertEquals("new tags", res.tags());
                     modifyLatch.countDown();
                 })
-                .onError(Assertions::fail);
+                .onError(err -> {
+                    System.err.println("error: " + err.getMessage());
+                });
 
         assertTrue(modifyLatch.await(30, TimeUnit.SECONDS));
 
-        Thread.sleep(10000);
+        CountDownLatch deleteLatch = new CountDownLatch(1);
 
-        guild.sticker()
-                .deleteGuildSticker(stickerId.get())
-                .onError(Assertions::fail);
+        AsyncResponse<Void> delete = guild.sticker()
+                .deleteGuildSticker(stickerId.get());
+
+        delete.onSuccess(res -> deleteLatch.countDown());
+        delete.onError(Assertions::fail);
+
+        assertTrue(deleteLatch.await(30, TimeUnit.SECONDS));
     }
 }
