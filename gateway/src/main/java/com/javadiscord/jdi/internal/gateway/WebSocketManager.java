@@ -106,8 +106,8 @@ public class WebSocketManager {
             .onFailure(err -> LOGGER.error("Failed to shutdown web socket client", err));
         retryAllowed = false;
         vertx.close()
-                .onSuccess(res -> LOGGER.info("Gateway has shutdown"))
-                .onFailure(err -> LOGGER.error("Failed to shutdown gateway", err));
+            .onSuccess(res -> LOGGER.info("Gateway has shutdown"))
+            .onFailure(err -> LOGGER.error("Failed to shutdown gateway", err));
     }
 
     public WebSocket getWebSocket() {
