@@ -54,6 +54,7 @@ public class DiscordResponseParser {
                     try {
                         List<T> resultList = parseResponseFromMap(key, response.body());
                         asyncResponse.setResult(resultList);
+                        cacheUpdater.updateCache(resultList);
                     } catch (Exception e) {
                         asyncResponse.setException(e);
                     }
