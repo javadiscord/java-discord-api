@@ -1,9 +1,9 @@
 package com.javadiscord.jdi.core.api.utils;
 
-import com.javadiscord.jdi.internal.cache.Cache;
-
 import java.lang.reflect.Field;
 import java.util.List;
+
+import com.javadiscord.jdi.internal.cache.Cache;
 
 public class CacheUpdater {
 
