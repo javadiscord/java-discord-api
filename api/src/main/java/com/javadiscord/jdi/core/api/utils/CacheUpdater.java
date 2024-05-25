@@ -24,7 +24,9 @@ public class CacheUpdater {
             long guildId = getLongFromField(guildIdField, result);
             long id = getLongFromField(idField, result);
 
-            cache.getCacheForGuild(guildId).add(id, result);
+            if (cache.getCacheForGuild(guildId) != null) {
+                cache.getCacheForGuild(guildId).add(id, result);
+            }
         } catch (IllegalAccessException | NoSuchFieldException e) {
             // NoSuchFieldException: don't cache result
         }
