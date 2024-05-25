@@ -21,8 +21,8 @@ public class CacheUpdater {
             Field guildIdField = result.getClass().getDeclaredField("guildId");
             Field idField = result.getClass().getDeclaredField("id");
 
-            long guildId = getLongFromField(guildIdField);
-            long id = getLongFromField(idField);
+            long guildId = getLongFromField(guildIdField, result);
+            long id = getLongFromField(idField, result);
 
             cache.getCacheForGuild(guildId).add(id, result);
         } catch (IllegalAccessException | NoSuchFieldException e) {
@@ -34,11 +34,11 @@ public class CacheUpdater {
         resultList.forEach(this::updateCache);
     }
 
-    private long getLongFromField(Field field) throws IllegalAccessException {
+    private <T> long getLongFromField(Field field, T result) throws IllegalAccessException {
         field.setAccessible(true);
         if (field.getType() == String.class) {
-            return Long.parseLong((String) field.get(field.getName()));
+            return Long.parseLong((String) field.get(result));
         }
-        return (long) field.get(field.getName());
+        return (long) field.get(result);
     }
 }
