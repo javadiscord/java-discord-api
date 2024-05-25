@@ -138,7 +138,7 @@ public class Discord {
     }
 
     public void start() {
-        this.webSocketManager =
+        webSocketManager =
             new WebSocketManager(
                 new GatewaySetting().setApiVersion(10).setEncoding(GatewayEncoding.JSON),
                 identifyRequest,
@@ -146,7 +146,7 @@ public class Discord {
             );
 
         WebSocketManagerProxy webSocketManagerProxy =
-            new WebSocketManagerProxy(this.webSocketManager);
+            new WebSocketManagerProxy(webSocketManager);
         ConnectionDetails connectionDetails =
             new ConnectionDetails(gateway.url(), botToken, gatewaySetting);
         ConnectionMediator connectionMediator =
@@ -159,13 +159,16 @@ public class Discord {
     }
 
     public void stop() {
-        if (this.webSocketManager != null) {
-            this.webSocketManager.stop();
+        LOGGER.info("Shutdown initiated");
+
+        if (webSocketManager != null) {
+            webSocketManager.stop();
         }
 
         discordRequestDispatcher.stop();
 
         EXECUTOR.shutdown();
+
         try {
             if (!EXECUTOR.awaitTermination(30, TimeUnit.SECONDS)) {
                 EXECUTOR.shutdownNow();
@@ -176,8 +179,8 @@ public class Discord {
                     );
                 }
             }
-        } catch (InterruptedException ie) {
-            LOGGER.error("Termination was interrupted within {} seconds.", 30);
+        } catch (InterruptedException e) {
+            LOGGER.error("Termination was interrupted within {} seconds", 30, e);
             Thread.currentThread().interrupt();
         }
     }

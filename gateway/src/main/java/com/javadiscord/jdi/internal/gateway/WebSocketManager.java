@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.WebSocket;
+import io.vertx.core.http.WebSocketClient;
 import io.vertx.core.http.WebSocketConnectOptions;
 import io.vertx.core.http.WebSocketFrame;
 import org.apache.logging.log4j.LogManager;
@@ -21,6 +22,8 @@ public class WebSocketManager {
     private final WebSocketRetryHandler retryHandler;
     private final Cache cache;
     private WebSocket webSocket;
+    private WebSocketClient webSocketClient;
+    private boolean retryAllowed;
 
     public WebSocketManager(
         GatewaySetting gatewaySetting, IdentifyRequest identifyRequest, Cache cache
@@ -48,8 +51,9 @@ public class WebSocketManager {
                 )
                 .setSsl(true);
 
-        vertx.createWebSocketClient()
-            .connect(webSocketConnectOptions)
+        webSocketClient = vertx.createWebSocketClient();
+        retryAllowed = true;
+        webSocketClient.connect(webSocketConnectOptions)
             .onSuccess(
                 webSocket -> {
                     LOGGER.info("Connected to Discord");
@@ -74,7 +78,9 @@ public class WebSocketManager {
             .onFailure(
                 error -> {
                     LOGGER.warn("Failed to connect to {} {}", gatewayURL, error.getCause());
-                    retryHandler.retry(() -> restart(connectionMediator));
+                    if (retryAllowed) {
+                        retryHandler.retry(() -> restart(connectionMediator));
+                    }
                 }
             );
     }
@@ -86,14 +92,22 @@ public class WebSocketManager {
     }
 
     public void restart(ConnectionMediator connectionMediator) {
+        retryAllowed = true;
         stop();
         start(connectionMediator);
     }
 
     public void stop() {
-        if (!webSocket.isClosed()) {
+        if (webSocket != null && !webSocket.isClosed()) {
             webSocket.close();
         }
+        webSocketClient.close()
+            .onSuccess(res -> LOGGER.info("Web socket client has been shutdown"))
+            .onFailure(err -> LOGGER.error("Failed to shutdown web socket client", err));
+        retryAllowed = false;
+        vertx.close()
+            .onSuccess(res -> LOGGER.info("Gateway has shutdown"))
+            .onFailure(err -> LOGGER.error("Failed to shutdown gateway", err));
     }
 
     public WebSocket getWebSocket() {
