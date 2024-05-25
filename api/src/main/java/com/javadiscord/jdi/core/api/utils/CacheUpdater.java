@@ -5,15 +5,18 @@ import com.javadiscord.jdi.internal.cache.Cache;
 import java.lang.reflect.Field;
 import java.util.List;
 
-public class CacheUpdateHandler {
+public class CacheUpdater {
 
     private final Cache cache;
 
-    public CacheUpdateHandler(Cache cache) {
+    public CacheUpdater(Cache cache) {
         this.cache = cache;
     }
 
     public <T> void updateCache(T result) {
+        if (result == null) {
+            return;
+        }
         try {
             Field guildIdField = result.getClass().getDeclaredField("guildId");
             Field idField = result.getClass().getDeclaredField("id");
