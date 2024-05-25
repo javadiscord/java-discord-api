@@ -23,7 +23,7 @@ public class DiscordRequestDispatcher implements Runnable {
     private final HttpClient httpClient;
     private final BlockingQueue<DiscordRequestBuilder> queue;
     private final String botToken;
-    private AtomicBoolean running = new AtomicBoolean(false);
+    private final AtomicBoolean running = new AtomicBoolean(false);
     private int numberOfRequestsSent;
     private long timeSinceLastRequest;
 
@@ -45,6 +45,8 @@ public class DiscordRequestDispatcher implements Runnable {
     public void run() {
         running.set(true);
 
+        LOGGER.info("Request dispatcher has started");
+
         while (running.get()) {
             long currentTime = System.currentTimeMillis();
             long elapsed = currentTime - timeSinceLastRequest;
@@ -64,6 +66,8 @@ public class DiscordRequestDispatcher implements Runnable {
                 /* Ignore */
             }
         }
+
+        LOGGER.info("Request dispatcher has shutdown");
     }
 
     public void stop() {
