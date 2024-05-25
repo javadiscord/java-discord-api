@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.webhook.ExecuteGithubCompatibleWebhookRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.webhook.ExecuteGithubCompatibleWebhookRequest;
 
 public final class ExecuteGithubCompatibleWebhookBuilder {
     private final long webhookId;

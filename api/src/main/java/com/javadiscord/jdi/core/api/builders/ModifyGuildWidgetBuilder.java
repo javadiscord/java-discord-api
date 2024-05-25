@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.guild.ModifyGuildWidgetRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.guild.ModifyGuildWidgetRequest;
 
 public final class ModifyGuildWidgetBuilder {
     private long guildId;

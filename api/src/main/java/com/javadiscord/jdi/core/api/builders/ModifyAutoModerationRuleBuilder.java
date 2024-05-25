@@ -1,11 +1,11 @@
 package com.javadiscord.jdi.core.api.builders;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.javadiscord.jdi.core.models.auto_moderation.AutoModerationAction;
 import com.javadiscord.jdi.core.models.auto_moderation.AutoModerationTriggerMetadata;
 import com.javadiscord.jdi.internal.api.auto_moderation.ModifyAutoModerationRuleRequest;
-
-import java.util.List;
-import java.util.Optional;
 
 public class ModifyAutoModerationRuleBuilder {
     private long guildId;
@@ -40,7 +40,8 @@ public class ModifyAutoModerationRuleBuilder {
     }
 
     public ModifyAutoModerationRuleBuilder triggerMetadata(
-            AutoModerationTriggerMetadata triggerMetadata) {
+        AutoModerationTriggerMetadata triggerMetadata
+    ) {
         this.triggerMetadata = Optional.of(triggerMetadata);
         return this;
     }
@@ -67,15 +68,16 @@ public class ModifyAutoModerationRuleBuilder {
 
     public ModifyAutoModerationRuleRequest build() {
         return new ModifyAutoModerationRuleRequest(
-                guildId,
-                autoModerationRuleId,
-                name,
-                eventType,
-                triggerMetadata,
-                actions,
-                enabled,
-                exemptRoles,
-                exemptChannel);
+            guildId,
+            autoModerationRuleId,
+            name,
+            eventType,
+            triggerMetadata,
+            actions,
+            enabled,
+            exemptRoles,
+            exemptChannel
+        );
     }
 
     public ModifyAutoModerationRuleBuilder guildId(long guildId) {

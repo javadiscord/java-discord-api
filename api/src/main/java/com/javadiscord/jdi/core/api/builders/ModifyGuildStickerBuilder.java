@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.sticker.ModifyGuildStickerRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.sticker.ModifyGuildStickerRequest;
 
 public class ModifyGuildStickerBuilder {
     private long guildId;

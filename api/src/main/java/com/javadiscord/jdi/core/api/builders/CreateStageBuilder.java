@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.stage.CreateStageRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.stage.CreateStageRequest;
 
 public class CreateStageBuilder {
     private final long channelId;
@@ -38,11 +38,12 @@ public class CreateStageBuilder {
 
     public CreateStageRequest build() {
         return new CreateStageRequest(
-                channelId,
-                topic,
-                privacyLevel,
-                sendStartNotification,
-                guildScheduledEventId,
-                auditReason);
+            channelId,
+            topic,
+            privacyLevel,
+            sendStartNotification,
+            guildScheduledEventId,
+            auditReason
+        );
     }
 }

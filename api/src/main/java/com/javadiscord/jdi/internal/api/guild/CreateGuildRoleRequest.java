@@ -1,22 +1,22 @@
 package com.javadiscord.jdi.internal.api.guild;
 
-import com.javadiscord.jdi.internal.api.DiscordRequest;
-import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import com.javadiscord.jdi.internal.api.DiscordRequest;
+import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
+
 public record CreateGuildRoleRequest(
-        long guildId,
-        Optional<String> name,
-        Optional<String> permissions,
-        Optional<Integer> color,
-        Optional<Boolean> hoist,
-        Optional<String> icon,
-        Optional<String> unicodeEmoji,
-        Optional<Boolean> mentionable)
-        implements DiscordRequest {
+    long guildId,
+    Optional<String> name,
+    Optional<String> permissions,
+    Optional<Integer> color,
+    Optional<Boolean> hoist,
+    Optional<String> icon,
+    Optional<String> unicodeEmoji,
+    Optional<Boolean> mentionable
+) implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {

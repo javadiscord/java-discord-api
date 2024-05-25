@@ -1,14 +1,14 @@
 package com.javadiscord.jdi.core.api.builders;
 
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Optional;
+
 import com.javadiscord.jdi.core.models.channel.AllowedMentions;
 import com.javadiscord.jdi.core.models.message.Component;
 import com.javadiscord.jdi.core.models.message.MessageAttachment;
 import com.javadiscord.jdi.core.models.message.embed.Embed;
 import com.javadiscord.jdi.internal.api.webhook.EditWebhookMessageRequest;
-
-import java.nio.file.Path;
-import java.util.List;
-import java.util.Optional;
 
 public final class EditWebhookMessageBuilder {
     private final long webhookId;
@@ -72,15 +72,16 @@ public final class EditWebhookMessageBuilder {
 
     public EditWebhookMessageRequest build() {
         return new EditWebhookMessageRequest(
-                this.webhookId,
-                this.webhookToken,
-                this.messageId,
-                this.threadId,
-                this.content,
-                this.embeds,
-                this.allowedMentions,
-                this.components,
-                this.files,
-                this.attachments);
+            this.webhookId,
+            this.webhookToken,
+            this.messageId,
+            this.threadId,
+            this.content,
+            this.embeds,
+            this.allowedMentions,
+            this.components,
+            this.files,
+            this.attachments
+        );
     }
 }

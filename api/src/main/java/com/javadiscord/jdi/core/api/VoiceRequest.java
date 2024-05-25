@@ -1,9 +1,9 @@
 package com.javadiscord.jdi.core.api;
 
+import java.util.List;
+
 import com.javadiscord.jdi.core.models.voice.VoiceRegion;
 import com.javadiscord.jdi.internal.api.voice.ListVoiceRegionsRequest;
-
-import java.util.List;
 
 public class VoiceRequest {
     private final DiscordResponseParser responseParser;

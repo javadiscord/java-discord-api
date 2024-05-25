@@ -11,11 +11,12 @@ public class UserUpdateHandler implements EventHandler<User> {
     @Override
     public void handle(User event, ConnectionMediator connectionMediator, Cache cache) {
         cache.getCachedGuilds()
-                .forEach(
-                        (guildId, cacheInterface) -> {
-                            if (cacheInterface.isCached(event.id(), User.class)) {
-                                cacheInterface.update(event.id(), event);
-                            }
-                        });
+            .forEach(
+                (guildId, cacheInterface) -> {
+                    if (cacheInterface.isCached(event.id(), User.class)) {
+                        cacheInterface.update(event.id(), event);
+                    }
+                }
+            );
     }
 }

@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.channel.ListThreadMembersRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.channel.ListThreadMembersRequest;
 
 public class ListThreadMembersBuilder {
     private final long channelId;

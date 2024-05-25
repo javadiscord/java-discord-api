@@ -1,20 +1,20 @@
 package com.javadiscord.jdi.internal.api;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.github.mizosoft.methanol.MultipartBodyPublisher;
-
 import java.net.URLEncoder;
 import java.net.http.HttpRequest;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.github.mizosoft.methanol.MultipartBodyPublisher;
+
 public class DiscordRequestBuilder {
     private static final ObjectMapper OBJECT_MAPPER =
-            JsonMapper.builder().addModule(new JavaTimeModule()).build();
+        JsonMapper.builder().addModule(new JavaTimeModule()).build();
     private final DiscordResponseFuture future = new DiscordResponseFuture();
     private final Map<String, Object> headers = new HashMap<>();
     private final Map<String, Object> queryParameters = new HashMap<>();
@@ -57,7 +57,7 @@ public class DiscordRequestBuilder {
 
     public DiscordRequestBuilder multipartBody(MultipartBodyPublisher body) {
         this.body = body;
-        this.headers.put("Content-Type", "multipart/form-data");
+        this.headers.put("Content-Type", "multipart/form-data; boundary=" + body.boundary());
         return this;
     }
 
@@ -97,7 +97,8 @@ public class DiscordRequestBuilder {
             encodedParams.append(URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8));
             encodedParams.append("=");
             encodedParams.append(
-                    URLEncoder.encode(String.valueOf(entry.getValue()), StandardCharsets.UTF_8));
+                URLEncoder.encode(String.valueOf(entry.getValue()), StandardCharsets.UTF_8)
+            );
         }
         return encodedParams.toString();
     }

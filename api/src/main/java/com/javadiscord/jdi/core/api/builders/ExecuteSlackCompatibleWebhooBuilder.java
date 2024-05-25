@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.webhook.ExecuteSlackCompatibleWebhookRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.webhook.ExecuteSlackCompatibleWebhookRequest;
 
 public final class ExecuteSlackCompatibleWebhooBuilder {
     private long webhookId;

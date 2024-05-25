@@ -1,9 +1,9 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.channel.ListPublicArchivedThreadsRequest;
-
 import java.time.OffsetDateTime;
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.channel.ListPublicArchivedThreadsRequest;
 
 public class ListPublicArchivedThreadsBuilder {
     private final long channelId;

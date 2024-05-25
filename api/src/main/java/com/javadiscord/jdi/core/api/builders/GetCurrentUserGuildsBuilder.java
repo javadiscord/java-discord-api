@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.user.GetCurrentUserGuildsRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.user.GetCurrentUserGuildsRequest;
 
 public class GetCurrentUserGuildsBuilder {
     private Optional<Long> before;

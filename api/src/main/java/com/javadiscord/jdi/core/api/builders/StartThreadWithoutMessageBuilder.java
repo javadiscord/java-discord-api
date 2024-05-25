@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.channel.StartThreadWithoutMessageRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.channel.StartThreadWithoutMessageRequest;
 
 public class StartThreadWithoutMessageBuilder {
     private final long channelId;
@@ -43,6 +43,12 @@ public class StartThreadWithoutMessageBuilder {
 
     public StartThreadWithoutMessageRequest build() {
         return new StartThreadWithoutMessageRequest(
-                channelId, name, autoArchiveDuration, type, invitable, rateLimitPerUser);
+            channelId,
+            name,
+            autoArchiveDuration,
+            type,
+            invitable,
+            rateLimitPerUser
+        );
     }
 }

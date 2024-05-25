@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.channel.FetchUserReactionsToMessageRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.channel.FetchUserReactionsToMessageRequest;
 
 public class FetchUserReactionsToMessageBuilder {
     private final long channelId;

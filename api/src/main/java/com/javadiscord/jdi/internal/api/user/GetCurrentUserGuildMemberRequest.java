@@ -7,7 +7,7 @@ public record GetCurrentUserGuildMemberRequest(long guildId) implements DiscordR
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-                .get()
-                .path("/users/@me/guilds/%d/member".formatted(guildId));
+            .get()
+            .path("/users/@me/guilds/%d/member".formatted(guildId));
     }
 }

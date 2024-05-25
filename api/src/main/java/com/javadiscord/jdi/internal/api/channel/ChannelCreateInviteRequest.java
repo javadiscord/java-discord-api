@@ -1,22 +1,28 @@
 package com.javadiscord.jdi.internal.api.channel;
 
+import java.util.Map;
+
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
-import java.util.Map;
-
-public record ChannelCreateInviteRequest(long channelId, int maxAge, int maxUses, boolean temporary)
-        implements DiscordRequest {
+public record ChannelCreateInviteRequest(
+    long channelId,
+    int maxAge,
+    int maxUses,
+    boolean temporary
+) implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-                .post()
-                .path("/channels/%s/invites".formatted(channelId))
-                .body(
-                        Map.of(
-                                "max_age", maxAge,
-                                "max_uses", maxUses,
-                                "temporary", temporary));
+            .post()
+            .path("/channels/%s/invites".formatted(channelId))
+            .body(
+                Map.of(
+                    "max_age", maxAge,
+                    "max_uses", maxUses,
+                    "temporary", temporary
+                )
+            );
     }
 }

@@ -8,7 +8,7 @@ public record UnpinMessageRequest(long channelId, long messageId) implements Dis
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-                .delete()
-                .path("/channels/%s/pins/%s".formatted(channelId, messageId));
+            .delete()
+            .path("/channels/%s/pins/%s".formatted(channelId, messageId));
     }
 }

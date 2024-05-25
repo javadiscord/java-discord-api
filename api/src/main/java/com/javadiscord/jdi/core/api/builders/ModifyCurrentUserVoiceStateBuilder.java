@@ -1,9 +1,9 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.guild.ModifyCurrentUserVoiceStateRequest;
-
 import java.time.OffsetDateTime;
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.guild.ModifyCurrentUserVoiceStateRequest;
 
 public final class ModifyCurrentUserVoiceStateBuilder {
     private long guildId;
@@ -33,13 +33,18 @@ public final class ModifyCurrentUserVoiceStateBuilder {
     }
 
     public ModifyCurrentUserVoiceStateBuilder requestToSpeakTimestamp(
-            OffsetDateTime requestToSpeakTimestamp) {
+        OffsetDateTime requestToSpeakTimestamp
+    ) {
         this.requestToSpeakTimestamp = Optional.of(requestToSpeakTimestamp);
         return this;
     }
 
     public ModifyCurrentUserVoiceStateRequest build() {
         return new ModifyCurrentUserVoiceStateRequest(
-                guildId, channelId, suppress, requestToSpeakTimestamp);
+            guildId,
+            channelId,
+            suppress,
+            requestToSpeakTimestamp
+        );
     }
 }

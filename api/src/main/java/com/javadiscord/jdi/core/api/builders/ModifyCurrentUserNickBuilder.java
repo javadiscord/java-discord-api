@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.guild.ModifyCurrentUserNickRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.guild.ModifyCurrentUserNickRequest;
 
 public final class ModifyCurrentUserNickBuilder {
     private long guildId;

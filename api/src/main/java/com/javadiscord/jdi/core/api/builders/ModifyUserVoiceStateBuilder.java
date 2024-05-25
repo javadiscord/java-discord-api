@@ -1,8 +1,8 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.guild.ModifyUserVoiceStateRequest;
-
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.guild.ModifyUserVoiceStateRequest;
 
 public final class ModifyUserVoiceStateBuilder {
     private long guildId;

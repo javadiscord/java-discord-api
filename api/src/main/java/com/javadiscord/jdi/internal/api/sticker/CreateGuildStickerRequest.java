@@ -1,34 +1,48 @@
 package com.javadiscord.jdi.internal.api.sticker;
 
-import com.github.mizosoft.methanol.MultipartBodyPublisher;
+import java.io.FileNotFoundException;
+import java.nio.file.Path;
+
+import com.javadiscord.jdi.core.api.utils.DiscordImageUtil;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestBuilder;
 
-import java.io.FileNotFoundException;
-import java.net.http.HttpRequest;
-import java.nio.file.Path;
+import com.github.mizosoft.methanol.MediaType;
+import com.github.mizosoft.methanol.MultipartBodyPublisher;
 
 public record CreateGuildStickerRequest(
-        long guildId, String name, String description, String tags, Path filePath)
-        implements DiscordRequest {
+    long guildId,
+    String name,
+    String description,
+    String tags,
+    Path filePath
+) implements DiscordRequest {
 
     @Override
     public DiscordRequestBuilder create() {
-        HttpRequest.BodyPublisher body;
+
         try {
-            body =
-                    MultipartBodyPublisher.newBuilder()
-                            .textPart("name", name)
-                            .textPart("description", description)
-                            .textPart("tags", tags)
-                            .filePart("file", filePath)
-                            .build();
+            MultipartBodyPublisher.Builder body =
+                MultipartBodyPublisher.newBuilder()
+                    .textPart("name", name)
+                    .textPart("description", description)
+                    .textPart("tags", tags);
+
+            String extension = DiscordImageUtil.getExtension(filePath);
+
+            switch (extension) {
+                case "png" -> body.filePart("file", filePath, MediaType.IMAGE_PNG);
+                case "jpg", "jpeg" -> body.filePart("file", filePath, MediaType.IMAGE_JPEG);
+                case "gif" -> body.filePart("file", filePath, MediaType.IMAGE_GIF);
+            }
+
+            return new DiscordRequestBuilder()
+                .post()
+                .path("/guilds/%s/stickers".formatted(guildId))
+                .multipartBody(body.build());
+
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        return new DiscordRequestBuilder()
-                .post()
-                .path("/guilds/%s/stickers".formatted(guildId))
-                .body(body);
     }
 }

@@ -1,5 +1,7 @@
 package com.javadiscord.jdi.internal.gateway.handlers.events;
 
+import java.util.*;
+
 import com.javadiscord.jdi.internal.cache.Cache;
 import com.javadiscord.jdi.internal.gateway.ConnectionMediator;
 import com.javadiscord.jdi.internal.gateway.GatewayEvent;
@@ -37,10 +39,8 @@ import com.javadiscord.jdi.internal.gateway.handlers.events.codec.handlers.voice
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.*;
-
 public class EventCodecHandler implements GatewayOperationHandler {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger(EventCodecHandler.class);
     private static final Map<EventType, EventDecoder<?>> EVENT_DECODERS = new HashMap<>();
     private static final Map<EventType, EventHandler<?>> EVENT_HANDLERS = new HashMap<>();
 
@@ -153,9 +153,11 @@ public class EventCodecHandler implements GatewayOperationHandler {
         EVENT_HANDLERS.put(EventType.MESSAGE_DELETE_BULK, new MessageBulkDeleteHandler());
 
         EVENT_DECODERS.put(
-                EventType.MESSAGE_REACTION_REMOVE_ALL, new MessageReactionsRemovedDecoder());
+            EventType.MESSAGE_REACTION_REMOVE_ALL, new MessageReactionsRemovedDecoder()
+        );
         EVENT_HANDLERS.put(
-                EventType.MESSAGE_REACTION_REMOVE_ALL, new MessageReactionsRemovedHandler());
+            EventType.MESSAGE_REACTION_REMOVE_ALL, new MessageReactionsRemovedHandler()
+        );
 
         StageDecoder stageDecoder = new StageDecoder();
         EVENT_DECODERS.put(EventType.STAGE_INSTANCE_CREATE, stageDecoder);
@@ -174,13 +176,17 @@ public class EventCodecHandler implements GatewayOperationHandler {
         EVENT_DECODERS.put(EventType.AUTO_MODERATION_RULE_DELETE, autoModerationDecoder);
         EVENT_DECODERS.put(EventType.AUTO_MODERATION_ACTION_EXECUTION, autoModerationDecoder);
         EVENT_HANDLERS.put(
-                EventType.AUTO_MODERATION_RULE_CREATE, new AutoModerationRuleCreateHandler());
+            EventType.AUTO_MODERATION_RULE_CREATE, new AutoModerationRuleCreateHandler()
+        );
         EVENT_HANDLERS.put(
-                EventType.AUTO_MODERATION_RULE_UPDATE, new AutoModerationRuleUpdateHandler());
+            EventType.AUTO_MODERATION_RULE_UPDATE, new AutoModerationRuleUpdateHandler()
+        );
         EVENT_HANDLERS.put(
-                EventType.AUTO_MODERATION_RULE_DELETE, new AutoModerationRuleDeleteHandler());
+            EventType.AUTO_MODERATION_RULE_DELETE, new AutoModerationRuleDeleteHandler()
+        );
         EVENT_HANDLERS.put(
-                EventType.AUTO_MODERATION_ACTION_EXECUTION, new AutoModerationRuleDeleteHandler());
+            EventType.AUTO_MODERATION_ACTION_EXECUTION, new AutoModerationRuleDeleteHandler()
+        );
 
         EntitlementDecoder entitlementDecoder = new EntitlementDecoder();
         EVENT_DECODERS.put(EventType.ENTITLEMENT_CREATE, entitlementDecoder);
@@ -195,19 +201,24 @@ public class EventCodecHandler implements GatewayOperationHandler {
         EVENT_DECODERS.put(EventType.GUILD_SCHEDULED_EVENT_UPDATE, scheduledEventDecoder);
         EVENT_DECODERS.put(EventType.GUILD_SCHEDULED_EVENT_DELETE, scheduledEventDecoder);
         EVENT_HANDLERS.put(
-                EventType.GUILD_SCHEDULED_EVENT_CREATE, new ScheduledEventCreateHandler());
+            EventType.GUILD_SCHEDULED_EVENT_CREATE, new ScheduledEventCreateHandler()
+        );
         EVENT_HANDLERS.put(
-                EventType.GUILD_SCHEDULED_EVENT_UPDATE, new ScheduledEventUpdateHandler());
+            EventType.GUILD_SCHEDULED_EVENT_UPDATE, new ScheduledEventUpdateHandler()
+        );
         EVENT_HANDLERS.put(
-                EventType.GUILD_SCHEDULED_EVENT_DELETE, new ScheduledEventDeleteHandler());
+            EventType.GUILD_SCHEDULED_EVENT_DELETE, new ScheduledEventDeleteHandler()
+        );
 
         EventUserDecoder eventUserDecoder = new EventUserDecoder();
         EVENT_DECODERS.put(EventType.GUILD_SCHEDULED_EVENT_USER_ADD, eventUserDecoder);
         EVENT_DECODERS.put(EventType.GUILD_SCHEDULED_EVENT_USER_REMOVE, eventUserDecoder);
         EVENT_HANDLERS.put(
-                EventType.GUILD_SCHEDULED_EVENT_USER_ADD, new ScheduledEventUserAddHandler());
+            EventType.GUILD_SCHEDULED_EVENT_USER_ADD, new ScheduledEventUserAddHandler()
+        );
         EVENT_HANDLERS.put(
-                EventType.GUILD_SCHEDULED_EVENT_USER_REMOVE, new ScheduledEventUserRemoveHandler());
+            EventType.GUILD_SCHEDULED_EVENT_USER_REMOVE, new ScheduledEventUserRemoveHandler()
+        );
 
         EVENT_DECODERS.put(EventType.GUILD_STICKERS_UPDATE, new StickerUpdateDecoder());
         EVENT_HANDLERS.put(EventType.GUILD_STICKERS_UPDATE, new StickerUpdateHandler());

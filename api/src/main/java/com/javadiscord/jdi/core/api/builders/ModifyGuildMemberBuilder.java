@@ -1,10 +1,10 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.internal.api.guild.ModifyGuildMemberRequest;
-
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
+
+import com.javadiscord.jdi.internal.api.guild.ModifyGuildMemberRequest;
 
 public final class ModifyGuildMemberBuilder {
     private long guildId;
@@ -59,7 +59,8 @@ public final class ModifyGuildMemberBuilder {
     }
 
     public ModifyGuildMemberBuilder communicationDisabledUntil(
-            OffsetDateTime communicationDisabledUntil) {
+        OffsetDateTime communicationDisabledUntil
+    ) {
         this.communicationDisabledUntil = Optional.of(communicationDisabledUntil);
         return this;
     }
@@ -71,14 +72,15 @@ public final class ModifyGuildMemberBuilder {
 
     public ModifyGuildMemberRequest build() {
         return new ModifyGuildMemberRequest(
-                guildId,
-                userId,
-                nick,
-                roles,
-                mute,
-                deafen,
-                channelId,
-                communicationDisabledUntil,
-                flags);
+            guildId,
+            userId,
+            nick,
+            roles,
+            mute,
+            deafen,
+            channelId,
+            communicationDisabledUntil,
+            flags
+        );
     }
 }

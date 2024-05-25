@@ -1,23 +1,22 @@
 package com.javadiscord.jdi.internal.gateway.handlers.heartbeat;
 
-import com.javadiscord.jdi.internal.gateway.ConnectionMediator;
-
-import io.vertx.core.buffer.Buffer;
-import io.vertx.core.http.WebSocket;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.javadiscord.jdi.internal.gateway.ConnectionMediator;
+
+import io.vertx.core.buffer.Buffer;
+import io.vertx.core.http.WebSocket;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class HeartbeatService {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger(HeartbeatService.class);
     private static final ScheduledExecutorService EXECUTOR_SERVICE =
-            Executors.newScheduledThreadPool(2);
+        Executors.newScheduledThreadPool(2);
     private final ConnectionMediator connectionMediator;
     private final AtomicBoolean receivedHeartbeatAck;
     private final AtomicInteger missedHeartbeatAck;
@@ -30,13 +29,15 @@ public class HeartbeatService {
 
     public void startHeartbeat(WebSocket webSocket, int interval) {
         EXECUTOR_SERVICE.scheduleAtFixedRate(
-                () -> sendHeartbeat(webSocket), 0, interval, TimeUnit.MILLISECONDS);
+            () -> sendHeartbeat(webSocket), 0, interval, TimeUnit.MILLISECONDS
+        );
 
         EXECUTOR_SERVICE.scheduleAtFixedRate(
-                () -> checkHeartbeatAckReceived(webSocket),
-                interval,
-                interval + 1000,
-                TimeUnit.MILLISECONDS);
+            () -> checkHeartbeatAckReceived(webSocket),
+            interval,
+            interval + 1000,
+            TimeUnit.MILLISECONDS
+        );
     }
 
     private void checkHeartbeatAckReceived(WebSocket webSocket) {
@@ -47,21 +48,25 @@ public class HeartbeatService {
         }
         if (missedHeartbeatAck.get() >= 3) {
             LOGGER.warn(
-                    "Discord missed 3 heartbeat acknowledgements, restarting due to \"zombied\""
-                            + " connection");
+                "Discord missed 3 heartbeat acknowledgements, restarting due to \"zombied\""
+                    + " connection"
+            );
             connectionMediator.getWebSocketManagerProxy().restart(connectionMediator);
         }
     }
 
     public void sendHeartbeat(WebSocket webSocket) {
         webSocket.write(
-                Buffer.buffer()
-                        .appendString(
-                                "{ \"op\": 1, \"d\": \"%s\" }"
-                                        .formatted(
-                                                connectionMediator
-                                                        .getConnectionDetails()
-                                                        .getSequence())));
+            Buffer.buffer()
+                .appendString(
+                    "{ \"op\": 1, \"d\": \"%s\" }"
+                        .formatted(
+                            connectionMediator
+                                .getConnectionDetails()
+                                .getSequence()
+                        )
+                )
+        );
         receivedHeartbeatAck.set(false);
     }
 

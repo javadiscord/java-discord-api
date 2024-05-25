@@ -1,15 +1,15 @@
 package com.javadiscord.jdi.core.api.builders;
 
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import com.javadiscord.jdi.core.models.channel.ChannelMention;
 import com.javadiscord.jdi.core.models.message.MessageAttachment;
 import com.javadiscord.jdi.core.models.message.MessageReference;
 import com.javadiscord.jdi.core.models.message.embed.Embed;
 import com.javadiscord.jdi.internal.api.channel.CreateMessageRequest;
-
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 public class CreateMessageBuilder {
     private final long channelId;
@@ -111,19 +111,20 @@ public class CreateMessageBuilder {
 
     public CreateMessageRequest build() {
         return new CreateMessageRequest(
-                channelId,
-                content,
-                nonce,
-                tts,
-                embeds,
-                mentions,
-                messageReferences,
-                components,
-                stickerIds,
-                files,
-                payloadJson,
-                attachments,
-                flags,
-                enforceNonce);
+            channelId,
+            content,
+            nonce,
+            tts,
+            embeds,
+            mentions,
+            messageReferences,
+            components,
+            stickerIds,
+            files,
+            payloadJson,
+            attachments,
+            flags,
+            enforceNonce
+        );
     }
 }

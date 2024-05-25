@@ -8,7 +8,7 @@ public record GetGuildBanRequest(long guildId, long userId) implements DiscordRe
     @Override
     public DiscordRequestBuilder create() {
         return new DiscordRequestBuilder()
-                .get()
-                .path("/guilds/%s/bans/%s".formatted(guildId, userId));
+            .get()
+            .path("/guilds/%s/bans/%s".formatted(guildId, userId));
     }
 }

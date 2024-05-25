@@ -1,5 +1,8 @@
 package com.javadiscord.jdi.core.api;
 
+import java.util.List;
+import java.util.Map;
+
 import com.javadiscord.jdi.core.api.builders.GetCurrentUserGuildsBuilder;
 import com.javadiscord.jdi.core.api.builders.ModifyCurrentUserBuilder;
 import com.javadiscord.jdi.core.api.builders.UpdateCurrentUserApplicationRoleConnectionBuilder;
@@ -9,9 +12,6 @@ import com.javadiscord.jdi.core.models.user.Connection;
 import com.javadiscord.jdi.core.models.user.Member;
 import com.javadiscord.jdi.core.models.user.User;
 import com.javadiscord.jdi.internal.api.user.*;
-
-import java.util.List;
-import java.util.Map;
 
 public class UserRequest {
     private final DiscordResponseParser responseParser;
@@ -27,25 +27,31 @@ public class UserRequest {
     }
 
     public AsyncResponse<Channel> createGroupDM(
-            List<String> accessTokens, Map<Long, String> nicks) {
+        List<String> accessTokens,
+        Map<Long, String> nicks
+    ) {
         return responseParser.callAndParse(
-                Channel.class, new CreateGroupDMRequest(accessTokens, nicks));
+            Channel.class, new CreateGroupDMRequest(accessTokens, nicks)
+        );
     }
 
     public AsyncResponse<Connection> getCurrentUserApplicationRoleConnection(long applicationId) {
         return responseParser.callAndParse(
-                Connection.class,
-                new GetCurrentUserApplicationRoleConnectionRequest(applicationId));
+            Connection.class,
+            new GetCurrentUserApplicationRoleConnectionRequest(applicationId)
+        );
     }
 
     public AsyncResponse<Connection> getCurrentUserConnections() {
         return responseParser.callAndParse(
-                Connection.class, new GetCurrentUserConnectionsRequest());
+            Connection.class, new GetCurrentUserConnectionsRequest()
+        );
     }
 
     public AsyncResponse<Member> getCurrentUserGuildMember() {
         return responseParser.callAndParse(
-                Member.class, new GetCurrentUserGuildMemberRequest(guildId));
+            Member.class, new GetCurrentUserGuildMemberRequest(guildId)
+        );
     }
 
     public AsyncResponse<List<Guild>> getCurrentUserGuilds(GetCurrentUserGuildsBuilder builder) {
@@ -69,7 +75,8 @@ public class UserRequest {
     }
 
     public AsyncResponse<Connection> updateCurrentUserApplicationRoleConnection(
-            UpdateCurrentUserApplicationRoleConnectionBuilder builder) {
+        UpdateCurrentUserApplicationRoleConnectionBuilder builder
+    ) {
         return responseParser.callAndParse(Connection.class, builder.build());
     }
 }

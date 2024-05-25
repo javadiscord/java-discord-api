@@ -1,16 +1,16 @@
 package com.javadiscord.jdi.core.processor;
 
+import java.io.File;
+import java.lang.reflect.Constructor;
+import java.util.List;
+
 import com.javadiscord.jdi.core.annotations.EventListener;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.File;
-import java.lang.reflect.Constructor;
-import java.util.List;
-
 public class ListenerLoader {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger(ListenerLoader.class);
     private final EventListenerValidator eventListenerValidator = new EventListenerValidator();
     private final List<Object> eventListeners;
 
@@ -23,16 +23,20 @@ public class ListenerLoader {
         }
     }
 
-    public void loadListeners() throws Exception {
+    public void loadListeners() {
         List<File> classes = ClassFileUtil.getClassesInClassPath();
         for (File classFile : classes) {
-            Class<?> clazz = Class.forName(ClassFileUtil.getClassName(classFile));
-            if (clazz.isAnnotationPresent(EventListener.class)) {
-                if (validateListener(clazz)) {
-                    registerListener(clazz);
-                } else {
-                    LOGGER.error("{} failed validation", clazz.getName());
+            try {
+                Class<?> clazz = Class.forName(ClassFileUtil.getClassName(classFile));
+                if (clazz.isAnnotationPresent(EventListener.class)) {
+                    if (validateListener(clazz)) {
+                        registerListener(clazz);
+                    } else {
+                        LOGGER.error("{} failed validation", clazz.getName());
+                    }
                 }
+            } catch (Exception ignore) {
+                /* Ignore */
             }
         }
     }

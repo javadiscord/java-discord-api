@@ -1,11 +1,11 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.core.models.channel.ForumAndMediaThreadMessageParams;
-import com.javadiscord.jdi.internal.api.channel.StartThreadInForumOrMediaChannelRequest;
-
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
+
+import com.javadiscord.jdi.core.models.channel.ForumAndMediaThreadMessageParams;
+import com.javadiscord.jdi.internal.api.channel.StartThreadInForumOrMediaChannelRequest;
 
 public class StartThreadInForumOrMediaChannelBuilder {
     private final long channelId;
@@ -17,7 +17,8 @@ public class StartThreadInForumOrMediaChannelBuilder {
     private Optional<List<Path>> files;
 
     public StartThreadInForumOrMediaChannelBuilder(
-            long channelId, String name, ForumAndMediaThreadMessageParams message) {
+        long channelId, String name, ForumAndMediaThreadMessageParams message
+    ) {
         this.channelId = channelId;
         this.name = name;
         this.message = message;
@@ -49,12 +50,13 @@ public class StartThreadInForumOrMediaChannelBuilder {
 
     public StartThreadInForumOrMediaChannelRequest build() {
         return new StartThreadInForumOrMediaChannelRequest(
-                channelId,
-                name,
-                autoArchiveDuration,
-                rateLimitPerUser,
-                message,
-                appliedTags,
-                files);
+            channelId,
+            name,
+            autoArchiveDuration,
+            rateLimitPerUser,
+            message,
+            appliedTags,
+            files
+        );
     }
 }

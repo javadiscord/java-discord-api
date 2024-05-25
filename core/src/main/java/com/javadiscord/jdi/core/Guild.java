@@ -16,6 +16,7 @@ public class Guild {
     private final EmojiRequest emojiRequest;
     private final GuildRequest guildRequest;
     private final GuildScheduledEventRequest guildScheduledEventRequest;
+    private final GuildTemplateRequest guildTemplateRequest;
     private final InviteRequest inviteRequest;
     private final PollRequest pollRequest;
     private final StageRequest stageRequest;
@@ -31,18 +32,19 @@ public class Guild {
         long guildId = guild.id();
 
         DiscordResponseParser discordResponseParser =
-                new DiscordResponseParser(discord.getDiscordRequestDispatcher(), cache);
+            new DiscordResponseParser(discord.getDiscordRequestDispatcher(), cache);
 
         this.applicationRequest = new ApplicationRequest(discordResponseParser, guildId);
         this.applicationRoleConnectionMetaRequest =
-                new ApplicationRoleConnectionMetaRequest(discordResponseParser, guildId);
+            new ApplicationRoleConnectionMetaRequest(discordResponseParser, guildId);
         this.auditLogsRequest = new AuditLogsRequest(discordResponseParser, guildId);
         this.autoModerationRequest = new AutoModerationRequest(discordResponseParser, guildId);
         this.channelRequest = new ChannelRequest(discordResponseParser, guildId);
         this.emojiRequest = new EmojiRequest(discordResponseParser, guildId);
         this.guildRequest = new GuildRequest(discordResponseParser, guildId);
         this.guildScheduledEventRequest =
-                new GuildScheduledEventRequest(discordResponseParser, guildId);
+            new GuildScheduledEventRequest(discordResponseParser, guildId);
+        this.guildTemplateRequest = new GuildTemplateRequest(discordResponseParser, guildId);
         this.inviteRequest = new InviteRequest(discordResponseParser, guildId);
         this.pollRequest = new PollRequest(discordResponseParser, guildId);
         this.stageRequest = new StageRequest(discordResponseParser, guildId);
@@ -93,6 +95,10 @@ public class Guild {
 
     public GuildScheduledEventRequest scheduledEvent() {
         return guildScheduledEventRequest;
+    }
+
+    public GuildTemplateRequest guildTemplate() {
+        return guildTemplateRequest;
     }
 
     public InviteRequest invite() {
