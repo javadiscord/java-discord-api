@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.javadiscord.jdi.internal.cache.Cache;
 
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,8 +30,7 @@ public class CacheUpdater {
             long id = getLongFromField(idField, result);
 
             if (cache.getCacheForGuild(guildId) == null) {
-                LOGGER.log(
-                    Level.TRACE, "Failed to cache result of type {} with guildId of {}",
+                LOGGER.trace("Failed to cache result of type {} with guildId of {}",
                     result.getClass().getName(), guildId
                 );
             } else {
@@ -40,8 +38,7 @@ public class CacheUpdater {
             }
 
         } catch (IllegalAccessException | NoSuchFieldException | NumberFormatException e) {
-            LOGGER.log(
-                Level.TRACE, "Failed to cache result of type {}, cause: {}",
+            LOGGER.trace( "Failed to cache result of type {}, cause: {}",
                 result.getClass().getName(), e.getMessage()
             );
         }
