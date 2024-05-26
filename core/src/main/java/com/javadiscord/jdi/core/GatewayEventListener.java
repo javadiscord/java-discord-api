@@ -37,7 +37,7 @@ public class GatewayEventListener implements GatewayObserver {
         this.discord = discord;
     }
 
-    static Guild getGuild(Discord discord, Object event) {
+    public static Guild getGuild(Discord discord, Object event) {
         if (event instanceof com.javadiscord.jdi.core.models.guild.Guild) {
             return new Guild(
                 (com.javadiscord.jdi.core.models.guild.Guild) event,

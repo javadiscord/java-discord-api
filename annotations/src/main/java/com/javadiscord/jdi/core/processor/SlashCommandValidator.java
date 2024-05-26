@@ -21,7 +21,8 @@ public class SlashCommandValidator {
             new String[] {
                 "com.javadiscord.jdi.core.models.guild.Interaction",
                 "com.javadiscord.jdi.core.Discord",
-                "com.javadiscord.jdi.core.Guild"
+                "com.javadiscord.jdi.core.Guild",
+                "com.javadiscord.jdi.core.interaction.SlashCommandEvent"
             }
         );
     }

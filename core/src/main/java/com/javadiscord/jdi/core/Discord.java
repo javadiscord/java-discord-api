@@ -220,7 +220,8 @@ public class Discord {
                     if (parameters.getType().equals(Map.class)) {
                         eventListeners.add(
                             new InteractionEventHandler(
-                                constructor.newInstance(loadedSlashCommands)
+                                constructor.newInstance(loadedSlashCommands),
+                                this
                             )
                         );
                         return;
@@ -235,7 +236,7 @@ public class Discord {
 
     public void start() {
         started = true;
-      
+
         webSocketManager =
             new WebSocketManager(
                 new GatewaySetting().setApiVersion(10).setEncoding(GatewayEncoding.JSON),
@@ -260,7 +261,7 @@ public class Discord {
         if (this.webSocketManager != null) {
             this.webSocketManager.stop();
         }
-      
+
         LOGGER.info("Shutdown initiated");
 
         if (webSocketManager != null) {

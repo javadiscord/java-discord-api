@@ -3,6 +3,8 @@ package com.javadiscord.jdi.example;
 import com.javadiscord.jdi.core.CommandOptionType;
 import com.javadiscord.jdi.core.annotations.CommandOption;
 import com.javadiscord.jdi.core.annotations.SlashCommand;
+import com.javadiscord.jdi.core.interaction.SlashCommandEvent;
+import com.javadiscord.jdi.core.models.application.ApplicationCommandOption;
 
 public class ExampleSlashCommand {
 
@@ -22,7 +24,10 @@ public class ExampleSlashCommand {
             ),
         }
     )
-    public void handle() {
-        // TODO: Logic to handle the slash command
+    public void handle(SlashCommandEvent event) {
+        ApplicationCommandOption[] options = event.options();
+        for (ApplicationCommandOption option : options) {
+            System.out.println("Received " + option.name() + " value " + option.value());
+        }
     }
 }
