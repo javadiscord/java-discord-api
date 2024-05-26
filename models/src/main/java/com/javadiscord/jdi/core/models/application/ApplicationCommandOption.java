@@ -29,4 +29,9 @@ public record ApplicationCommandOption(
     public boolean valueAsBoolean() {
         return (boolean) value;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value == null ? "" : value);
+    }
 }

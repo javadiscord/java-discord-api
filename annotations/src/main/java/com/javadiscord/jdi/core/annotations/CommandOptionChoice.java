@@ -4,18 +4,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.javadiscord.jdi.core.CommandOptionType;
-
 @Retention(RetentionPolicy.RUNTIME)
 @Target({})
-public @interface CommandOption {
+public @interface CommandOptionChoice {
     String name();
 
-    String description();
-
-    CommandOptionType type();
-
-    CommandOptionChoice[] choices() default {};
-
-    boolean required() default true;
+    String value();
 }

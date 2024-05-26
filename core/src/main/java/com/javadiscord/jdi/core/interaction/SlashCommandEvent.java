@@ -32,12 +32,12 @@ public record SlashCommandEvent(Interaction interaction, Discord discord) {
         return interaction.data();
     }
 
-    public Object option(String name) {
+    public ApplicationCommandOption option(String name) {
         InteractionData interactionData = interaction.data();
         ApplicationCommandOption[] options = interactionData.options();
         for (ApplicationCommandOption option : options) {
             if (option.name().equals(name)) {
-                return option.value();
+                return option;
             }
         }
         return null;

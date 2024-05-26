@@ -18,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.javadiscord.jdi.core.api.builders.command.CommandBuilder;
 import com.javadiscord.jdi.core.api.builders.command.CommandOption;
+import com.javadiscord.jdi.core.api.builders.command.CommandOptionChoice;
 import com.javadiscord.jdi.core.api.builders.command.CommandOptionType;
 import com.javadiscord.jdi.core.interaction.InteractionEventHandler;
 import com.javadiscord.jdi.core.models.ready.ReadyEvent;
@@ -164,13 +165,35 @@ public class Discord {
                             Method optionRequiredMethod = option.getClass().getMethod("required");
                             boolean optionRequired = (boolean) optionRequiredMethod.invoke(option);
 
+                            List<CommandOptionChoice> choices = new ArrayList<>();
+
+                            Object[] choicesArray =
+                                (Object[]) option.getClass().getMethod("choices").invoke(option);
+
+                            for (Object choice : choicesArray) {
+                                Annotation annotation1 = (Annotation) choice;
+                                if (
+                                    annotation1.annotationType().getName().equals(
+                                        "com.javadiscord.jdi.core.annotations.CommandOptionChoice"
+                                    )
+                                ) {
+                                    Method nameMethod1 =
+                                        annotation1.annotationType().getMethod("name");
+                                    Method valueMethod1 =
+                                        annotation1.annotationType().getMethod("value");
+                                    String name1 = (String) nameMethod1.invoke(annotation1);
+                                    String value1 = (String) valueMethod1.invoke(annotation1);
+                                    choices.add(new CommandOptionChoice(value1, name1));
+                                }
+                            }
+
                             builder.addOption(
                                 new CommandOption(
                                     optionName,
                                     optionDescription,
                                     CommandOptionType.fromName(optionTypeValue),
                                     optionRequired
-                                )
+                                ).addChoice(choices)
                             );
                         }
 

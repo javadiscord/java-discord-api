@@ -29,6 +29,11 @@ public class CommandOption {
         return this;
     }
 
+    public CommandOption addChoice(List<CommandOptionChoice> commandOptionChoices) {
+        choices.addAll(commandOptionChoices);
+        return this;
+    }
+
     public CommandOption setRequired(boolean required) {
         this.required = required;
         return this;
