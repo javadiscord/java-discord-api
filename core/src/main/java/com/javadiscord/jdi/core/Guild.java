@@ -23,6 +23,7 @@ public class Guild {
     private final StickerRequest stickerRequest;
     private final UserRequest userRequest;
     private final VoiceRequest voiceRequest;
+    private final InteractionRequest interactionRequest;
 
     public Guild(com.javadiscord.jdi.core.models.guild.Guild guild, Cache cache, Discord discord) {
         this.metadata = guild;
@@ -51,6 +52,12 @@ public class Guild {
         this.stickerRequest = new StickerRequest(discordResponseParser, guildId);
         this.userRequest = new UserRequest(discordResponseParser, guildId);
         this.voiceRequest = new VoiceRequest(discordResponseParser, guildId);
+        this.interactionRequest =
+            new InteractionRequest(discordResponseParser, guildId, discord.getApplicationId());
+    }
+
+    public InteractionRequest interaction() {
+        return interactionRequest;
     }
 
     public ChannelRequest channel() {

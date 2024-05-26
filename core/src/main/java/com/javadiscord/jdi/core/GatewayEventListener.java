@@ -10,6 +10,7 @@ import com.javadiscord.jdi.core.models.emoji.Emoji;
 import com.javadiscord.jdi.core.models.guild.*;
 import com.javadiscord.jdi.core.models.invite.Invite;
 import com.javadiscord.jdi.core.models.message.*;
+import com.javadiscord.jdi.core.models.ready.ReadyEvent;
 import com.javadiscord.jdi.core.models.scheduled_event.EventUser;
 import com.javadiscord.jdi.core.models.scheduled_event.ScheduledEvent;
 import com.javadiscord.jdi.core.models.stage.Stage;
@@ -73,6 +74,10 @@ public class GatewayEventListener implements GatewayObserver {
 
     @Override
     public void receive(EventType eventType, Object event) {
+        if (eventType == EventType.READY) {
+            discord.handleReadyEvent((ReadyEvent) event);
+        }
+
         Guild guild = getGuild(discord, event);
 
         for (EventListener listener : discord.getEventListeners()) {
