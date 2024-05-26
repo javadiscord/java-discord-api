@@ -62,7 +62,7 @@ public class CacheUpdater {
             } catch (NumberFormatException e) {
                 throw new NumberFormatException(
                     String.format(
-                        "Failed to parse %s=%s as a long", field.getName(), field.get(result)
+                        "Failed to parse %s=%s as a long: ", field.getName(), field.get(result)
                     )
                 );
             }
