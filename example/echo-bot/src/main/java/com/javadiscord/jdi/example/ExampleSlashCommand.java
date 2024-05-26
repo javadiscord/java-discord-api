@@ -1,6 +1,7 @@
 package com.javadiscord.jdi.example;
 
 import com.javadiscord.jdi.core.CommandOptionType;
+import com.javadiscord.jdi.core.Guild;
 import com.javadiscord.jdi.core.annotations.CommandOption;
 import com.javadiscord.jdi.core.annotations.SlashCommand;
 import com.javadiscord.jdi.core.interaction.SlashCommandEvent;
@@ -24,10 +25,10 @@ public class ExampleSlashCommand {
             ),
         }
     )
-    public void handle(SlashCommandEvent event) {
+    public void handle(SlashCommandEvent event, Guild guild) {
         ApplicationCommandOption[] options = event.options();
         for (ApplicationCommandOption option : options) {
-            System.out.println("Received " + option.name() + " value " + option.value());
+            System.out.println("Received " + option.name() + " value " + option.valueAsString());
         }
     }
 }

@@ -12,4 +12,21 @@ public record ApplicationCommandOption(
     @JsonProperty("value") Object value,
     @JsonProperty("options") List<ApplicationCommandOption> options,
     @JsonProperty("focused") boolean focused
-) {}
+) {
+
+    public String valueAsString() {
+        return String.valueOf(value);
+    }
+
+    public int valueAsInt() {
+        return (int) value;
+    }
+
+    public double valueAsDouble() {
+        return (double) value;
+    }
+
+    public boolean valueAsBoolean() {
+        return (boolean) value;
+    }
+}
