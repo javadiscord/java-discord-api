@@ -3,7 +3,9 @@ package com.javadiscord.jdi.core.interaction;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.javadiscord.jdi.core.Discord;
 import com.javadiscord.jdi.core.EventListener;
@@ -18,6 +20,8 @@ public class InteractionEventHandler implements EventListener {
     private static final Logger LOGGER = LogManager.getLogger(InteractionEventHandler.class);
     private final Object slashCommandLoader;
     private final Discord discord;
+
+    private final Map<String, Object> cachedInstances = new HashMap<>();
 
     public InteractionEventHandler(Object slashCommandLoader, Discord discord) {
         this.slashCommandLoader = slashCommandLoader;
@@ -46,7 +50,9 @@ public class InteractionEventHandler implements EventListener {
                 (Class<?>) commandClassMethodInstance.getClass().getMethod("clazz")
                     .invoke(commandClassMethodInstance);
 
-            Method method = commandClassMethodInstance.getClass().getMethod("method");
+            Method method =
+                (Method) commandClassMethodInstance.getClass().getMethod("method")
+                    .invoke(commandClassMethodInstance);
 
             List<Object> paramOrder = new ArrayList<>();
             Parameter[] parameters = method.getParameters();
@@ -71,10 +77,12 @@ public class InteractionEventHandler implements EventListener {
                 );
             }
 
-            method.invoke(commandClassMethodInstance, paramOrder.toArray());
-
-            Object handlerInstance = handler.getDeclaredConstructor().newInstance();
-            method.invoke(handlerInstance);
+            if (cachedInstances.containsKey(handler.getName())) {
+                method.invoke(cachedInstances.get(handler.getName()), paramOrder.toArray());
+            } else {
+                Object handlerInstance = handler.getDeclaredConstructor().newInstance();
+                method.invoke(handlerInstance, paramOrder.toArray());
+            }
 
         } catch (Exception e) {
             LOGGER.error("Failed to invoke handler for /{}", command, e);
