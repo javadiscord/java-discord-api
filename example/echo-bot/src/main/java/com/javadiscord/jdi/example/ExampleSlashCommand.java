@@ -2,10 +2,8 @@ package com.javadiscord.jdi.example;
 
 import com.javadiscord.jdi.core.CommandOptionType;
 import com.javadiscord.jdi.core.annotations.CommandOption;
-import com.javadiscord.jdi.core.annotations.EventListener;
 import com.javadiscord.jdi.core.annotations.SlashCommand;
 
-@EventListener
 public class ExampleSlashCommand {
 
     @SlashCommand(
