@@ -125,17 +125,22 @@ public class Discord {
         loadedSlashCommands.forEach((commandName, slashCommandClassInstance) -> {
             try {
                 Class<?> slashCommandClassInstanceClass = slashCommandClassInstance.getClass();
-                Method method = (Method) slashCommandClassInstanceClass
+                Method method =
+                    (Method) slashCommandClassInstanceClass
                         .getMethod("method")
                         .invoke(slashCommandClassInstance);
 
                 Annotation[] annotations = method.getAnnotations();
                 for (Annotation annotation : annotations) {
-                    if(annotation.annotationType().getName().equals("com.javadiscord.jdi.core.annotations.SlashCommand")) {
+                    if (
+                        annotation.annotationType().getName()
+                            .equals("com.javadiscord.jdi.core.annotations.SlashCommand")
+                    ) {
                         Method nameMethod = annotation.annotationType().getMethod("name");
                         String name = (String) nameMethod.invoke(annotation);
 
-                        Method descriptionMethod = annotation.annotationType().getMethod("description");
+                        Method descriptionMethod =
+                            annotation.annotationType().getMethod("description");
                         String description = (String) descriptionMethod.invoke(annotation);
 
                         Method optionsMethod = annotation.annotationType().getMethod("options");
@@ -147,8 +152,10 @@ public class Discord {
                             Method optionNameMethod = option.getClass().getMethod("name");
                             String optionName = (String) optionNameMethod.invoke(option);
 
-                            Method optionDescriptionMethod = option.getClass().getMethod("description");
-                            String optionDescription = (String) optionDescriptionMethod.invoke(option);
+                            Method optionDescriptionMethod =
+                                option.getClass().getMethod("description");
+                            String optionDescription =
+                                (String) optionDescriptionMethod.invoke(option);
 
                             Method optionTypeMethod = option.getClass().getMethod("type");
                             Enum<?> optionType = (Enum<?>) optionTypeMethod.invoke(option);
@@ -157,11 +164,14 @@ public class Discord {
                             Method optionRequiredMethod = option.getClass().getMethod("required");
                             boolean optionRequired = (boolean) optionRequiredMethod.invoke(option);
 
-                            builder.addOption(new CommandOption(
+                            builder.addOption(
+                                new CommandOption(
                                     optionName,
                                     optionDescription,
                                     CommandOptionType.fromName(optionTypeValue),
-                                    optionRequired));
+                                    optionRequired
+                                )
+                            );
                         }
 
                         createInteractionRequests.add(builder);
@@ -208,7 +218,11 @@ public class Discord {
                 if (constructor.getParameterCount() == 1) {
                     Parameter parameters = constructor.getParameters()[0];
                     if (parameters.getType().equals(Map.class)) {
-                        eventListeners.add(new InteractionEventHandler(constructor.newInstance(loadedSlashCommands)));
+                        eventListeners.add(
+                            new InteractionEventHandler(
+                                constructor.newInstance(loadedSlashCommands)
+                            )
+                        );
                         return;
                     }
                     return;

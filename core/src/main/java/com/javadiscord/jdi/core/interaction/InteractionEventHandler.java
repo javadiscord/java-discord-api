@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import com.javadiscord.jdi.core.EventListener;
 import com.javadiscord.jdi.core.Guild;
 import com.javadiscord.jdi.core.models.guild.Interaction;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -29,7 +30,7 @@ public class InteractionEventHandler implements EventListener {
             Object commandClassMethodInstance =
                 getSlashCommandClassMethod.invoke(slashCommandLoader, command);
 
-            if(commandClassMethodInstance == null) {
+            if (commandClassMethodInstance == null) {
                 LOGGER.warn("No handler found for /{} command", command);
                 return;
             }

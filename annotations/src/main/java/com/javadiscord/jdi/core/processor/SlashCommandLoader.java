@@ -27,10 +27,12 @@ public class SlashCommandLoader {
             try {
 
                 String name = ClassFileUtil.getClassName(classFile);
-                if(name.contains("io.netty")
+                if (
+                    name.contains("io.netty")
                         || name.contains("org.apache")
                         || name.contains("io.vertx")
-                        || name.contains("com.fasterxml")) {
+                        || name.contains("com.fasterxml")
+                ) {
                     continue;
                 }
 
