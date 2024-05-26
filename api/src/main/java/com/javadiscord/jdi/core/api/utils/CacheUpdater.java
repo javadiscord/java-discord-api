@@ -30,7 +30,8 @@ public class CacheUpdater {
             long id = getLongFromField(idField, result);
 
             if (cache.getCacheForGuild(guildId) == null) {
-                LOGGER.trace("Failed to cache result of type {} with guildId of {}",
+                LOGGER.trace(
+                    "Failed to cache result of type {} with guildId of {}",
                     result.getClass().getName(), guildId
                 );
             } else {
@@ -38,7 +39,8 @@ public class CacheUpdater {
             }
 
         } catch (IllegalAccessException | NoSuchFieldException | NumberFormatException e) {
-            LOGGER.trace( "Failed to cache result of type {}, cause: {}",
+            LOGGER.trace(
+                "Failed to cache result of type {}, cause: {}",
                 result.getClass().getName(), e.getMessage()
             );
         }
@@ -54,15 +56,7 @@ public class CacheUpdater {
     ) throws IllegalAccessException, NumberFormatException {
         field.setAccessible(true);
         if (field.getType() == String.class) {
-            try {
-                return Long.parseLong((String) field.get(result));
-            } catch (NumberFormatException e) {
-                throw new NumberFormatException(
-                    String.format(
-                        "Failed to parse %s=%s as a long", field.getName(), field.get(result)
-                    )
-                );
-            }
+            return Long.parseLong((String) field.get(result));
         }
         return (long) field.get(result);
     }
