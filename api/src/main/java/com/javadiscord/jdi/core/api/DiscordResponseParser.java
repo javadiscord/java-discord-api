@@ -3,10 +3,12 @@ package com.javadiscord.jdi.core.api;
 import java.util.List;
 import java.util.Map;
 
+import com.javadiscord.jdi.core.api.utils.CacheUpdater;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestDispatcher;
 import com.javadiscord.jdi.internal.api.DiscordResponse;
 import com.javadiscord.jdi.internal.api.DiscordResponseFuture;
+import com.javadiscord.jdi.internal.cache.Cache;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,9 +16,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class DiscordResponseParser {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private final DiscordRequestDispatcher dispatcher;
+    private final CacheUpdater cacheUpdater;
 
-    public DiscordResponseParser(DiscordRequestDispatcher dispatcher) {
+    public DiscordResponseParser(DiscordRequestDispatcher dispatcher, Cache cache) {
         this.dispatcher = dispatcher;
+        this.cacheUpdater = new CacheUpdater(cache);
     }
 
     public <T> AsyncResponse<List<T>> callAndParseList(Class<T> clazz, DiscordRequest request) {
@@ -28,6 +32,7 @@ public class DiscordResponseParser {
                     try {
                         List<T> resultList = parseResponseFromList(clazz, response.body());
                         asyncResponse.setResult(resultList);
+                        cacheUpdater.updateCache(resultList);
                     } catch (Exception e) {
                         asyncResponse.setException(e);
                     }
@@ -49,6 +54,7 @@ public class DiscordResponseParser {
                     try {
                         List<T> resultList = parseResponseFromMap(key, response.body());
                         asyncResponse.setResult(resultList);
+                        cacheUpdater.updateCache(resultList);
                     } catch (Exception e) {
                         asyncResponse.setException(e);
                     }
@@ -105,6 +111,7 @@ public class DiscordResponseParser {
                     result = OBJECT_MAPPER.readValue(response.body(), type);
                 }
                 asyncResponse.setResult(result);
+                cacheUpdater.updateCache(result);
             } catch (JsonProcessingException e) {
                 asyncResponse.setException(e);
             }
