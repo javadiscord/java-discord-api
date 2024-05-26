@@ -24,16 +24,13 @@ public class WebSocketHandler implements Handler<WebSocket> {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private static final Map<Integer, GatewayOperationHandler> OPERATION_HANDLER = new HashMap<>();
     private final ConnectionMediator connectionMediator;
-    private final WebSocketRetryHandler retryHandler;
     private final Cache cache;
 
     public WebSocketHandler(
         ConnectionMediator connectionMediator,
-        WebSocketRetryHandler retryHandler,
         Cache cache
     ) {
         this.connectionMediator = connectionMediator;
-        this.retryHandler = retryHandler;
         this.cache = cache;
         registerHandlers();
     }

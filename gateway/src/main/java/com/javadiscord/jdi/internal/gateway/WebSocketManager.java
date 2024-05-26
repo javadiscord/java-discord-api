@@ -57,7 +57,7 @@ public class WebSocketManager {
                     this.webSocket = webSocket;
 
                     WebSocketHandler webSocketHandler =
-                        new WebSocketHandler(connectionMediator, retryHandler, cache);
+                        new WebSocketHandler(connectionMediator, cache);
 
                     webSocketHandler.handle(webSocket);
 
