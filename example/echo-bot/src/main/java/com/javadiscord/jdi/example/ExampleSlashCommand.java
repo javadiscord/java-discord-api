@@ -1,5 +1,6 @@
 package com.javadiscord.jdi.example;
 
+import java.awt.*;
 import java.util.Optional;
 
 import com.javadiscord.jdi.core.CommandOptionType;
@@ -9,6 +10,7 @@ import com.javadiscord.jdi.core.annotations.CommandOptionChoice;
 import com.javadiscord.jdi.core.annotations.SlashCommand;
 import com.javadiscord.jdi.core.interaction.SlashCommandEvent;
 import com.javadiscord.jdi.core.models.application.ApplicationCommandOption;
+import com.javadiscord.jdi.core.models.message.embed.Embed;
 
 public class ExampleSlashCommand {
 
@@ -112,7 +114,15 @@ public class ExampleSlashCommand {
             feedback.append("\nCongratulations! You you all the questions right!\n");
         }
 
-        event.reply(feedback.toString());
+        Embed embed =
+            new Embed.Builder()
+                .color(Color.CYAN)
+                .description(feedback.toString())
+                .build();
+
+        event.reply(embed)
+            .onSuccess(System.out::println)
+            .onError(System.err::println);
     }
 
     private static int score(String str) {

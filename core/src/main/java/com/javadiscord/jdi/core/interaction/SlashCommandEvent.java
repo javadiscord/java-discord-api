@@ -1,5 +1,6 @@
 package com.javadiscord.jdi.core.interaction;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.javadiscord.jdi.core.Discord;
@@ -14,6 +15,7 @@ import com.javadiscord.jdi.core.models.channel.Channel;
 import com.javadiscord.jdi.core.models.guild.Interaction;
 import com.javadiscord.jdi.core.models.guild.InteractionData;
 import com.javadiscord.jdi.core.models.guild.InteractionType;
+import com.javadiscord.jdi.core.models.message.embed.Embed;
 import com.javadiscord.jdi.core.models.user.User;
 import com.javadiscord.jdi.internal.api.DiscordResponseFuture;
 
@@ -60,49 +62,54 @@ public class SlashCommandEvent {
         deferred = true;
     }
 
-    public AsyncResponse<String> reply(String message) {
-        AsyncResponse<String> asyncResponse = new AsyncResponse<>();
+    public AsyncResponse<String> reply(CallbackMessageBuilder builder) {
+        return sendReply(builder);
+    }
 
-        if (!deferred) {
-            CallbackMessageBuilder builder =
-                new CallbackMessageBuilder(
-                    CallbackResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                    interaction.id(),
-                    interaction.token()
-                );
-            builder.message(new CallbackMessage().setContent(message));
-            DiscordResponseFuture future = discord.sendRequest(builder.build());
-            future.onSuccess(res -> {
-                if (res.status() >= 200 && res.status() < 300) {
-                    asyncResponse.setResult(res.body());
-                } else {
-                    asyncResponse.setException(
-                        new Exception("Received " + res.status() + "\n" + res.body())
-                    );
-                }
-            });
-            future.onError(asyncResponse::setException);
-            return asyncResponse;
-        }
-
-        CallbackMessageBuilder builder =
+    public AsyncResponse<String> reply(Embed... embed) {
+        return sendReply(
             new CallbackMessageBuilder(
                 CallbackResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
                 interaction.id(),
                 interaction.token()
-            );
-        builder.applicationId(discord.getApplicationId());
-        builder.message(new CallbackMessage().setContent(message));
-        DiscordResponseFuture future = discord.sendRequest(builder.buildEdit());
+            )
+                .message(new CallbackMessage().setEmbeds(List.of(embed)))
+        );
+    }
+
+    public AsyncResponse<String> reply(String message) {
+        return sendReply(
+            new CallbackMessageBuilder(
+                CallbackResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+                interaction.id(),
+                interaction.token()
+            )
+                .message(new CallbackMessage().setContent(message))
+        );
+    }
+
+    private AsyncResponse<String> sendReply(CallbackMessageBuilder builder) {
+        AsyncResponse<String> asyncResponse = new AsyncResponse<>();
+        DiscordResponseFuture future;
+
+        if (deferred) {
+            builder.applicationId(discord.getApplicationId());
+            future = discord.sendRequest(builder.buildEdit());
+        } else {
+            future = discord.sendRequest(builder.build());
+        }
+
         future.onSuccess(res -> {
             if (res.status() >= 200 && res.status() < 300) {
                 asyncResponse.setResult(res.body());
             } else {
-                asyncResponse
-                    .setException(new Exception("Received " + res.status() + "\n" + res.body()));
+                asyncResponse.setException(
+                    new Exception("Received " + res.status() + "\n" + res.body())
+                );
             }
         });
         future.onError(asyncResponse::setException);
+
         return asyncResponse;
     }
 
