@@ -122,7 +122,7 @@ public class SlashCommandEvent {
     }
 
     public User user() {
-        return interaction.user();
+        return interaction.member().user();
     }
 
     public InteractionType interactionType() {

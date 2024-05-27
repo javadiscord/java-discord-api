@@ -254,7 +254,9 @@ public class GatewayEventListenerAnnotations implements GatewayObserver {
                         );
                     }
                     LOGGER.trace("Invoking method {} with params {}", method.getName(), paramOrder);
+
                     method.invoke(listener, paramOrder.toArray());
+
                 } catch (Exception e) {
                     LOGGER.error("Failed to invoke {}", method.getName(), e);
                     throw new RuntimeException(e);

@@ -13,6 +13,7 @@ import javassist.bytecode.ClassFile;
 
 public class ClassFileUtil {
     private static final List<File> classesInPath = new ArrayList<>();
+    private static boolean loadedParentJar = false;
 
     private ClassFileUtil() {}
 
@@ -72,7 +73,8 @@ public class ClassFileUtil {
         List<File> classFiles = new ArrayList<>();
         if (file.isDirectory()) {
             classFiles.addAll(getClassesFromDirectory(file));
-        } else if (isJarFile(file)) {
+        } else if (isJarFile(file) && !loadedParentJar) {
+            loadedParentJar = true;
             classFiles.addAll(getClassesFromJar(file));
         } else if (file.getName().endsWith(".class")) {
             classFiles.add(file);
