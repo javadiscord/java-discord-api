@@ -12,22 +12,37 @@ import java.util.zip.ZipInputStream;
 import javassist.bytecode.ClassFile;
 
 public class ClassFileUtil {
+    private static final List<File> classesInPath = new ArrayList<>();
 
     private ClassFileUtil() {}
 
     public static List<File> getClassesInClassPath() {
-        List<File> classes = new ArrayList<>();
+        if (!classesInPath.isEmpty()) {
+            return classesInPath;
+        }
         String classpath = System.getProperty("java.class.path");
         String[] classpathEntries = classpath.split(File.pathSeparator);
+
         for (String entry : classpathEntries) {
+            if (
+                entry.contains("io.netty")
+                    || entry.contains("org.apache")
+                    || entry.contains("io.vertx")
+                    || entry.contains("com.fasterxml")
+                    || entry.contains("org.javassist")
+                    || entry.contains("com.github.mizosoft.methanol")
+            ) {
+                continue;
+            }
+
             File file = new File(entry);
             try {
-                classes.addAll(getClasses(file));
+                classesInPath.addAll(getClasses(file));
             } catch (IOException ignore) {
                 /* Ignore */
             }
         }
-        return classes;
+        return classesInPath;
     }
 
     public static String getClassName(File file) throws IOException {

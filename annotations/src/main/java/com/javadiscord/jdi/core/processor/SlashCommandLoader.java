@@ -25,18 +25,7 @@ public class SlashCommandLoader {
         List<File> classes = ClassFileUtil.getClassesInClassPath();
         for (File classFile : classes) {
             try {
-
-                String name = ClassFileUtil.getClassName(classFile);
-                if (
-                    name.contains("io.netty")
-                        || name.contains("org.apache")
-                        || name.contains("io.vertx")
-                        || name.contains("com.fasterxml")
-                ) {
-                    continue;
-                }
-
-                Class<?> clazz = Class.forName(name);
+                Class<?> clazz = Class.forName(ClassFileUtil.getClassName(classFile));
 
                 Method[] methods = clazz.getMethods();
                 for (Method method : methods) {

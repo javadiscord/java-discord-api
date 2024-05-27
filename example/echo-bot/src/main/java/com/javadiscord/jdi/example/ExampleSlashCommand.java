@@ -1,11 +1,12 @@
 package com.javadiscord.jdi.example;
 
+import java.util.Optional;
+
 import com.javadiscord.jdi.core.CommandOptionType;
 import com.javadiscord.jdi.core.Guild;
 import com.javadiscord.jdi.core.annotations.CommandOption;
 import com.javadiscord.jdi.core.annotations.CommandOptionChoice;
 import com.javadiscord.jdi.core.annotations.SlashCommand;
-import com.javadiscord.jdi.core.api.builders.CreateMessageBuilder;
 import com.javadiscord.jdi.core.interaction.SlashCommandEvent;
 import com.javadiscord.jdi.core.models.application.ApplicationCommandOption;
 
@@ -53,50 +54,57 @@ public class ExampleSlashCommand {
         }
     )
     public void handle(SlashCommandEvent event, Guild guild) {
-        ApplicationCommandOption q1 = event.option("q1");
-        ApplicationCommandOption q2 = event.option("q2");
-        ApplicationCommandOption q3 = event.option("q3");
-        ApplicationCommandOption q4 = event.option("q4");
-        ApplicationCommandOption q5 = event.option("q5");
+        event.deferReply();
 
-        // Check answers and prepare feedback
+        Optional<ApplicationCommandOption> q1 = event.option("q1");
+        Optional<ApplicationCommandOption> q2 = event.option("q2");
+        Optional<ApplicationCommandOption> q3 = event.option("q3");
+        Optional<ApplicationCommandOption> q4 = event.option("q4");
+        Optional<ApplicationCommandOption> q5 = event.option("q5");
+
         StringBuilder feedback = new StringBuilder();
-        int score = 0;
 
-        if (q1.toString().equals("option1")) {
-            score++;
-            feedback.append("Q1: Correct!\n");
-        } else {
-            feedback.append("Q1: Incorrect\n");
-        }
+        q1.ifPresent(answer -> {
+            if (answer.valueAsString().equals("option1")) {
+                feedback.append("Q1: Correct!\n");
+            } else {
+                feedback.append("Q1: Incorrect\n");
+            }
+        });
 
-        if (q2.toString().equals("option1")) {
-            score++;
-            feedback.append("Q2: Correct!\n");
-        } else {
-            feedback.append("Q1: Incorrect\n");
-        }
+        q2.ifPresent(answer -> {
+            if (answer.valueAsString().equals("option1")) {
+                feedback.append("Q2: Correct!\n");
+            } else {
+                feedback.append("Q2: Incorrect\n");
+            }
+        });
 
-        if (q3.toString().equals("option1")) {
-            score++;
-            feedback.append("Q3: Correct!\n");
-        } else {
-            feedback.append("Q1: Incorrect\n");
-        }
+        q3.ifPresent(answer -> {
+            if (answer.valueAsString().equals("option1")) {
+                feedback.append("Q3: Correct!\n");
+            } else {
+                feedback.append("Q3: Incorrect\n");
+            }
+        });
 
-        if (q4.toString().equals("option2")) {
-            score++;
-            feedback.append("Q4: Correct!\n");
-        } else {
-            feedback.append("Q1: Incorrect\n");
-        }
+        q4.ifPresent(answer -> {
+            if (answer.valueAsString().equals("option2")) {
+                feedback.append("Q4: Correct!\n");
+            } else {
+                feedback.append("Q4: Incorrect\n");
+            }
+        });
 
-        if (q5.toString().equals("option3")) {
-            score++;
-            feedback.append("Q5: Correct!\n");
-        } else {
-            feedback.append("Q1: Incorrect\n");
-        }
+        q5.ifPresent(answer -> {
+            if (answer.valueAsString().equals("option3")) {
+                feedback.append("Q5: Correct!\n");
+            } else {
+                feedback.append("Q5: Incorrect\n");
+            }
+        });
+
+        int score = score(feedback.toString());
 
         feedback.append("Your score: ").append(score).append("/5");
 
@@ -104,8 +112,18 @@ public class ExampleSlashCommand {
             feedback.append("\nCongratulations! You you all the questions right!\n");
         }
 
-        guild.channel().createMessage(
-            new CreateMessageBuilder(event.channel().id()).content(feedback.toString())
-        );
+        event.reply(feedback.toString());
     }
+
+    private static int score(String str) {
+        String word = "Correct";
+        int index = 0;
+        int count = 0;
+        while ((index = str.indexOf(word, index)) != -1) {
+            count++;
+            index += word.length();
+        }
+        return count;
+    }
+
 }
