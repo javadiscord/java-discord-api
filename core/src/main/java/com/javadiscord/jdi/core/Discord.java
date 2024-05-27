@@ -32,13 +32,16 @@ import com.javadiscord.jdi.internal.gateway.*;
 import com.javadiscord.jdi.internal.gateway.identify.IdentifyRequest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Discord {
     private static final Logger LOGGER = LogManager.getLogger(Discord.class);
     private static final ExecutorService EXECUTOR = Executors.newCachedThreadPool();
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private static final ObjectMapper OBJECT_MAPPER =
+        JsonMapper.builder().addModule(new JavaTimeModule()).build();
     private static final String WEBSITE = "https://javadiscord.com/";
 
     private static final String BASE_URL =

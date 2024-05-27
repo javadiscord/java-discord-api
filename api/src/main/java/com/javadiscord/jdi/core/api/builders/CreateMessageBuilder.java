@@ -59,8 +59,8 @@ public class CreateMessageBuilder {
         return this;
     }
 
-    public CreateMessageBuilder embeds(List<Embed> embeds) {
-        this.embeds = Optional.of(embeds);
+    public CreateMessageBuilder embeds(Embed... embeds) {
+        this.embeds = Optional.of(List.of(embeds));
         return this;
     }
 

@@ -6,9 +6,12 @@ import com.javadiscord.jdi.internal.gateway.handlers.events.codec.models.channel
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 public class ThreadMemberUpdateDecoder implements EventDecoder<ThreadMemberUpdate> {
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private static final ObjectMapper OBJECT_MAPPER =
+        JsonMapper.builder().addModule(new JavaTimeModule()).build();
 
     @Override
     public ThreadMemberUpdate decode(GatewayEvent gatewayEvent) {

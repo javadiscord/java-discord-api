@@ -9,12 +9,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class HelloOperationHandler implements GatewayOperationHandler {
     private static final Logger LOGGER = LogManager.getLogger(HelloOperationHandler.class);
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private static final ObjectMapper OBJECT_MAPPER =
+        JsonMapper.builder().addModule(new JavaTimeModule()).build();
     private final HeartbeatService heartbeatService;
 
     public HelloOperationHandler(HeartbeatService heartbeatService) {
