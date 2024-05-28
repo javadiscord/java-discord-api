@@ -4,6 +4,7 @@ import java.awt.*;
 
 import com.javadiscord.jdi.core.CommandOptionType;
 import com.javadiscord.jdi.core.annotations.CommandOption;
+import com.javadiscord.jdi.core.annotations.Inject;
 import com.javadiscord.jdi.core.annotations.SlashCommand;
 import com.javadiscord.jdi.core.interaction.SlashCommandEvent;
 import com.javadiscord.jdi.core.models.message.embed.Embed;
@@ -11,7 +12,9 @@ import com.javadiscord.jdi.core.models.message.embed.EmbedAuthor;
 import com.javadiscord.jdi.core.models.user.User;
 
 public class JShellCommand {
-    private final JShellService jShellService = new JShellService();
+
+    @Inject
+    private JShellService jShellService;
 
     @SlashCommand(
         name = "jshell", description = "Run Java code using JShell", options = {

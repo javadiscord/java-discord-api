@@ -9,6 +9,7 @@ import com.javadiscord.jdi.core.models.channel.ThreadMember;
 import com.javadiscord.jdi.core.models.invite.Invite;
 import com.javadiscord.jdi.core.models.message.Message;
 import com.javadiscord.jdi.core.models.message.MessageReaction;
+import com.javadiscord.jdi.core.models.message.embed.Embed;
 import com.javadiscord.jdi.core.models.user.User;
 import com.javadiscord.jdi.internal.api.channel.*;
 
@@ -47,6 +48,18 @@ public class ChannelRequest {
 
     public AsyncResponse<Message> createMessage(CreateMessageBuilder builder) {
         return responseParser.callAndParse(Message.class, builder.build());
+    }
+
+    public AsyncResponse<Message> sendMessage(long channelId, String message) {
+        return responseParser.callAndParse(
+            Message.class, new CreateMessageBuilder(channelId).content(message).build()
+        );
+    }
+
+    public AsyncResponse<Message> sendEmbed(long channelId, Embed... embeds) {
+        return responseParser.callAndParse(
+            Message.class, new CreateMessageBuilder(channelId).embeds(embeds).build()
+        );
     }
 
     public AsyncResponse<MessageReaction> createReaction(
