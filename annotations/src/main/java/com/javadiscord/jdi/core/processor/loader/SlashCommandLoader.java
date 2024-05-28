@@ -38,7 +38,7 @@ public class SlashCommandLoader {
                                 clazz, method, method.getAnnotation(SlashCommand.class).name()
                             );
                         } else {
-                            LOGGER.error("{} failed validation", method.getName());
+                            throw new RuntimeException(method.getName() + " failed validation");
                         }
                     }
                 }

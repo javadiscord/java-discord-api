@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import com.javadiscord.bot.utils.docker.*;
 import com.javadiscord.jdi.core.CommandOptionType;
 import com.javadiscord.jdi.core.annotations.CommandOption;
+import com.javadiscord.jdi.core.annotations.Inject;
 import com.javadiscord.jdi.core.annotations.SlashCommand;
 import com.javadiscord.jdi.core.interaction.SlashCommandEvent;
 import com.javadiscord.jdi.core.models.application.ApplicationCommandOption;
@@ -29,19 +30,16 @@ public class LinuxCommand {
     private static final ScheduledExecutorService EXECUTOR_SERVICE =
         Executors.newSingleThreadScheduledExecutor();
 
-    private final DockerClient dockerClient;
-    public final DockerSessions dockerSessions;
-    private final DockerCommandRunner commandRunner;
+    @Inject
+    private DockerClient dockerClient;
 
-    public LinuxCommand(
-        DockerClient dockerClient,
-        DockerSessions dockerSessions,
-        DockerCommandRunner commandRunner
-    ) {
-        this.dockerClient = dockerClient;
-        this.dockerSessions = dockerSessions;
-        this.commandRunner = commandRunner;
+    @Inject
+    private DockerSessions dockerSessions;
 
+    @Inject
+    private DockerCommandRunner commandRunner;
+
+    public LinuxCommand() {
         Runtime.getRuntime()
             .addShutdownHook(
                 new Thread(
@@ -97,7 +95,7 @@ public class LinuxCommand {
 
             Embed embed =
                 new Embed.Builder()
-                    .author(new EmbedAuthor(member.asMention(), null, null, null))
+                    .author(new EmbedAuthor(member.displayName(), null, null, null))
                     .description(shortenOutput(reply))
                     .color(Color.RED)
                     .build();

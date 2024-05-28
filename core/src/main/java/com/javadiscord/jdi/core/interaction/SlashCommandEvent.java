@@ -15,6 +15,7 @@ import com.javadiscord.jdi.core.models.channel.Channel;
 import com.javadiscord.jdi.core.models.guild.Interaction;
 import com.javadiscord.jdi.core.models.guild.InteractionData;
 import com.javadiscord.jdi.core.models.guild.InteractionType;
+import com.javadiscord.jdi.core.models.guild.ResolvedData;
 import com.javadiscord.jdi.core.models.message.embed.Embed;
 import com.javadiscord.jdi.core.models.user.User;
 import com.javadiscord.jdi.internal.api.DiscordResponseFuture;
@@ -133,6 +134,10 @@ public class SlashCommandEvent {
         return interaction.data();
     }
 
+    public ResolvedData resolvedData() {
+        return interactionData().resolved();
+    }
+
     public Optional<ApplicationCommandOption> option(String name) {
         InteractionData interactionData = interaction.data();
         ApplicationCommandOption[] options = interactionData.options();
@@ -146,5 +151,9 @@ public class SlashCommandEvent {
 
     public ApplicationCommandOption[] options() {
         return interaction.data().options();
+    }
+
+    public Interaction interaction() {
+        return interaction;
     }
 }
