@@ -7,6 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record StickerUpdate(
-    @JsonProperty("guildId") long guildId,
+    @JsonProperty("guild_id") long guildId,
     @JsonProperty("stickers") List<Sticker> stickers
 ) {}
