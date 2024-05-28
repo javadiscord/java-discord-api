@@ -1,4 +1,4 @@
-package com.javadiscord.jdi.core.processor;
+package com.javadiscord.jdi.core.processor.loader;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.javadiscord.jdi.core.annotations.SlashCommand;
+import com.javadiscord.jdi.core.processor.ClassFileUtil;
+import com.javadiscord.jdi.core.processor.SlashCommandClassMethod;
+import com.javadiscord.jdi.core.processor.validator.SlashCommandValidator;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -76,6 +79,10 @@ public class SlashCommandLoader {
         }
         LOGGER.error("{} does not have a 0 arg constructor", clazz.getName());
         return false;
+    }
+
+    public void injectComponents(Object object) {
+        ComponentLoader.injectComponents(object);
     }
 
 }

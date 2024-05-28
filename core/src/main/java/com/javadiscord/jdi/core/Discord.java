@@ -118,6 +118,7 @@ public class Discord {
         this.cache = cache;
         if (annotationLibPresent()) {
             LOGGER.info("Annotation lib is present");
+            loadComponents();
             loadAnnotations();
             loadSlashCommands();
             registerLoadedAnnotationsWithDiscord();
@@ -211,17 +212,31 @@ public class Discord {
 
     private boolean annotationLibPresent() {
         try {
-            Class.forName("com.javadiscord.jdi.core.processor.ListenerLoader");
+            Class.forName("com.javadiscord.jdi.core.processor.loader.ListenerLoader");
             return true;
         } catch (Exception e) {
             return false;
         }
     }
 
+    private void loadComponents() {
+        LOGGER.info("Loading Components");
+        try {
+            Class<?> clazz =
+                Class.forName("com.javadiscord.jdi.core.processor.loader.ComponentLoader");
+            for (Constructor<?> constructor : clazz.getConstructors()) {
+                constructor.newInstance();
+            }
+        } catch (Exception | Error e) {
+            /* Ignore */
+        }
+    }
+
     private void loadAnnotations() {
         LOGGER.info("Loading EventListeners");
         try {
-            Class<?> clazz = Class.forName("com.javadiscord.jdi.core.processor.ListenerLoader");
+            Class<?> clazz =
+                Class.forName("com.javadiscord.jdi.core.processor.loader.ListenerLoader");
             for (Constructor<?> constructor : clazz.getConstructors()) {
                 if (constructor.getParameterCount() == 1) {
                     Parameter parameters = constructor.getParameters()[0];
@@ -239,7 +254,8 @@ public class Discord {
     private void loadSlashCommands() {
         LOGGER.info("Loading SlashCommands");
         try {
-            Class<?> clazz = Class.forName("com.javadiscord.jdi.core.processor.SlashCommandLoader");
+            Class<?> clazz =
+                Class.forName("com.javadiscord.jdi.core.processor.loader.SlashCommandLoader");
             for (Constructor<?> constructor : clazz.getConstructors()) {
                 if (constructor.getParameterCount() == 1) {
                     Parameter parameters = constructor.getParameters()[0];

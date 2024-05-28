@@ -1,4 +1,4 @@
-package com.javadiscord.jdi.core.processor;
+package com.javadiscord.jdi.core.processor.validator;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;

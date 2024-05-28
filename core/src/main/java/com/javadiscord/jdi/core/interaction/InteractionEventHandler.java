@@ -2,10 +2,7 @@ package com.javadiscord.jdi.core.interaction;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.javadiscord.jdi.core.Discord;
 import com.javadiscord.jdi.core.EventListener;
@@ -81,12 +78,22 @@ public class InteractionEventHandler implements EventListener {
                 method.invoke(cachedInstances.get(handler.getName()), paramOrder.toArray());
             } else {
                 Object handlerInstance = handler.getDeclaredConstructor().newInstance();
+                injectComponents(handlerInstance);
                 method.invoke(handlerInstance, paramOrder.toArray());
             }
 
         } catch (Exception e) {
             LOGGER.error("Failed to invoke handler for /{}", command, e);
         }
+    }
+
+    private void injectComponents(Object object) throws Exception {
+        Class<?> slashCommandLoaderClass = slashCommandLoader.getClass();
+
+        Method injectComponentsMethod =
+            slashCommandLoaderClass.getMethod("injectComponents", Object.class);
+
+        injectComponentsMethod.invoke(slashCommandLoader, object);
     }
 
 }

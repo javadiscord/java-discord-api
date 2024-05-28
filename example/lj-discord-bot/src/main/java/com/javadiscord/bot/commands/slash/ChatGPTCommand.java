@@ -5,13 +5,16 @@ import java.awt.*;
 import com.javadiscord.bot.utils.chatgpt.ChatGPT;
 import com.javadiscord.jdi.core.CommandOptionType;
 import com.javadiscord.jdi.core.annotations.CommandOption;
+import com.javadiscord.jdi.core.annotations.Inject;
 import com.javadiscord.jdi.core.annotations.SlashCommand;
 import com.javadiscord.jdi.core.interaction.SlashCommandEvent;
 import com.javadiscord.jdi.core.models.message.embed.Embed;
 import com.javadiscord.jdi.core.models.message.embed.EmbedAuthor;
 
 public class ChatGPTCommand {
-    private final ChatGPT chatGPT = new ChatGPT();
+
+    @Inject
+    private ChatGPT chatGPT;
 
     @SlashCommand(
         name = "chatgpt", description = "Ask ChatGPT a question", options = {

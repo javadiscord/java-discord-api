@@ -1,10 +1,12 @@
-package com.javadiscord.jdi.core.processor;
+package com.javadiscord.jdi.core.processor.loader;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.util.List;
 
 import com.javadiscord.jdi.core.annotations.EventListener;
+import com.javadiscord.jdi.core.processor.ClassFileUtil;
+import com.javadiscord.jdi.core.processor.validator.EventListenerValidator;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -43,7 +45,9 @@ public class ListenerLoader {
 
     private void registerListener(Class<?> clazz) {
         try {
-            eventListeners.add(getZeroArgConstructor(clazz).newInstance());
+            Object instance = getZeroArgConstructor(clazz).newInstance();
+            ComponentLoader.injectComponents(instance);
+            eventListeners.add(instance);
             LOGGER.info("Registered listener {}", clazz.getName());
         } catch (Exception e) {
             LOGGER.error("Failed to create {} instance", clazz.getName(), e);
