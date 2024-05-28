@@ -133,7 +133,7 @@ public interface EventListener {
 
     default void onThreadMembersUpdate(ThreadMember threadMember, Guild guild) {}
 
-    default void onGuildIntegrationUpdate(Integration integration, Guild guild) {}
+    default void onGuildIntegrationUpdate(IntegrationUpdate integration, Guild guild) {}
 
     default void onVoiceServerUpdate(VoiceServer voiceServer, Guild guild) {}
 

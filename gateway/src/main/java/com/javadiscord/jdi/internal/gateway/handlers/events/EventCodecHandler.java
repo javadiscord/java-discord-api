@@ -169,6 +169,8 @@ public class EventCodecHandler implements GatewayOperationHandler {
 
         EVENT_DECODERS.put(EventType.INTERACTION_CREATE, new InteractionCreateDecoder());
         EVENT_HANDLERS.put(EventType.INTERACTION_CREATE, new InteractionCreateHandler());
+        EVENT_DECODERS.put(EventType.GUILD_INTEGRATIONS_UPDATE, new IntegrationUpdateDecoder());
+        EVENT_HANDLERS.put(EventType.GUILD_INTEGRATIONS_UPDATE, new IntegrationUpdateHandler());
 
         AutoModerationDecoder autoModerationDecoder = new AutoModerationDecoder();
         EVENT_DECODERS.put(EventType.AUTO_MODERATION_RULE_CREATE, autoModerationDecoder);
@@ -222,9 +224,6 @@ public class EventCodecHandler implements GatewayOperationHandler {
 
         EVENT_DECODERS.put(EventType.GUILD_STICKERS_UPDATE, new StickerUpdateDecoder());
         EVENT_HANDLERS.put(EventType.GUILD_STICKERS_UPDATE, new StickerUpdateHandler());
-
-        EVENT_DECODERS.put(EventType.GUILD_INTEGRATIONS_UPDATE, new IntegrationUpdateDecoder());
-        EVENT_HANDLERS.put(EventType.GUILD_INTEGRATIONS_UPDATE, new IntegrationUpdateHandler());
 
         EVENT_DECODERS.put(EventType.GUILD_MEMBERS_CHUNK, new MemberChunkDecoder());
         EVENT_HANDLERS.put(EventType.GUILD_MEMBERS_CHUNK, new MemberChunkHandler());

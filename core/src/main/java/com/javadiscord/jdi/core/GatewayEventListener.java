@@ -133,7 +133,7 @@ public class GatewayEventListener implements GatewayObserver {
                 case MESSAGE_REACTION_REMOVE ->
                     listener.onMessageReactionsRemoved((MessageReactionsRemoved) event, guild);
                 case GUILD_INTEGRATIONS_UPDATE ->
-                    listener.onGuildIntegrationUpdate((Integration) event, guild);
+                    listener.onGuildIntegrationUpdate((IntegrationUpdate) event, guild);
                 case AUTO_MODERATION_RULE_CREATE ->
                     listener.onAutoModerationRuleCreate((AutoModerationRule) event, guild);
                 case AUTO_MODERATION_RULE_DELETE ->
