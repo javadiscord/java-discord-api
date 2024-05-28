@@ -308,7 +308,7 @@ public class EventListenerValidator {
         EXPECTED_PARAM_TYPES_MAP.put(
             ThreadCreate.class,
             new String[] {
-                "com.javadiscord.jdi.core.gateway.handlers.events.codec.models.channel.Thread",
+                "com.javadiscord.jdi.internal.gateway.handlers.events.codec.models.channel.Thread",
                 "com.javadiscord.jdi.core.Discord",
                 "com.javadiscord.jdi.core.Guild"
             }

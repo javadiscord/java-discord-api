@@ -1,7 +1,10 @@
-package com.javadiscord.bot.commands.slash.jshell;
+package com.javadiscord.bot.commands.slash;
 
 import java.awt.*;
 
+import com.javadiscord.bot.utils.jshell.JShellResponse;
+import com.javadiscord.bot.utils.jshell.JShellService;
+import com.javadiscord.bot.utils.jshell.JShellSnippet;
 import com.javadiscord.jdi.core.CommandOptionType;
 import com.javadiscord.jdi.core.annotations.CommandOption;
 import com.javadiscord.jdi.core.annotations.Inject;

@@ -49,4 +49,13 @@ public record Message(
     @JsonProperty("position") int position,
     @JsonProperty("role_subscription_data") RoleSubscriptionData roleSubscriptionData,
     @JsonProperty("resolved") ResolvedData resolved
-) {}
+) {
+
+    public boolean fromBot() {
+        return author.bot();
+    }
+
+    public boolean fromUser() {
+        return !author.bot();
+    }
+}

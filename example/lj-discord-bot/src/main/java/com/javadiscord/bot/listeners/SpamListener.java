@@ -16,7 +16,7 @@ public class SpamListener {
 
     @MessageCreate
     public void onMessage(Message message, Guild guild) {
-        if (!message.author().bot() && CurseWords.containsCurseWord(message.content())) {
+        if (message.fromUser() && CurseWords.containsCurseWord(message.content())) {
             guild.channel().deleteMessage(message.channelId(), message.id());
             guild.user()
                 .createDM(message.id())

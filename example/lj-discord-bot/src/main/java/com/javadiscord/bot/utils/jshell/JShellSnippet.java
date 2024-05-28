@@ -1,4 +1,4 @@
-package com.javadiscord.bot.commands.slash.jshell;
+package com.javadiscord.bot.utils.jshell;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

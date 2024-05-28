@@ -3,7 +3,7 @@ package com.javadiscord.bot.listeners;
 import com.javadiscord.jdi.core.Guild;
 import com.javadiscord.jdi.core.annotations.EventListener;
 import com.javadiscord.jdi.core.annotations.MessageCreate;
-import com.javadiscord.jdi.core.api.builders.StartThreadWithoutMessageBuilder;
+import com.javadiscord.jdi.core.api.builders.StartThreadFromMessageBuilder;
 import com.javadiscord.jdi.core.models.message.Message;
 
 @EventListener
@@ -11,7 +11,7 @@ public class SuggestionListener {
 
     @MessageCreate
     public void onMessage(Message message, Guild guild) {
-        if (message.author().bot()) {
+        if (message.fromBot()) {
             return;
         }
 
@@ -19,15 +19,23 @@ public class SuggestionListener {
             return;
         }
 
-        guild.channel().createReaction(message.channelId(), message.id(), "thumbup");
-        guild.channel().createReaction(message.channelId(), message.id(), "thumbsdown");
+        // guild.channel().createReaction(message.channelId(), message.id(), "thumbup");
+        // guild.channel().createReaction(message.channelId(), message.id(),
+        // "thumbsdown");
 
-        guild.channel().startThreadWithoutMessage(
-            new StartThreadWithoutMessageBuilder(
+        String title =
+            message.content().length() > 60
+                ? message.content().substring(0, 60)
+                : message.content();
+
+        guild.channel().startThreadFromMessage(
+            new StartThreadFromMessageBuilder(
                 message.channelId(),
-                "Suggestion!"
+                message.id(),
+                title
             )
-        );
+        ).onError(System.err::println)
+            .onSuccess(System.out::println);
     }
 
 }

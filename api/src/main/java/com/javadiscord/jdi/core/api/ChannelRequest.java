@@ -6,6 +6,7 @@ import java.util.Optional;
 import com.javadiscord.jdi.core.api.builders.*;
 import com.javadiscord.jdi.core.models.channel.Channel;
 import com.javadiscord.jdi.core.models.channel.ThreadMember;
+import com.javadiscord.jdi.core.models.emoji.Emoji;
 import com.javadiscord.jdi.core.models.invite.Invite;
 import com.javadiscord.jdi.core.models.message.Message;
 import com.javadiscord.jdi.core.models.message.MessageReaction;
@@ -65,7 +66,7 @@ public class ChannelRequest {
     public AsyncResponse<MessageReaction> createReaction(
         long channelId,
         long messageId,
-        String emoji
+        Emoji emoji
     ) {
         return responseParser.callAndParse(
             MessageReaction.class, new CreateReactionRequest(channelId, messageId, emoji)
