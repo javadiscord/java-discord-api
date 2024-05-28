@@ -109,6 +109,15 @@ public class Discord {
     }
 
     public Discord(String botToken, IdentifyRequest identifyRequest, Cache cache) {
+        System.err.println("""
+                 _ ____ ___\s
+                | |  _ \\_ _|  https://github.com/javadiscord/java-discord-api
+             _  | | | | | |   Open-Source Discord Framework\s
+            | |_| | |_| | |   GPL-3.0 license\s
+             \\___/|____/___|  Version 1.0
+
+            """);
+
         this.botToken = botToken;
         this.discordRequestDispatcher = new DiscordRequestDispatcher(botToken);
         this.gateway = getGatewayURL(botToken);
