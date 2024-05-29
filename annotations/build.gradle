@@ -1,4 +1,8 @@
 dependencies {
+    api 'io.avaje:avaje-inject:9.12'
+    annotationProcessor 'io.avaje:avaje-inject-generator:9.12'
+
     implementation 'org.javassist:javassist:3.30.2-GA'
+
     testImplementation project(":core")
 }

@@ -1,5 +1,7 @@
 allprojects {
     dependencies {
+        annotationProcessor 'io.avaje:avaje-inject-generator:9.12'
+
         implementation project(":core")
         implementation project(":annotations")
         implementation project(":models")

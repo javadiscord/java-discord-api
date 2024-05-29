@@ -6,11 +6,15 @@ import java.util.List;
 
 import com.javadiscord.jdi.core.annotations.EventListener;
 
+import io.avaje.inject.BeanScope;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class ListenerLoader {
     private static final Logger LOGGER = LogManager.getLogger(ListenerLoader.class);
+    
+    private final BeanScope beanScope = BeanScope.builder().build();
     private final EventListenerValidator eventListenerValidator = new EventListenerValidator();
     private final List<Object> eventListeners;
 
@@ -29,8 +33,8 @@ public class ListenerLoader {
             try {
                 Class<?> clazz = Class.forName(ClassFileUtil.getClassName(classFile));
                 if (clazz.isAnnotationPresent(EventListener.class)) {
+                    registerListener(clazz);
                     if (validateListener(clazz)) {
-                        registerListener(clazz);
                     } else {
                         LOGGER.error("{} failed validation", clazz.getName());
                     }
@@ -43,7 +47,7 @@ public class ListenerLoader {
 
     private void registerListener(Class<?> clazz) {
         try {
-            eventListeners.add(getZeroArgConstructor(clazz).newInstance());
+            eventListeners.add(beanScope.get(clazz));
             LOGGER.info("Registered listener {}", clazz.getName());
         } catch (Exception e) {
             LOGGER.error("Failed to create {} instance", clazz.getName(), e);
