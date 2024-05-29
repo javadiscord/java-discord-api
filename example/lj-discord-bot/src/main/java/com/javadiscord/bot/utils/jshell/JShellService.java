@@ -22,8 +22,6 @@ public class JShellService {
 
     private final Map<Long, List<String>> history = new HashMap<>();
 
-    public JShellService() {}
-
     public JShellResponse sendRequest(String code) {
         record Request(String code) {}
         try (HttpClient client = HttpClient.newHttpClient()) {

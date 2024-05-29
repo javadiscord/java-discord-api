@@ -38,9 +38,9 @@ public class GatewayEventListener implements GatewayObserver {
     }
 
     public static Guild getGuild(Discord discord, Object event) {
-        if (event instanceof GuildModel) {
+        if (event instanceof GuildModel guildModel) {
             return createGuildFromEvent(
-                discord, (GuildModel) event
+                discord, guildModel
             );
         } else {
             return createGuildFromEventObject(discord, event);

@@ -8,6 +8,10 @@ public class Executor {
     private static final ScheduledExecutorService EXECUTOR_SERVICE =
         Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
 
+    private Executor() {
+        throw new UnsupportedOperationException("Utility class");
+    }
+
     public static void execute(Runnable runnable) {
         EXECUTOR_SERVICE.submit(runnable);
     }

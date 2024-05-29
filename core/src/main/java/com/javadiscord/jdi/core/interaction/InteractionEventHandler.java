@@ -49,6 +49,11 @@ public class InteractionEventHandler implements EventListener {
 
             if (validateParameterCount(method, paramOrder)) {
                 invokeHandler(handler, method, paramOrder);
+            } else {
+                throw new RuntimeException(
+                    "Bound " + paramOrder.size() + " parameters but expected "
+                        + method.getParameterCount()
+                );
             }
 
         } catch (Exception e) {
@@ -76,13 +81,7 @@ public class InteractionEventHandler implements EventListener {
     }
 
     private boolean validateParameterCount(Method method, List<Object> paramOrder) {
-        if (paramOrder.size() != method.getParameterCount()) {
-            throw new RuntimeException(
-                "Bound " + paramOrder.size() + " parameters but expected "
-                    + method.getParameterCount()
-            );
-        }
-        return true;
+        return paramOrder.size() == method.getParameterCount();
     }
 
     private void invokeHandler(
