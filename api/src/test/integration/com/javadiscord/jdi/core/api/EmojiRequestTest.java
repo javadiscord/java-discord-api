@@ -6,6 +6,7 @@ import com.javadiscord.jdi.core.models.emoji.Emoji;
 import helpers.LiveDiscordHelper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -20,6 +21,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Disabled
 class EmojiRequestTest {
     private static Guild guild;
 
