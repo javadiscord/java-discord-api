@@ -2,6 +2,7 @@ package com.javadiscord.jdi.internal.api;
 
 import java.net.URI;
 import java.net.http.HttpClient;
+import java.net.http.HttpHeaders;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Map;
@@ -9,6 +10,8 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
+
+import com.javadiscord.jdi.RateLimit;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,6 +29,8 @@ public class DiscordRequestDispatcher implements Runnable {
     private final AtomicBoolean running = new AtomicBoolean(false);
     private int numberOfRequestsSent;
     private long timeSinceLastRequest;
+
+    private RateLimit rateLimit = new RateLimit();
 
     public DiscordRequestDispatcher(String botToken) {
         this.botToken = botToken;
@@ -50,6 +55,14 @@ public class DiscordRequestDispatcher implements Runnable {
         while (running.get()) {
             long currentTime = System.currentTimeMillis();
             long elapsed = currentTime - timeSinceLastRequest;
+
+            if (rateLimit.getRemaining() == 0 && elapsed < rateLimit.getResetAfter()) {
+                try {
+                    Thread.sleep(rateLimit.getResetAfter() - elapsed);
+                } catch (InterruptedException e) {
+                    /* Ignore */
+                }
+            }
 
             if (elapsed < 1000 && numberOfRequestsSent >= 50) {
                 try {
@@ -118,6 +131,17 @@ public class DiscordRequestDispatcher implements Runnable {
 
             HttpResponse<String> response =
                 httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+
+            HttpHeaders headers = response.headers();
+            headers.firstValue("x-ratelimit-bucket").ifPresent(val -> rateLimit.setBucket(val));
+            headers.firstValue("x-ratelimit-limit")
+                .ifPresent(val -> rateLimit.setLimit(Integer.parseInt(val)));
+            headers.firstValue("x-ratelimit-remaining")
+                .ifPresent(val -> rateLimit.setRemaining(Integer.parseInt(val)));
+            headers.firstValue("x-ratelimit-reset")
+                .ifPresent(val -> rateLimit.setReset(Long.parseLong(val)));
+            headers.firstValue("x-ratelimit-reset-after")
+                .ifPresent(val -> rateLimit.setResetAfter(Integer.parseInt(val)));
 
             numberOfRequestsSent++;
             timeSinceLastRequest = System.currentTimeMillis();

@@ -14,7 +14,6 @@ public class WebSocketManagerProxy {
     }
 
     public void restart(ConnectionMediator connectionMediator) {
-
         webSocketManager.restart(connectionMediator);
     }
 

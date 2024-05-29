@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record Gateway(
-    String url,
-    int shards,
+    @JsonProperty("url") String url,
+    @JsonProperty("shards") int shards,
     @JsonProperty("session_start_limit") SessionStartLimit sessionStartLimit
 ) {}
