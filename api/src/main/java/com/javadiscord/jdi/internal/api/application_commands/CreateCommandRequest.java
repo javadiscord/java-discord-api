@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 import com.javadiscord.jdi.core.api.builders.command.CommandOption;
 import com.javadiscord.jdi.core.api.builders.command.CommandOptionType;
@@ -23,11 +24,12 @@ public record CreateCommandRequest(
     @Override
     public DiscordRequestBuilder create() {
 
-        String path = "/applications/%s/commands".formatted(applicationId);
+        AtomicReference<String> path =
+            new AtomicReference<>("/applications/%s/commands".formatted(applicationId));
 
-        if (global.isPresent() && global.get()) {
-            path = "/applications/%s/guilds/%s/commands".formatted(applicationId, guildId);
-        }
+        global.ifPresent(
+            val -> path.set("/applications/%s/guilds/%s/commands".formatted(applicationId, guildId))
+        );
 
         Map<String, Object> body = new HashMap<>();
         body.put("name", name);
@@ -41,6 +43,6 @@ public record CreateCommandRequest(
         return new DiscordRequestBuilder()
             .post()
             .body(body)
-            .path(path);
+            .path(path.get());
     }
 }

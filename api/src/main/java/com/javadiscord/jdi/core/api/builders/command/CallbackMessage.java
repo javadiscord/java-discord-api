@@ -35,8 +35,6 @@ public class CallbackMessage {
     @JsonProperty("poll")
     private Poll poll;
 
-    public CallbackMessage() {}
-
     public boolean isTts() {
         return tts;
     }

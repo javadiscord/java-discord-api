@@ -5,7 +5,7 @@ import java.util.List;
 
 public class CurseWords {
     public static boolean containsCurseWord(String text) {
-        for (String s : curseWords) {
+        for (String s : CURSE_WORDS) {
             if (text.toLowerCase().contains(s.toLowerCase())) {
                 return true;
             }
@@ -13,7 +13,7 @@ public class CurseWords {
         return false;
     }
 
-    private static final List<String> curseWords =
+    private static final List<String> CURSE_WORDS =
         Arrays.asList(
             "fuck",
             "shit",

@@ -23,4 +23,8 @@ public class Constants {
          \\___/|____/___|  Version 1.0
         """;
 
+    private Constants() {
+        throw new UnsupportedOperationException("Utility class");
+    }
+
 }
