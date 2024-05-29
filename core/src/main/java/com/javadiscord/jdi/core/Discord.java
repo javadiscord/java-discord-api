@@ -242,7 +242,7 @@ public class Discord {
             } else {
                 throw new RuntimeException("Unable to create ComponentLoader instance");
             }
-        } catch (Exception | Error e) {
+        } catch (Exception e) {
             LOGGER.warn("Component loading failed", e);
         }
     }
@@ -261,7 +261,7 @@ public class Discord {
                     }
                 }
             }
-        } catch (Exception | Error e) {
+        } catch (Exception e) {
             LOGGER.warn("Event listener loading failed", e);
         }
     }
@@ -285,7 +285,7 @@ public class Discord {
                     }
                 }
             }
-        } catch (Exception | Error e) {
+        } catch (Exception e) {
             LOGGER.error("Failed to load SlashCommands", e);
         }
     }
