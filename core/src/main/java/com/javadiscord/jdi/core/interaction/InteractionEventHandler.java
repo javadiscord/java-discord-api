@@ -45,41 +45,58 @@ public class InteractionEventHandler implements EventListener {
             Class<?> handler = reflectiveSlashCommandClassMethod.clazz();
             Method method = reflectiveSlashCommandClassMethod.method();
 
-            List<Object> paramOrder = new ArrayList<>();
-            Parameter[] parameters = method.getParameters();
+            List<Object> paramOrder = getOrderOfParameters(method, interaction);
 
-            for (Parameter parameter : parameters) {
-                if (parameter.getParameterizedType() == interaction.getClass()) {
-                    paramOrder.add(interaction);
-                } else if (parameter.getParameterizedType() == Discord.class) {
-                    paramOrder.add(discord);
-                } else if (parameter.getParameterizedType() == Guild.class) {
-                    paramOrder.add(GatewayEventListener.getGuild(discord, interaction.guild()));
-                } else if (parameter.getParameterizedType() == SlashCommandEvent.class) {
-                    paramOrder.add(new SlashCommandEvent(interaction, discord));
-                }
-            }
-
-            if (paramOrder.size() != method.getParameterCount()) {
-                throw new RuntimeException(
-                    "Bound "
-                        + paramOrder.size()
-                        + " parameters but expected "
-                        + method.getParameterCount()
-                );
-            }
-
-            if (cachedInstances.containsKey(handler.getName())) {
-                method.invoke(cachedInstances.get(handler.getName()), paramOrder.toArray());
-            } else {
-                Object handlerInstance = handler.getDeclaredConstructor().newInstance();
-                cachedInstances.put(handler.getName(), handlerInstance);
-                injectComponents(handlerInstance);
-                method.invoke(handlerInstance, paramOrder.toArray());
+            if (validateParameterCount(method, paramOrder)) {
+                invokeHandler(handler, method, paramOrder);
             }
 
         } catch (Exception e) {
             LOGGER.error("Failed to invoke handler for /{}", command, e);
+        }
+    }
+
+    private List<Object> getOrderOfParameters(Method method, Interaction interaction) {
+        List<Object> paramOrder = new ArrayList<>();
+        Parameter[] parameters = method.getParameters();
+
+        for (Parameter parameter : parameters) {
+            if (parameter.getParameterizedType() == interaction.getClass()) {
+                paramOrder.add(interaction);
+            } else if (parameter.getParameterizedType() == Discord.class) {
+                paramOrder.add(discord);
+            } else if (parameter.getParameterizedType() == Guild.class) {
+                paramOrder.add(GatewayEventListener.getGuild(discord, interaction.guild()));
+            } else if (parameter.getParameterizedType() == SlashCommandEvent.class) {
+                paramOrder.add(new SlashCommandEvent(interaction, discord));
+            }
+        }
+
+        return paramOrder;
+    }
+
+    private boolean validateParameterCount(Method method, List<Object> paramOrder) {
+        if (paramOrder.size() != method.getParameterCount()) {
+            throw new RuntimeException(
+                "Bound " + paramOrder.size() + " parameters but expected "
+                    + method.getParameterCount()
+            );
+        }
+        return true;
+    }
+
+    private void invokeHandler(
+        Class<?> handler,
+        Method method,
+        List<Object> paramOrder
+    ) throws Exception {
+        if (cachedInstances.containsKey(handler.getName())) {
+            method.invoke(cachedInstances.get(handler.getName()), paramOrder.toArray());
+        } else {
+            Object handlerInstance = handler.getDeclaredConstructor().newInstance();
+            cachedInstances.put(handler.getName(), handlerInstance);
+            injectComponents(handlerInstance);
+            method.invoke(handlerInstance, paramOrder.toArray());
         }
     }
 
