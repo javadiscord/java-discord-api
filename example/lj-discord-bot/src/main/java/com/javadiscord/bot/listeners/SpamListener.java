@@ -7,12 +7,8 @@ import com.javadiscord.jdi.core.annotations.MessageCreate;
 import com.javadiscord.jdi.core.api.builders.CreateMessageBuilder;
 import com.javadiscord.jdi.core.models.message.Message;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 @EventListener
 public class SpamListener {
-    private static final Logger LOGGER = LogManager.getLogger(SlashCommandListener.class);
 
     @MessageCreate
     public void onMessage(Message message, Guild guild) {
@@ -33,7 +29,7 @@ public class SpamListener {
                                     """
                                     .formatted(message.content())
                             )
-                        ).onError(System.err::println)
+                        )
                 );
         }
     }

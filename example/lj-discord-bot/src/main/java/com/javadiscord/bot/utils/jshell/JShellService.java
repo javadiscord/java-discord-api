@@ -44,6 +44,7 @@ public class JShellService {
             LOGGER.error("Failed to parse data received from JShell API", e);
         } catch (IOException | InterruptedException e) {
             LOGGER.error("Failed to send request to JShell API", e);
+            Thread.currentThread().interrupt();
         }
         return null;
     }

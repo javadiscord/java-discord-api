@@ -26,21 +26,21 @@ public class Main {
         return new JShellService();
     }
 
-    private static DockerClient dockerClient =
+    private static final DockerClient DOCKER_CLIENT =
         DockerClientBuilder.getInstance("tcp://localhost:2375").build();
 
     @Component
     public static DockerClient dockerClient() {
-        return dockerClient;
+        return DOCKER_CLIENT;
     }
 
     @Component
     public static DockerCommandRunner dockerCommandRunner() {
-        return new DockerCommandRunner(dockerClient);
+        return new DockerCommandRunner(DOCKER_CLIENT);
     }
 
     @Component
     public static DockerSessions dockerSessions() {
-        return new DockerSessions(dockerClient);
+        return new DockerSessions(DOCKER_CLIENT);
     }
 }

@@ -12,7 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Tenor {
-    private static final Logger logger = LogManager.getLogger(Tenor.class);
+    private static final Logger LOGGER = LogManager.getLogger(Tenor.class);
     private static final String API_KEY = System.getenv("TENOR_API_KEY");
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private static final HttpClient HTTP_CLIENT = HttpClient.newHttpClient();
@@ -38,10 +38,12 @@ public class Tenor {
             if (response.statusCode() == 200) {
                 return OBJECT_MAPPER.readTree(response.body());
             } else {
-                System.err.println("HTTP Code: " + response.statusCode() + " from " + url);
+                LOGGER.trace("HTTP Code: {} from {}", response.statusCode(), url);
             }
+
         } catch (IOException | InterruptedException e) {
-            logger.error("Error making a request to Tenor", e);
+            LOGGER.error("Error making a request to Tenor", e);
+            Thread.currentThread().interrupt();
         }
 
         return null;

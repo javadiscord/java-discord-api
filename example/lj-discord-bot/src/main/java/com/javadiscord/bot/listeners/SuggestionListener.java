@@ -19,10 +19,6 @@ public class SuggestionListener {
             return;
         }
 
-        // guild.channel().createReaction(message.channelId(), message.id(), "thumbup");
-        // guild.channel().createReaction(message.channelId(), message.id(),
-        // "thumbsdown");
-
         String title =
             message.content().length() > 60
                 ? message.content().substring(0, 60)
@@ -34,8 +30,7 @@ public class SuggestionListener {
                 message.id(),
                 title
             )
-        ).onError(System.err::println)
-            .onSuccess(System.out::println);
+        );
     }
 
 }
