@@ -29,8 +29,8 @@ public class EmojiRequest {
         return responseParser.callAndParse(Emoji.class, new GetEmojiRequest(guildId, emojiId));
     }
 
-    public AsyncResponse<Emoji> getEmojis() {
-        return responseParser.callAndParse(Emoji.class, new GetEmojisRequest(guildId));
+    public AsyncResponse<List<Emoji>> getEmojis() {
+        return responseParser.callAndParseList(Emoji.class, new GetEmojisRequest(guildId));
     }
 
     public AsyncResponse<Emoji> modifyEmoji(ModifyEmojiBuilder builder) {
