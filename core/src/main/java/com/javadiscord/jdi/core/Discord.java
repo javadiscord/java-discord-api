@@ -110,12 +110,11 @@ public class Discord {
 
     public Discord(String botToken, IdentifyRequest identifyRequest, Cache cache) {
         System.err.println("""
-                 _ ____ ___\s
+                 _ ____ ___
                 | |  _ \\_ _|  https://github.com/javadiscord/java-discord-api
-             _  | | | | | |   Open-Source Discord Framework\s
-            | |_| | |_| | |   GPL-3.0 license\s
+             _  | | | | | |   Open-Source Discord Framework
+            | |_| | |_| | |   GPL-3.0 license
              \\___/|____/___|  Version 1.0
-
             """);
 
         this.botToken = botToken;
@@ -140,8 +139,7 @@ public class Discord {
             try {
                 Class<?> slashCommandClassInstanceClass = slashCommandClassInstance.getClass();
                 Method method =
-                    (Method) slashCommandClassInstanceClass
-                        .getMethod("method")
+                    (Method) slashCommandClassInstanceClass.getMethod("method")
                         .invoke(slashCommandClassInstance);
 
                 Annotation[] annotations = method.getAnnotations();
@@ -150,66 +148,7 @@ public class Discord {
                         annotation.annotationType().getName()
                             .equals("com.javadiscord.jdi.core.annotations.SlashCommand")
                     ) {
-                        Method nameMethod = annotation.annotationType().getMethod("name");
-                        String name = (String) nameMethod.invoke(annotation);
-
-                        Method descriptionMethod =
-                            annotation.annotationType().getMethod("description");
-                        String description = (String) descriptionMethod.invoke(annotation);
-
-                        Method optionsMethod = annotation.annotationType().getMethod("options");
-                        Object[] options = (Object[]) optionsMethod.invoke(annotation);
-
-                        CommandBuilder builder = new CommandBuilder(name, description);
-
-                        for (Object option : options) {
-                            Method optionNameMethod = option.getClass().getMethod("name");
-                            String optionName = (String) optionNameMethod.invoke(option);
-
-                            Method optionDescriptionMethod =
-                                option.getClass().getMethod("description");
-                            String optionDescription =
-                                (String) optionDescriptionMethod.invoke(option);
-
-                            Method optionTypeMethod = option.getClass().getMethod("type");
-                            Enum<?> optionType = (Enum<?>) optionTypeMethod.invoke(option);
-                            String optionTypeValue = optionType.name();
-
-                            Method optionRequiredMethod = option.getClass().getMethod("required");
-                            boolean optionRequired = (boolean) optionRequiredMethod.invoke(option);
-
-                            List<CommandOptionChoice> choices = new ArrayList<>();
-
-                            Object[] choicesArray =
-                                (Object[]) option.getClass().getMethod("choices").invoke(option);
-
-                            for (Object choice : choicesArray) {
-                                Annotation annotation1 = (Annotation) choice;
-                                if (
-                                    annotation1.annotationType().getName().equals(
-                                        "com.javadiscord.jdi.core.annotations.CommandOptionChoice"
-                                    )
-                                ) {
-                                    Method nameMethod1 =
-                                        annotation1.annotationType().getMethod("name");
-                                    Method valueMethod1 =
-                                        annotation1.annotationType().getMethod("value");
-                                    String name1 = (String) nameMethod1.invoke(annotation1);
-                                    String value1 = (String) valueMethod1.invoke(annotation1);
-                                    choices.add(new CommandOptionChoice(value1, name1));
-                                }
-                            }
-
-                            builder.addOption(
-                                new CommandOption(
-                                    optionName,
-                                    optionDescription,
-                                    CommandOptionType.fromName(optionTypeValue),
-                                    optionRequired
-                                ).addChoice(choices)
-                            );
-                        }
-
+                        CommandBuilder builder = buildCommand(annotation);
                         createInteractionRequests.add(builder);
                     }
                 }
@@ -217,6 +156,74 @@ public class Discord {
                 LOGGER.error("Error registering slash command with Discord", e);
             }
         });
+    }
+
+    private CommandBuilder buildCommand(Annotation annotation) throws ReflectiveOperationException {
+        Method nameMethod = annotation.annotationType().getMethod("name");
+        String name = (String) nameMethod.invoke(annotation);
+
+        Method descriptionMethod = annotation.annotationType().getMethod("description");
+        String description = (String) descriptionMethod.invoke(annotation);
+
+        Method optionsMethod = annotation.annotationType().getMethod("options");
+        Object[] options = (Object[]) optionsMethod.invoke(annotation);
+
+        CommandBuilder builder = new CommandBuilder(name, description);
+        for (Object option : options) {
+            addCommandOption(builder, option);
+        }
+
+        return builder;
+    }
+
+    private void addCommandOption(
+        CommandBuilder builder,
+        Object option
+    ) throws ReflectiveOperationException {
+        Method optionNameMethod = option.getClass().getMethod("name");
+        String optionName = (String) optionNameMethod.invoke(option);
+
+        Method optionDescriptionMethod = option.getClass().getMethod("description");
+        String optionDescription = (String) optionDescriptionMethod.invoke(option);
+
+        Method optionTypeMethod = option.getClass().getMethod("type");
+        Enum<?> optionType = (Enum<?>) optionTypeMethod.invoke(option);
+        String optionTypeValue = optionType.name();
+
+        Method optionRequiredMethod = option.getClass().getMethod("required");
+        boolean optionRequired = (boolean) optionRequiredMethod.invoke(option);
+
+        List<CommandOptionChoice> choices = new ArrayList<>();
+        Object[] choicesArray = (Object[]) option.getClass().getMethod("choices").invoke(option);
+        for (Object choice : choicesArray) {
+            addCommandOptionChoice(choices, choice);
+        }
+
+        builder.addOption(
+            new CommandOption(
+                optionName,
+                optionDescription,
+                CommandOptionType.fromName(optionTypeValue),
+                optionRequired
+            ).addChoice(choices)
+        );
+    }
+
+    private void addCommandOptionChoice(
+        List<CommandOptionChoice> choices,
+        Object choice
+    ) throws ReflectiveOperationException {
+        Annotation annotation1 = (Annotation) choice;
+        if (
+            annotation1.annotationType().getName()
+                .equals("com.javadiscord.jdi.core.annotations.CommandOptionChoice")
+        ) {
+            Method nameMethod1 = annotation1.annotationType().getMethod("name");
+            Method valueMethod1 = annotation1.annotationType().getMethod("value");
+            String name1 = (String) nameMethod1.invoke(annotation1);
+            String value1 = (String) valueMethod1.invoke(annotation1);
+            choices.add(new CommandOptionChoice(value1, name1));
+        }
     }
 
     private boolean annotationLibPresent() {
@@ -237,7 +244,7 @@ public class Discord {
                 constructor.newInstance();
             }
         } catch (Exception | Error e) {
-            /* Ignore */
+            LOGGER.warn("Component loading failed", e);
         }
     }
 
@@ -256,7 +263,7 @@ public class Discord {
                 }
             }
         } catch (Exception | Error e) {
-            /* Ignore */
+            LOGGER.warn("Event listener loading failed", e);
         }
     }
 
@@ -277,7 +284,6 @@ public class Discord {
                         );
                         return;
                     }
-                    return;
                 }
             }
         } catch (Exception | Error e) {
@@ -288,15 +294,8 @@ public class Discord {
     public void start() {
         started = true;
 
-        webSocketManager =
-            new WebSocketManager(
-                new GatewaySetting().setApiVersion(10).setEncoding(GatewayEncoding.JSON),
-                identifyRequest,
-                cache
-            );
-
-        WebSocketManagerProxy webSocketManagerProxy =
-            new WebSocketManagerProxy(webSocketManager);
+        webSocketManager = new WebSocketManager(gatewaySetting, identifyRequest, cache);
+        WebSocketManagerProxy webSocketManagerProxy = new WebSocketManagerProxy(webSocketManager);
         ConnectionDetails connectionDetails =
             new ConnectionDetails(gateway.url(), botToken, gatewaySetting);
         ConnectionMediator connectionMediator =
@@ -315,12 +314,7 @@ public class Discord {
 
         LOGGER.info("Shutdown initiated");
 
-        if (webSocketManager != null) {
-            webSocketManager.stop();
-        }
-
         discordRequestDispatcher.stop();
-
         EXECUTOR.shutdown();
 
         try {
@@ -328,13 +322,12 @@ public class Discord {
                 EXECUTOR.shutdownNow();
                 if (!EXECUTOR.awaitTermination(30, TimeUnit.SECONDS)) {
                     LOGGER.warn(
-                        "Executor failed to shutdown within the specified time limit, some"
-                            + " tasks may still be running"
+                        "Executor failed to shutdown within the specified time limit, some tasks may still be running"
                     );
                 }
             }
         } catch (InterruptedException e) {
-            LOGGER.error("Termination was interrupted within {} seconds", 30, e);
+            LOGGER.error("Termination was interrupted", e);
             Thread.currentThread().interrupt();
         }
     }
@@ -376,16 +369,8 @@ public class Discord {
         }
     }
 
-    public void registerSlashCommand(
-        String name,
-        String description,
-        CommandOption... options
-    ) {
-        CommandBuilder builder =
-            new CommandBuilder(
-                name,
-                description
-            );
+    public void registerSlashCommand(String name, String description, CommandOption... options) {
+        CommandBuilder builder = new CommandBuilder(name, description);
         for (CommandOption option : options) {
             builder.addOption(option);
         }
@@ -399,7 +384,7 @@ public class Discord {
     }
 
     public void deleteSlashCommand(long id) {
-
+        // Implement command deletion logic
     }
 
     public DiscordRequestDispatcher getDiscordRequestDispatcher() {
@@ -414,7 +399,7 @@ public class Discord {
         return annotatedEventListeners;
     }
 
-    public boolean started() {
+    public boolean isStarted() {
         return started;
     }
 
@@ -428,29 +413,35 @@ public class Discord {
 
     void handleReadyEvent(ReadyEvent event) {
         applicationId = event.application().id();
-
         EXECUTOR.execute(discordRequestDispatcher);
 
         for (CommandBuilder builder : createInteractionRequests) {
             builder.applicationId(applicationId);
             CreateCommandRequest request = builder.build();
             DiscordResponseFuture future = sendRequest(request);
-            future.onSuccess(res -> {
-                if (res.status() >= 200 && res.status() < 300) {
-                    LOGGER.info("Registered slash command {} with discord", request.name());
-                } else {
-                    LOGGER.error(
-                        "Failed to register slash command {} with discord\n{}", request.name(),
-                        res.body()
-                    );
-                }
-            });
-            future.onError(
-                err -> LOGGER
-                    .error("Failed to register slash command {} with discord", request.name(), err)
-            );
+            handleCommandRegistrationResponse(request, future);
         }
 
         createInteractionRequests.clear();
+    }
+
+    private void handleCommandRegistrationResponse(
+        CreateCommandRequest request,
+        DiscordResponseFuture future
+    ) {
+        future.onSuccess(res -> {
+            if (res.status() >= 200 && res.status() < 300) {
+                LOGGER.info("Registered slash command {} with discord", request.name());
+            } else {
+                LOGGER.error(
+                    "Failed to register slash command {} with discord\n{}", request.name(),
+                    res.body()
+                );
+            }
+        });
+        future.onError(
+            err -> LOGGER
+                .error("Failed to register slash command {} with discord", request.name(), err)
+        );
     }
 }
