@@ -38,38 +38,49 @@ public class GatewayEventListener implements GatewayObserver {
     }
 
     public static Guild getGuild(Discord discord, Object event) {
-        if (event instanceof com.javadiscord.jdi.core.models.guild.Guild) {
-            return new Guild(
-                (com.javadiscord.jdi.core.models.guild.Guild) event,
-                discord.getCache(),
-                discord
+        if (event instanceof GuildModel) {
+            return createGuildFromEvent(
+                discord, (GuildModel) event
             );
+        } else {
+            return createGuildFromEventObject(discord, event);
         }
+    }
 
+    private static Guild createGuildFromEvent(
+        Discord discord,
+        GuildModel guildEvent
+    ) {
+        return new Guild(guildEvent, discord.getCache(), discord);
+    }
+
+    private static Guild createGuildFromEventObject(Discord discord, Object event) {
         Cache cache = discord.getCache();
         Guild guild = null;
         try {
-            Field guildIdField = event.getClass().getDeclaredField("guildId");
-            guildIdField.setAccessible(true);
-            long guildId;
-
-            if (guildIdField.getType() == String.class) {
-                guildId = Long.parseLong((String) guildIdField.get(event));
-            } else {
-                guildId = (long) guildIdField.get(event);
-            }
-
-            com.javadiscord.jdi.core.models.guild.Guild model =
-                (com.javadiscord.jdi.core.models.guild.Guild) cache.getCacheForGuild(guildId)
-                    .get(
-                        guildId,
-                        com.javadiscord.jdi.core.models.guild.Guild.class
-                    );
+            long guildId = extractGuildId(event);
+            GuildModel model =
+                (GuildModel) cache.getCacheForGuild(guildId)
+                    .get(guildId, GuildModel.class);
             guild = new Guild(model, cache, discord);
         } catch (NoSuchFieldException | IllegalAccessException e) {
             LOGGER.debug("{} did not come with a guildId field", event.getClass().getSimpleName());
         }
+
         return guild;
+    }
+
+    private static long extractGuildId(
+        Object event
+    ) throws NoSuchFieldException, IllegalAccessException {
+        Field guildIdField = event.getClass().getDeclaredField("guildId");
+        guildIdField.setAccessible(true);
+
+        if (guildIdField.getType() == String.class) {
+            return Long.parseLong((String) guildIdField.get(event));
+        } else {
+            return (long) guildIdField.get(event);
+        }
     }
 
     @Override

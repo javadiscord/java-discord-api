@@ -2,7 +2,7 @@ package com.javadiscord.jdi.core.models.guild_template;
 
 import java.time.OffsetDateTime;
 
-import com.javadiscord.jdi.core.models.guild.Guild;
+import com.javadiscord.jdi.core.models.guild.GuildModel;
 import com.javadiscord.jdi.core.models.user.User;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -24,6 +24,6 @@ public record GuildTemplate(
         "updated_at"
     ) OffsetDateTime updatedAt,
     @JsonProperty("source_guild_id") long sourceGuildId,
-    @JsonProperty("serialized_source_guild") Guild sourceGuild,
+    @JsonProperty("serialized_source_guild") GuildModel sourceGuild,
     @JsonProperty("is_dirty") boolean isDirty
 ) {}

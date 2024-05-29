@@ -18,44 +18,45 @@ public class ClassFileUtil {
     private ClassFileUtil() {}
 
     public static List<File> getClassesInClassPath() {
-        if (!classesInPath.isEmpty()) {
-            return classesInPath;
-        }
-        String classpath = System.getProperty("java.class.path");
-        String[] classpathEntries = classpath.split(File.pathSeparator);
+        if (classesInPath.isEmpty()) {
+            String classpath = System.getProperty("java.class.path");
+            String[] classpathEntries = classpath.split(File.pathSeparator);
 
-        for (String entry : classpathEntries) {
-            File file = new File(entry);
-            try {
-                classesInPath.addAll(getClasses(file));
-            } catch (IOException ignore) {
-                /* Ignore */
+            for (String entry : classpathEntries) {
+                File file = new File(entry);
+                try {
+                    classesInPath.addAll(getClasses(file));
+                } catch (IOException ignore) {
+                    /* Ignore */
+                }
             }
         }
         return classesInPath;
     }
 
     public static String getClassName(File file) throws IOException {
-        String className = null;
         try (
             FileInputStream fis = new FileInputStream(file);
             DataInputStream dis = new DataInputStream(fis)
         ) {
             if (isJarFile(file)) {
-                try (ZipInputStream zip = new ZipInputStream(fis)) {
-                    ZipEntry entry;
-                    while ((entry = zip.getNextEntry()) != null) {
-                        if (!entry.isDirectory() && entry.getName().endsWith(".class")) {
-                            className = extractClassName(zip);
-                            break;
-                        }
-                    }
-                }
+                return getClassNameFromJar(fis);
             } else {
-                className = extractClassName(dis);
+                return extractClassName(dis);
             }
         }
-        return className;
+    }
+
+    private static String getClassNameFromJar(FileInputStream fis) throws IOException {
+        try (ZipInputStream zip = new ZipInputStream(fis)) {
+            ZipEntry entry;
+            while ((entry = zip.getNextEntry()) != null) {
+                if (!entry.isDirectory() && entry.getName().endsWith(".class")) {
+                    return extractClassName(zip);
+                }
+            }
+        }
+        return null;
     }
 
     private static List<File> getClasses(File file) throws IOException {

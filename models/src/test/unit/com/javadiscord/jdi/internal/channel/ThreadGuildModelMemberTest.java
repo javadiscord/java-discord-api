@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.OffsetDateTime;
 
-class ThreadGuildMemberTest {
+class ThreadGuildModelMemberTest {
     private static final ObjectMapper OBJECT_MAPPER =
             JsonMapper.builder().addModule(new JavaTimeModule()).build();
 
