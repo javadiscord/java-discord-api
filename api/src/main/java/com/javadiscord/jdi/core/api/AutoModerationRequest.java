@@ -2,9 +2,9 @@ package com.javadiscord.jdi.core.api;
 
 import java.util.List;
 
+import com.javadiscord.jdi.core.api.builders.CreateAutoModerationRuleBuilder;
 import com.javadiscord.jdi.core.api.builders.ModifyAutoModerationRuleBuilder;
 import com.javadiscord.jdi.core.models.auto_moderation.AutoModerationRule;
-import com.javadiscord.jdi.core.request.builders.CreateAutoModerationRuleBuilder;
 import com.javadiscord.jdi.internal.api.auto_moderation.*;
 
 public class AutoModerationRequest {

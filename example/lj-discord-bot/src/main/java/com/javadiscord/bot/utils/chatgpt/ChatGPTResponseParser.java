@@ -15,7 +15,7 @@ public class ChatGPTResponseParser {
     public static String[] parse(String response) {
         String[] partedResponse = new String[] {response};
         if (response.length() > RESPONSE_LENGTH_LIMIT) {
-            logger.debug("Response to parse:\n" + response);
+            logger.debug("Response to parse:\n{}", response);
             partedResponse = partitionAiResponse(response);
         }
         return partedResponse;

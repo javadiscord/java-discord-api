@@ -1,4 +1,4 @@
-package com.javadiscord.jdi.core.request.builders;
+package com.javadiscord.jdi.core.api.builders;
 
 import java.util.List;
 import java.util.Optional;
