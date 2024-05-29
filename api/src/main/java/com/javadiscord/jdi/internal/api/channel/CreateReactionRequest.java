@@ -15,7 +15,7 @@ public record CreateReactionRequest(
             .put()
             .path(
                 "/channels/%s/messages/%s/reactions/%s/@me"
-                    .formatted(channelId, messageId, emoji)
+                    .formatted(channelId, messageId, ":%s:%d".formatted(emoji.name(), emoji.id()))
             );
     }
 }

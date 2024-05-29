@@ -225,14 +225,8 @@ public class ChannelRequest {
         return responseParser.callAndParseList(ThreadMember.class, builder.build());
     }
 
-    public AsyncResponse<Channel> modifyChannel(
-        long channelId,
-        String name,
-        String base64EncodedIcon
-    ) {
-        return responseParser.callAndParse(
-            Channel.class, new ModifyChannelRequest(channelId, name, base64EncodedIcon)
-        );
+    public AsyncResponse<Channel> modifyChannel(ModifyChannelBuilder builder) {
+        return responseParser.callAndParse(Channel.class, builder.build());
     }
 
     public AsyncResponse<Void> pinMessage(long channelId, long messageId) {
