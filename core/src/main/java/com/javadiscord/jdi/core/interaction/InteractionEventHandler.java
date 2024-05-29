@@ -9,6 +9,9 @@ import com.javadiscord.jdi.core.EventListener;
 import com.javadiscord.jdi.core.GatewayEventListener;
 import com.javadiscord.jdi.core.Guild;
 import com.javadiscord.jdi.core.models.guild.Interaction;
+import com.javadiscord.jdi.internal.ReflectiveLoader;
+import com.javadiscord.jdi.internal.ReflectiveSlashCommandClassMethod;
+import com.javadiscord.jdi.internal.ReflectiveSlashCommandLoader;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,29 +33,21 @@ public class InteractionEventHandler implements EventListener {
         String command = interaction.data().name();
 
         try {
-            Class<?> slashCommandLoaderClass = slashCommandLoader.getClass();
+            ReflectiveSlashCommandLoader reflectiveSlashCommandLoader =
+                ReflectiveLoader.proxy(slashCommandLoader, ReflectiveSlashCommandLoader.class);
 
-            Method getSlashCommandClassMethod =
-                slashCommandLoaderClass.getMethod("getSlashCommandClassMethod", String.class);
+            ReflectiveSlashCommandClassMethod reflectiveSlashCommandClassMethod =
+                ReflectiveLoader.proxy(
+                    reflectiveSlashCommandLoader.getSlashCommandClassMethod(command),
+                    ReflectiveSlashCommandClassMethod.class
+                );
 
-            Object commandClassMethodInstance =
-                getSlashCommandClassMethod.invoke(slashCommandLoader, command);
-
-            if (commandClassMethodInstance == null) {
-                LOGGER.warn("No handler found for /{} command", command);
-                return;
-            }
-
-            Class<?> handler =
-                (Class<?>) commandClassMethodInstance.getClass().getMethod("clazz")
-                    .invoke(commandClassMethodInstance);
-
-            Method method =
-                (Method) commandClassMethodInstance.getClass().getMethod("method")
-                    .invoke(commandClassMethodInstance);
+            Class<?> handler = reflectiveSlashCommandClassMethod.clazz();
+            Method method = reflectiveSlashCommandClassMethod.method();
 
             List<Object> paramOrder = new ArrayList<>();
             Parameter[] parameters = method.getParameters();
+
             for (Parameter parameter : parameters) {
                 if (parameter.getParameterizedType() == interaction.getClass()) {
                     paramOrder.add(interaction);
@@ -88,13 +83,10 @@ public class InteractionEventHandler implements EventListener {
         }
     }
 
-    private void injectComponents(Object object) throws Exception {
-        Class<?> slashCommandLoaderClass = slashCommandLoader.getClass();
+    private void injectComponents(Object object) {
+        ReflectiveSlashCommandLoader reflectiveSlashCommandLoader =
+            ReflectiveLoader.proxy(slashCommandLoader, ReflectiveSlashCommandLoader.class);
 
-        Method injectComponentsMethod =
-            slashCommandLoaderClass.getMethod("injectComponents", Object.class);
-
-        injectComponentsMethod.invoke(slashCommandLoader, object);
+        reflectiveSlashCommandLoader.injectComponents(object);
     }
-
 }

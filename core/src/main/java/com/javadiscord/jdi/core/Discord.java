@@ -22,6 +22,9 @@ import com.javadiscord.jdi.core.api.builders.command.CommandOptionChoice;
 import com.javadiscord.jdi.core.api.builders.command.CommandOptionType;
 import com.javadiscord.jdi.core.interaction.InteractionEventHandler;
 import com.javadiscord.jdi.core.models.ready.ReadyEvent;
+import com.javadiscord.jdi.internal.ReflectiveComponentLoader;
+import com.javadiscord.jdi.internal.ReflectiveLoader;
+import com.javadiscord.jdi.internal.ReflectiveSlashCommandClassMethod;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestDispatcher;
 import com.javadiscord.jdi.internal.api.DiscordResponseFuture;
@@ -137,10 +140,11 @@ public class Discord {
         LOGGER.info("Registering slash commands with Discord");
         loadedSlashCommands.forEach((commandName, slashCommandClassInstance) -> {
             try {
-                Class<?> slashCommandClassInstanceClass = slashCommandClassInstance.getClass();
-                Method method =
-                    (Method) slashCommandClassInstanceClass.getMethod("method")
-                        .invoke(slashCommandClassInstance);
+                ReflectiveSlashCommandClassMethod slashCommandClassMethod =
+                    ReflectiveLoader
+                        .proxy(slashCommandClassInstance, ReflectiveSlashCommandClassMethod.class);
+
+                Method method = slashCommandClassMethod.method();
 
                 Annotation[] annotations = method.getAnnotations();
                 for (Annotation annotation : annotations) {
@@ -216,7 +220,7 @@ public class Discord {
         Annotation annotation1 = (Annotation) choice;
         if (
             annotation1.annotationType().getName()
-                .equals("com.javadiscord.jdi.core.annotations.CommandOptionChoice")
+                .equals(Constants.COMMAND_OPTION_CHOICE_ANNOTATION)
         ) {
             Method nameMethod1 = annotation1.annotationType().getMethod("name");
             Method valueMethod1 = annotation1.annotationType().getMethod("value");
@@ -228,7 +232,7 @@ public class Discord {
 
     private boolean annotationLibPresent() {
         try {
-            Class.forName("com.javadiscord.jdi.core.processor.loader.ListenerLoader");
+            Class.forName(Constants.LISTENER_LOADER_CLASS);
             return true;
         } catch (Exception e) {
             return false;
@@ -239,9 +243,19 @@ public class Discord {
         LOGGER.info("Loading Components");
         try {
             Class<?> clazz =
-                Class.forName("com.javadiscord.jdi.core.processor.loader.ComponentLoader");
+                Class.forName(Constants.COMPONENT_LOADER_CLASS);
+            ReflectiveComponentLoader componentLoader = null;
             for (Constructor<?> constructor : clazz.getConstructors()) {
-                constructor.newInstance();
+                if (constructor.getParameterCount() == 0) {
+                    componentLoader =
+                        ReflectiveLoader
+                            .proxy(constructor.newInstance(), ReflectiveComponentLoader.class);
+                }
+            }
+            if (componentLoader != null) {
+                componentLoader.loadComponents();
+            } else {
+                throw new RuntimeException("Unable to create ComponentLoader instance");
             }
         } catch (Exception | Error e) {
             LOGGER.warn("Component loading failed", e);
@@ -252,7 +266,7 @@ public class Discord {
         LOGGER.info("Loading EventListeners");
         try {
             Class<?> clazz =
-                Class.forName("com.javadiscord.jdi.core.processor.loader.ListenerLoader");
+                Class.forName(Constants.LISTENER_LOADER_CLASS);
             for (Constructor<?> constructor : clazz.getConstructors()) {
                 if (constructor.getParameterCount() == 1) {
                     Parameter parameters = constructor.getParameters()[0];
@@ -271,7 +285,7 @@ public class Discord {
         LOGGER.info("Loading SlashCommands");
         try {
             Class<?> clazz =
-                Class.forName("com.javadiscord.jdi.core.processor.loader.SlashCommandLoader");
+                Class.forName(Constants.SLASH_COMMAND_LOADER_CLASS);
             for (Constructor<?> constructor : clazz.getConstructors()) {
                 if (constructor.getParameterCount() == 1) {
                     Parameter parameters = constructor.getParameters()[0];

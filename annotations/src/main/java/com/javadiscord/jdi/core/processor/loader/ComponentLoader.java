@@ -20,15 +20,9 @@ public class ComponentLoader {
     private static final Map<Class<?>, Object> COMPONENTS = new HashMap<>();
     private final ComponentValidator componentValidator = new ComponentValidator();
 
-    public ComponentLoader() {
-        try {
-            loadComponents();
-        } catch (Exception e) {
-            LOGGER.error("An error occurred while loading components classes", e);
-        }
-    }
+    public ComponentLoader() {}
 
-    private void loadComponents() {
+    public void loadComponents() {
         List<File> classes = ClassFileUtil.getClassesInClassPath();
         for (File classFile : classes) {
             try {
