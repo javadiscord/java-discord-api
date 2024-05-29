@@ -28,34 +28,41 @@ public class SlashCommandValidator {
     }
 
     public boolean validate(Method method) {
-        for (Map.Entry<Class<? extends Annotation>, String[]> entry : EXPECTED_PARAM_TYPES_MAP
-            .entrySet()) {
+        for (Map.Entry<Class<? extends Annotation>, String[]> entry : EXPECTED_PARAM_TYPES_MAP.entrySet()) {
             Class<? extends Annotation> annotationClass = entry.getKey();
             if (method.isAnnotationPresent(annotationClass)) {
-                String[] expectedParamTypes = entry.getValue();
-                if (method.getParameterCount() > 0) {
-                    Class<?>[] paramTypes = method.getParameterTypes();
-                    for (Class<?> type : paramTypes) {
-                        boolean isExpectedType = false;
-                        for (String expectedType : expectedParamTypes) {
-                            if (type.getName().equals(expectedType)) {
-                                isExpectedType = true;
-                                break;
-                            }
-                        }
-                        if (!isExpectedType) {
-                            LOGGER.error("Unexpected parameter found: {}", type.getName());
-                            return false;
-                        }
-                    }
-                } else if (method.getParameterCount() != 0) {
-                    LOGGER.error(
-                        "{} does not have the expected parameter types", method.getName()
-                    );
+                if (!validateMethodParameters(method, entry.getValue())) {
                     return false;
                 }
             }
         }
         return true;
+    }
+
+    private boolean validateMethodParameters(Method method, String[] expectedParamTypes) {
+        if (method.getParameterCount() > 0) {
+            return checkParameterTypes(method, expectedParamTypes);
+        }
+        return true;
+    }
+
+    private boolean checkParameterTypes(Method method, String[] expectedParamTypes) {
+        Class<?>[] paramTypes = method.getParameterTypes();
+        for (Class<?> type : paramTypes) {
+            if (!isExpectedType(type, expectedParamTypes)) {
+                LOGGER.error("Unexpected parameter found: {}", type.getName());
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean isExpectedType(Class<?> type, String[] expectedParamTypes) {
+        for (String expectedType : expectedParamTypes) {
+            if (type.getName().equals(expectedType)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

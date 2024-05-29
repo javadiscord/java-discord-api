@@ -405,37 +405,55 @@ public class EventListenerValidator {
     private boolean validateMethods(Class<?> clazz) {
         Method[] methods = clazz.getMethods();
         for (Method method : methods) {
-            for (Map.Entry<Class<? extends Annotation>, String[]> entry : EXPECTED_PARAM_TYPES_MAP
-                .entrySet()) {
-                Class<? extends Annotation> annotationClass = entry.getKey();
-                if (method.isAnnotationPresent(annotationClass)) {
-                    String[] expectedParamTypes = entry.getValue();
-                    if (method.getParameterCount() > 0) {
-                        Class<?>[] paramTypes = method.getParameterTypes();
-                        for (Class<?> type : paramTypes) {
-                            boolean isExpectedType = false;
-                            for (String expectedType : expectedParamTypes) {
-                                if (type.getName().equals(expectedType)) {
-                                    isExpectedType = true;
-                                    break;
-                                }
-                            }
-                            if (!isExpectedType) {
-                                LOGGER.error("Unexpected parameter found: {}", type.getName());
-                                return false;
-                            } else {
-                                LOGGER.trace("Loaded {}", clazz.getName());
-                            }
-                        }
-                    } else if (method.getParameterCount() != 0) {
-                        LOGGER.error(
-                            "{} does not have the expected parameter types", method.getName()
-                        );
-                        return false;
-                    }
+            if (!validateMethodAnnotations(method)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean validateMethodAnnotations(Method method) {
+        for (Map.Entry<Class<? extends Annotation>, String[]> entry : EXPECTED_PARAM_TYPES_MAP
+            .entrySet()) {
+            Class<? extends Annotation> annotationClass = entry.getKey();
+            if (method.isAnnotationPresent(annotationClass)) {
+                if (!validateMethodParameters(method, entry.getValue())) {
+                    return false;
                 }
             }
         }
         return true;
+    }
+
+    private boolean validateMethodParameters(Method method, String[] expectedParamTypes) {
+        if (method.getParameterCount() > 0) {
+            return checkParameterTypes(method, expectedParamTypes);
+        } else if (method.getParameterCount() != 0) {
+            LOGGER.error("{} does not have the expected parameter types", method.getName());
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkParameterTypes(Method method, String[] expectedParamTypes) {
+        Class<?>[] paramTypes = method.getParameterTypes();
+        for (Class<?> type : paramTypes) {
+            if (!isExpectedType(type, expectedParamTypes)) {
+                LOGGER.error("Unexpected parameter found: {}", type.getName());
+                return false;
+            } else {
+                LOGGER.trace("Loaded {}", method.getDeclaringClass().getName());
+            }
+        }
+        return true;
+    }
+
+    private boolean isExpectedType(Class<?> type, String[] expectedParamTypes) {
+        for (String expectedType : expectedParamTypes) {
+            if (type.getName().equals(expectedType)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
