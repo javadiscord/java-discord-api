@@ -63,13 +63,13 @@ public class ChannelRequest {
         );
     }
 
-    public AsyncResponse<MessageReaction> createReaction(
+    public AsyncResponse<Void> createReaction(
         long channelId,
         long messageId,
         Emoji emoji
     ) {
         return responseParser.callAndParse(
-            MessageReaction.class, new CreateReactionRequest(channelId, messageId, emoji)
+                Void.class, new CreateReactionRequest(channelId, messageId, emoji)
         );
     }
 
