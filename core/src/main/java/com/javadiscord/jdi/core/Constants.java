@@ -15,6 +15,7 @@ public class Constants {
         "com.javadiscord.jdi.core.processor.loader.SlashCommandLoader";
 
     public static final String LAUNCH_HEADER = """
+
              _ ____ ___
             | |  _ \\_ _|  https://github.com/javadiscord/java-discord-api
          _  | | | | | |   Open-Source Discord Framework

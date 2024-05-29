@@ -2,6 +2,7 @@ package com.javadiscord.jdi.core.processor.loader;
 
 import java.io.File;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
@@ -20,8 +21,6 @@ public class ComponentLoader {
     private static final Map<Class<?>, Object> COMPONENTS = new HashMap<>();
     private final ComponentValidator componentValidator = new ComponentValidator();
 
-    public ComponentLoader() {}
-
     public void loadComponents() {
         List<File> classes = ClassFileUtil.getClassesInClassPath();
         for (File classFile : classes) {
@@ -37,7 +36,7 @@ public class ComponentLoader {
             } else {
                 LOGGER.error("{} failed validation", clazz.getName());
             }
-        } catch (Exception | Error ignore) {
+        } catch (Exception ignore) {
             // Ignore
         }
     }
@@ -50,7 +49,9 @@ public class ComponentLoader {
         }
     }
 
-    private void registerComponent(Method method) throws Exception {
+    private void registerComponent(
+        Method method
+    ) throws InvocationTargetException, IllegalAccessException {
         if (!COMPONENTS.containsKey(method.getReturnType())) {
             COMPONENTS.put(method.getReturnType(), method.invoke(null));
             LOGGER.info("Loaded component {}", method.getReturnType().getName());

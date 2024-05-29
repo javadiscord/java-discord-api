@@ -53,7 +53,7 @@ class EmojiRequestTest {
             latch.countDown();
         });
 
-        asyncResponse.onError(Assertions::fail);
+        asyncResponse.onError(e -> fail(e.getMessage()));
 
         assertTrue(latch.await(30, TimeUnit.SECONDS));
     }

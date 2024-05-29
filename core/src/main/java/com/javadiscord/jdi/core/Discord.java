@@ -110,7 +110,7 @@ public class Discord {
     }
 
     public Discord(String botToken, IdentifyRequest identifyRequest, Cache cache) {
-        System.err.println(Constants.LAUNCH_HEADER);
+        LOGGER.info(Constants.LAUNCH_HEADER);
 
         this.botToken = botToken;
         this.discordRequestDispatcher = new DiscordRequestDispatcher(botToken);

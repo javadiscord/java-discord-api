@@ -42,7 +42,7 @@ public class SlashCommandLoader {
                         }
                     }
                 }
-            } catch (Exception | Error ignore) {
+            } catch (Exception ignore) {
                 /* Ignore */
             }
         }

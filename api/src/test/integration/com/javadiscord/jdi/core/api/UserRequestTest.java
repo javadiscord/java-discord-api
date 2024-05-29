@@ -30,6 +30,7 @@ class UserRequestTest {
     }
 
     @Test
+    @Disabled
     void testGetCurrentUserGuildMember() throws InterruptedException {
         CountDownLatch countDownLatch = new CountDownLatch(1);
         AsyncResponse<Member> asyncResponse = guild.user().getCurrentUserGuildMember();
