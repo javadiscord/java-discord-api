@@ -9,7 +9,6 @@ import com.javadiscord.jdi.core.models.channel.ThreadMember;
 import com.javadiscord.jdi.core.models.emoji.Emoji;
 import com.javadiscord.jdi.core.models.invite.Invite;
 import com.javadiscord.jdi.core.models.message.Message;
-import com.javadiscord.jdi.core.models.message.MessageReaction;
 import com.javadiscord.jdi.core.models.message.embed.Embed;
 import com.javadiscord.jdi.core.models.user.User;
 import com.javadiscord.jdi.internal.api.channel.*;
@@ -69,7 +68,7 @@ public class ChannelRequest {
         Emoji emoji
     ) {
         return responseParser.callAndParse(
-                Void.class, new CreateReactionRequest(channelId, messageId, emoji)
+            Void.class, new CreateReactionRequest(channelId, messageId, emoji)
         );
     }
 
