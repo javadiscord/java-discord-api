@@ -8,6 +8,7 @@ import java.net.http.HttpResponse;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
 
@@ -25,10 +26,10 @@ public class DiscordRequestDispatcher implements Runnable {
     private final BlockingQueue<DiscordRequestBuilder> queue;
     private final String botToken;
     private final AtomicBoolean running = new AtomicBoolean(false);
+    private final RateLimit rateLimit = new RateLimit();
+
     private int numberOfRequestsSent;
     private long timeSinceLastRequest;
-
-    private RateLimit rateLimit = new RateLimit();
 
     public DiscordRequestDispatcher(String botToken) {
         this.botToken = botToken;
@@ -51,30 +52,24 @@ public class DiscordRequestDispatcher implements Runnable {
         LOGGER.info("Request dispatcher has started");
 
         while (running.get()) {
-            long currentTime = System.currentTimeMillis();
-            long elapsed = currentTime - timeSinceLastRequest;
-
-            if (rateLimit.getRemaining() == 0 && elapsed < rateLimit.getResetAfter()) {
-                try {
-                    Thread.sleep(rateLimit.getResetAfter() - elapsed);
-                } catch (InterruptedException e) {
-                    /* Ignore */
-                }
-            }
-
-            if (elapsed < 1000 && numberOfRequestsSent >= 50) {
-                try {
-                    Thread.sleep(1000 - elapsed);
-                } catch (InterruptedException e) {
-                    /* Ignore */
-                }
-                numberOfRequestsSent = 0;
-            }
-
             try {
+                long currentTime = System.currentTimeMillis();
+                long elapsed = currentTime - timeSinceLastRequest;
+
+                if (rateLimit.getRemaining() == 0 && elapsed < rateLimit.getResetAfter()) {
+                    TimeUnit.MILLISECONDS.sleep(rateLimit.getResetAfter() - elapsed);
+
+                }
+
+                if (elapsed < 1000 && numberOfRequestsSent >= 50) {
+                    TimeUnit.MILLISECONDS.sleep(1000 - elapsed);
+                    numberOfRequestsSent = 0;
+                }
+
                 sendRequest(queue.take());
             } catch (InterruptedException e) {
-                /* Ignore */
+                LOGGER.warn("Request dispatcher has interrupted");
+                Thread.currentThread().interrupt();
             }
         }
 
@@ -131,7 +126,7 @@ public class DiscordRequestDispatcher implements Runnable {
                 httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
 
             HttpHeaders headers = response.headers();
-            headers.firstValue("x-ratelimit-bucket").ifPresent(val -> rateLimit.setBucket(val));
+            headers.firstValue("x-ratelimit-bucket").ifPresent(rateLimit::setBucket);
             headers.firstValue("x-ratelimit-limit")
                 .ifPresent(val -> rateLimit.setLimit(Integer.parseInt(val)));
             headers.firstValue("x-ratelimit-remaining")
