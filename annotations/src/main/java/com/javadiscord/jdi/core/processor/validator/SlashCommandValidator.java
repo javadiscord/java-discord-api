@@ -31,10 +31,11 @@ public class SlashCommandValidator {
         for (Map.Entry<Class<? extends Annotation>, String[]> entry : EXPECTED_PARAM_TYPES_MAP
             .entrySet()) {
             Class<? extends Annotation> annotationClass = entry.getKey();
-            if (method.isAnnotationPresent(annotationClass)) {
-                if (!validateMethodParameters(method, entry.getValue())) {
-                    return false;
-                }
+            if (
+                method.isAnnotationPresent(annotationClass)
+                    && !validateMethodParameters(method, entry.getValue())
+            ) {
+                return false;
             }
         }
         return true;

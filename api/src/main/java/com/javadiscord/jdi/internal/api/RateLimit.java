@@ -8,8 +8,6 @@ public class RateLimit {
     private int resetAfter;
     private boolean globalRateLimit;
 
-    public RateLimit() {}
-
     public String getBucket() {
         return bucket;
     }
