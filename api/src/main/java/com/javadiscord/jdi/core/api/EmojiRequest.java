@@ -21,8 +21,8 @@ public class EmojiRequest {
         );
     }
 
-    public AsyncResponse<Emoji> deleteEmoji(long emojiId) {
-        return responseParser.callAndParse(Emoji.class, new DeleteEmojiRequest(guildId, emojiId));
+    public AsyncResponse<Void> deleteEmoji(long emojiId) {
+        return responseParser.callAndParse(Void.class, new DeleteEmojiRequest(guildId, emojiId));
     }
 
     public AsyncResponse<Emoji> getEmoji(long emojiId) {
