@@ -78,6 +78,7 @@ public class InteractionEventHandler implements EventListener {
                 method.invoke(cachedInstances.get(handler.getName()), paramOrder.toArray());
             } else {
                 Object handlerInstance = handler.getDeclaredConstructor().newInstance();
+                cachedInstances.put(handler.getName(), handlerInstance);
                 injectComponents(handlerInstance);
                 method.invoke(handlerInstance, paramOrder.toArray());
             }
