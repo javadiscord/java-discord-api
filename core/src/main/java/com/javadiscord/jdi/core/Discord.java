@@ -22,9 +22,7 @@ import com.javadiscord.jdi.core.api.builders.command.CommandOptionChoice;
 import com.javadiscord.jdi.core.api.builders.command.CommandOptionType;
 import com.javadiscord.jdi.core.interaction.InteractionEventHandler;
 import com.javadiscord.jdi.core.models.ready.ReadyEvent;
-import com.javadiscord.jdi.internal.ReflectiveComponentLoader;
-import com.javadiscord.jdi.internal.ReflectiveLoader;
-import com.javadiscord.jdi.internal.ReflectiveSlashCommandClassMethod;
+import com.javadiscord.jdi.internal.*;
 import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestDispatcher;
 import com.javadiscord.jdi.internal.api.DiscordResponseFuture;
@@ -112,13 +110,7 @@ public class Discord {
     }
 
     public Discord(String botToken, IdentifyRequest identifyRequest, Cache cache) {
-        System.err.println("""
-                 _ ____ ___
-                | |  _ \\_ _|  https://github.com/javadiscord/java-discord-api
-             _  | | | | | |   Open-Source Discord Framework
-            | |_| | |_| | |   GPL-3.0 license
-             \\___/|____/___|  Version 1.0
-            """);
+        System.err.println(Constants.LAUNCH_HEADER);
 
         this.botToken = botToken;
         this.discordRequestDispatcher = new DiscordRequestDispatcher(botToken);
@@ -150,7 +142,7 @@ public class Discord {
                 for (Annotation annotation : annotations) {
                     if (
                         annotation.annotationType().getName()
-                            .equals("com.javadiscord.jdi.core.annotations.SlashCommand")
+                            .equals(Constants.SLASH_COMMAND_ANNOTATION)
                     ) {
                         CommandBuilder builder = buildCommand(annotation);
                         createInteractionRequests.add(builder);
@@ -183,22 +175,18 @@ public class Discord {
     private void addCommandOption(
         CommandBuilder builder,
         Object option
-    ) throws ReflectiveOperationException {
-        Method optionNameMethod = option.getClass().getMethod("name");
-        String optionName = (String) optionNameMethod.invoke(option);
+    ) {
 
-        Method optionDescriptionMethod = option.getClass().getMethod("description");
-        String optionDescription = (String) optionDescriptionMethod.invoke(option);
+        ReflectiveCommandOption reflectiveCommandOption =
+            ReflectiveLoader.proxy(option, ReflectiveCommandOption.class);
 
-        Method optionTypeMethod = option.getClass().getMethod("type");
-        Enum<?> optionType = (Enum<?>) optionTypeMethod.invoke(option);
-        String optionTypeValue = optionType.name();
-
-        Method optionRequiredMethod = option.getClass().getMethod("required");
-        boolean optionRequired = (boolean) optionRequiredMethod.invoke(option);
+        String optionName = reflectiveCommandOption.name();
+        String optionDescription = reflectiveCommandOption.description();
+        String optionTypeValue = reflectiveCommandOption.type().name();
+        boolean optionRequired = reflectiveCommandOption.required();
 
         List<CommandOptionChoice> choices = new ArrayList<>();
-        Object[] choicesArray = (Object[]) option.getClass().getMethod("choices").invoke(option);
+        Object[] choicesArray = reflectiveCommandOption.choices();
         for (Object choice : choicesArray) {
             addCommandOptionChoice(choices, choice);
         }
@@ -209,24 +197,21 @@ public class Discord {
                 optionDescription,
                 CommandOptionType.fromName(optionTypeValue),
                 optionRequired
-            ).addChoice(choices)
+            )
+                .addChoice(choices)
         );
     }
 
-    private void addCommandOptionChoice(
-        List<CommandOptionChoice> choices,
-        Object choice
-    ) throws ReflectiveOperationException {
-        Annotation annotation1 = (Annotation) choice;
+    private void addCommandOptionChoice(List<CommandOptionChoice> choices, Object choice) {
+        Annotation annotation = (Annotation) choice;
         if (
-            annotation1.annotationType().getName()
-                .equals(Constants.COMMAND_OPTION_CHOICE_ANNOTATION)
+            annotation.annotationType().getName().equals(Constants.COMMAND_OPTION_CHOICE_ANNOTATION)
         ) {
-            Method nameMethod1 = annotation1.annotationType().getMethod("name");
-            Method valueMethod1 = annotation1.annotationType().getMethod("value");
-            String name1 = (String) nameMethod1.invoke(annotation1);
-            String value1 = (String) valueMethod1.invoke(annotation1);
-            choices.add(new CommandOptionChoice(value1, name1));
+            ReflectiveCommandOptionChoice commandOptionChoice =
+                ReflectiveLoader.proxy(annotation, ReflectiveCommandOptionChoice.class);
+            choices.add(
+                new CommandOptionChoice(commandOptionChoice.value(), commandOptionChoice.name())
+            );
         }
     }
 
@@ -307,7 +292,6 @@ public class Discord {
 
     public void start() {
         started = true;
-
         webSocketManager = new WebSocketManager(gatewaySetting, identifyRequest, cache);
         WebSocketManagerProxy webSocketManagerProxy = new WebSocketManagerProxy(webSocketManager);
         ConnectionDetails connectionDetails =
