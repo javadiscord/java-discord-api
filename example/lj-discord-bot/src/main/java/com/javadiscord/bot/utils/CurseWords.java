@@ -4,6 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CurseWords {
+    private CurseWords() {
+        throw new UnsupportedOperationException("Utility class");
+    }
+
     public static boolean containsCurseWord(String text) {
         for (String s : CURSE_WORDS) {
             if (text.toLowerCase().contains(s.toLowerCase())) {

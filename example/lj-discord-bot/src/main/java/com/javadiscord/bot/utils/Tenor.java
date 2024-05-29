@@ -17,6 +17,10 @@ public class Tenor {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private static final HttpClient HTTP_CLIENT = HttpClient.newHttpClient();
 
+    private Tenor() {
+        throw new UnsupportedOperationException("Utility class");
+    }
+
     public static JsonNode search(String searchTerm, int limit) {
         final String url =
             String.format(

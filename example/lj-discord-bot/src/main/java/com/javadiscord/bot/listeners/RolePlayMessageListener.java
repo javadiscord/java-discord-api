@@ -41,7 +41,7 @@ public class RolePlayMessageListener {
                     return;
                 }
 
-                String searchTerm = action.replaceAll(" ", "%20") + "ing%20anime";
+                String searchTerm = action.replace(" ", "%20") + "ing%20anime";
                 JsonNode json = Tenor.search(searchTerm, 50);
 
                 if (json != null && json.has("results")) {
