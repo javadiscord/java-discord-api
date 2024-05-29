@@ -1,6 +1,7 @@
 package com.javadiscord.jdi.internal.gateway;
 
 import com.javadiscord.jdi.internal.cache.Cache;
+import com.javadiscord.jdi.internal.gateway.handlers.heartbeat.HeartbeatService;
 import com.javadiscord.jdi.internal.gateway.identify.IdentifyRequest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -23,6 +24,7 @@ public class WebSocketManager {
     private final Cache cache;
     private WebSocket webSocket;
     private WebSocketClient webSocketClient;
+    private HeartbeatService heartbeatService;
     private boolean retryAllowed;
 
     public WebSocketManager(
@@ -36,6 +38,8 @@ public class WebSocketManager {
     }
 
     public void start(ConnectionMediator connectionMediator) {
+        heartbeatService = new HeartbeatService(connectionMediator);
+
         String gatewayURL = connectionMediator.getConnectionDetails().getGatewayURL();
 
         WebSocketConnectOptions webSocketConnectOptions =
@@ -61,7 +65,7 @@ public class WebSocketManager {
                     this.webSocket = webSocket;
 
                     WebSocketHandler webSocketHandler =
-                        new WebSocketHandler(connectionMediator, cache);
+                        new WebSocketHandler(connectionMediator, cache, heartbeatService);
 
                     webSocketHandler.handle(webSocket);
 
@@ -100,6 +104,9 @@ public class WebSocketManager {
     public void stop() {
         if (webSocket != null && !webSocket.isClosed()) {
             webSocket.close();
+        }
+        if (heartbeatService != null) {
+            heartbeatService.stop();
         }
         webSocketClient.close()
             .onSuccess(res -> LOGGER.info("Web socket client has been shutdown"))

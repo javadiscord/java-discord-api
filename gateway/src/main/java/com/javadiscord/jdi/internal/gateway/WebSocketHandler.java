@@ -28,18 +28,19 @@ public class WebSocketHandler implements Handler<WebSocket> {
     private static final Map<Integer, GatewayOperationHandler> OPERATION_HANDLER = new HashMap<>();
     private final ConnectionMediator connectionMediator;
     private final Cache cache;
+    private final HeartbeatService heartbeatService;
 
     public WebSocketHandler(
         ConnectionMediator connectionMediator,
-        Cache cache
+        Cache cache, HeartbeatService heartbeatService
     ) {
         this.connectionMediator = connectionMediator;
         this.cache = cache;
+        this.heartbeatService = heartbeatService;
         registerHandlers();
     }
 
     private void registerHandlers() {
-        HeartbeatService heartbeatService = new HeartbeatService(connectionMediator);
         OPERATION_HANDLER.put(GatewayOpcode.HELLO, new HelloOperationHandler(heartbeatService));
         OPERATION_HANDLER.put(
             GatewayOpcode.HEARTBEAT_ACK, new HeartbeatAckOperationHandler(heartbeatService)

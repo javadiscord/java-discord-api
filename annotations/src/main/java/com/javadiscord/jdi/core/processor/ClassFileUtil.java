@@ -25,17 +25,6 @@ public class ClassFileUtil {
         String[] classpathEntries = classpath.split(File.pathSeparator);
 
         for (String entry : classpathEntries) {
-            if (
-                entry.contains("io.netty")
-                    || entry.contains("org.apache")
-                    || entry.contains("io.vertx")
-                    || entry.contains("com.fasterxml")
-                    || entry.contains("org.javassist")
-                    || entry.contains("com.github.mizosoft.methanol")
-            ) {
-                continue;
-            }
-
             File file = new File(entry);
             try {
                 classesInPath.addAll(getClasses(file));
