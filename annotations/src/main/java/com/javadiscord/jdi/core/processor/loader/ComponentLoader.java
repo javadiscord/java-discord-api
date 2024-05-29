@@ -52,11 +52,12 @@ public class ComponentLoader {
     private void registerComponent(
         Method method
     ) throws InvocationTargetException, IllegalAccessException {
-        if (!COMPONENTS.containsKey(method.getReturnType())) {
-            COMPONENTS.put(method.getReturnType(), method.invoke(null));
-            LOGGER.info("Loaded component {}", method.getReturnType().getName());
+        Class<?> returnType = method.getReturnType();
+        if (!COMPONENTS.containsKey(returnType)) {
+            COMPONENTS.put(returnType, method.invoke(null));
+            LOGGER.info("Loaded component {}", returnType.getName());
         } else {
-            LOGGER.error("Component {} already loaded", method.getReturnType().getName());
+            LOGGER.error("Component {} already loaded", returnType.getName());
         }
     }
 
@@ -78,27 +79,29 @@ public class ComponentLoader {
     }
 
     private static void injectField(Object component, Field field) {
-        if (COMPONENTS.containsKey(field.getType())) {
-            Object dependency = COMPONENTS.get(field.getType());
-            if (dependency != null) {
-                try {
-                    field.setAccessible(true);
-                    field.set(component, dependency);
-                    LOGGER.info(
-                        "Injected component {} into {}",
-                        dependency.getClass().getName(), field.getType()
-                    );
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException(
-                        "Failed to inject dependency into field: " + field.getName(),
-                        e
-                    );
-                }
-            }
+        Class<?> fieldType = field.getType();
+        if (COMPONENTS.containsKey(fieldType)) {
+            injectDependency(component, field, COMPONENTS.get(fieldType));
         } else {
-            LOGGER.error(
-                "No object {} was found in field {}", field.getType(), field.getName()
-            );
+            LOGGER.error("No object {} was found in field {}", fieldType, field.getName());
+        }
+    }
+
+    private static void injectDependency(Object component, Field field, Object dependency) {
+        if (dependency != null) {
+            try {
+                field.setAccessible(true);
+                field.set(component, dependency);
+                LOGGER.info(
+                    "Injected component {} into {}", dependency.getClass().getName(),
+                    field.getType()
+                );
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(
+                    "Failed to inject dependency into field: " + field.getName(),
+                    e
+                );
+            }
         }
     }
 }
