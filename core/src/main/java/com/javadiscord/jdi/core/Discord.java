@@ -27,6 +27,7 @@ import com.javadiscord.jdi.internal.api.DiscordRequest;
 import com.javadiscord.jdi.internal.api.DiscordRequestDispatcher;
 import com.javadiscord.jdi.internal.api.DiscordResponseFuture;
 import com.javadiscord.jdi.internal.api.application_commands.CreateCommandRequest;
+import com.javadiscord.jdi.internal.api.application_commands.DeleteCommandRequest;
 import com.javadiscord.jdi.internal.cache.Cache;
 import com.javadiscord.jdi.internal.cache.CacheType;
 import com.javadiscord.jdi.internal.gateway.*;
@@ -60,6 +61,7 @@ public class Discord {
     private final Map<String, Object> loadedSlashCommands = new HashMap<>();
     private final List<EventListener> eventListeners = new ArrayList<>();
     private final List<CommandBuilder> createInteractionRequests = new ArrayList<>();
+    private final List<DeleteCommandRequest> deleteInteractionRequests = new ArrayList<>();
 
     private WebSocketManager webSocketManager;
     private long applicationId;
@@ -381,8 +383,9 @@ public class Discord {
         createInteractionRequests.add(builder);
     }
 
-    public void deleteSlashCommand(long id) {
-        // Implement command deletion logic
+    public void deleteSlashCommand(long commandId, long guildId, boolean global) {
+        deleteInteractionRequests
+            .add(new DeleteCommandRequest(applicationId, guildId, commandId, global));
     }
 
     public DiscordRequestDispatcher getDiscordRequestDispatcher() {
@@ -420,7 +423,30 @@ public class Discord {
             handleCommandRegistrationResponse(request, future);
         }
 
+        for (DeleteCommandRequest request : deleteInteractionRequests) {
+            DiscordResponseFuture future = sendRequest(request);
+            handleDeleteResponse(request, future);
+        }
+
         createInteractionRequests.clear();
+        deleteInteractionRequests.clear();
+    }
+
+    private void handleDeleteResponse(DeleteCommandRequest request, DiscordResponseFuture future) {
+        future.onSuccess(res -> {
+            if (res.status() >= 200 && res.status() < 300) {
+                LOGGER.info("Deleted slash command {} with discord", request.commandId());
+            } else {
+                LOGGER.error(
+                    "Failed to delete slash command {} with discord\n{}", request.commandId(),
+                    res.body()
+                );
+            }
+        });
+        future.onError(
+            err -> LOGGER
+                .error("Failed to delete slash command {} with discord", request.commandId(), err)
+        );
     }
 
     private void handleCommandRegistrationResponse(
