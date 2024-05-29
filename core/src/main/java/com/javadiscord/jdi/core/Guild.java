@@ -34,7 +34,7 @@ public class Guild {
         long guildId = guild.id();
 
         DiscordResponseParser discordResponseParser =
-            new DiscordResponseParser(discord.getDiscordRequestDispatcher());
+            new DiscordResponseParser(discord.getDiscordRequestDispatcher(), cache);
 
         this.applicationRequest = new ApplicationRequest(discordResponseParser, guildId);
         this.applicationRoleConnectionMetaRequest =

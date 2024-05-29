@@ -1,4 +1,4 @@
-package com.javadiscord.jdi;
+package com.javadiscord.jdi.internal.api;
 
 public class RateLimit {
     private String bucket;
