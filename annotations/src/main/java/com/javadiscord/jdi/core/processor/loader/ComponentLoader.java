@@ -41,7 +41,7 @@ public class ComponentLoader {
         }
     }
 
-    private void processClassMethods(Class<?> clazz) throws Exception {
+    private void processClassMethods(Class<?> clazz) {
         for (Method method : clazz.getMethods()) {
             if (method.isAnnotationPresent(Component.class)) {
                 registerComponent(method);
@@ -51,10 +51,15 @@ public class ComponentLoader {
 
     private void registerComponent(
         Method method
-    ) throws InvocationTargetException, IllegalAccessException {
+    ) {
         Class<?> returnType = method.getReturnType();
         if (!COMPONENTS.containsKey(returnType)) {
-            COMPONENTS.put(returnType, method.invoke(null));
+            try {
+                COMPONENTS.put(returnType, method.invoke(null));
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                LOGGER.error("Failed to register component {}", method.getName(), e);
+                return;
+            }
             LOGGER.info("Loaded component {}", returnType.getName());
         } else {
             LOGGER.error("Component {} already loaded", returnType.getName());

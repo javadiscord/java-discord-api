@@ -255,12 +255,11 @@ public class GatewayEventListenerAnnotations implements GatewayObserver {
     private void invokeMethod(Object listener, Method method, Object event) {
         List<Object> paramOrder = getParamOrder(method, event);
         if (paramOrder.size() != method.getParameterCount()) {
-            throw new RuntimeException(
-                "Bound " + paramOrder.size() + " parameters but expected "
-                    + method.getParameterCount()
+            LOGGER.error(
+                "Bound {} parameters but expected {}", paramOrder.size(), method.getParameterCount()
             );
+            return;
         }
-
         try {
             LOGGER.trace("Invoking method {} with params {}", method.getName(), paramOrder);
             method.invoke(listener, paramOrder.toArray());
