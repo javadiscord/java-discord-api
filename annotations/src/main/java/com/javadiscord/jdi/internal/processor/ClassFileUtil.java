@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -50,7 +53,7 @@ public class ClassFileUtil {
     }
 
     private static String getClassNameFromJar(FileInputStream fis) throws IOException {
-        try (ZipInputStream zip = new ZipInputStream(fis)) {
+        try (ZipInputStream zip = ZipSecurity.createSecureInputStream(new ZipInputStream(fis))) {
             ZipEntry entry;
             while ((entry = zip.getNextEntry()) != null) {
                 if (!entry.isDirectory() && entry.getName().endsWith(".class")) {
@@ -89,7 +92,7 @@ public class ClassFileUtil {
         List<File> classFiles = new ArrayList<>();
         try (
             FileInputStream fis = new FileInputStream(jarFile);
-            ZipInputStream zip = new ZipInputStream(fis)
+            ZipInputStream zip = ZipSecurity.createSecureInputStream(new ZipInputStream(fis))
         ) {
             ZipEntry entry;
             while ((entry = zip.getNextEntry()) != null) {
@@ -118,7 +121,7 @@ public class ClassFileUtil {
         ZipInputStream zip,
         String entryName
     ) throws IOException {
-        File tempFile = File.createTempFile(entryName.replace('/', '_'), ".class");
+        File tempFile = safeTempFile(entryName).toFile();
         tempFile.deleteOnExit();
         try (FileOutputStream fos = new FileOutputStream(tempFile)) {
             byte[] buffer = new byte[1024];
@@ -128,5 +131,11 @@ public class ClassFileUtil {
             }
         }
         return tempFile;
+    }
+
+    private static Path safeTempFile(String entryName) throws IOException {
+        String sanitizedEntryName = entryName.replace('/', '_');
+        Path secureTempDir = Paths.get(System.getProperty("java.io.tmpdir"));
+        return Files.createTempFile(secureTempDir, sanitizedEntryName, ".class");
     }
 }
