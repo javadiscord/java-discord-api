@@ -1,5 +1,6 @@
 package com.javadiscord.jdi.core.interaction;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.*;
@@ -12,7 +13,6 @@ import com.javadiscord.jdi.core.models.guild.Interaction;
 import com.javadiscord.jdi.internal.ReflectiveLoader;
 import com.javadiscord.jdi.internal.ReflectiveSlashCommandClassMethod;
 import com.javadiscord.jdi.internal.ReflectiveSlashCommandLoader;
-import com.javadiscord.jdi.internal.exceptions.InstantiationException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -89,14 +89,21 @@ public class InteractionEventHandler implements EventListener {
         Class<?> handler,
         Method method,
         List<Object> paramOrder
-    ) throws Exception {
-        if (cachedInstances.containsKey(handler.getName())) {
-            method.invoke(cachedInstances.get(handler.getName()), paramOrder.toArray());
-        } else {
-            Object handlerInstance = handler.getDeclaredConstructor().newInstance();
-            cachedInstances.put(handler.getName(), handlerInstance);
-            injectComponents(handlerInstance);
-            method.invoke(handlerInstance, paramOrder.toArray());
+    ) throws InstantiationException {
+        try {
+            if (cachedInstances.containsKey(handler.getName())) {
+                method.invoke(cachedInstances.get(handler.getName()), paramOrder.toArray());
+            } else {
+                Object handlerInstance = handler.getDeclaredConstructor().newInstance();
+                cachedInstances.put(handler.getName(), handlerInstance);
+                injectComponents(handlerInstance);
+                method.invoke(handlerInstance, paramOrder.toArray());
+            }
+        } catch (
+            InvocationTargetException | IllegalAccessException | NoSuchMethodException
+            | InstantiationException e
+        ) {
+            throw new InstantiationException(e.getLocalizedMessage());
         }
     }
 
