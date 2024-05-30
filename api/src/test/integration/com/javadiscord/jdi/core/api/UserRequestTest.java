@@ -24,11 +24,6 @@ class UserRequestTest {
         guild = new LiveDiscordHelper().getGuild();
     }
 
-    @AfterEach
-    void delayBetweenTests() throws InterruptedException {
-        TimeUnit.SECONDS.sleep(30);
-    }
-
     @Test
     @Disabled
     void testGetCurrentUserGuildMember() throws InterruptedException {

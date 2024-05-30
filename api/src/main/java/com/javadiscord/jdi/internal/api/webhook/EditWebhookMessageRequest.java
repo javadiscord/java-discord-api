@@ -47,7 +47,9 @@ public record EditWebhookMessageRequest(
                 for (int i = 0; i < paths.size(); i++) {
                     try {
                         bodyBuilder.filePart("file[%d]".formatted(i), paths.get(i));
-                    } catch (FileNotFoundException ignored) {}
+                    } catch (FileNotFoundException ignored) {
+                        /* Ignore */
+                    }
                 }
             }
         );
