@@ -7,4 +7,5 @@ include 'annotations'
 include 'cache'
 include 'example:echo-bot'
 findProject(':example:echo-bot')?.name = 'echo-bot'
-
+include 'example:lj-discord-bot'
+findProject(':example:lj-discord-bot')?.name = 'lj-discord-bot'

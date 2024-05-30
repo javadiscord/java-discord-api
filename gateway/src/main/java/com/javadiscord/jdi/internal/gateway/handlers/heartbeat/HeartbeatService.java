@@ -55,6 +55,10 @@ public class HeartbeatService {
         }
     }
 
+    public void stop() {
+        EXECUTOR_SERVICE.shutdown();
+    }
+
     public void sendHeartbeat(WebSocket webSocket) {
         webSocket.write(
             Buffer.buffer()

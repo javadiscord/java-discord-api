@@ -22,4 +22,10 @@ public record User(
     @JsonProperty("premium_type") PremiumType premiumType,
     @JsonProperty("public_flags") int publicFlags,
     @JsonProperty("avtar_decoration") String avatarDecoration
-) {}
+) {
+
+    public String asMention() {
+        return "<@" + id + ">";
+    }
+
+}

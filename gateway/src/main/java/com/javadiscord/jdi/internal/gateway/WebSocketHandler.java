@@ -13,6 +13,8 @@ import com.javadiscord.jdi.internal.gateway.handlers.heartbeat.HelloOperationHan
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.vertx.core.Handler;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.WebSocket;
@@ -21,25 +23,24 @@ import org.apache.logging.log4j.Logger;
 
 public class WebSocketHandler implements Handler<WebSocket> {
     private static final Logger LOGGER = LogManager.getLogger(WebSocketHandler.class);
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private static final ObjectMapper OBJECT_MAPPER =
+        JsonMapper.builder().addModule(new JavaTimeModule()).build();
     private static final Map<Integer, GatewayOperationHandler> OPERATION_HANDLER = new HashMap<>();
     private final ConnectionMediator connectionMediator;
-    private final WebSocketRetryHandler retryHandler;
     private final Cache cache;
+    private final HeartbeatService heartbeatService;
 
     public WebSocketHandler(
         ConnectionMediator connectionMediator,
-        WebSocketRetryHandler retryHandler,
-        Cache cache
+        Cache cache, HeartbeatService heartbeatService
     ) {
         this.connectionMediator = connectionMediator;
-        this.retryHandler = retryHandler;
         this.cache = cache;
+        this.heartbeatService = heartbeatService;
         registerHandlers();
     }
 
     private void registerHandlers() {
-        HeartbeatService heartbeatService = new HeartbeatService(connectionMediator);
         OPERATION_HANDLER.put(GatewayOpcode.HELLO, new HelloOperationHandler(heartbeatService));
         OPERATION_HANDLER.put(
             GatewayOpcode.HEARTBEAT_ACK, new HeartbeatAckOperationHandler(heartbeatService)

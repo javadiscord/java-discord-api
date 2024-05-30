@@ -18,7 +18,7 @@ public record Interaction(
     @JsonProperty("application_id") long applicationId,
     @JsonProperty("type") InteractionType type,
     @JsonProperty("data") InteractionData data,
-    @JsonProperty("guild") Guild guild,
+    @JsonProperty("guild") GuildModel guild,
     @JsonProperty("guild_id") long guildId,
     @JsonProperty("channel") Channel channel,
     @JsonProperty("channel_id") long channelId,

@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.OffsetDateTime;
 
-class ThreadGuildMemberTest {
+class ThreadGuildModelMemberTest {
     private static final ObjectMapper OBJECT_MAPPER =
             JsonMapper.builder().addModule(new JavaTimeModule()).build();
 
@@ -32,7 +32,7 @@ class ThreadGuildMemberTest {
             ThreadMember threadMember = OBJECT_MAPPER.readValue(input, ThreadMember.class);
             assertEquals(1, threadMember.threadId());
             assertEquals(10, threadMember.userId());
-            assertEquals(OffsetDateTime.parse("2024-04-25T21:37:44Z"), threadMember.joinTime());
+            assertEquals(OffsetDateTime.parse("2024-04-25T21:37:44Z").toString(), threadMember.joinTime());
             assertEquals(0, threadMember.flags());
         } catch (JsonProcessingException e) {
             fail(e.getMessage());

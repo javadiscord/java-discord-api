@@ -10,6 +10,7 @@ import com.javadiscord.jdi.core.annotations.MessageCreate;
 import com.javadiscord.jdi.core.models.channel.Channel;
 import com.javadiscord.jdi.core.models.message.Message;
 
+import com.javadiscord.jdi.internal.processor.validator.EventListenerValidator;
 import org.junit.jupiter.api.Test;
 
 class EventListenerValidatorTest {

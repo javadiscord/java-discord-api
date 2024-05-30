@@ -20,7 +20,9 @@ public class Cache {
         if (!cache.containsKey(guildId)) {
             return cache.put(guildId, getCacheForType());
         }
-        return cache.get(guildId);
+        return cache.get(guildId) == null
+            ? cache.put(guildId, getCacheForType())
+            : cache.get(guildId);
     }
 
     public boolean isGuildCached(long guildId) {

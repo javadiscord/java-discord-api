@@ -34,6 +34,8 @@ public record CreateGuildStickerRequest(
                 case "png" -> body.filePart("file", filePath, MediaType.IMAGE_PNG);
                 case "jpg", "jpeg" -> body.filePart("file", filePath, MediaType.IMAGE_JPEG);
                 case "gif" -> body.filePart("file", filePath, MediaType.IMAGE_GIF);
+                default ->
+                    throw new IllegalArgumentException("Unsupported extension: " + extension);
             }
 
             return new DiscordRequestBuilder()

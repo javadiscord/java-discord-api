@@ -212,54 +212,77 @@ public class GatewayEventListenerAnnotations implements GatewayObserver {
         this.discord = discord;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void receive(EventType eventType, Object event) {
-        if (!EVENT_TYPE_ANNOTATIONS.containsKey(eventType)) {
+        if (!isEventTypeValid(eventType)) {
             return;
         }
-        Class<? extends Annotation> annotationClass;
-        try {
-            annotationClass =
-                (Class<? extends Annotation>) Class.forName(EVENT_TYPE_ANNOTATIONS.get(eventType));
-        } catch (ClassNotFoundException e) {
+
+        Class<? extends Annotation> annotationClass = getAnnotationClass(eventType);
+        if (annotationClass == null) {
             LOGGER.error("Could not find annotation binding for {}", eventType);
             return;
         }
+
+        invokeAnnotatedMethods(annotationClass, event);
+    }
+
+    private boolean isEventTypeValid(EventType eventType) {
+        return EVENT_TYPE_ANNOTATIONS.containsKey(eventType);
+    }
+
+    @SuppressWarnings("unchecked")
+    private Class<? extends Annotation> getAnnotationClass(EventType eventType) {
+        try {
+            return (Class<? extends Annotation>) Class
+                .forName(EVENT_TYPE_ANNOTATIONS.get(eventType));
+        } catch (ClassNotFoundException e) {
+            return null;
+        }
+    }
+
+    private void invokeAnnotatedMethods(Class<? extends Annotation> annotationClass, Object event) {
         for (Object listener : discord.getAnnotatedEventListeners()) {
             Method[] methods = listener.getClass().getMethods();
-            List<Object> paramOrder = new ArrayList<>();
             for (Method method : methods) {
-                if (!method.isAnnotationPresent(annotationClass)) {
-                    continue;
-                }
-                Parameter[] parameters = method.getParameters();
-                for (Parameter parameter : parameters) {
-                    if (parameter.getParameterizedType() == event.getClass()) {
-                        paramOrder.add(event);
-                    } else if (parameter.getParameterizedType() == Discord.class) {
-                        paramOrder.add(discord);
-                    } else if (parameter.getParameterizedType() == Guild.class) {
-                        Guild guild = GatewayEventListener.getGuild(discord, event);
-                        paramOrder.add(guild);
-                    }
-                }
-                try {
-                    if (paramOrder.size() != method.getParameterCount()) {
-                        throw new RuntimeException(
-                            "Bound "
-                                + paramOrder.size()
-                                + " parameters but expected "
-                                + method.getParameterCount()
-                        );
-                    }
-                    LOGGER.trace("Invoking method {} with params {}", method.getName(), paramOrder);
-                    method.invoke(listener, paramOrder.toArray());
-                } catch (Exception e) {
-                    LOGGER.error("Failed to invoke {}", method.getName(), e);
-                    throw new RuntimeException(e);
+                if (method.isAnnotationPresent(annotationClass)) {
+                    invokeMethod(listener, method, event);
                 }
             }
         }
     }
+
+    private void invokeMethod(Object listener, Method method, Object event) {
+        List<Object> paramOrder = getParamOrder(method, event);
+        if (paramOrder.size() != method.getParameterCount()) {
+            LOGGER.error(
+                "Bound {} parameters but expected {}", paramOrder.size(), method.getParameterCount()
+            );
+            return;
+        }
+        try {
+            LOGGER.trace("Invoking method {} with params {}", method.getName(), paramOrder);
+            method.invoke(listener, paramOrder.toArray());
+        } catch (Exception e) {
+            LOGGER.error("Failed to invoke {}", method.getName(), e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    private List<Object> getParamOrder(Method method, Object event) {
+        List<Object> paramOrder = new ArrayList<>();
+        Parameter[] parameters = method.getParameters();
+        for (Parameter parameter : parameters) {
+            if (parameter.getParameterizedType() == event.getClass()) {
+                paramOrder.add(event);
+            } else if (parameter.getParameterizedType() == Discord.class) {
+                paramOrder.add(discord);
+            } else if (parameter.getParameterizedType() == Guild.class) {
+                Guild guild = GatewayEventListener.getGuild(discord, event);
+                paramOrder.add(guild);
+            }
+        }
+        return paramOrder;
+    }
+
 }

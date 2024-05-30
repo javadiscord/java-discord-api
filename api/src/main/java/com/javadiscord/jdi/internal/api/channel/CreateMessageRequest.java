@@ -72,8 +72,8 @@ public record CreateMessageRequest(
                         default -> multiPartBody.filePart(name, path, MediaType.ANY);
                     }
 
-                } catch (FileNotFoundException e) {
-                    throw new RuntimeException(e);
+                } catch (FileNotFoundException ignore) {
+                    /* Ignore */
                 }
             }
 

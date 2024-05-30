@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.javadiscord.jdi.core.models.guild.Guild;
+import com.javadiscord.jdi.core.models.guild.GuildModel;
 
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +12,7 @@ class CacheTest {
 
     @Test
     void testFetchingGuildFromCache() {
-        Guild guildMock = mock(Guild.class);
+        GuildModel guildMock = mock(GuildModel.class);
         when(guildMock.id()).thenReturn(1L);
 
         Cache cache = new Cache(CacheType.FULL);
@@ -25,7 +25,7 @@ class CacheTest {
 
     @Test
     void testFetchingGuildFromCacheWithNoCache() {
-        Guild guildMock = mock(Guild.class);
+        GuildModel guildMock = mock(GuildModel.class);
         when(guildMock.id()).thenReturn(1L);
 
         Cache cache = new Cache(CacheType.NO_CACHE);
@@ -37,7 +37,7 @@ class CacheTest {
 
     @Test
     void testFetchingGuildFromCacheWithPartialCache() {
-        Guild guildMock = mock(Guild.class);
+        GuildModel guildMock = mock(GuildModel.class);
         when(guildMock.id()).thenReturn(1L);
 
         Cache cache = new Cache(CacheType.PARTIAL);
@@ -49,7 +49,7 @@ class CacheTest {
 
     @Test
     void testFetchingFromFullCache() {
-        Guild guildMock = mock(Guild.class);
+        GuildModel guildMock = mock(GuildModel.class);
         when(guildMock.id()).thenReturn(1L);
 
         Cache cache = new Cache(CacheType.FULL);
@@ -70,7 +70,7 @@ class CacheTest {
 
     @Test
     void testFetchingFromFullCacheWhenItemNotPresent() {
-        Guild guildMock = mock(Guild.class);
+        GuildModel guildMock = mock(GuildModel.class);
         when(guildMock.id()).thenReturn(1L);
 
         Cache cache = new Cache(CacheType.FULL);
@@ -86,7 +86,7 @@ class CacheTest {
 
     @Test
     void testRemovingGuildFromCache() {
-        Guild guildMock = mock(Guild.class);
+        GuildModel guildMock = mock(GuildModel.class);
         when(guildMock.id()).thenReturn(1L);
 
         Cache cache = new Cache(CacheType.FULL);
@@ -101,7 +101,7 @@ class CacheTest {
 
     @Test
     void testGetCacheForType() {
-        Guild guildMock = mock(Guild.class);
+        GuildModel guildMock = mock(GuildModel.class);
         when(guildMock.id()).thenReturn(1L);
 
         {

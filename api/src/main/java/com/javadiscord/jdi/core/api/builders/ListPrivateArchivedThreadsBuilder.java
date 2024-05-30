@@ -22,7 +22,7 @@ public class ListPrivateArchivedThreadsBuilder {
     }
 
     public ListPrivateArchivedThreadsBuilder limit(int limit) {
-        this.limit = Optional.ofNullable(limit);
+        this.limit = Optional.of(limit);
         return this;
     }
 

@@ -17,7 +17,7 @@ public class LiveDiscordHelper {
     private static final CountDownLatch STARTUP_LATCH = new CountDownLatch(1);
     private static Guild guild;
 
-    private static class TestListener implements EventListener {
+    public static class TestListener implements EventListener {
 
         @Override
         public void onGuildCreate(Guild guild) {

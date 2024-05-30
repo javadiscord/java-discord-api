@@ -7,7 +7,7 @@ import com.javadiscord.jdi.core.api.builders.GetCurrentUserGuildsBuilder;
 import com.javadiscord.jdi.core.api.builders.ModifyCurrentUserBuilder;
 import com.javadiscord.jdi.core.api.builders.UpdateCurrentUserApplicationRoleConnectionBuilder;
 import com.javadiscord.jdi.core.models.channel.Channel;
-import com.javadiscord.jdi.core.models.guild.Guild;
+import com.javadiscord.jdi.core.models.guild.GuildModel;
 import com.javadiscord.jdi.core.models.user.Connection;
 import com.javadiscord.jdi.core.models.user.Member;
 import com.javadiscord.jdi.core.models.user.User;
@@ -54,8 +54,10 @@ public class UserRequest {
         );
     }
 
-    public AsyncResponse<List<Guild>> getCurrentUserGuilds(GetCurrentUserGuildsBuilder builder) {
-        return responseParser.callAndParseList(Guild.class, builder.build());
+    public AsyncResponse<List<GuildModel>> getCurrentUserGuilds(
+        GetCurrentUserGuildsBuilder builder
+    ) {
+        return responseParser.callAndParseList(GuildModel.class, builder.build());
     }
 
     public AsyncResponse<User> getCurrentUser() {

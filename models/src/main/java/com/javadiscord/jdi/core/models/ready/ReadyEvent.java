@@ -2,7 +2,7 @@ package com.javadiscord.jdi.core.models.ready;
 
 import java.util.List;
 
-import com.javadiscord.jdi.core.models.guild.Guild;
+import com.javadiscord.jdi.core.models.guild.GuildModel;
 import com.javadiscord.jdi.core.models.user.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -20,7 +20,7 @@ public record ReadyEvent(
     String[] relationships,
     String[] private_channels,
     String[] presences,
-    List<Guild> guilds,
+    List<GuildModel> guilds,
     @JsonProperty("guild_join_requests") String[] guildJoinRequests,
     @JsonProperty("geo_ordered_rtc_regions") String[] geoOrderedRtcRegions,
     Auth auth,

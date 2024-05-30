@@ -5,7 +5,7 @@ import java.util.List;
 import com.javadiscord.jdi.core.api.builders.CreateGuildFromTemplateBuilder;
 import com.javadiscord.jdi.core.api.builders.CreateGuildTemplateBuilder;
 import com.javadiscord.jdi.core.api.builders.ModifyGuildTemplateBuilder;
-import com.javadiscord.jdi.core.models.guild.Guild;
+import com.javadiscord.jdi.core.models.guild.GuildModel;
 import com.javadiscord.jdi.core.models.guild_template.GuildTemplate;
 import com.javadiscord.jdi.internal.api.guild_template.*;
 
@@ -18,9 +18,11 @@ public class GuildTemplateRequest {
         this.guildId = guildId;
     }
 
-    public AsyncResponse<Guild> createGuildFromTemplate(CreateGuildFromTemplateBuilder builder) {
+    public AsyncResponse<GuildModel> createGuildFromTemplate(
+        CreateGuildFromTemplateBuilder builder
+    ) {
         return responseParser.callAndParse(
-            Guild.class, builder.build()
+            GuildModel.class, builder.build()
         );
     }
 

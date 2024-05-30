@@ -2,10 +2,11 @@ package com.javadiscord.jdi.core;
 
 import com.javadiscord.jdi.core.api.*;
 import com.javadiscord.jdi.core.api.builders.CreateMessageBuilder;
+import com.javadiscord.jdi.core.models.guild.GuildModel;
 import com.javadiscord.jdi.internal.cache.Cache;
 
 public class Guild {
-    private final com.javadiscord.jdi.core.models.guild.Guild metadata;
+    private final GuildModel metadata;
     private final Cache cache;
     private final Discord discord;
     private final ApplicationRequest applicationRequest;
@@ -23,8 +24,9 @@ public class Guild {
     private final StickerRequest stickerRequest;
     private final UserRequest userRequest;
     private final VoiceRequest voiceRequest;
+    private final InteractionRequest interactionRequest;
 
-    public Guild(com.javadiscord.jdi.core.models.guild.Guild guild, Cache cache, Discord discord) {
+    public Guild(GuildModel guild, Cache cache, Discord discord) {
         this.metadata = guild;
         this.cache = cache;
         this.discord = discord;
@@ -32,7 +34,7 @@ public class Guild {
         long guildId = guild.id();
 
         DiscordResponseParser discordResponseParser =
-            new DiscordResponseParser(discord.getDiscordRequestDispatcher());
+            new DiscordResponseParser(discord.getDiscordRequestDispatcher(), cache);
 
         this.applicationRequest = new ApplicationRequest(discordResponseParser, guildId);
         this.applicationRoleConnectionMetaRequest =
@@ -51,6 +53,12 @@ public class Guild {
         this.stickerRequest = new StickerRequest(discordResponseParser, guildId);
         this.userRequest = new UserRequest(discordResponseParser, guildId);
         this.voiceRequest = new VoiceRequest(discordResponseParser, guildId);
+        this.interactionRequest =
+            new InteractionRequest(discordResponseParser, guildId, discord.getApplicationId());
+    }
+
+    public InteractionRequest interaction() {
+        return interactionRequest;
     }
 
     public ChannelRequest channel() {
@@ -65,7 +73,7 @@ public class Guild {
         channelRequest.createMessage(builder);
     }
 
-    public com.javadiscord.jdi.core.models.guild.Guild getMetadata() {
+    public GuildModel getMetadata() {
         return metadata;
     }
 

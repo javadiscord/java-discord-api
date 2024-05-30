@@ -10,6 +10,7 @@ import com.javadiscord.jdi.core.models.emoji.Emoji;
 import com.javadiscord.jdi.core.models.guild.*;
 import com.javadiscord.jdi.core.models.invite.Invite;
 import com.javadiscord.jdi.core.models.message.*;
+import com.javadiscord.jdi.core.models.ready.ReadyEvent;
 import com.javadiscord.jdi.core.models.scheduled_event.EventUser;
 import com.javadiscord.jdi.core.models.scheduled_event.ScheduledEvent;
 import com.javadiscord.jdi.core.models.stage.Stage;
@@ -36,43 +37,58 @@ public class GatewayEventListener implements GatewayObserver {
         this.discord = discord;
     }
 
-    static Guild getGuild(Discord discord, Object event) {
-        if (event instanceof com.javadiscord.jdi.core.models.guild.Guild) {
-            return new Guild(
-                (com.javadiscord.jdi.core.models.guild.Guild) event,
-                discord.getCache(),
-                discord
+    public static Guild getGuild(Discord discord, Object event) {
+        if (event instanceof GuildModel guildModel) {
+            return createGuildFromEvent(
+                discord, guildModel
             );
+        } else {
+            return createGuildFromEventObject(discord, event);
         }
+    }
 
+    private static Guild createGuildFromEvent(
+        Discord discord,
+        GuildModel guildEvent
+    ) {
+        return new Guild(guildEvent, discord.getCache(), discord);
+    }
+
+    private static Guild createGuildFromEventObject(Discord discord, Object event) {
         Cache cache = discord.getCache();
         Guild guild = null;
         try {
-            Field guildIdField = event.getClass().getDeclaredField("guildId");
-            guildIdField.setAccessible(true);
-            long guildId;
-
-            if (guildIdField.getType() == String.class) {
-                guildId = Long.parseLong((String) guildIdField.get(event));
-            } else {
-                guildId = (long) guildIdField.get(event);
-            }
-
-            com.javadiscord.jdi.core.models.guild.Guild model =
-                (com.javadiscord.jdi.core.models.guild.Guild) cache.getCacheForGuild(guildId)
-                    .get(
-                        guildId,
-                        com.javadiscord.jdi.core.models.guild.Guild.class
-                    );
+            long guildId = extractGuildId(event);
+            GuildModel model =
+                (GuildModel) cache.getCacheForGuild(guildId)
+                    .get(guildId, GuildModel.class);
             guild = new Guild(model, cache, discord);
         } catch (NoSuchFieldException | IllegalAccessException e) {
             LOGGER.debug("{} did not come with a guildId field", event.getClass().getSimpleName());
         }
+
         return guild;
+    }
+
+    private static long extractGuildId(
+        Object event
+    ) throws NoSuchFieldException, IllegalAccessException {
+        Field guildIdField = event.getClass().getDeclaredField("guildId");
+        guildIdField.setAccessible(true);
+
+        if (guildIdField.getType() == String.class) {
+            return Long.parseLong((String) guildIdField.get(event));
+        } else {
+            return (long) guildIdField.get(event);
+        }
     }
 
     @Override
     public void receive(EventType eventType, Object event) {
+        if (eventType == EventType.READY) {
+            discord.handleReadyEvent((ReadyEvent) event);
+        }
+
         Guild guild = getGuild(discord, event);
 
         for (EventListener listener : discord.getEventListeners()) {
@@ -128,7 +144,7 @@ public class GatewayEventListener implements GatewayObserver {
                 case MESSAGE_REACTION_REMOVE ->
                     listener.onMessageReactionsRemoved((MessageReactionsRemoved) event, guild);
                 case GUILD_INTEGRATIONS_UPDATE ->
-                    listener.onGuildIntegrationUpdate((Integration) event, guild);
+                    listener.onGuildIntegrationUpdate((IntegrationUpdate) event, guild);
                 case AUTO_MODERATION_RULE_CREATE ->
                     listener.onAutoModerationRuleCreate((AutoModerationRule) event, guild);
                 case AUTO_MODERATION_RULE_DELETE ->

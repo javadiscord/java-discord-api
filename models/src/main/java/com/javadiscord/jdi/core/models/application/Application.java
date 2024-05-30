@@ -2,7 +2,7 @@ package com.javadiscord.jdi.core.models.application;
 
 import java.util.List;
 
-import com.javadiscord.jdi.core.models.guild.Guild;
+import com.javadiscord.jdi.core.models.guild.GuildModel;
 import com.javadiscord.jdi.core.models.user.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -30,7 +30,7 @@ public record Application(
     @JsonProperty("owner") User owner,
     @JsonProperty("verify_key") String verifyKey,
     @JsonProperty("guild_id") String guildId,
-    @JsonProperty("guild") Guild guild,
+    @JsonProperty("guild") GuildModel guild,
     @JsonProperty("primary_sku_id") String primarySkuId,
     @JsonProperty("slug") String slug,
     @JsonProperty("cover_image") String coverImage,
