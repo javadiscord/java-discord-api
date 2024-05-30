@@ -33,7 +33,3 @@ jobs:
         with:
           name: test-reports
           path: api/build/reports/tests/test
-
-      - name: Print test report
-        if: failure()
-        run: cat build/reports/tests/test/index.html
