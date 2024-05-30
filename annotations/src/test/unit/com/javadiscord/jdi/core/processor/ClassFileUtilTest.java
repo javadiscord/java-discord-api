@@ -2,6 +2,7 @@ package com.javadiscord.jdi.core.processor;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.javadiscord.jdi.internal.processor.ClassFileUtil;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;

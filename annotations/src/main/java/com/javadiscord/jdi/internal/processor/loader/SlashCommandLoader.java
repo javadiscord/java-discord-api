@@ -1,4 +1,4 @@
-package com.javadiscord.jdi.core.processor.loader;
+package com.javadiscord.jdi.internal.processor.loader;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -7,9 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.javadiscord.jdi.core.annotations.SlashCommand;
-import com.javadiscord.jdi.core.processor.ClassFileUtil;
-import com.javadiscord.jdi.core.processor.SlashCommandClassMethod;
-import com.javadiscord.jdi.core.processor.validator.SlashCommandValidator;
+import com.javadiscord.jdi.internal.exceptions.ValidationException;
+import com.javadiscord.jdi.internal.processor.ClassFileUtil;
+import com.javadiscord.jdi.internal.processor.SlashCommandClassMethod;
+import com.javadiscord.jdi.internal.processor.validator.SlashCommandValidator;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,7 +39,7 @@ public class SlashCommandLoader {
                                 clazz, method, method.getAnnotation(SlashCommand.class).name()
                             );
                         } else {
-                            throw new RuntimeException(method.getName() + " failed validation");
+                            throw new ValidationException(method.getName() + " failed validation");
                         }
                     }
                 }

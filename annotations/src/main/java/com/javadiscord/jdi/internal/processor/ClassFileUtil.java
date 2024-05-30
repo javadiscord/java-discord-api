@@ -1,4 +1,4 @@
-package com.javadiscord.jdi.core.processor;
+package com.javadiscord.jdi.internal.processor;
 
 import java.io.DataInputStream;
 import java.io.File;
@@ -15,7 +15,9 @@ public class ClassFileUtil {
     private static final List<File> classesInPath = new ArrayList<>();
     private static boolean loadedParentJar = false;
 
-    private ClassFileUtil() {}
+    private ClassFileUtil() {
+        throw new UnsupportedOperationException("Utility class");
+    }
 
     public static List<File> getClassesInClassPath() {
         if (classesInPath.isEmpty()) {

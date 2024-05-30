@@ -1,4 +1,4 @@
-package com.javadiscord.jdi.core.processor.validator;
+package com.javadiscord.jdi.internal.processor.validator;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;

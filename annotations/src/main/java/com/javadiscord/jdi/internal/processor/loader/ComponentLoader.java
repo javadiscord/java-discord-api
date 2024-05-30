@@ -1,4 +1,4 @@
-package com.javadiscord.jdi.core.processor.loader;
+package com.javadiscord.jdi.internal.processor.loader;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -10,8 +10,9 @@ import java.util.Map;
 
 import com.javadiscord.jdi.core.annotations.Component;
 import com.javadiscord.jdi.core.annotations.Inject;
-import com.javadiscord.jdi.core.processor.ClassFileUtil;
-import com.javadiscord.jdi.core.processor.validator.ComponentValidator;
+import com.javadiscord.jdi.internal.exceptions.ComponentInjectionException;
+import com.javadiscord.jdi.internal.processor.ClassFileUtil;
+import com.javadiscord.jdi.internal.processor.validator.ComponentValidator;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -102,9 +103,9 @@ public class ComponentLoader {
                     field.getType()
                 );
             } catch (IllegalAccessException e) {
-                throw new RuntimeException(
-                    "Failed to inject dependency into field: " + field.getName(),
-                    e
+                throw new ComponentInjectionException(
+                    "Failed to inject dependency into field: " + field.getName() + ", " +
+                        e.getMessage()
                 );
             }
         }

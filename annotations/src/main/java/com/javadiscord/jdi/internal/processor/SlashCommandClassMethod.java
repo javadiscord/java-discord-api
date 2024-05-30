@@ -1,4 +1,4 @@
-package com.javadiscord.jdi.core.processor;
+package com.javadiscord.jdi.internal.processor;
 
 import java.lang.reflect.Method;
 

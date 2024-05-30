@@ -30,6 +30,8 @@ import com.javadiscord.jdi.internal.api.application_commands.CreateCommandReques
 import com.javadiscord.jdi.internal.api.application_commands.DeleteCommandRequest;
 import com.javadiscord.jdi.internal.cache.Cache;
 import com.javadiscord.jdi.internal.cache.CacheType;
+import com.javadiscord.jdi.internal.exceptions.GatewayException;
+import com.javadiscord.jdi.internal.exceptions.InvalidBotTokenException;
 import com.javadiscord.jdi.internal.gateway.*;
 import com.javadiscord.jdi.internal.gateway.identify.IdentifyRequest;
 
@@ -242,7 +244,7 @@ public class Discord {
             if (componentLoader != null) {
                 componentLoader.loadComponents();
             } else {
-                throw new RuntimeException("Unable to create ComponentLoader instance");
+                throw new InstantiationException("Unable to create ComponentLoader instance");
             }
         } catch (Exception e) {
             LOGGER.warn("Component loading failed", e);
@@ -357,15 +359,15 @@ public class Discord {
                 httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
             if (response.statusCode() == 401) {
-                throw new RuntimeException("Invalid bot token provided");
+                throw new InvalidBotTokenException("Invalid bot token provided");
             }
             if (response.statusCode() != 200) {
-                throw new RuntimeException("Unexpected error occurred: " + response.body());
+                throw new GatewayException("Unexpected error occurred: " + response.body());
             }
             return OBJECT_MAPPER.readValue(response.body(), Gateway.class);
         } catch (Exception e) {
             LOGGER.error("Failed to fetch the gateway URL from discord", e);
-            throw new RuntimeException(e);
+            throw new GatewayException(e.getMessage());
         }
     }
 

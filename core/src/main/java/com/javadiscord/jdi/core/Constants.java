@@ -8,11 +8,11 @@ public class Constants {
         "com.javadiscord.jdi.core.annotations.SlashCommand";
 
     public static final String LISTENER_LOADER_CLASS =
-        "com.javadiscord.jdi.core.processor.loader.ListenerLoader";
+        "com.javadiscord.jdi.internal.processor.loader.ListenerLoader";
     public static final String COMPONENT_LOADER_CLASS =
-        "com.javadiscord.jdi.core.processor.loader.ComponentLoader";
+        "com.javadiscord.jdi.internal.processor.loader.ComponentLoader";
     public static final String SLASH_COMMAND_LOADER_CLASS =
-        "com.javadiscord.jdi.core.processor.loader.SlashCommandLoader";
+        "com.javadiscord.jdi.internal.processor.loader.SlashCommandLoader";
 
     public static final String LAUNCH_HEADER = """
 

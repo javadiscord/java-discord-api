@@ -12,6 +12,7 @@ import com.javadiscord.jdi.core.models.guild.Interaction;
 import com.javadiscord.jdi.internal.ReflectiveLoader;
 import com.javadiscord.jdi.internal.ReflectiveSlashCommandClassMethod;
 import com.javadiscord.jdi.internal.ReflectiveSlashCommandLoader;
+import com.javadiscord.jdi.internal.exceptions.InstantiationException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -50,7 +51,7 @@ public class InteractionEventHandler implements EventListener {
             if (validateParameterCount(method, paramOrder)) {
                 invokeHandler(handler, method, paramOrder);
             } else {
-                throw new RuntimeException(
+                throw new InstantiationException(
                     "Bound " + paramOrder.size() + " parameters but expected "
                         + method.getParameterCount()
                 );
