@@ -6,4 +6,6 @@ public interface ReflectiveSlashCommandClassMethod {
     Class<?> clazz();
 
     Method method();
+
+    Object instance();
 }

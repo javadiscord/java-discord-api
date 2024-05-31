@@ -22,8 +22,6 @@ public class InteractionEventHandler implements EventListener {
     private final Object slashCommandLoader;
     private final Discord discord;
 
-    private final Map<String, Object> cachedInstances = new HashMap<>();
-
     public InteractionEventHandler(Object slashCommandLoader, Discord discord) {
         this.slashCommandLoader = slashCommandLoader;
         this.discord = discord;
@@ -43,13 +41,12 @@ public class InteractionEventHandler implements EventListener {
                     ReflectiveSlashCommandClassMethod.class
                 );
 
-            Class<?> handler = reflectiveSlashCommandClassMethod.clazz();
             Method method = reflectiveSlashCommandClassMethod.method();
-
+            Object instance = reflectiveSlashCommandClassMethod.instance();
             List<Object> paramOrder = getOrderOfParameters(method, interaction);
 
             if (validateParameterCount(method, paramOrder)) {
-                invokeHandler(handler, method, paramOrder);
+                invokeHandler(method, paramOrder, instance);
             } else {
                 throw new InstantiationException(
                     "Bound " + paramOrder.size() + " parameters but expected "
@@ -86,31 +83,16 @@ public class InteractionEventHandler implements EventListener {
     }
 
     private void invokeHandler(
-        Class<?> handler,
         Method method,
-        List<Object> paramOrder
+        List<Object> paramOrder,
+        Object instance
     ) throws InstantiationException {
         try {
-            if (cachedInstances.containsKey(handler.getName())) {
-                method.invoke(cachedInstances.get(handler.getName()), paramOrder.toArray());
-            } else {
-                Object handlerInstance = handler.getDeclaredConstructor().newInstance();
-                cachedInstances.put(handler.getName(), handlerInstance);
-                injectComponents(handlerInstance);
-                method.invoke(handlerInstance, paramOrder.toArray());
-            }
+            method.invoke(instance, paramOrder.toArray());
         } catch (
-            InvocationTargetException | IllegalAccessException | NoSuchMethodException
-            | InstantiationException e
+            InvocationTargetException | IllegalAccessException e
         ) {
             throw new InstantiationException(e.getLocalizedMessage());
         }
-    }
-
-    private void injectComponents(Object object) {
-        ReflectiveSlashCommandLoader reflectiveSlashCommandLoader =
-            ReflectiveLoader.proxy(slashCommandLoader, ReflectiveSlashCommandLoader.class);
-
-        reflectiveSlashCommandLoader.injectComponents(object);
     }
 }

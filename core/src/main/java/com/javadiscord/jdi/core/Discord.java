@@ -68,6 +68,7 @@ public class Discord {
     private WebSocketManager webSocketManager;
     private long applicationId;
     private boolean started = false;
+    private Object componentLoader;
 
     public Discord(String botToken) {
         this(
@@ -236,9 +237,10 @@ public class Discord {
             ReflectiveComponentLoader componentLoader = null;
             for (Constructor<?> constructor : clazz.getConstructors()) {
                 if (constructor.getParameterCount() == 0) {
+                    this.componentLoader = constructor.newInstance();
                     componentLoader =
                         ReflectiveLoader
-                            .proxy(constructor.newInstance(), ReflectiveComponentLoader.class);
+                            .proxy(this.componentLoader, ReflectiveComponentLoader.class);
                 }
             }
             if (componentLoader != null) {
@@ -257,12 +259,8 @@ public class Discord {
             Class<?> clazz =
                 Class.forName(Constants.LISTENER_LOADER_CLASS);
             for (Constructor<?> constructor : clazz.getConstructors()) {
-                if (constructor.getParameterCount() == 1) {
-                    Parameter parameters = constructor.getParameters()[0];
-                    if (parameters.getType().equals(List.class)) {
-                        constructor.newInstance(annotatedEventListeners);
-                        return;
-                    }
+                if (constructor.getParameterCount() == 2) {
+                    constructor.newInstance(annotatedEventListeners, componentLoader);
                 }
             }
         } catch (Exception e) {

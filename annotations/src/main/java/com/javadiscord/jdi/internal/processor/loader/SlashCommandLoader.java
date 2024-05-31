@@ -3,6 +3,8 @@ package com.javadiscord.jdi.internal.processor.loader;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -34,9 +36,10 @@ public class SlashCommandLoader {
                 Method[] methods = clazz.getMethods();
                 for (Method method : methods) {
                     if (method.getAnnotation(SlashCommand.class) != null) {
-                        if (validator.validate(method) && hasZeroArgsConstructor(clazz)) {
+                        if (validator.validate(method)) {
                             registerListener(
-                                clazz, method, method.getAnnotation(SlashCommand.class).name()
+                                clazz, method, method.getAnnotation(SlashCommand.class).name(),
+                                createInstance(clazz)
                             );
                         } else {
                             throw new ValidationException(method.getName() + " failed validation");
@@ -49,7 +52,36 @@ public class SlashCommandLoader {
         }
     }
 
-    private void registerListener(Class<?> clazz, Method method, String name) {
+    private Object createInstance(Class<?> clazz) {
+        Object instance = null;
+        try {
+            Constructor<?> constructor = clazz.getConstructors()[0];
+            if (constructor.getParameterCount() > 0) {
+                instance = constructor.newInstance(getConstructorParameters(constructor).toArray());
+            } else {
+                instance = constructor.newInstance();
+            }
+            injectComponents(instance);
+        } catch (Exception e) {
+            LOGGER.error("Failed to create {} instance", clazz.getName(), e);
+        }
+        return instance;
+    }
+
+    private List<Object> getConstructorParameters(Constructor<?> constructor) {
+        List<Object> constructorParameters = new ArrayList<>();
+        for (Parameter parameter : constructor.getParameters()) {
+            if (ComponentLoader.COMPONENTS.containsKey(parameter.getType())) {
+                constructorParameters.add(ComponentLoader.COMPONENTS.get(parameter.getType()));
+            } else {
+                constructorParameters.add(null);
+                LOGGER.warn("No component found for {}", parameter.getType());
+            }
+        }
+        return constructorParameters;
+    }
+
+    private void registerListener(Class<?> clazz, Method method, String name, Object instance) {
         try {
             if (interactionListeners.containsKey(name)) {
                 LOGGER.error(
@@ -60,7 +92,7 @@ public class SlashCommandLoader {
                 );
                 return;
             }
-            interactionListeners.put(name, new SlashCommandClassMethod(clazz, method));
+            interactionListeners.put(name, new SlashCommandClassMethod(clazz, method, instance));
             LOGGER.info("Found slash command handler {}", clazz.getName());
         } catch (Exception e) {
             LOGGER.error("Failed to create {} instance", clazz.getName(), e);
@@ -69,17 +101,6 @@ public class SlashCommandLoader {
 
     public SlashCommandClassMethod getSlashCommandClassMethod(String name) {
         return interactionListeners.get(name);
-    }
-
-    private boolean hasZeroArgsConstructor(Class<?> clazz) {
-        Constructor<?>[] constructors = clazz.getConstructors();
-        for (Constructor<?> constructor : constructors) {
-            if (constructor.getParameterCount() == 0) {
-                return true;
-            }
-        }
-        LOGGER.error("{} does not have a 0 arg constructor", clazz.getName());
-        return false;
     }
 
     public void injectComponents(Object object) {
