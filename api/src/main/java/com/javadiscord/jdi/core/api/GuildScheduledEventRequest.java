@@ -2,10 +2,7 @@ package com.javadiscord.jdi.core.api;
 
 import java.util.List;
 
-import com.javadiscord.jdi.core.api.builders.CreateScheduledEventBuilder;
-import com.javadiscord.jdi.core.api.builders.GetScheduledEventBuilder;
-import com.javadiscord.jdi.core.api.builders.GetScheduledEventUsersBuilder;
-import com.javadiscord.jdi.core.api.builders.ListScheduledEventsBuilder;
+import com.javadiscord.jdi.core.api.builders.*;
 import com.javadiscord.jdi.core.models.scheduled_event.EventUser;
 import com.javadiscord.jdi.core.models.scheduled_event.ScheduledEvent;
 import com.javadiscord.jdi.internal.api.guild_scheduled_event.*;
@@ -21,6 +18,10 @@ public class GuildScheduledEventRequest {
 
     public AsyncResponse<ScheduledEvent> createScheduledEvent(CreateScheduledEventBuilder builder) {
         return responseParser.callAndParse(ScheduledEvent.class, builder.guildId(guildId).build());
+    }
+
+    public AsyncResponse<ScheduledEvent> modifyScheduledEvent(ModifyScheduledEventBuilder builder) {
+        return responseParser.callAndParse(ScheduledEvent.class, builder.build());
     }
 
     public AsyncResponse<ScheduledEvent> deleteScheduledEvent(long scheduledEventId) {
