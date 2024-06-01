@@ -1,6 +1,7 @@
 package com.javadiscord.jdi.core.models.guild;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
 import com.javadiscord.jdi.core.models.user.User;
 
@@ -8,13 +9,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-// TODO: finish implementation
-// https://discord.com/developers/docs/resources/guild#integration-object
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record Integration(
     @JsonProperty("id") long id,
     @JsonProperty("name") String name,
-    @JsonProperty("type") String type,
+    @JsonProperty("type") IntegrationType type,
     @JsonProperty("enabled") boolean enabled,
     @JsonProperty("syncing") boolean syncing,
     @JsonProperty("role_id") long roleId,
@@ -28,5 +27,6 @@ public record Integration(
     ) OffsetDateTime syncedAt,
     @JsonProperty("subscriber_count") int subscriberCount,
     @JsonProperty("revoked") boolean revoked,
-    @JsonProperty("application") IntegrationApplication application
+    @JsonProperty("application") IntegrationApplication application,
+    @JsonProperty("scopes") List<String> scopes
 ) {}
