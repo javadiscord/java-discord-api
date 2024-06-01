@@ -1,7 +1,6 @@
 package com.javadiscord.jdi.internal.processor.validator;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
@@ -388,21 +387,6 @@ public class EventListenerValidator {
     }
 
     public boolean validate(Class<?> clazz) {
-        return hasZeroArgsConstructor(clazz) && validateMethods(clazz);
-    }
-
-    public boolean hasZeroArgsConstructor(Class<?> clazz) {
-        Constructor<?>[] constructors = clazz.getConstructors();
-        for (Constructor<?> constructor : constructors) {
-            if (constructor.getParameterCount() == 0) {
-                return true;
-            }
-        }
-        LOGGER.error("{} does not have a 0 arg constructor", clazz.getName());
-        return false;
-    }
-
-    private boolean validateMethods(Class<?> clazz) {
         Method[] methods = clazz.getMethods();
         for (Method method : methods) {
             if (!validateMethodAnnotations(method)) {

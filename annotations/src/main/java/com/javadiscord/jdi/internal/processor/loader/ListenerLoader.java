@@ -2,10 +2,11 @@ package com.javadiscord.jdi.internal.processor.loader;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Parameter;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.javadiscord.jdi.core.annotations.EventListener;
-import com.javadiscord.jdi.internal.exceptions.NoZeroArgConstructorException;
 import com.javadiscord.jdi.internal.processor.ClassFileUtil;
 import com.javadiscord.jdi.internal.processor.validator.EventListenerValidator;
 
@@ -16,9 +17,11 @@ public class ListenerLoader {
     private static final Logger LOGGER = LogManager.getLogger(ListenerLoader.class);
     private final EventListenerValidator eventListenerValidator = new EventListenerValidator();
     private final List<Object> eventListeners;
+    private final ComponentLoader componentLoader;
 
-    public ListenerLoader(List<Object> eventListeners) {
+    public ListenerLoader(List<Object> eventListeners, ComponentLoader componentLoader) {
         this.eventListeners = eventListeners;
+        this.componentLoader = componentLoader;
         try {
             loadListeners();
         } catch (Exception e) {
@@ -46,13 +49,32 @@ public class ListenerLoader {
 
     private void registerListener(Class<?> clazz) {
         try {
-            Object instance = getZeroArgConstructor(clazz).newInstance();
+            Constructor<?> constructor = clazz.getConstructors()[0];
+            Object instance;
+            if (constructor.getParameterCount() > 0) {
+                instance = constructor.newInstance(getConstructorParameters(constructor).toArray());
+            } else {
+                instance = constructor.newInstance();
+            }
             ComponentLoader.injectComponents(instance);
             eventListeners.add(instance);
             LOGGER.info("Registered listener {}", clazz.getName());
         } catch (Exception e) {
             LOGGER.error("Failed to create {} instance", clazz.getName(), e);
         }
+    }
+
+    private List<Object> getConstructorParameters(Constructor<?> constructor) {
+        List<Object> constructorParameters = new ArrayList<>();
+        for (Parameter parameter : constructor.getParameters()) {
+            if (ComponentLoader.COMPONENTS.containsKey(parameter.getType())) {
+                constructorParameters.add(ComponentLoader.COMPONENTS.get(parameter.getType()));
+            } else {
+                constructorParameters.add(null);
+                LOGGER.warn("No component found for {}", parameter.getType());
+            }
+        }
+        return constructorParameters;
     }
 
     public boolean validateListener(Class<?> clazz) {
@@ -66,8 +88,6 @@ public class ListenerLoader {
                 return constructor;
             }
         }
-        throw new NoZeroArgConstructorException(
-            "No zero arg constructor found for " + clazz.getName()
-        );
+        return null;
     }
 }

@@ -19,7 +19,7 @@ import org.apache.logging.log4j.Logger;
 
 public class ComponentLoader {
     private static final Logger LOGGER = LogManager.getLogger(ComponentLoader.class);
-    private static final Map<Class<?>, Object> COMPONENTS = new HashMap<>();
+    public static final Map<Class<?>, Object> COMPONENTS = new HashMap<>();
     private final ComponentValidator componentValidator = new ComponentValidator();
 
     public void loadComponents() {

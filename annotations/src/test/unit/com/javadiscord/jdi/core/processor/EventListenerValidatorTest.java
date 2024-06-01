@@ -15,14 +15,6 @@ import org.junit.jupiter.api.Test;
 
 class EventListenerValidatorTest {
 
-    @Test
-    void testValidationFailsWhenZeroArgConstructorDoesNotExist() {
-        class Test {}
-
-        EventListenerValidator eventListenerValidator = new EventListenerValidator();
-        assertFalse(eventListenerValidator.validate(Test.class));
-    }
-
     public static class ClassWithConstructor {
         public ClassWithConstructor() {}
     }

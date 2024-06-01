@@ -12,9 +12,12 @@ import com.javadiscord.jdi.core.models.message.embed.Embed;
 import com.javadiscord.jdi.core.models.message.embed.EmbedAuthor;
 
 public class ChatGPTCommand {
+    private final ChatGPT chatGPT;
 
     @Inject
-    private ChatGPT chatGPT;
+    public ChatGPTCommand(ChatGPT chatGPT) {
+        this.chatGPT = chatGPT;
+    }
 
     @SlashCommand(
         name = "chatgpt", description = "Ask ChatGPT a question", options = {
