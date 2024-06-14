@@ -20,7 +20,7 @@ public record ScheduledEvent(
     @JsonProperty("privacy_level") PrivacyLevel privacyLevel,
     @JsonProperty("status") EventStatus status,
     @JsonProperty("entity_type") ScheduledEntityType entityType,
-    @JsonProperty("entity_id") Long entityId,
+    @JsonProperty("entity_id") long entityId,
     @JsonProperty("entity_metadata") EntityMetadata entityMetadata,
     @JsonProperty("creator") User creator,
     @JsonProperty("user_count") int userCount,

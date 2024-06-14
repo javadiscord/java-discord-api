@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.javadiscord.jdi.core.models.guild.EntityMetadata;
 import com.javadiscord.jdi.core.models.guild.PrivacyLevel;
+import com.javadiscord.jdi.core.models.scheduled_event.ScheduledEntityType;
 import com.javadiscord.jdi.internal.api.guild_scheduled_event.ModifyScheduledEventRequest;
 
 public class ModifyScheduledEventBuilder {
@@ -14,9 +15,9 @@ public class ModifyScheduledEventBuilder {
     private Optional<String> name;
     private Optional<Integer> privacyLevel;
     private Optional<Long> scheduledStartTime;
-    private Optional<Long> scheduledEndTim;
+    private Optional<Long> scheduledEndTime;
     private Optional<String> description;
-    private Optional<Integer> entityType;
+    private Optional<ScheduledEntityType> entityType;
     private Optional<Integer> status;
     private Optional<String> image;
 
@@ -28,7 +29,7 @@ public class ModifyScheduledEventBuilder {
         this.name = Optional.empty();
         this.privacyLevel = Optional.empty();
         this.scheduledStartTime = Optional.empty();
-        this.scheduledEndTim = Optional.empty();
+        this.scheduledEndTime = Optional.empty();
         this.description = Optional.empty();
         this.entityType = Optional.empty();
         this.status = Optional.empty();
@@ -60,8 +61,8 @@ public class ModifyScheduledEventBuilder {
         return this;
     }
 
-    public ModifyScheduledEventBuilder scheduledEndTim(long scheduledEndTim) {
-        this.scheduledEndTim = Optional.of(scheduledEndTim);
+    public ModifyScheduledEventBuilder scheduledEndTime(long scheduledEndTim) {
+        this.scheduledEndTime = Optional.of(scheduledEndTim);
         return this;
     }
 
@@ -70,12 +71,12 @@ public class ModifyScheduledEventBuilder {
         return this;
     }
 
-    public ModifyScheduledEventBuilder entityType(Integer entityType) {
+    public ModifyScheduledEventBuilder entityType(ScheduledEntityType entityType) {
         this.entityType = Optional.of(entityType);
         return this;
     }
 
-    public ModifyScheduledEventBuilder status(Integer status) {
+    public ModifyScheduledEventBuilder status(int status) {
         this.status = Optional.of(status);
         return this;
     }
@@ -86,6 +87,20 @@ public class ModifyScheduledEventBuilder {
     }
 
     public ModifyScheduledEventRequest build() {
+        if (entityType.isPresent() && entityType.get() == ScheduledEntityType.EXTERNAL) {
+            if (entityMetadata.isEmpty() || scheduledEndTime.isEmpty()) {
+                throw new IllegalArgumentException(
+                    "When entityType is EXTERNAL, both entityMetadata and scheduledEndTime must"
+                        + " be provided"
+                );
+            }
+            if (channelId.isPresent()) {
+                throw new IllegalArgumentException(
+                    "When entityType is EXTERNAL, channelId must not be provided"
+                );
+            }
+        }
+
         return new ModifyScheduledEventRequest(
             guildId,
             scheduledEventId,
@@ -94,7 +109,7 @@ public class ModifyScheduledEventBuilder {
             name,
             privacyLevel,
             scheduledStartTime,
-            scheduledEndTim,
+            scheduledEndTime,
             description,
             entityType,
             status,
