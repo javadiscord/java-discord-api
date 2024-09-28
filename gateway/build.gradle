@@ -7,7 +7,7 @@ dependencies {
     implementation 'io.vertx:vertx-web-client:4.5.8'
     implementation 'io.vertx:vertx-core:4.5.8'
 
-    implementation 'com.fasterxml.jackson.core:jackson-core:2.17.1'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.18.0'
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.17.2'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.1'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.1'
