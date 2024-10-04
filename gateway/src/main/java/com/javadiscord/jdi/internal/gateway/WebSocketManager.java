@@ -1,5 +1,7 @@
 package com.javadiscord.jdi.internal.gateway;
 
+import java.net.URI;
+
 import com.javadiscord.jdi.internal.cache.Cache;
 import com.javadiscord.jdi.internal.gateway.handlers.heartbeat.HeartbeatService;
 import com.javadiscord.jdi.internal.gateway.identify.IdentifyRequest;
@@ -8,16 +10,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.util.InternalApi;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.framing.CloseFrame;
 import org.java_websocket.framing.Framedata;
 import org.java_websocket.framing.PingFrame;
 import org.java_websocket.framing.PongFrame;
 
-import java.net.URI;
-
-public class WebSocketManager  {
+public class WebSocketManager {
     private static final Logger LOGGER = LogManager.getLogger(WebSocketManager.class);
     private final GatewaySetting gatewaySetting;
     private final IdentifyRequest identifyRequest;
@@ -41,18 +40,21 @@ public class WebSocketManager  {
         retryAllowed = true;
 
         String gatewayURL = connectionMediator.getConnectionDetails().getGatewayURL();
-        client = new GatewayWebSocketClient(
-                URI.create("%s/?v=%d&encoding=%s"
+        client =
+            new GatewayWebSocketClient(
+                URI.create(
+                    "%s/?v=%d&encoding=%s"
                         .formatted(
-                                gatewayURL,
-                                gatewaySetting.getApiVersion(),
-                                gatewaySetting.getEncoding()
-                        )),
+                            gatewayURL,
+                            gatewaySetting.getApiVersion(),
+                            gatewaySetting.getEncoding()
+                        )
+                ),
                 () -> {
                     // Success
                     LOGGER.info("Connected to Discord");
                     WebSocketHandler webSocketHandler =
-                            new WebSocketHandler(connectionMediator, cache, heartbeatService);
+                        new WebSocketHandler(connectionMediator, cache, heartbeatService);
 
                     webSocketHandler.handle(client);
 
@@ -67,19 +69,22 @@ public class WebSocketManager  {
                 },
                 (exception) -> {
                     // Error
-                    LOGGER.warn("An error occurred in the gateway's connection: {} {}", gatewayURL, exception.getCause());
+                    LOGGER.warn(
+                        "An error occurred in the gateway's connection: {} {}", gatewayURL,
+                        exception.getCause()
+                    );
                     if (retryAllowed) {
                         retryHandler.retry(() -> restart(connectionMediator));
                     }
                 }
-        );
+            );
         client.connect();
     }
 
     private void frameHandler(Framedata frame, WebSocketHandler webSocketHandler) {
         switch (frame) {
             case CloseFrame closeFrame ->
-                    webSocketHandler.handleClose(closeFrame.getCloseCode(), closeFrame.getMessage());
+                webSocketHandler.handleClose(closeFrame.getCloseCode(), closeFrame.getMessage());
             case PingFrame pingFrame -> client.sendFrame(new PongFrame());
             case PongFrame pongFrame -> {}
             case null, default -> LOGGER.warn("Unhandled frame: {}", frame);
@@ -113,7 +118,10 @@ public class WebSocketManager  {
         return client;
     }
 
-    private static void sendIdentify(org.java_websocket.client.WebSocketClient client, IdentifyRequest identifyRequest) {
+    private static void sendIdentify(
+        org.java_websocket.client.WebSocketClient client,
+        IdentifyRequest identifyRequest
+    ) {
         try {
             client.send(
                 new ObjectMapper().writeValueAsString(identifyRequest)

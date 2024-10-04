@@ -59,13 +59,13 @@ public class HeartbeatService {
     }
 
     public void sendHeartbeat(WebSocketClient webSocket) {
-    webSocket.send(
-        "{ \"op\": 1, \"d\": \"%s\" }"
-            .formatted(
-                connectionMediator
-                    .getConnectionDetails()
-                    .getSequence()
-            )
+        webSocket.send(
+            "{ \"op\": 1, \"d\": \"%s\" }"
+                .formatted(
+                    connectionMediator
+                        .getConnectionDetails()
+                        .getSequence()
+                )
         );
         receivedHeartbeatAck.set(false);
     }

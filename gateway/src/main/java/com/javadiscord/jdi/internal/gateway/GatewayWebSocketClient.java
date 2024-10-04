@@ -1,25 +1,23 @@
 package com.javadiscord.jdi.internal.gateway;
 
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.java_websocket.WebSocket;
-import org.java_websocket.client.WebSocketClient;
-import org.java_websocket.framing.Framedata;
-import org.java_websocket.framing.PingFrame;
-import org.java_websocket.handshake.ServerHandshake;
-
 import java.net.URI;
 import java.util.function.Consumer;
 
+import org.java_websocket.WebSocket;
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.framing.Framedata;
+import org.java_websocket.handshake.ServerHandshake;
+
 public class GatewayWebSocketClient extends WebSocketClient {
-    private final EmptyConsumer onSuccess;
+    private final Runnable onSuccess;
     private final Consumer<Exception> onFailure;
     private Consumer<String> onReceive = (message) -> {};
-    private EmptyConsumer onClose = () -> {};
+    private Runnable onClose = () -> {};
     private Consumer<Framedata> frameHandler = (framedata) -> {};
 
-    public GatewayWebSocketClient(URI serverUri, EmptyConsumer onSuccess, Consumer<Exception> onFailure) {
+    public GatewayWebSocketClient(
+        URI serverUri, Runnable onSuccess, Consumer<Exception> onFailure
+    ) {
         super(serverUri);
         this.onSuccess = onSuccess;
         this.onFailure = onFailure;
@@ -27,7 +25,7 @@ public class GatewayWebSocketClient extends WebSocketClient {
 
     @Override
     public void onOpen(ServerHandshake serverHandshake) {
-        onSuccess.accept();
+        onSuccess.run();
     }
 
     @Override
@@ -37,7 +35,7 @@ public class GatewayWebSocketClient extends WebSocketClient {
 
     @Override
     public void onClose(int i, String s, boolean b) {
-        onClose.accept();
+        onClose.run();
     }
 
     @Override
@@ -59,16 +57,11 @@ public class GatewayWebSocketClient extends WebSocketClient {
         this.onReceive = onReceive;
     }
 
-    public void setOnClose(EmptyConsumer onClose) {
+    public void setOnClose(Runnable onClose) {
         this.onClose = onClose;
     }
 
     public void setFrameHandler(Consumer<Framedata> frameHandler) {
         this.frameHandler = frameHandler;
-    }
-
-    @FunctionalInterface
-    public interface EmptyConsumer {
-        void accept();
     }
 }
