@@ -66,8 +66,8 @@ public class WebSocketManager  {
                     }
                 },
                 (exception) -> {
-                    // Failure
-                    LOGGER.warn("Failed to connect to {} {}", gatewayURL, exception.getCause());
+                    // Error
+                    LOGGER.warn("An error occurred in the gateway's connection: {} {}", gatewayURL, exception.getCause());
                     if (retryAllowed) {
                         retryHandler.retry(() -> restart(connectionMediator));
                     }
@@ -77,12 +77,12 @@ public class WebSocketManager  {
     }
 
     private void frameHandler(Framedata frame, WebSocketHandler webSocketHandler) {
-        if (frame instanceof CloseFrame closeFrame) {
-            webSocketHandler.handleClose(closeFrame.getCloseCode(), closeFrame.getMessage());
-        } else if (frame instanceof PingFrame) {
-            client.sendFrame(new PongFrame());
-        } else {
-            LOGGER.warn("Unhandled frame: {}", frame);
+        switch (frame) {
+            case CloseFrame closeFrame ->
+                    webSocketHandler.handleClose(closeFrame.getCloseCode(), closeFrame.getMessage());
+            case PingFrame pingFrame -> client.sendFrame(new PongFrame());
+            case PongFrame pongFrame -> {}
+            case null, default -> LOGGER.warn("Unhandled frame: {}", frame);
         }
     }
 
