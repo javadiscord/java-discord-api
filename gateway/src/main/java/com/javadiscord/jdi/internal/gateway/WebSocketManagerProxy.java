@@ -1,6 +1,6 @@
 package com.javadiscord.jdi.internal.gateway;
 
-import io.vertx.core.http.WebSocket;
+import org.java_websocket.client.WebSocketClient;
 
 public class WebSocketManagerProxy {
     private final WebSocketManager webSocketManager;
@@ -17,7 +17,7 @@ public class WebSocketManagerProxy {
         webSocketManager.restart(connectionMediator);
     }
 
-    public WebSocket getWebSocket() {
+    public WebSocketClient getWebSocket() {
         return webSocketManager.getWebSocket();
     }
 }

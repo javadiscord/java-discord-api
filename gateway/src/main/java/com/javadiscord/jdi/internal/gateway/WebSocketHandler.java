@@ -15,13 +15,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import io.vertx.core.Handler;
-import io.vertx.core.buffer.Buffer;
-import io.vertx.core.http.WebSocket;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class WebSocketHandler implements Handler<WebSocket> {
+public class WebSocketHandler {
     private static final Logger LOGGER = LogManager.getLogger(WebSocketHandler.class);
     private static final ObjectMapper OBJECT_MAPPER =
         JsonMapper.builder().addModule(new JavaTimeModule()).build();
@@ -56,18 +53,17 @@ public class WebSocketHandler implements Handler<WebSocket> {
         OPERATION_HANDLER.put(GatewayOpcode.INVALID_SESSION, reconnectMessageHandler);
     }
 
-    @Override
-    public void handle(WebSocket webSocket) {
-        webSocket.handler(this::handleMessage);
-        webSocket.closeHandler(this::handleClose);
+    public void handle(GatewayWebSocketClient client) {
+        client.setOnReceive(this::handleMessage);
+        client.setOnClose(this::handleClose);
     }
 
-    private void handleMessage(Buffer buffer) {
-        LOGGER.trace("Received message from gateway: {}", buffer);
+    private void handleMessage(String message) {
+        LOGGER.trace("Received message from gateway: {}", message);
 
         try {
             GatewayEvent gatewayEvent =
-                OBJECT_MAPPER.readValue(buffer.toString(), GatewayEvent.class);
+                OBJECT_MAPPER.readValue(message, GatewayEvent.class);
 
             connectionMediator.getConnectionDetails().setSequence(gatewayEvent.sequenceNumber());
 
@@ -84,7 +80,7 @@ public class WebSocketHandler implements Handler<WebSocket> {
         }
     }
 
-    private void handleClose(Void unused) {
+    private void handleClose() {
         LOGGER.warn(
             "The web socket connection to discord was closed. You will no longer receive"
                 + " gateway events."
