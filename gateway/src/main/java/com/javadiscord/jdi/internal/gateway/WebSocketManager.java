@@ -82,11 +82,10 @@ public class WebSocketManager {
     }
 
     private void frameHandler(Framedata frame, WebSocketHandler webSocketHandler) {
-        switch (frame) {
-            case CloseFrame closeFrame ->
-                webSocketHandler.handleClose(closeFrame.getCloseCode(), closeFrame.getMessage());
-            case PingFrame pingFrame -> client.sendFrame(new PongFrame());
-            case null, default -> {}
+        if (frame instanceof PingFrame) {
+            client.sendFrame(new PongFrame());
+        } else if (frame instanceof CloseFrame closeFrame) {
+            webSocketHandler.handleClose(closeFrame.getCloseCode(), closeFrame.getMessage());
         }
     }
 
@@ -102,6 +101,7 @@ public class WebSocketManager {
                 client.closeBlocking();
             } catch (InterruptedException e) {
                 LOGGER.error("Failed to close websocket client: {}", e.getMessage());
+                Thread.currentThread().interrupt();
             }
         }
 
