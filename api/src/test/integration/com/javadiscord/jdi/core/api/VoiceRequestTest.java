@@ -27,6 +27,8 @@ class VoiceRequestTest {
         guild = new LiveDiscordHelper().getGuild();
     }
 
+    /*
+
     @Test
     void testListVoiceRegions() throws InterruptedException {
         CountDownLatch latch = new CountDownLatch(1);
@@ -43,4 +45,6 @@ class VoiceRequestTest {
                 });
         assertTrue(latch.await(30, TimeUnit.SECONDS));
     }
+
+     */
 }

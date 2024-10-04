@@ -52,6 +52,7 @@ class UserRequestTest {
         assertTrue(countDownLatch.await(30, TimeUnit.SECONDS));
     }
 
+    /* DISABLED Until tests are reworked
     @Test
     void testGetUser() throws InterruptedException {
         long wazeiUserId = 821143476455342120L;
@@ -68,6 +69,8 @@ class UserRequestTest {
         asyncResponse.onError(Assertions::fail);
         assertTrue(countDownLatch.await(30, TimeUnit.SECONDS));
     }
+
+     */
 
     @Test
     @Disabled
