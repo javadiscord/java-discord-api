@@ -86,8 +86,7 @@ public class WebSocketManager {
             case CloseFrame closeFrame ->
                 webSocketHandler.handleClose(closeFrame.getCloseCode(), closeFrame.getMessage());
             case PingFrame pingFrame -> client.sendFrame(new PongFrame());
-            case PongFrame pongFrame -> {}
-            case null, default -> LOGGER.warn("Unhandled frame: {}", frame);
+            case null, default -> {}
         }
     }
 
@@ -103,7 +102,6 @@ public class WebSocketManager {
                 client.closeBlocking();
             } catch (InterruptedException e) {
                 LOGGER.error("Failed to close websocket client: {}", e.getMessage());
-                throw new RuntimeException(e);
             }
         }
 
