@@ -8,10 +8,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import com.javadiscord.jdi.internal.gateway.ConnectionMediator;
 
-import io.vertx.core.buffer.Buffer;
-import io.vertx.core.http.WebSocket;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.java_websocket.client.WebSocketClient;
 
 public class HeartbeatService {
     private static final Logger LOGGER = LogManager.getLogger(HeartbeatService.class);
@@ -27,7 +26,7 @@ public class HeartbeatService {
         this.missedHeartbeatAck = new AtomicInteger(0);
     }
 
-    public void startHeartbeat(WebSocket webSocket, int interval) {
+    public void startHeartbeat(WebSocketClient webSocket, int interval) {
         EXECUTOR_SERVICE.scheduleAtFixedRate(
             () -> sendHeartbeat(webSocket), 0, interval, TimeUnit.MILLISECONDS
         );
@@ -40,7 +39,7 @@ public class HeartbeatService {
         );
     }
 
-    private void checkHeartbeatAckReceived(WebSocket webSocket) {
+    private void checkHeartbeatAckReceived(WebSocketClient webSocket) {
         if (!receivedHeartbeatAck.get()) {
             LOGGER.trace("Discord did not send a heartbeat ack, resending");
             sendHeartbeat(webSocket);
@@ -59,16 +58,13 @@ public class HeartbeatService {
         EXECUTOR_SERVICE.shutdown();
     }
 
-    public void sendHeartbeat(WebSocket webSocket) {
-        webSocket.write(
-            Buffer.buffer()
-                .appendString(
-                    "{ \"op\": 1, \"d\": \"%s\" }"
-                        .formatted(
-                            connectionMediator
-                                .getConnectionDetails()
-                                .getSequence()
-                        )
+    public void sendHeartbeat(WebSocketClient webSocket) {
+        webSocket.send(
+            "{ \"op\": 1, \"d\": \"%s\" }"
+                .formatted(
+                    connectionMediator
+                        .getConnectionDetails()
+                        .getSequence()
                 )
         );
         receivedHeartbeatAck.set(false);
