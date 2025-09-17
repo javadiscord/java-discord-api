@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 public class WebSocketRetryHandler {
     private static final Logger LOGGER = LogManager.getLogger(WebSocketRetryHandler.class);
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
     private final AtomicInteger attempts;
 
     public WebSocketRetryHandler() {

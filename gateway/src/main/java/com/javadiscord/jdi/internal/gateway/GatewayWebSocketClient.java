@@ -29,12 +29,12 @@ public class GatewayWebSocketClient extends WebSocketClient {
     }
 
     @Override
-    public void onMessage(String s) {
-        onReceive.accept(s);
+    public void onMessage(String message) {
+        onReceive.accept(message);
     }
 
     @Override
-    public void onClose(int i, String s, boolean b) {
+    public void onClose(int code, String reason, boolean remote) {
         onClose.run();
     }
 

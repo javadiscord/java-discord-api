@@ -99,6 +99,7 @@ public class WebSocketManager {
         if (client != null && !client.isClosed()) {
             try {
                 client.closeBlocking();
+                LOGGER.info("Web socket has closed successfully");
             } catch (InterruptedException e) {
                 LOGGER.error("Failed to close websocket client: {}", e.getMessage());
                 Thread.currentThread().interrupt();
