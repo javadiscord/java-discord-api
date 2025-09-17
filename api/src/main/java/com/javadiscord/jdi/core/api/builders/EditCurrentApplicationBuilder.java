@@ -1,11 +1,11 @@
 package com.javadiscord.jdi.core.api.builders;
 
-import com.javadiscord.jdi.core.models.application.ApplicationInstallParams;
-import com.javadiscord.jdi.internal.api.application.EditCurrentApplicationRequest;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import com.javadiscord.jdi.core.models.application.ApplicationInstallParams;
+import com.javadiscord.jdi.internal.api.application.EditCurrentApplicationRequest;
 
 public class EditCurrentApplicationBuilder {
 
@@ -30,7 +30,9 @@ public class EditCurrentApplicationBuilder {
         return this;
     }
 
-    public EditCurrentApplicationBuilder roleConnectionsVerificationUrl(String roleConnectionsVerificationUrl) {
+    public EditCurrentApplicationBuilder roleConnectionsVerificationUrl(
+        String roleConnectionsVerificationUrl
+    ) {
         this.roleConnectionsVerificationUrl = Optional.of(roleConnectionsVerificationUrl);
         return this;
     }
@@ -40,7 +42,9 @@ public class EditCurrentApplicationBuilder {
         return this;
     }
 
-    public EditCurrentApplicationBuilder integrationTypesConfig(Map<String, Object> integrationTypesConfig) {
+    public EditCurrentApplicationBuilder integrationTypesConfig(
+        Map<String, Object> integrationTypesConfig
+    ) {
         this.integrationTypesConfig = Optional.of(integrationTypesConfig);
         return this;
     }
@@ -72,16 +76,16 @@ public class EditCurrentApplicationBuilder {
 
     public EditCurrentApplicationRequest build() {
         return new EditCurrentApplicationRequest(
-                customInstallUrl,
-                description,
-                roleConnectionsVerificationUrl,
-                installParams,
-                integrationTypesConfig,
-                flags,
-                icon,
-                coverImage,
-                interactionsEndpointUrl,
-                tags
+            customInstallUrl,
+            description,
+            roleConnectionsVerificationUrl,
+            installParams,
+            integrationTypesConfig,
+            flags,
+            icon,
+            coverImage,
+            interactionsEndpointUrl,
+            tags
         );
     }
 

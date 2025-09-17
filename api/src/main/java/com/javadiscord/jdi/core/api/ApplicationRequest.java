@@ -13,7 +13,9 @@ public class ApplicationRequest {
         this.guildId = guildId;
     }
 
-    public AsyncResponse<Application> editCurrentApplication(EditCurrentApplicationBuilder builder) {
+    public AsyncResponse<Application> editCurrentApplication(
+        EditCurrentApplicationBuilder builder
+    ) {
         return responseParser.callAndParse(Application.class, builder.build());
     }
 
