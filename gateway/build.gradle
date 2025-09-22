@@ -4,7 +4,7 @@ dependencies {
 
     implementation 'com.github.mizosoft.methanol:methanol:1.7.0'
 
-    implementation 'org.java-websocket:Java-WebSocket:1.5.7'
+    implementation 'org.java-websocket:Java-WebSocket:1.6.0'
 
     implementation 'com.fasterxml.jackson.core:jackson-core:2.18.0'
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.17.2'
